@@ -26,8 +26,9 @@ composite_images_subdir = "sample_crosssections"
 patients = [dir  for dir in os.listdir(os.path.join(ASSETS_PATH, masked_images_subdir)) if os.path.isdir(
     os.path.join(ASSETS_PATH, masked_images_subdir, dir))]
 
-df = pd.read_csv(os.path.join(ASSETS_PATH, "patients.csv"))
-df.reset_index(inplace=True)
+df = pd.read_csv(os.path.join(ASSETS_PATH, "patients.csv"), dtype = {'ID': np.object, 'Sex': np.int32, 'Age': np.int32,
+                                                                     'pressure': np.int32, 'Name': np.object} )
+df.reset_index(inplace=True, drop=False)
 #df.set_index(inplace=True, drop=False, keys="ID")
 print(df)
 
@@ -79,16 +80,8 @@ app.layout = html.Div(children=[
         row_selectable='single',
         style_table={
             'maxHeight': '400px',
-            'overflowY': 'scroll'
-    },),
-
-    dcc.Dropdown(
-        id='image-dropdown',
-        #options=[{'label': i, 'value': i} for i in list_of_images],
-        #value=list_of_images[0],
-        options=[{'label': i, 'value': i} for i in patients],
-        value=patients[0],
-        style={"margin": "20px"}
+            'overflowY': 'scroll'},
+        selected_rows = [0],
     ),
 
     html.Div([
@@ -147,27 +140,26 @@ def try_stuff(value):
 
 @app.callback(
     dash.dependencies.Output('my-slider', 'max'),
-    [dash.dependencies.Input('image-dropdown', 'value')])
+    [dash.dependencies.Input('patients-table', 'selected_rows')])
 def update_slider(value):
-    images = [f  for f in os.listdir(os.path.join(ASSETS_PATH, masked_images_subdir, value))]
+    patient_id = df.iloc[value[0]]["ID"]
+    images = [f  for f in os.listdir(os.path.join(ASSETS_PATH, masked_images_subdir, patient_id))]
     return len(images) - 1
 
 @app.callback(
     dash.dependencies.Output('misaligned-checkbox', 'value'),
     [dash.dependencies.Input('patients-table', 'selected_rows')])
 def update_checkboxes(value):
-        patient_id = df.iloc[value[0]]["ID"]
-        stored_record = query_db(str(patient_id))
-        print("stored record")
-        print(stored_record)
-        check_reverse = False
-        if len(stored_record) > 0:
-            check_reverse = stored_record[0]["mask_rev"]
-        if check_reverse:
-            print("should be reversed!!")
-            return ["mask-rev"]
-        else:
-            return []
+    patient_id = df.iloc[value[0]]["ID"]
+    stored_record = query_db(str(patient_id))
+    print(stored_record)
+    check_reverse = False
+    if len(stored_record) > 0:
+        check_reverse = stored_record[0]["mask_rev"]
+    if check_reverse:
+        return ["mask-rev"]
+    else:
+        return []
 
 @app.callback(
     dash.dependencies.Output('masked-image', 'src'),
