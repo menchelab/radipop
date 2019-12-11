@@ -11,7 +11,7 @@ import json
 import numpy as np
 from tinydb import TinyDB, Query
 
-ASSETS_PATH = os.environ["PH_ASSETS_PATH"] if "PH_ASSETS_PATH" in os.environ else os.path.join(os.getcwd(), "assets/")
+ASSETS_PATH = os.environ["RADIPOP_ASSETS_PATH"] if "RADIPOP_ASSETS_PATH" in os.environ else os.path.join(os.getcwd(), "assets/")
 
 
 
