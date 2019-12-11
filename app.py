@@ -173,7 +173,6 @@ def update_checkboxes(value):
     dash.dependencies.Output('masked-image', 'src'),
     [dash.dependencies.Input('my-slider', 'value'),
      dash.dependencies.Input('misaligned-checkbox', 'value'),
-     #dash.dependencies.Input('image-dropdown', 'value')])
      dash.dependencies.Input('patients-table', 'selected_rows')])
 def update_image_src(idx, reverse, value):
     if not value:
@@ -183,25 +182,26 @@ def update_image_src(idx, reverse, value):
     if 'mask-rev' in reverse:
         dir = '/assets/niftynet_masked_images_reversed/'
     else:
-        dir = '/assets/niftynet_masked_images/'
-    if 'lr-rev' in reverse:
         idx = len([f  for f in os.listdir(os.path.join(ASSETS_PATH, masked_images_subdir, patient))]) - idx - 1
+        dir = '/assets/niftynet_masked_images/'
     return dir + patient + '/' + str(idx) + ".jpg"
 
 
 @app.callback(
     dash.dependencies.Output('unmasked-image', 'src'),
     [dash.dependencies.Input('my-slider', 'value'),
-     dash.dependencies.Input('image-dropdown', 'value')])
-def update_image_src(idx, patient):
+     dash.dependencies.Input('patients-table', 'selected_rows')])
+def update_image_src(idx, value):
+    patient = str(df.iloc[value[0]]["ID"])
     return '/assets/niftynet_raw_images/' + patient + '/' + str(idx) + ".jpg"
 
 @app.callback(
     dash.dependencies.Output('composite-image', 'src'),
-    [dash.dependencies.Input('image-dropdown', 'value'),
+    [
      dash.dependencies.Input('misaligned-checkbox', 'value'),
-     ])
-def update_image_src(patient, reverse):
+     dash.dependencies.Input('patients-table', 'selected_rows')])
+def update_image_src(reverse, value):
+    patient = str(df.iloc[value[0]]["ID"])
     if 'mask-rev' in reverse:
         return '/assets/sample_crosssections_reversed/' + patient + ".png"
     return '/assets/sample_crosssections/' + patient + ".png"
