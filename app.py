@@ -51,8 +51,12 @@ def update_db(patient_id, update):
     else:
         patients_db.insert(update)
 
-
-
+def query_db(patient_id):
+    patients = Query()
+    print("patient ID is ", patient_id)
+    print(patients_db.search(patients.patient_id == patient_id))
+    print(patients_db.all())
+    return  patients_db.search(patients.patient_id == patient_id)
 
 app.layout = html.Div(children=[
     html.H1(
@@ -106,13 +110,6 @@ app.layout = html.Div(children=[
         value = []
     ),
 
-    dcc.Checklist(
-        id = "left-right-misaligned-checkbox",
-        options = [
-        ],
-        value = []
-    ),
-
     html.Div([
         html.Div([
             html.Img(id="masked-image"),
@@ -154,6 +151,23 @@ def try_stuff(value):
 def update_slider(value):
     images = [f  for f in os.listdir(os.path.join(ASSETS_PATH, masked_images_subdir, value))]
     return len(images) - 1
+
+@app.callback(
+    dash.dependencies.Output('misaligned-checkbox', 'value'),
+    [dash.dependencies.Input('patients-table', 'selected_rows')])
+def update_checkboxes(value):
+        patient_id = df.iloc[value[0]]["ID"]
+        stored_record = query_db(str(patient_id))
+        print("stored record")
+        print(stored_record)
+        check_reverse = False
+        if len(stored_record) > 0:
+            check_reverse = stored_record[0]["mask_rev"]
+        if check_reverse:
+            print("should be reversed!!")
+            return ["mask-rev"]
+        else:
+            return []
 
 @app.callback(
     dash.dependencies.Output('masked-image', 'src'),
