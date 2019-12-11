@@ -43,11 +43,11 @@ colors = {
     'text': '#7FDBFF'
 }
 
-def update_db(study_id, update):
+def update_db(patient_id, update):
     patients = Query()
-    existing = patients_db.search(patients.study_id == study_id)
+    existing = patients_db.search(patients.patient_id == patient_id)
     if existing:
-        patients_db.update(update, patients.study_id == study_id)
+        patients_db.update(update, patients.patient_id == patient_id)
     else:
         patients_db.insert(update)
 
@@ -165,7 +165,7 @@ def update_image_src(idx, reverse, value):
     if not value:
         return  "/assets/niftynet_masked_images/0/test.jpg"
     patient = str(df.iloc[value[0]]["ID"])
-    update_db(patient, {"mask_rev": "mask-rev" in reverse})
+    update_db(patient, {"mask_rev": "mask-rev" in reverse, "patient_id": patient})
     if 'mask-rev' in reverse:
         dir = '/assets/niftynet_masked_images_reversed/'
     else:
