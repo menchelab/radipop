@@ -28,7 +28,7 @@ patients = [dir  for dir in os.listdir(os.path.join(ASSETS_PATH, masked_images_s
 
 df = pd.read_csv(os.path.join(ASSETS_PATH, "patients.csv"), dtype = {'ID': np.object, 'Sex': np.int32, 'Age': np.int32,
                                                                      'pressure': np.int32, 'Name': np.object} )
-df.reset_index(inplace=True, drop=False)
+df.reset_index(inplace=True, drop=True)
 #df.set_index(inplace=True, drop=False, keys="ID")
 print(df)
 
@@ -98,7 +98,6 @@ app.layout = html.Div(children=[
         id = "misaligned-checkbox",
         options = [
             {'label': 'Mask misaligned', 'value': 'mask-rev'},
-            {'label': 'Left and right aren\'t the same', 'value': 'lr-rev'}
         ],
         value = []
     ),
@@ -114,6 +113,13 @@ app.layout = html.Div(children=[
         ],
         style={"margin": "20px"},
         className="four columns"),
+        dcc.Textarea(
+            id="comment-text",
+            contentEditable=True,
+            placeholder="Comments here",
+            style={"margin": "20px"},
+            className="four columns"),
+
     ], className="row"),
 
     html.H2(children="Some cross-sections"),
@@ -124,8 +130,6 @@ app.layout = html.Div(children=[
         style={"margin": "20px"},
         className="four columns"),
     ], className="row"),
-
-
 ])
 
 
@@ -162,15 +166,27 @@ def update_checkboxes(value):
         return []
 
 @app.callback(
+    dash.dependencies.Output('comment-text', 'value'),
+    [dash.dependencies.Input('patients-table', 'selected_rows')])
+def update_comment_value(value):
+    patient_id = df.iloc[value[0]]["ID"]
+    stored_record = query_db(str(patient_id))
+    if len(stored_record) > 0:
+        if "comment" in stored_record[0]:
+            return stored_record[0]["comment"]
+    return ""
+
+@app.callback(
     dash.dependencies.Output('masked-image', 'src'),
     [dash.dependencies.Input('my-slider', 'value'),
      dash.dependencies.Input('misaligned-checkbox', 'value'),
+     dash.dependencies.Input('comment-text', 'value'),
      dash.dependencies.Input('patients-table', 'selected_rows')])
-def update_image_src(idx, reverse, value):
+def update_image_src(idx, reverse, comment, value):
     if not value:
         return  "/assets/niftynet_masked_images/0/test.jpg"
     patient = str(df.iloc[value[0]]["ID"])
-    update_db(patient, {"mask_rev": "mask-rev" in reverse, "patient_id": patient})
+    update_db(patient, {"mask_rev": "mask-rev" in reverse, "patient_id": patient, "comment": comment})
     if 'mask-rev' in reverse:
         dir = '/assets/niftynet_masked_images_reversed/'
     else:
@@ -197,7 +213,6 @@ def update_image_src(reverse, value):
     if 'mask-rev' in reverse:
         return '/assets/sample_crosssections_reversed/' + patient + ".png"
     return '/assets/sample_crosssections/' + patient + ".png"
-
 
 
 if __name__ == '__main__':
