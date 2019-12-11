@@ -9,9 +9,7 @@ import os
 import flask
 import json
 import numpy as np
-import plotly.graph_objs as go
 from tinydb import TinyDB, Query
-from sklearn.decomposition import PCA as sklearnPCA
 
 ASSETS_PATH = os.environ["RADIPOP_ASSETS_PATH"] if "RADIPOP_ASSETS_PATH" in os.environ else os.path.join(os.getcwd(), "assets/")
 
@@ -24,8 +22,19 @@ server = app.server
 
 masked_images_subdir = "niftynet_masked_images"
 unmasked_images_subdir = "raw_images"
+composite_images_subdir = "sample_crosssections"
 patients = [dir  for dir in os.listdir(os.path.join(ASSETS_PATH, masked_images_subdir)) if os.path.isdir(
     os.path.join(ASSETS_PATH, masked_images_subdir, dir))]
+
+df = pd.read_csv(os.path.join(ASSETS_PATH, "patients.csv"))
+df.reset_index(inplace=True)
+#df.set_index(inplace=True, drop=False, keys="ID")
+print(df)
+
+patient_db_path = os.path.join(ASSETS_PATH, "patients.json")
+patients_db = TinyDB(patient_db_path, sort_keys=True, indent=4, separators=(',', ': '))
+
+patients.sort()
 
 print(patients)
 
@@ -33,6 +42,16 @@ colors = {
     'background': '#111111',
     'text': '#7FDBFF'
 }
+
+def update_db(study_id, update):
+    patients = Query()
+    existing = patients_db.search(patients.study_id == study_id)
+    if existing:
+        patients_db.update(update, patients.study_id == study_id)
+    else:
+        patients_db.insert(update)
+
+
 
 
 app.layout = html.Div(children=[
@@ -43,6 +62,22 @@ app.layout = html.Div(children=[
             'color': colors['text']
         },
     ),
+
+    #generate_fancy_table(data_df, patients),
+    dash_table.DataTable(
+        id='patients-table',
+        columns=[{"name": i, "id": i} for i in df.columns],
+        data=df.to_dict('records'),
+        fixed_rows={ 'headers': True, 'data': 0 },
+        filter_action="native",
+        sort_action="native",
+        sort_mode="multi",
+        row_selectable='single',
+        style_table={
+            'maxHeight': '400px',
+            'overflowY': 'scroll'
+    },),
+
     dcc.Dropdown(
         id='image-dropdown',
         #options=[{'label': i, 'value': i} for i in list_of_images],
@@ -52,12 +87,31 @@ app.layout = html.Div(children=[
         style={"margin": "20px"}
     ),
 
+    html.Div([
     dcc.Slider(id='my-slider',
                min=0,
                max=250,
                step=1,
-               value=100),
+               value=100,
+               className="eight columns")
+    ], style={"margin": "20px"},  className="row"),
     html.Div(id='slider-output-container'),
+
+    dcc.Checklist(
+        id = "misaligned-checkbox",
+        options = [
+            {'label': 'Mask misaligned', 'value': 'mask-rev'},
+            {'label': 'Left and right aren\'t the same', 'value': 'lr-rev'}
+        ],
+        value = []
+    ),
+
+    dcc.Checklist(
+        id = "left-right-misaligned-checkbox",
+        options = [
+        ],
+        value = []
+    ),
 
     html.Div([
         html.Div([
@@ -71,8 +125,28 @@ app.layout = html.Div(children=[
         style={"margin": "20px"},
         className="four columns"),
     ], className="row"),
+
+    html.H2(children="Some cross-sections"),
+    html.Div([
+        html.Div([
+            html.Img(id="composite-image"),
+        ],
+        style={"margin": "20px"},
+        className="four columns"),
+    ], className="row"),
+
+
 ])
 
+
+@app.callback(
+    dash.dependencies.Output('my-slider', 'value'),
+    [dash.dependencies.Input('patients-table', 'selected_rows')])
+def try_stuff(value):
+    print("value is", value)
+    if value:
+        print(df.iloc[value[0]]["ID"])
+    return 100
 
 @app.callback(
     dash.dependencies.Output('my-slider', 'max'),
@@ -84,9 +158,22 @@ def update_slider(value):
 @app.callback(
     dash.dependencies.Output('masked-image', 'src'),
     [dash.dependencies.Input('my-slider', 'value'),
-     dash.dependencies.Input('image-dropdown', 'value')])
-def update_image_src(idx, patient):
-    return '/assets/niftynet_masked_images/' + patient + '/' + str(idx) + ".jpg"
+     dash.dependencies.Input('misaligned-checkbox', 'value'),
+     #dash.dependencies.Input('image-dropdown', 'value')])
+     dash.dependencies.Input('patients-table', 'selected_rows')])
+def update_image_src(idx, reverse, value):
+    if not value:
+        return  "/assets/niftynet_masked_images/0/test.jpg"
+    patient = str(df.iloc[value[0]]["ID"])
+    update_db(patient, {"mask_rev": "mask-rev" in reverse})
+    if 'mask-rev' in reverse:
+        dir = '/assets/niftynet_masked_images_reversed/'
+    else:
+        dir = '/assets/niftynet_masked_images/'
+    if 'lr-rev' in reverse:
+        idx = len([f  for f in os.listdir(os.path.join(ASSETS_PATH, masked_images_subdir, patient))]) - idx - 1
+    return dir + patient + '/' + str(idx) + ".jpg"
+
 
 @app.callback(
     dash.dependencies.Output('unmasked-image', 'src'),
@@ -94,6 +181,17 @@ def update_image_src(idx, patient):
      dash.dependencies.Input('image-dropdown', 'value')])
 def update_image_src(idx, patient):
     return '/assets/niftynet_raw_images/' + patient + '/' + str(idx) + ".jpg"
+
+@app.callback(
+    dash.dependencies.Output('composite-image', 'src'),
+    [dash.dependencies.Input('image-dropdown', 'value'),
+     dash.dependencies.Input('misaligned-checkbox', 'value'),
+     ])
+def update_image_src(patient, reverse):
+    if 'mask-rev' in reverse:
+        return '/assets/sample_crosssections_reversed/' + patient + ".png"
+    return '/assets/sample_crosssections/' + patient + ".png"
+
 
 
 if __name__ == '__main__':
