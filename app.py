@@ -9,10 +9,17 @@ import os
 import flask
 import json
 import numpy as np
+import pymysql
 from tinydb import TinyDB, Query
 
 ASSETS_PATH = os.environ["RADIPOP_ASSETS_PATH"] if "RADIPOP_ASSETS_PATH" in os.environ else os.path.join(os.getcwd(), "assets/")
 
+connection = pymysql.connect(host='localhost',
+                             user='root',
+                             #password='passwd',
+                             db='radipop',
+                             charset='utf8mb4',
+                             cursorclass=pymysql.cursors.DictCursor)
 
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -32,9 +39,6 @@ df.reset_index(inplace=True, drop=True)
 #df.set_index(inplace=True, drop=False, keys="ID")
 print(df)
 
-patient_db_path = os.path.join(ASSETS_PATH, "patients.json")
-patients_db = TinyDB(patient_db_path, sort_keys=True, indent=4, separators=(',', ': '))
-
 patients.sort()
 
 print(patients)
@@ -45,19 +49,30 @@ colors = {
 }
 
 def update_db(patient_id, update):
-    patients = Query()
-    existing = patients_db.search(patients.patient_id == patient_id)
-    if existing:
-        patients_db.update(update, patients.patient_id == patient_id)
-    else:
-        patients_db.insert(update)
+    try:
+        with connection.cursor() as cursor:
+            existing_sql = "select * from radipop.patients where id = %s" % patient_id
+            print(existing_sql)
+            cursor = connection.cursor()
+            cursor.execute(existing_sql)
+            existing = cursor.fetchone()
+
+        if existing:
+            sql = "update radipop.patients set comment='%s', mask_rev=%d where id = %s" % (
+                update["comment"], update["mask_rev"], patient_id)
+        else:
+            sql = "insert into radipop.patients(id, comment, mask_rev) values (%s, '%s', %s)" % (patient_id, update["comment"], update["mask_rev"])
+        with connection.cursor() as cursor:
+            cursor.execute(sql)
+        connection.commit()
+    except:
+        pass
 
 def query_db(patient_id):
-    patients = Query()
-    print("patient ID is ", patient_id)
-    print(patients_db.search(patients.patient_id == patient_id))
-    print(patients_db.all())
-    return  patients_db.search(patients.patient_id == patient_id)
+    existing_sql = "select * from radipop.patients where id = %s" % patient_id
+    with connection.cursor() as cursor:
+        cursor.execute(existing_sql)
+        return cursor.fetchone()
 
 app.layout = html.Div(children=[
     html.H1(
@@ -158,8 +173,8 @@ def update_checkboxes(value):
     stored_record = query_db(str(patient_id))
     print(stored_record)
     check_reverse = False
-    if len(stored_record) > 0:
-        check_reverse = stored_record[0]["mask_rev"]
+    if stored_record:
+        check_reverse = stored_record["mask_rev"]
     if check_reverse:
         return ["mask-rev"]
     else:
@@ -171,9 +186,9 @@ def update_checkboxes(value):
 def update_comment_value(value):
     patient_id = df.iloc[value[0]]["ID"]
     stored_record = query_db(str(patient_id))
-    if len(stored_record) > 0:
-        if "comment" in stored_record[0]:
-            return stored_record[0]["comment"]
+    print("stored record is", stored_record)
+    if stored_record:
+        return stored_record["comment"]
     return ""
 
 @app.callback(
@@ -186,6 +201,7 @@ def update_image_src(idx, reverse, comment, value):
     if not value:
         return  "/assets/niftynet_masked_images/0/test.jpg"
     patient = str(df.iloc[value[0]]["ID"])
+    print(patient)
     update_db(patient, {"mask_rev": "mask-rev" in reverse, "patient_id": patient, "comment": comment})
     if 'mask-rev' in reverse:
         dir = '/assets/niftynet_masked_images_reversed/'
