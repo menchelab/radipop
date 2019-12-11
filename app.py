@@ -14,12 +14,14 @@ from tinydb import TinyDB, Query
 
 ASSETS_PATH = os.environ["RADIPOP_ASSETS_PATH"] if "RADIPOP_ASSETS_PATH" in os.environ else os.path.join(os.getcwd(), "assets/")
 
-connection = pymysql.connect(host='localhost',
-                             user='root',
-                             #password='passwd',
-                             db='radipop',
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
+def make_connection():
+    connection = pymysql.connect(host='localhost',
+                                 user='root',
+                                 #password='passwd',
+                                 db='radipop',
+                                 charset='utf8mb4',
+                                 cursorclass=pymysql.cursors.DictCursor)
+    return connection
 
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -49,30 +51,31 @@ colors = {
 }
 
 def update_db(patient_id, update):
-    try:
-        with connection.cursor() as cursor:
-            existing_sql = "select * from radipop.patients where id = %s" % patient_id
-            print(existing_sql)
-            cursor = connection.cursor()
-            cursor.execute(existing_sql)
-            existing = cursor.fetchone()
+    connection = make_connection()
+    with connection.cursor() as cursor:
+        existing_sql = "select * from radipop.patients where id = %s" % patient_id
+        print(existing_sql)
+        cursor = connection.cursor()
+        cursor.execute(existing_sql)
+        existing = cursor.fetchone()
 
-        if existing:
-            sql = "update radipop.patients set comment='%s', mask_rev=%d where id = %s" % (
-                update["comment"], update["mask_rev"], patient_id)
-        else:
-            sql = "insert into radipop.patients(id, comment, mask_rev) values (%s, '%s', %s)" % (patient_id, update["comment"], update["mask_rev"])
-        with connection.cursor() as cursor:
-            cursor.execute(sql)
-        connection.commit()
-    except:
-        pass
+    if existing:
+        sql = "update radipop.patients set comment='%s', mask_rev=%d where id = %s" % (
+            update["comment"], update["mask_rev"], patient_id)
+    else:
+        sql = "insert into radipop.patients(id, comment, mask_rev) values (%s, '%s', %s)" % (patient_id, update["comment"], update["mask_rev"])
+    with connection.cursor() as cursor:
+        cursor.execute(sql)
+    connection.commit()
+    connection.close()
 
 def query_db(patient_id):
+    connection = make_connection()
     existing_sql = "select * from radipop.patients where id = %s" % patient_id
     with connection.cursor() as cursor:
         cursor.execute(existing_sql)
         return cursor.fetchone()
+    connection.close()
 
 app.layout = html.Div(children=[
     html.H1(
