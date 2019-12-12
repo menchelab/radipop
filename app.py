@@ -34,16 +34,15 @@ unmasked_images_subdir = "raw_images"
 composite_images_subdir = "sample_crosssections"
 patients = [dir  for dir in os.listdir(os.path.join(ASSETS_PATH, masked_images_subdir)) if os.path.isdir(
     os.path.join(ASSETS_PATH, masked_images_subdir, dir))]
+patients.sort()
 
 df = pd.read_csv(os.path.join(ASSETS_PATH, "patients.csv"), dtype = {'ID': np.object, 'Sex': np.int32, 'Age': np.int32,
                                                                      'pressure': np.int32, 'Name': np.object} )
+df = df[df["ID"].isin(patients)]
 df.reset_index(inplace=True, drop=True)
 #df.set_index(inplace=True, drop=False, keys="ID")
 print(df)
 
-patients.sort()
-
-print(patients)
 
 colors = {
     'background': '#111111',
