@@ -41,7 +41,6 @@ df = pd.read_csv(os.path.join(ASSETS_PATH, "patients.csv"), dtype = {'ID': np.ob
 df = df[df["ID"].isin(patients)]
 df.reset_index(inplace=True, drop=True)
 #df.set_index(inplace=True, drop=False, keys="ID")
-print(df)
 
 
 colors = {
@@ -53,7 +52,6 @@ def update_db(patient_id, update):
     connection = make_connection()
     with connection.cursor() as cursor:
         existing_sql = "select * from radipop.patients where id = %s" % patient_id
-        print(existing_sql)
         cursor = connection.cursor()
         cursor.execute(existing_sql)
         existing = cursor.fetchone()
@@ -151,15 +149,6 @@ app.layout = html.Div(children=[
 
 
 @app.callback(
-    dash.dependencies.Output('my-slider', 'value'),
-    [dash.dependencies.Input('patients-table', 'selected_rows')])
-def try_stuff(value):
-    print("value is", value)
-    if value:
-        print(df.iloc[value[0]]["ID"])
-    return 100
-
-@app.callback(
     dash.dependencies.Output('my-slider', 'max'),
     [dash.dependencies.Input('patients-table', 'selected_rows')])
 def update_slider(value):
@@ -173,7 +162,6 @@ def update_slider(value):
 def update_checkboxes(value):
     patient_id = df.iloc[value[0]]["ID"]
     stored_record = query_db(str(patient_id))
-    print(stored_record)
     check_reverse = False
     if stored_record:
         check_reverse = stored_record["mask_rev"]
@@ -188,7 +176,6 @@ def update_checkboxes(value):
 def update_comment_value(value):
     patient_id = df.iloc[value[0]]["ID"]
     stored_record = query_db(str(patient_id))
-    print("stored record is", stored_record)
     if stored_record:
         return stored_record["comment"]
     return ""
@@ -203,7 +190,6 @@ def update_image_src(idx, reverse, comment, value):
     if not value:
         return  "/assets/niftynet_masked_images/0/test.jpg"
     patient = str(df.iloc[value[0]]["ID"])
-    print(patient)
     update_db(patient, {"mask_rev": "mask-rev" in reverse, "patient_id": patient, "comment": comment})
     if 'mask-rev' in reverse:
         dir = '/assets/niftynet_masked_images_reversed/'
