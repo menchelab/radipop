@@ -202,16 +202,16 @@ def partition_at_threshold(img, thresh, square_size, min_size, title=None):
     axes[0].axis('off')
 
     # Smooth what remains
-    remove_small_holes(bw, in_place=True)
+    remove_small_holes(bw, area_threshold=40, in_place=True)
     remove_small_objects(bw, min_size=min_size, in_place=True)
     cleared = closing(bw, square(square_size))
-    cleared = ndi.binary_fill_holes(cleared)
+    #cleared = ndi.binary_fill_holes(cleared)
     distance = ndi.distance_transform_edt(np.logical_not(cleared))
     mask = np.zeros_like(distance)
-    mask[distance <= 1] = 1
+    mask[distance <= 2] = 1
     distance = ndi.distance_transform_edt(mask)
     cleared = np.zeros_like(distance)
-    cleared[distance > 1] = 1
+    cleared[distance > 2] = 1
 
     axes[1].imshow(cleared, cmap=plt.cm.gray)
     axes[1].set_title('cleaned up by removing small holes/objects')
