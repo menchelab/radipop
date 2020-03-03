@@ -21,11 +21,15 @@ import io as jio
 
 def create_images_for_display(name, reverse=False):
     path = "/Users/eiofinova/niftynet/data/ct_dicom/" + name
-    mask_path = "/Users/eiofinova/niftynet/data/mask_jpg/"
+    #mask_path = "/Users/eiofinova/niftynet/data/mask_jpg/"
     #!mkdir -p {os.path.join(os.getcwd(), "assets/niftynet_masked_images", name)}
-    #!mkdir -p {os.path.join(os.getcwd(), "assets/niftynet_raw_images", name)}
+    try:
+        os.mkdir(os.path.join(os.getcwd(), "assets/niftynet_raw_images", name))
+    except:
+        pass
     files = [pydicom.dcmread(os.path.join(path, f)) for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     if not files:
+        print("no files found at ", os.path.join(path, f))
         return
     patient_position = files[0].PatientPosition
     # Patient scans are either "feet first" (FFS) or "head first" (HFS). If FFS, they must be reversed.
@@ -35,7 +39,6 @@ def create_images_for_display(name, reverse=False):
 
 
     organs = get_longest_frame_interval(name)
-    print(organs)
     files = files[organs[0]:organs[1]]
 
     num_slides = len(files)
@@ -48,36 +51,46 @@ def create_images_for_display(name, reverse=False):
     from matplotlib.pyplot import figure
     figure(num=None, figsize=(16, 16))
 
+    max_frame = [10000, 10000, 0, 0]
+    for i, file in enumerate(files):
+        orig = extract_pixels_for_viewing(file)
+        orig, frame = trim_background(orig)
+        l1, l2, u1, u2 = frame
+        max_frame[:2] = min(max_frame[:2], frame[:2])
+        max_frame[2:] = max(max_frame[2:], frame[2:])
+
+
     for i, file in enumerate(files):
         #file = file[50]
 
         idx = int(i/16)
 
         ext = i + organs[0]
-        try:
-            mask = io.imread(os.path.join(mask_path, '%s-slice%s.jpg' % (name, str(ext).zfill(3))))
-        except:
-            print(os.path.join(mask_path, '%s-slice%s.jpg' % (name, str(ext).zfill(3))))
-            continue
+        #try:
+        #    mask = io.imread(os.path.join(mask_path, '%s-slice%s.jpg' % (name, str(ext).zfill(3))))
+        #except:
+        #    print(os.path.join(mask_path, '%s-slice%s.jpg' % (name, str(ext).zfill(3))))
+        #    continue
         # Keep only the green channel.
-        mask[:,:,0] = 0
-        mask[:,:,2] = 0
+        #mask[:,:,0] = 0
+        #mask[:,:,2] = 0
         orig = extract_pixels_for_viewing(file)
+        #print("orig", np.sum(orig))
         aim = Image.fromarray(orig, mode='L')
-        orig, frame = trim_background(orig)
+        orig, _ = trim_background(orig, max_frame)
+        #print(np.sum(orig))
         aim = Image.fromarray(orig, mode='L')
-        mask = mask[frame[0]:frame[2],frame[1]:frame[3],:]
+        #mask = mask[frame[0]:frame[2],frame[1]:frame[3],:]
 
-        m = np.ones((mask.shape[0], mask.shape[1], 1))*50
-        mm = np.concatenate((mask, m), axis=2)
-        mim = Image.fromarray(np.uint8(mm))
+        #m = np.ones((mask.shape[0], mask.shape[1], 1))*50
+        #mm = np.concatenate((mask, m), axis=2)
+        #mim = Image.fromarray(np.uint8(mm))
         aim.save(os.path.join(os.getcwd(), "assets/niftynet_raw_images", name, str(ext)+".jpg"), format='JPEG')
-        rgbimg = Image.new("RGBA", aim.size)
-        rgbimg.paste(aim)
-        rgbimg.paste(mim, (0, 0), mim)
+        #rgbimg = Image.new("RGBA", aim.size)
+        #rgbimg.paste(aim)
+        #rgbimg.paste(mim, (0, 0), mim)
 
-        ds = file
-        rgbimg.save(os.path.join(os.getcwd(), "assets/niftynet_masked_images/", name, str(ext)+".png"), format='PNG')
+        #rgbimg.save(os.path.join(os.getcwd(), "assets/niftynet_masked_images/", name, str(ext)+".png"), format='PNG')
         if i % 16 == 0 and idx < 16:
             ax1 = plt.subplot(gs1[idx])
             plt.axis('off')
@@ -85,8 +98,24 @@ def create_images_for_display(name, reverse=False):
             ax1.set_yticklabels([])
             ax1.set_aspect('equal')
             plt.subplots_adjust(wspace=None, hspace=None)
-            #plt.imshow(rgbimg)
+            plt.imshow(orig)
+    #plt.show()
     plt.savefig("assets/sample_crossections/" + name + ".png", format="png")
+    return "success"
+
+
+def print_img(img, path):
+    ax1 = plt.figure(figsize = (4,4))
+    gs1 = gridspec.GridSpec(4, 4)
+    gs1.update(wspace=0.025, hspace=0.05) # set the spacing between axes.
+    plt.axis('off')
+    #plt.set_xticklabels([])
+    #ax1.set_yticklabels([])
+    #ax1.set_aspect('equal')
+    plt.imshow(img, cmap=plt.cm.tab20)
+    #ax1.subplots_adjust(wspace=None, hspace=None)
+    plt.savefig(path + ".png", format="png")
+
 
 
 def compute_slice_width():
@@ -109,18 +138,19 @@ def get_green_histogram(name):
     if not files:
         return []
     files.sort()
+    print("number of hist files", len(files))
     return [skio.imread(os.path.join(mask_path, file)).mean() for file in files]
 
 
 def get_longest_frame_interval(name, threshold=1):
-    sat_values = get_green_histogram(name)
+    sat_values = get_green_histogram(name + "-")
     longest_interval = [0, 0]
     current_start = -1
     for i, val in enumerate(sat_values):
         if val > threshold and current_start < 0:
             current_start = i
         elif (val <= threshold and current_start > 0) or (i == len(sat_values) - 1 and current_start > 0):
-            if i - current_start - 1 > longest_interval[1] - longest_interval[0]:
+            if i - current_start - 1 >elongest_interval[1] - longest_interval[0]:
                 longest_interval = [current_start, i - 1]
             current_start = -1
     return longest_interval
@@ -145,7 +175,7 @@ def extract_pixels_for_viewing(dicom):
     return win_scale(hu, 60, 400, np.uint8, [0, 255])
 
 
-def trim_background(img):
+def trim_background(img, dims = None):
     # Trim out background and table
     black = np.zeros_like(img)
     black[img < 10] = 1
@@ -163,15 +193,18 @@ def trim_background(img):
     #remove everything that is not the body
     img2 = img*m_label
     # Make a bounding box around the body
-    bbox = False
-    for i, region in enumerate(regionprops(m_label)):
-        minr, minc, maxr, maxc = region.bbox
-        bbox = True
-    if not bbox:
-        show_scan(markers)
-        show_scan(m_label)
-        show_scan(img)
-        print("nothing :/")
+    if not dims:
+        bbox = False
+        for i, region in enumerate(regionprops(m_label)):
+            minr, minc, maxr, maxc = region.bbox
+            bbox = True
+        if not bbox:
+            show_scan(markers)
+            show_scan(m_label)
+            show_scan(img)
+            puaurint("nothing :/")
+    else:
+        minr, minc, maxr, maxc = dims
 
     return(img2[minr:maxr, minc:maxc], [minr, minc, maxr, maxc])
 
@@ -189,17 +222,19 @@ def show_scan(img, title=None):
     axes[1].set_title('original image - emphasizing variation')
     axes[1].axis('off')
 
-def partition_at_threshold(img, thresh, square_size, min_size, title=None):
-    fig, axes = plt.subplots(1, 2, figsize=(15, 5), sharey=True, sharex=True)
-    if title:
-        fig.suptitle(title)
+def partition_at_threshold(img, thresh, square_size, min_size, title=None, show_plot=True):
+    if show_plot:
+        fig, axes = plt.subplots(1, 2, figsize=(15, 5), sharey=True, sharex=True)
+        if title:
+            fig.suptitle(title)
 
     # Now start looking for the border of the image. Filter out anything below threshold
     bw = ndi.gaussian_filter(img, sigma=(1), order=0) > thresh
     # Let's look it
-    axes[0].imshow(bw, cmap=plt.cm.gray)
-    axes[0].set_title('thresholded on intensity')
-    axes[0].axis('off')
+    if show_plot:
+        axes[0].imshow(bw, cmap=plt.cm.gray)
+        axes[0].set_title('thresholded on intensity')
+        axes[0].axis('off')
 
     # Smooth what remains
     remove_small_holes(bw, area_threshold=40, in_place=True)
@@ -213,9 +248,10 @@ def partition_at_threshold(img, thresh, square_size, min_size, title=None):
     cleared = np.zeros_like(distance)
     cleared[distance > 2] = 1
 
-    axes[1].imshow(cleared, cmap=plt.cm.gray)
-    axes[1].set_title('cleaned up by removing small holes/objects')
-    axes[1].axis('off')
+    if show_plot:
+        axes[1].imshow(cleared, cmap=plt.cm.gray)
+        axes[1].set_title('cleaned up by removing small holes/objects')
+        axes[1].axis('off')
 
     #Find the boundary
     #boundary = sobel(cleared)
@@ -226,8 +262,9 @@ def partition_at_threshold(img, thresh, square_size, min_size, title=None):
     #axes[2, 0].axis('off')
     return cleared
 
-def label_image(img, orig=None):
-    fig, axes = plt.subplots(1, 2, figsize=(15, 5), sharey=True, sharex=True)
+def label_image(img, orig=None, show_plot=True):
+    if show_plot:
+        fig, axes = plt.subplots(1, 2, figsize=(15, 5), sharey=True, sharex=True)
 
     # Finally, use watershed to imperfectly partition the organs.
     distance = ndi.distance_transform_edt(img)
@@ -235,10 +272,11 @@ def label_image(img, orig=None):
         distance, indices=False, footprint=np.ones((60, 60)), labels=img)
     markers = ndi.label(local_maxi)[0]
     labels = morphology.watershed(-distance, markers, mask=img)
-    axes[0].imshow(labels, cmap=plt.cm.nipy_spectral)
-    axes[0].set_title('watershed segmentation')
-    axes[0].axis('off')
-    if True:
+    if show_plot:
+        axes[0].imshow(labels, cmap=plt.cm.nipy_spectral)
+        axes[0].set_title('watershed segmentation')
+        axes[0].axis('off')
+    if show_plot and orig:
         axes[1].imshow(orig, cmap=plt.cm.gray)
         axes[1].set_title('Original image')
         axes[1].axis('off')
