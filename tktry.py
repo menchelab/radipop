@@ -7,6 +7,7 @@ from PIL import Image, ImageTk, ImageDraw
 import os
 import numpy as np
 import colorsys
+import dicom_utils
 
 # crappy code for creating colors, w00t
 N = 81
@@ -14,19 +15,22 @@ p = 9
 myn = [int(i/p) + (i%p)*p for i in range(N)]
 myn2 = [0.9 - int(i/p)/(p-1)*0.9 for i in range(N)]
 myn3 = [1-(0.9 - int(i/p)/(p-1)*0.9) for i in range(N)]
-print(myn2)
-print(myn)
 HSV_tuples = [(myn[x]*1.0/N, myn2[x], myn2[x]) for x in range(N)]
 RGB_tuples = list(map(lambda x: list(colorsys.hsv_to_rgb(*x)), HSV_tuples))
 
 
 def assign_colors(mask):
-    mask = label(mask)
+    #mask = label(mask)
     display_liver = np.zeros([mask.shape[0], mask.shape[1], 4])
     for row in range(mask.shape[0]):
         for col in range(mask.shape[1]):
-            if mask[row, col] > 0:
+            if mask[row, col] >= 2:
                 display_liver[row, col] = RGB_tuples[mask[row, col] - 1] + [0.2]
+            elif mask[row, col] == 1:
+                display_liver[row, col] = [0.9, 0, 0, 0.5]
+            elif mask[row, col] == 2:
+                display_liver[row, col] = [0, 0, 0, 0.9, 0.5]
+
     print("mmean", display_liver[:,:,3].mean())
     display_liver = display_liver*255
     display_liver = display_liver.astype(np.uint8)
@@ -38,9 +42,11 @@ def assign_colors(mask):
 
 # Features:
 # Open patient and flip through frames - v1 done
-# Draw line to separate organs - line drawing is done, need the application portion
+# Draw line to separate organs - line drawing is done
 # Label liver (lobes, spleen)
 # Organ lights up when clicked - v1 done
+# Organ label consistency across slices
+# Mark and ignore messed up slices
 
 class Application(Frame):
 
@@ -58,12 +64,14 @@ class Application(Frame):
         self.pixel_value = 0
         self.showMask = True
         self.highlight_img = -1
+        self.mask_img = -1
+        self.slice_idx = -1
 
         self.pack()
         self.createWidgets()
 
-        master.bind('a', self.thicknessPlus)
-        master.bind('s', self.thicknessMinus)
+        #master.bind('a', self.thicknessPlus)
+        #master.bind('s', self.thicknessMinus)
         # load the .gif image file
 
         # put gif image on canvas
@@ -166,16 +174,15 @@ class Application(Frame):
 
 #----------------------------------------------------------------------
     def setSlice(self, event):
-        self.slice = self.myScale.get()
-        self.loadSlice(self.patient_id, self.slice)
+        self.slice_idx = self.myScale.get()
+        self.loadSlice()
 
     def highlightOrgan(self, event):
         y, x = (event.x, event.y)
         print("highlighting ", x, y)
-        print(self.img_internal.shape)
-        if x < self.img_internal.shape[0] and y < self.img_internal.shape[1]:
+        if x < self.masks[self.slice_idx].shape[0] and y < self.masks[self.slice_idx].shape[1]:
             print("inside image %d %d" % (x, y))
-            pixel_value = self.img_internal[x, y]
+            pixel_value = self.masks[self.slice_idx][x, y]
             print("pixel value ", pixel_value)
             if pixel_value == 0:
                 self.pixel_value = pixel_value
@@ -183,7 +190,7 @@ class Application(Frame):
                 return
             if self.pixel_value == pixel_value:
                 return
-            highlight = (self.img_internal == pixel_value).astype(np.uint8) * 255
+            highlight = (self.masks[self.slice_idx] == pixel_value).astype(np.uint8) * 255
             print("avg highlight value ", highlight.mean())
             highlight2 = np.zeros((*highlight.shape, 4))
             highlight2[:, :, 0] = highlight
@@ -195,18 +202,28 @@ class Application(Frame):
             self.pixel_value = pixel_value
 
     def labelLiver(self):
-        if self.pixel_value > 0:
-            self.liver.add(self.pixel_value)
+        mymask = self.masks[self.slice_idx]
+        if self.pixel_value == 1:
+            mymask[mymask==self.pixel_value] = mymask.max() + 1
+        elif self.pixel_value > 0:
+            mymask[mymask==self.pixel_value] = 1
+            self.masks[self.slice_idx] = mymask
+        self.displayMask()
 
     def labelSpleen(self):
-        if self.pixel_value > 0:
-            self.spleen.add(self.pixel_value)
+        mymask = self.masks[self.slice_idx]
+        if self.pixel_value == 2:
+            mymask[mymask==self.pixel_value] = mymask.max() + 1
+        elif self.pixel_value > 0:
+            mymask[mymask==self.pixel_value] = 2
+            self.masks[self.slice_idx] = mymask
+        self.displayMask()
 
     def setPartition(self):
         self.myCanvas.bind("<Button-1>", self.highlightOrgan)
         self.previousX = -1
         self.previousY = -1
-        newmask = self.img_internal > 0
+        newmask = self.masks[self.slice_idx] > 0
         myimg = Image.fromarray(newmask.astype(np.uint8))
         print(newmask.mean())
         draw = ImageDraw.Draw(myimg)
@@ -215,36 +232,28 @@ class Application(Frame):
         result = np.array(myimg)
         print("result mean ", result.mean())
         print(result.shape)
-        self.img_internal = label(result)
-        result = assign_colors(result)
+        self.masks[self.slice_idx] = label(result)
+        self.masks[self.slice_idx][ self.masks[self.slice_idx] > 0] = self.masks[self.slice_idx][ self.masks[self.slice_idx] > 0] + 2
 
-        highlight = Image.fromarray(result.astype(np.uint8))
-        myimg = ImageTk.PhotoImage(highlight)
-        root.mask = myimg
-        self.mask_img = self.myCanvas.create_image(0, 0, image=myimg, anchor=NW)
+        #highlight = Image.fromarray(result.astype(np.uint8))
+        #myimg = ImageTk.PhotoImage(highlight)
+        #root.mask = myimg
+        #self.mask_img = self.myCanvas.create_image(0, 0, image=myimg, anchor=NW)
         # delete all the user-drawn lines
         for line in self.lines:
             self.myCanvas.delete(line)
+        self.displayMask()
 
-        if False:
-            #highlight = result * 255
-            print("avg highlight value ", highlight.mean())
-            highlight2 = np.zeros((*highlight.shape[:2], 4))
-            highlight2[:, :, 0] = highlight[0]
-            highlight2[:, :, 1] = highlight[2]
-            highlight2[:, :, 1] = highlight[1]
-            highlight2[:, :, 3] = 250
-            highlight = Image.fromarray(highlight2.astype(np.uint8))
-            myimg = ImageTk.PhotoImage(highlight)
-            root.myimg = myimg
-            self.highlight_img = self.myCanvas.create_image(0, 0, image=myimg, anchor=NW)
-        #result = label(result)
-
-        # here we should make the partition/relabeling happen in real life.
 
     def partitionOrgans(self):
         self.drawLine = True
-        self.myCanvas.bind("<Button-1>", self.setPreviousXY)
+        self.myCanvas.bind("<Button-1>", self.enableLineDrawing)
+
+
+    def load_masks(self, patient_id):
+        file_dir = os.path.join(os.getcwd(), "assets", "masks", str(patient_id))
+        self.masks = {int(file.split(".")[0]): np.loadtxt(os.path.join(file_dir, file), dtype=np.uint8) for file in os.listdir(file_dir) }
+        print("masks loaded: ", len(self.masks))
 
     def SetPatient(self):
         file_dir = os.path.join(os.getcwd(), "assets", "niftynet_raw_images")
@@ -253,15 +262,16 @@ class Application(Frame):
         val1 = int(self.myEntry1.get())
         if val1 in patients:
             self.patient_id = val1
+            self.load_masks(self.patient_id)
             self.label.configure(text = "Current patient: %d" % val1)
             patient_dir = os.path.join(file_dir, str(self.patient_id))
             self.slices = [int(x.split(".")[0]) for x in os.listdir(patient_dir)]
             self.slices.sort()
             self.myScale.configure(from_ = self.slices[0], to=self.slices[-1])
             self.myScale.set(self.slices[0])
-            self.current_slice = self.slices[0]
-            self.loadSlice(self.patient_id, self.current_slice)
+            self.slice_idx = self.slices[0]
             self.showMask = True
+            self.loadSlice()
 
 
         else:
@@ -270,20 +280,27 @@ class Application(Frame):
         self.focus()
 
 
-    def loadSlice(self, patient, slice):
-        file_dir = os.path.join(os.getcwd(), "assets", "niftynet_raw_images", str(patient), str(slice) + ".png")
-        int_file_dir = os.path.join(os.getcwd(), "assets", "masks", str(patient), str(slice) + ".txt")
+    def loadSlice(self):
+        file_dir = os.path.join(os.getcwd(), "assets", "niftynet_raw_images", str(self.patient_id), str(self.slice_idx) + ".png")
+        print(file_dir)
+        #int_file_dir = os.path.join(os.getcwd(), "assets", "masks", str(patient), str(slice) + ".txt")
         img = PhotoImage(file=file_dir)
         root.img = img
-        self.img_internal = np.loadtxt(int_file_dir)
-        print(self.img_internal.mean())
         self.img = self.myCanvas.create_image(0, 0, image=img, anchor=NW)
-        mask = assign_colors(self.img_internal)
-        print("mask avg ", mask.mean())
-        highlight = Image.fromarray(mask.astype(np.uint8))
-        self.myimg = ImageTk.PhotoImage(highlight)
-        root.mask = self.myimg
-        self.mask_img = self.myCanvas.create_image(0, 0, image=self.myimg, anchor=NW)
+        self.displayMask()
+
+
+    def displayMask(self):
+        if self.showMask:
+            if self.mask_img > 0:
+                self.myCanvas.delete(self.mask_img)
+            print("mmmmean", self.masks[self.slice_idx].mean())
+            mask = assign_colors(self.masks[self.slice_idx])
+            mask = Image.fromarray(mask.astype(np.uint8))
+            self.mask = ImageTk.PhotoImage(mask)
+            root.mask = self.mask
+            self.mask_img = self.myCanvas.create_image(0, 0, image=self.mask, anchor=NW)
+
 
     def toggleMask(self):
         if self.showMask:
@@ -297,11 +314,11 @@ class Application(Frame):
             self.buttonToggleMask.configure(text="show mask")
         else:
             self.showMask = True
-            self.mask_img = self.myCanvas.create_image(0, 0, image=self.myimg, anchor=NW)
             self.buttonToggleMask.configure(text="hide mask")
+            self.displayMask()
 
 
-    def setPreviousXY(self, event):
+    def enableLineDrawing(self, event):
             print("now drawing")
             if not self.drawLine:
                 print("Drawing mode not enabled")
@@ -327,25 +344,11 @@ class Application(Frame):
         self.previousX = -1
         self.previousY = -1
         self.myCanvas.delete("all")
-        self.loadSlice(self.patient_id, self.slice)
-
-    def thicknessPlus(self, event):
-        if self.toolsThickness < 25:
-            self.toolsThickness += 1
-            self.myScale.set(self.toolsThickness)
-
-    def thicknessMinus(self, event):
-        if 1 < self.toolsThickness:
-            self.toolsThickness -= 1
-            self.myScale.set(self.toolsThickness)
+        self.loadSlice()
 
     def fileSave(self):
-        f = filedialog.asksaveasfile(mode='w', defaultextension=".txt")
-        if f is None: # asksaveasfile return `None` if dialog closed with "cancel".
-            return
-        text2save = str(text.get(1.0, END)) # starts from `1.0`, not `0.0`
-        f.write(text2save)
-        f.close() # `()` was missing.
+        for slice in self.slices():
+            np.savetxt('/Users/eiofinova/niftynet/assets/masks/%s/%s' % (str(self.patient_id), str(self.slice_idx)))
 
 root = Tk()
 root.title("Segmentation Editor")
