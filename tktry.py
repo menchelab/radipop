@@ -24,12 +24,12 @@ def assign_colors(mask):
     display_liver = np.zeros([mask.shape[0], mask.shape[1], 4])
     for row in range(mask.shape[0]):
         for col in range(mask.shape[1]):
-            if mask[row, col] >= 2:
-                display_liver[row, col] = RGB_tuples[mask[row, col] - 1] + [0.2]
+            if mask[row, col] >= 3:
+                display_liver[row, col] = RGB_tuples[mask[row, col] - 3] + [0.2]
             elif mask[row, col] == 1:
                 display_liver[row, col] = [0.9, 0, 0, 0.5]
             elif mask[row, col] == 2:
-                display_liver[row, col] = [0, 0, 0, 0.9, 0.5]
+                display_liver[row, col] = [0, 0, 0.9, 0.5]
 
     print("mmean", display_liver[:,:,3].mean())
     display_liver = display_liver*255
@@ -117,15 +117,6 @@ class Application(Frame):
                           pady = 2, padx = 3, sticky = S,
                           )
 
-        self.labelTools = Label(
-                                self.leftFrame,
-                                text = "Editing tools",
-                                )
-        self.labelTools.grid(
-                             row = 5, column = 0,
-                             pady = 2, padx = 3,
-                             sticky = NW
-                             )
 
         self.buttonPartition = Button(self.leftFrame, text = "correct partition",
                                       command = self.partitionOrgans)
@@ -160,6 +151,11 @@ class Application(Frame):
                                        command = self.toggleMask)
         self.buttonToggleMask.grid(padx = 3, pady = 2,
                                     row = 14, column = 0,
+                                    sticky = NW)
+        self.buttonExtend = Button(self.leftFrame, text = "extend to neighbors",
+                                       command = self.extend_labels)
+        self.buttonExtend.grid(padx = 3, pady = 2,
+                                    row = 15, column = 0,
                                     sticky = NW)
         self.buttonSave = Button(self.leftFrame, text = "save",
                                       command = self.fileSave)
@@ -215,9 +211,24 @@ class Application(Frame):
         if self.pixel_value == 2:
             mymask[mymask==self.pixel_value] = mymask.max() + 1
         elif self.pixel_value > 0:
+            print ("labeling spleen", self.pixel_value)
+            print(np.bincount(mymask.astype(np.uint8).ravel()))
             mymask[mymask==self.pixel_value] = 2
+            print("after", np.bincount(mymask.astype(np.uint8).ravel()))
             self.masks[self.slice_idx] = mymask
         self.displayMask()
+
+
+    def extend_labels(self):
+        cur_idx = self.slices.index(self.slice_idx)
+        ref_slice_idx = self.slice_idx
+        for i in range(1, min(10, cur_idx)):
+            self.masks[self.slice_idx - i] = dicom_utils.guess_bounds(self.masks[self.slice_idx - i], self.masks[ref_slice_idx])
+            ref_slice_idx = self.slice_idx - i
+        ref_slice_idx = self.slice_idx
+        for i in range(1, min(10, len(self.slices) - cur_idx)):
+            self.masks[self.slice_idx + i] = dicom_utils.guess_bounds(self.masks[self.slice_idx + i], self.masks[ref_slice_idx])
+            ref_slice_idx = self.slice_idx + i
 
     def setPartition(self):
         self.myCanvas.bind("<Button-1>", self.highlightOrgan)
@@ -281,6 +292,9 @@ class Application(Frame):
 
 
     def loadSlice(self):
+        self.drawLine = False
+        for line in self.lines:
+            self.myCanvas.delete
         file_dir = os.path.join(os.getcwd(), "assets", "niftynet_raw_images", str(self.patient_id), str(self.slice_idx) + ".png")
         print(file_dir)
         #int_file_dir = os.path.join(os.getcwd(), "assets", "masks", str(patient), str(slice) + ".txt")
