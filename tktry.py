@@ -8,6 +8,7 @@ import os
 import numpy as np
 import colorsys
 import dicom_utils
+import json
 
 # crappy code for creating colors, w00t
 N = 81
@@ -64,6 +65,10 @@ class Application(Frame):
         self.highlight_img = -1
         self.mask_img = -1
         self.slice_idx = -1
+        thresholds_file = "/Users/eiofinova/niftynet/thresholds.json"
+        with open(thresholds_file, 'r') as f:
+            self.thresholds = json.load(f)
+        self.thresholds = {int(k): v for k, v in self.thresholds.items()}
 
         self.pack()
         self.createWidgets()
@@ -223,6 +228,8 @@ class Application(Frame):
             self.pixel_value = pixel_value
 
     def labelLiver(self):
+        # TODO Jen - bug - if liver is in multiple pieces they should
+        # be independently togglable.
         mymask = self.masks[self.slice_idx]
         if self.pixel_value == 1:
             mymask[mymask==self.pixel_value] = mymask.max() + 1
@@ -291,6 +298,17 @@ class Application(Frame):
         self.masks = {int(file.split(".")[0]): np.loadtxt(os.path.join(file_dir, file), dtype=np.uint8) for file in os.listdir(file_dir) }
         print("masks loaded: ", len(self.masks))
 
+    def set_threshold_toggles(self):
+        thresholds = self.thresholds[self.patient_id]
+        self.boneIntensityScale.set(thresholds['bones_thresh'][0])
+        self.bloodVesselIntensityScale.set(thresholds['blood_vessels_thresh'][0])
+        self.liverIntensityScale.set(thresholds['liver_thresh'][0])
+        if 'slice_idx' in thresholds.keys():
+            print("slice idx", thresholds["slice_idx"])
+            return thresholds['slice_idx']
+        else:
+            return None
+
     def SetPatient(self):
         file_dir = os.path.join(os.getcwd(), "assets", "niftynet_raw_images")
         patients = [int(x) for x in os.listdir(file_dir) if len(os.listdir(os.path.join(file_dir, str(x)))) > 0]
@@ -298,14 +316,15 @@ class Application(Frame):
         val1 = int(self.myEntry1.get())
         if val1 in patients:
             self.patient_id = val1
+            good_slice = self.set_threshold_toggles()
             self.load_masks(self.patient_id)
             self.label.configure(text = "Current patient: %d" % val1)
             patient_dir = os.path.join(file_dir, str(self.patient_id))
             self.slices = [int(x.split(".")[0]) for x in os.listdir(patient_dir)]
             self.slices.sort()
             self.myScale.configure(from_ = self.slices[0], to=self.slices[-1])
-            self.myScale.set(self.slices[0])
-            self.slice_idx = self.slices[0]
+            self.slice_idx = good_slice or self.slices[0]
+            self.myScale.set(self.slice_idx)
             self.showMask = True
             self.loadSlice()
 
@@ -320,8 +339,9 @@ class Application(Frame):
         self.drawLine = False
         for line in self.lines:
             self.myCanvas.delete
-        file_dir = os.path.join(os.getcwd(), "assets", "niftynet_raw_images", str(self.patient_id), str(self.slice_idx) + ".png")
-        print(file_dir)
+        file_dir = os.path.join(
+            os.getcwd(), "assets", "niftynet_raw_images",
+            str(self.patient_id), str(self.slice_idx) + ".png")
         #int_file_dir = os.path.join(os.getcwd(), "assets", "masks", str(patient), str(slice) + ".txt")
         img = PhotoImage(file=file_dir)
         root.img = img
