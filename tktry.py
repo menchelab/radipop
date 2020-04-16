@@ -31,10 +31,8 @@ def assign_colors(mask):
             elif mask[row, col] == 2:
                 display_liver[row, col] = [0, 0, 0.9, 0.5]
 
-    print("mmean", display_liver[:,:,3].mean())
     display_liver = display_liver*255
     display_liver = display_liver.astype(np.uint8)
-    print("mmean", display_liver[:,:,3].mean())
     return display_liver
 #  http://effbot.org/tkinterbook/tkinter-events-and-bindings.htm
 #  http://infohost.nmt.edu/tcc/help/pubs/tkinter/web/index.html
@@ -152,15 +150,42 @@ class Application(Frame):
         self.buttonToggleMask.grid(padx = 3, pady = 2,
                                     row = 14, column = 0,
                                     sticky = NW)
+        self.boneIntensityScale = Scale(
+                            self.leftFrame, from_ = 100, to = 200,
+                            orient = HORIZONTAL,
+                            command = self.set_liver_intensity)
+        self.boneIntensityScale.set(200)
+        self.boneIntensityScale.grid(
+                          row = 15, column = 0,
+                          pady = 2, padx = 3, sticky = S,
+                          )
+        self.bloodVesselIntensityScale = Scale(
+                            self.leftFrame, from_ = 100, to = 200,
+                            orient = HORIZONTAL,
+                            command = self.set_liver_intensity)
+        self.bloodVesselIntensityScale.set(170)
+        self.bloodVesselIntensityScale.grid(
+                          row = 16, column = 0,
+                          pady = 2, padx = 3, sticky = S,
+                          )
+        self.liverIntensityScale = Scale(
+                            self.leftFrame, from_ = 100, to = 200,
+                            orient = HORIZONTAL,
+                            command = self.set_liver_intensity)
+        self.liverIntensityScale.set(120)
+        self.liverIntensityScale.grid(
+                          row = 17, column = 0,
+                          pady = 2, padx = 3, sticky = S,
+                          )
         self.buttonExtend = Button(self.leftFrame, text = "extend to neighbors",
                                        command = self.extend_labels)
         self.buttonExtend.grid(padx = 3, pady = 2,
-                                    row = 15, column = 0,
+                                    row = 26, column = 0,
                                     sticky = NW)
         self.buttonSave = Button(self.leftFrame, text = "save",
                                       command = self.fileSave)
         self.buttonSave.grid(padx = 3, pady = 2,
-                                    row = 20, column = 0,
+                                    row = 30, column = 0,
                                     sticky = NW)
 #----------------------------------------------------------------------
         self.myCanvas = Canvas(self, width = 800,
@@ -330,6 +355,27 @@ class Application(Frame):
             self.showMask = True
             self.buttonToggleMask.configure(text="hide mask")
             self.displayMask()
+
+    def set_liver_intensity(self, event):
+        bone_intensity = self.boneIntensityScale.get()
+        blood_vessel_intensity = self.bloodVesselIntensityScale.get()
+        liver_intensity = self.liverIntensityScale.get()
+        blood_vessels_thresh = [blood_vessel_intensity, 5, 64]
+        bones_thresh = [bone_intensity, 2, 64]
+        liver_thresh = [liver_intensity, 1, 64]
+        img_path = os.path.join(os.getcwd(), "assets", "niftynet_raw_images", str(self.patient_id), str(self.slice_idx) + ".png")
+        img = skio.imread(img_path)
+        mask = dicom_utils.partition_at_threshold(img, *bones_thresh, title="Bones", show_plot=False)
+        imgb = img.copy() * (1 - mask)
+        mask = dicom_utils.partition_at_threshold(imgb, *blood_vessels_thresh, title="Blood vessels", show_plot=False)
+        imgb = imgb * (1 - mask)
+        liver = dicom_utils.partition_at_threshold(imgb, *liver_thresh, title = "Organs/Liver", show_plot=False)
+        liver = dicom_utils.add_sobel_edges(liver, img)
+        mask = label(liver)
+        mask[mask>0] = mask[mask>0] + 2
+        self.masks[self.slice_idx] = mask
+        self.displayMask()
+
 
 
     def enableLineDrawing(self, event):

@@ -1,23 +1,27 @@
 from PIL import Image
 from scipy import ndimage as ndi
+from scipy import ndimage as ndi
+from scipy.ndimage.interpolation import shift
 from skimage import data, morphology
+from skimage import data, morphology, feature, filters
 from skimage import io as skio
 from skimage.color import label2rgb
 from skimage.exposure import histogram
 from skimage.feature import peak_local_max
 from skimage.filters import sobel, roberts, prewitt, threshold_otsu
+from skimage.future import graph
 from skimage.measure import label, regionprops
 from skimage.morphology import closing, opening, square, remove_small_holes, remove_small_objects
 from skimage.segmentation import clear_border
 import dicom2nifti
+import io as jio
+import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
+import networkx as nx
 import numpy as np
 import os
 import pydicom
 import sys
-import matplotlib.gridspec as gridspec
-from skimage import io
-import io as jio
 
 def create_images_for_display(name, reverse=False):
     path = "/Users/eiofinova/niftynet/data/ct_dicom/" + name
@@ -85,7 +89,7 @@ def create_images_for_display(name, reverse=False):
         #m = np.ones((mask.shape[0], mask.shape[1], 1))*50
         #mm = np.concatenate((mask, m), axis=2)
         #mim = Image.fromarray(np.uint8(mm))
-        aim.save(os.path.join(os.getcwd(), "assets/niftynet_raw_images", name, str(ext)+".jpg"), format='JPEG')
+        aim.save(os.path.join(os.getcwd(), "assets/niftynet_raw_images", name, str(ext)+".png"), format='PNG')
         #rgbimg = Image.new("RGBA", aim.size)
         #rgbimg.paste(aim)
         #rgbimg.paste(mim, (0, 0), mim)
@@ -103,8 +107,38 @@ def create_images_for_display(name, reverse=False):
     plt.savefig("assets/sample_crossections/" + name + ".png", format="png")
     return "success"
 
+def draw_region_outlines(img, mask):
+    # Color the mask light green. Color the edges of the mask darker green.
+    mask = mask>0
+    new_mask = np.zeros([*img.shape, 4], dtype = np.uint(8))
+    print("mask shape", new_mask.shape)
+    distance = ndi.distance_transform_edt(mask)
+    print(distance.mean())
+    print((mask>0).mean())
+    new_mask[:,:,1][mask > 0] = 30
+    new_mask[:,:,3][mask > 0] = 120
+    print(new_mask.mean(axis=(0, 1)))
+    #new_mask[mask > 0][3] = 100
+    new_mask[:,:, 1][((distance > 0) & (distance <= 2))] = 220
+    #print(new_mask.mean(axis=(0, 1)))
+    #print(new_mask.mean(axis=1))
+    #print(new_mask.mean(axis=2))
+    return new_mask
+
+def add_sobel_edges(mask, img):
+        edge_sobel = feature.canny(img, sigma=3)
+        edge_sobel[mask == 0] = 0
+        distance = ndi.distance_transform_edt(np.logical_not(edge_sobel))
+        mask[distance <= 1] = 0
+        mask = mask > 0
+        remove_small_objects(mask, in_place=True)
+        return(mask)
+
+
+
 
 def print_img(img, path):
+    os.makedirs(os.path.dirname(path), exist_ok = True)
     ax1 = plt.figure(figsize = (4,4))
     gs1 = gridspec.GridSpec(4, 4)
     gs1.update(wspace=0.025, hspace=0.05) # set the spacing between axes.
@@ -115,7 +149,91 @@ def print_img(img, path):
     plt.imshow(img, cmap=plt.cm.tab20)
     #ax1.subplots_adjust(wspace=None, hspace=None)
     plt.savefig(path + ".png", format="png")
+    return True
 
+def mask_img(img, mask, path):
+    print(path)
+    print("mean", img.mean())
+    aim = Image.fromarray(img.astype(np.uint8), mode='L')
+    aim.save(os.path.join(path + ".jpeg"), format='JPEG')
+
+    #m = np.ones((mask.shape[0], mask.shape[1], 1))*50
+    print(mask.shape)
+    print("mask mean", mask[:,:,3].mean())
+    #mm = np.concatenate((mask, m), axis=2)
+    mim = Image.fromarray(mask, mode='RGBA')
+    mim.save(os.path.join(path + "a.png"), format='PNG')
+    print(img.shape)
+    rgbimg = Image.new("RGBA", aim.size)
+    rgbimg.paste(aim)
+    #rgbimg.paste(mim)
+    rgbimg.paste(mim, (0, 0), mim)
+    rgbimg.save(os.path.join(path + ".png"), format='PNG')
+
+
+def save_partition(mask, path):
+    np.savetxt(path + ".txt", mask)
+
+
+def guess_bounds(regions_map, reference_map):
+        regions = regionprops(reference_map)
+        new_regions = regionprops(regions_map)
+        output = np.ones([regions_map.shape[0], regions_map.shape[1], len(regions)]) * 1000
+        labelz = np.array([x.label for x in regions])
+        for i, region in enumerate(regions):
+            regmask = np.zeros_like(reference_map)
+            regmask[reference_map == region.label] = 1
+            regmask = morphology.dilation(regmask, morphology.square(3)) * regions_map > 0
+            regmask = regmask.astype(np.int32)
+            if np.sum(regmask) == 0:
+                continue
+
+            c1 = region.centroid
+            c2 = regionprops(regmask)[0].centroid
+            centroid_move = (round(c2[0]-c1[0]), round(c2[1]-c1[1]))
+            growth_ratio = region.area - regionprops(regmask)[0].area
+            rat = round(growth_ratio / max(region.perimeter, 1))
+            rat = int(rat)
+            expected_newslice = (reference_map == region.label)
+
+            expected_newslice = expected_newslice.astype(np.int32)
+            if rat >= 1:
+                expected_newslice = morphology.dilation(expected_newslice, morphology.square(rat))
+            elif rat <= -1:
+                expected_newslice = morphology.erosion(expected_newslice, morphology.square(-1*rat))
+            expected_newslice = shift(expected_newslice, centroid_move, cval=0)
+
+            output[:,:,i] = ndi.distance_transform_edt(np.ones_like(expected_newslice) - expected_newslice)
+        next_region_id = labelz.max() + 1
+
+
+        # make a map dict of which region touches which other region
+        labelmap ={}
+        for region in new_regions:
+            labelmap[region.label] = [x for x in np.unique(reference_map * (regions_map == region.label)) if x > 0]
+        print("labelmap", labelmap)
+
+
+        finalfinal = np.zeros_like(regions_map)
+        for i in range(finalfinal.shape[0]):
+            for j in range(finalfinal.shape[1]):
+                pixel_val = regions_map[i,j]
+                if pixel_val == 0 or not labelmap[pixel_val]:
+                    continue
+                poss_labels = labelmap[pixel_val]
+                labels_idx = [list(labelz).index(x) for x in poss_labels]
+                candidates = output[i][j][labels_idx]
+                #TODO: this should be filtered by whether there is any intersection at all with this layer
+                finalfinal[i][j] = poss_labels[list(candidates).index(min(candidates))]
+
+        finalfinal = finalfinal * (regions_map > 0)
+
+
+        for new_region in new_regions:
+            if not ((regions_map == new_region.label) & (reference_map > 0)).sum():
+                finalfinal[regions_map == new_region.label] = next_region_id
+                next_region_id += 1
+        return finalfinal
 
 
 def compute_slice_width():
@@ -150,7 +268,7 @@ def get_longest_frame_interval(name, threshold=1):
         if val > threshold and current_start < 0:
             current_start = i
         elif (val <= threshold and current_start > 0) or (i == len(sat_values) - 1 and current_start > 0):
-            if i - current_start - 1 >elongest_interval[1] - longest_interval[0]:
+            if i - current_start - 1 > longest_interval[1] - longest_interval[0]:
                 longest_interval = [current_start, i - 1]
             current_start = -1
     return longest_interval
