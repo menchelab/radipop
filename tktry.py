@@ -315,6 +315,8 @@ class Application(Frame):
         # delete all the user-drawn lines
         for line in self.lines:
             self.myCanvas.delete(line)
+        self.lines = []
+        self.line_segments = []
         self.displayMask()
 
 
@@ -379,6 +381,10 @@ class Application(Frame):
             self.quest.set(1)
         else:
             self.quest.set(0)
+        for line in self.lines:
+            self.myCanvas.delete(line)
+        self.lines = []
+        self.line_segments = []
 
 
     def displayMask(self):
