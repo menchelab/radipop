@@ -21,6 +21,14 @@ RGB_tuples = list(map(lambda x: list(colorsys.hsv_to_rgb(*x)), HSV_tuples))
 
 
 def assign_colors(mask):
+    display_liver = dicom_utils.draw_region_outlines(mask)
+    for row in range(mask.shape[0]):
+        for col in range(mask.shape[1]):
+            if mask[row, col] == 1:
+                display_liver[row, col] = [200, 0, 0, 128]
+            elif mask[row, col] == 2:
+                display_liver[row, col] = [0, 0, 200, 128]
+    return display_liver
     #mask = label(mask)
     display_liver = np.zeros([mask.shape[0], mask.shape[1], 4])
     for row in range(mask.shape[0]):
@@ -69,6 +77,11 @@ class Application(Frame):
         with open(thresholds_file, 'r') as f:
             self.thresholds = json.load(f)
         self.thresholds = {int(k): v for k, v in self.thresholds.items()}
+        questionable_slices_file = "/Users/eiofinova/niftynet/questionable_slices.json"
+        with open(questionable_slices_file, 'r') as f:
+            self.questionable_slices = json.load(f)
+        self.questionable_slices = {int(k): [int(x) for x in v] for k, v in self.questionable_slices.items()}
+        print(self.questionable_slices)
 
         self.pack()
         self.createWidgets()
@@ -114,7 +127,7 @@ class Application(Frame):
                             command = self.setSlice
                             )
         self.myScale.set(2)
-        self.toolsThickness = 2
+        self.toolsThickness = 3
         self.myScale.grid(
                           row = 4, column = 0,
                           pady = 2, padx = 3, sticky = S,
@@ -156,7 +169,7 @@ class Application(Frame):
                                     row = 14, column = 0,
                                     sticky = NW)
         self.boneIntensityScale = Scale(
-                            self.leftFrame, from_ = 100, to = 200,
+                            self.leftFrame, from_ = 120, to = 220,
                             orient = HORIZONTAL,
                             command = self.set_liver_intensity)
         self.boneIntensityScale.set(200)
@@ -182,6 +195,14 @@ class Application(Frame):
                           row = 17, column = 0,
                           pady = 2, padx = 3, sticky = S,
                           )
+        self.quest = IntVar()
+        self.questCheck = Checkbutton(self.leftFrame, text='Bad slice',
+                                      variable=self.quest,
+                                      onvalue=1, offvalue=0, command=self.label_quest)
+        self.questCheck.grid(
+                          row = 18, column = 0,
+                          pady = 2, padx = 3, sticky = S,
+                          )
         self.buttonExtend = Button(self.leftFrame, text = "extend to neighbors",
                                        command = self.extend_labels)
         self.buttonExtend.grid(padx = 3, pady = 2,
@@ -205,11 +226,10 @@ class Application(Frame):
 
     def highlightOrgan(self, event):
         y, x = (event.x, event.y)
-        print("highlighting ", x, y)
         if x < self.masks[self.slice_idx].shape[0] and y < self.masks[self.slice_idx].shape[1]:
-            print("inside image %d %d" % (x, y))
+            self.last_clicked_x = x
+            self.last_clicked_y = y
             pixel_value = self.masks[self.slice_idx][x, y]
-            print("pixel value ", pixel_value)
             if pixel_value == 0:
                 self.pixel_value = pixel_value
                 self.myCanvas.delete(self.highlight_img)
@@ -217,9 +237,8 @@ class Application(Frame):
             if self.pixel_value == pixel_value:
                 return
             highlight = (self.masks[self.slice_idx] == pixel_value).astype(np.uint8) * 255
-            print("avg highlight value ", highlight.mean())
             highlight2 = np.zeros((*highlight.shape, 4))
-            highlight2[:, :, 0] = highlight
+            highlight2[:, :, 1] = highlight
             highlight2[:, :, 3] = 50
             highlight = Image.fromarray(highlight2.astype(np.uint8))
             myimg = ImageTk.PhotoImage(highlight)
@@ -232,7 +251,10 @@ class Application(Frame):
         # be independently togglable.
         mymask = self.masks[self.slice_idx]
         if self.pixel_value == 1:
-            mymask[mymask==self.pixel_value] = mymask.max() + 1
+            tempmask = (mymask > 0).astype(np.uint8)
+            tempmask = label(tempmask)
+            pixel_value = tempmask[self.last_clicked_x, self.last_clicked_y]
+            mymask[tempmask==pixel_value] = mymask.max() + 1
         elif self.pixel_value > 0:
             mymask[mymask==self.pixel_value] = 1
             self.masks[self.slice_idx] = mymask
@@ -241,14 +263,25 @@ class Application(Frame):
     def labelSpleen(self):
         mymask = self.masks[self.slice_idx]
         if self.pixel_value == 2:
-            mymask[mymask==self.pixel_value] = mymask.max() + 1
+            tempmask = (mymask > 0).astype(np.uint8)
+            tempmask = label(tempmask)
+            pixel_value = tempmask[self.last_clicked_x, self.last_clicked_y]
+            mymask[tempmask==pixel_value] = mymask.max() + 1
         elif self.pixel_value > 0:
-            print ("labeling spleen", self.pixel_value)
             print(np.bincount(mymask.astype(np.uint8).ravel()))
             mymask[mymask==self.pixel_value] = 2
-            print("after", np.bincount(mymask.astype(np.uint8).ravel()))
             self.masks[self.slice_idx] = mymask
         self.displayMask()
+
+    def label_quest(self):
+        if self.quest.get() == 1:
+            if self.slice_idx not in self.questionable_slices[self.patient_id]:
+                self.questionable_slices[self.patient_id].append(self.slice_idx)
+        else:
+            if self.slice_idx in self.questionable_slices[self.patient_id]:
+                self.questionable_slices[self.patient_id] = \
+                [x for x in self.questionable_slices[self.patient_id] if x != self.slice_idx]
+
 
 
     def extend_labels(self):
@@ -268,13 +301,10 @@ class Application(Frame):
         self.previousY = -1
         newmask = self.masks[self.slice_idx] > 0
         myimg = Image.fromarray(newmask.astype(np.uint8))
-        print(newmask.mean())
         draw = ImageDraw.Draw(myimg)
         for coords in self.line_segments:
             draw.line(coords, fill=0, width=2)
         result = np.array(myimg)
-        print("result mean ", result.mean())
-        print(result.shape)
         self.masks[self.slice_idx] = label(result)
         self.masks[self.slice_idx][ self.masks[self.slice_idx] > 0] = self.masks[self.slice_idx][ self.masks[self.slice_idx] > 0] + 2
 
@@ -296,7 +326,6 @@ class Application(Frame):
     def load_masks(self, patient_id):
         file_dir = os.path.join(os.getcwd(), "assets", "masks", str(patient_id))
         self.masks = {int(file.split(".")[0]): np.loadtxt(os.path.join(file_dir, file), dtype=np.uint8) for file in os.listdir(file_dir) }
-        print("masks loaded: ", len(self.masks))
 
     def set_threshold_toggles(self):
         thresholds = self.thresholds[self.patient_id]
@@ -304,7 +333,6 @@ class Application(Frame):
         self.bloodVesselIntensityScale.set(thresholds['blood_vessels_thresh'][0])
         self.liverIntensityScale.set(thresholds['liver_thresh'][0])
         if 'slice_idx' in thresholds.keys():
-            print("slice idx", thresholds["slice_idx"])
             return thresholds['slice_idx']
         else:
             return None
@@ -347,13 +375,16 @@ class Application(Frame):
         root.img = img
         self.img = self.myCanvas.create_image(0, 0, image=img, anchor=NW)
         self.displayMask()
+        if self.slice_idx in self.questionable_slices[self.patient_id]:
+            self.quest.set(1)
+        else:
+            self.quest.set(0)
 
 
     def displayMask(self):
         if self.showMask:
             if self.mask_img > 0:
                 self.myCanvas.delete(self.mask_img)
-            print("mmmmean", self.masks[self.slice_idx].mean())
             mask = assign_colors(self.masks[self.slice_idx])
             mask = Image.fromarray(mask.astype(np.uint8))
             self.mask = ImageTk.PhotoImage(mask)
@@ -364,7 +395,6 @@ class Application(Frame):
     def toggleMask(self):
         if self.showMask:
             self.showMask = False
-            print("hiding mask")
             self.myCanvas.delete(self.mask_img)
             if self.highlight_img > 0:
                 self.myCanvas.delete(self.highlight_img)
@@ -399,7 +429,6 @@ class Application(Frame):
 
 
     def enableLineDrawing(self, event):
-            print("now drawing")
             if not self.drawLine:
                 print("Drawing mode not enabled")
                 return
