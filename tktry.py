@@ -382,7 +382,7 @@ class Application(Frame):
         myimg = Image.fromarray(newmask.astype(np.uint8))
         draw = ImageDraw.Draw(myimg)
         for coords in self.line_segments:
-            draw.line(coords, fill=0, width=2)
+            draw.line(coords, fill=0, width=3)
         result = np.array(myimg)
         self.masks[self.slice_idx] = label(result)
         self.masks[self.slice_idx][ self.masks[self.slice_idx] > 0] = self.masks[self.slice_idx][ self.masks[self.slice_idx] > 0] + 2
