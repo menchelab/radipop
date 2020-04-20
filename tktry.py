@@ -54,6 +54,11 @@ def assign_colors(mask):
 # Organ lights up when clicked - v1 done
 # Organ label consistency across slices
 # Mark and ignore messed up slices
+# Still missing:
+# Check that save button works
+# Make configurable how far to extend corrections to each side
+# Display which slices were hand-corrected and which have liver/spleen
+# Extend threshold adjustments
 
 class Application(Frame):
 
@@ -217,7 +222,19 @@ class Application(Frame):
                           row = 18, column = 0,
                           pady = 2, padx = 3, sticky = S,
                           )
-        self.buttonExtend = Button(self.leftFrame, text = "extend to neighbors",
+        self.entryFrame = Frame(self.leftFrame)
+        self.entryFrame.grid(row = 25, column = 0,
+                              sticky = NW, pady = 2, padx = 3)
+
+        self.entry_label = Label(self.leftFrame, text = "Expansion bounds (L/R)")
+        self.entry_label.grid(row = 22, column = 0, sticky = NW, pady = 2, padx = 3)
+        self.myEntry1 = Entry(self.entryFrame, width = 5, insertwidth = 3)
+        self.myEntry1.pack(side = LEFT, pady = 2, padx = 4)
+        self.myEntry1.insert(END, 10)
+        self.myEntry2 = Entry(self.entryFrame, width = 5, insertwidth = 3)
+        self.myEntry2.pack(side = LEFT, pady = 2, padx = 4)
+        self.myEntry2.insert(END, 10)
+        self.buttonExtend = Button(self.leftFrame, text = "extend liver/spleen labels",
                                        command = self.extend_labels)
         self.buttonExtend.grid(padx = 3, pady = 2,
                                     row = 26, column = 0,
@@ -315,11 +332,13 @@ class Application(Frame):
     def extend_labels(self):
         cur_idx = self.slices.index(self.slice_idx)
         ref_slice_idx = self.slice_idx
-        for i in range(1, min(10, cur_idx)):
+        left_extend = int(self.myEntry1.get())
+        right_extend = int(self.myEntry2.get())
+        for i in range(1, min(left_extend, cur_idx)):
             self.masks[self.slice_idx - i] = dicom_utils.guess_bounds(self.masks[self.slice_idx - i], self.masks[ref_slice_idx])
             ref_slice_idx = self.slice_idx - i
         ref_slice_idx = self.slice_idx
-        for i in range(1, min(10, len(self.slices) - cur_idx)):
+        for i in range(1, min(right_extend, len(self.slices) - cur_idx)):
             self.masks[self.slice_idx + i] = dicom_utils.guess_bounds(self.masks[self.slice_idx + i], self.masks[ref_slice_idx])
             ref_slice_idx = self.slice_idx + i
 
