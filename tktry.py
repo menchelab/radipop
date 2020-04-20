@@ -344,11 +344,11 @@ class Application(Frame):
         ref_slice_idx = self.slice_idx
         left_extend = int(self.myEntry1.get())
         right_extend = int(self.myEntry2.get())
-        for i in range(1, min(left_extend, cur_idx)):
+        for i in range(1, min(left_extend+1, cur_idx)):
             self.masks[self.slice_idx - i] = dicom_utils.guess_bounds(self.masks[self.slice_idx - i], self.masks[ref_slice_idx])
             ref_slice_idx = self.slice_idx - i
         ref_slice_idx = self.slice_idx
-        for i in range(1, min(right_extend, len(self.slices) - cur_idx)):
+        for i in range(1, min(right_extend+1, len(self.slices) - cur_idx)):
             self.masks[self.slice_idx + i] = dicom_utils.guess_bounds(self.masks[self.slice_idx + i], self.masks[ref_slice_idx])
             ref_slice_idx = self.slice_idx + i
 
