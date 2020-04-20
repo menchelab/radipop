@@ -259,6 +259,16 @@ class Application(Frame):
             root.myimg = myimg
             self.highlight_img = self.myCanvas.create_image(0, 0, image=myimg, anchor=NW)
             self.pixel_value = pixel_value
+            if pixel_value == 1:
+                self.buttonLabelLiver.configure(text= "Remove liver label")
+            elif pixel_value == 2:
+                self.buttonLabelSpleen.configure(text= "Remove spleen label")
+            elif pixel_value > 0:
+                self.buttonLabelLiver.configure(text= "Set liver label")
+                self.buttonLabelSpleen.configure(text= "Set spleen label")
+            else:
+                self.buttonLabelLiver.configure(text= "")
+                self.buttonLabelSpleen.configure(text= "")
 
     def labelLiver(self):
         # TODO Jen - bug - if liver is in multiple pieces they should
@@ -269,11 +279,12 @@ class Application(Frame):
             tempmask = label(tempmask)
             pixel_value = tempmask[self.last_clicked_x, self.last_clicked_y]
             mymask[tempmask==pixel_value] = mymask.max() + 1
+            self.buttonLabelLiver.configure(text= "Set liver label")
         elif self.pixel_value > 0:
             mymask[mymask==self.pixel_value] = 1
             self.masks[self.slice_idx] = mymask
+            self.buttonLabelLiver.configure(text= "Remove liver label")
         self.displayMask()
-        self.buttonLabelLiver.configure(text= "Remove liver label")
 
     def labelSpleen(self):
         mymask = self.masks[self.slice_idx]
@@ -282,12 +293,13 @@ class Application(Frame):
             tempmask = label(tempmask)
             pixel_value = tempmask[self.last_clicked_x, self.last_clicked_y]
             mymask[tempmask==pixel_value] = mymask.max() + 1
+            self.buttonLabelSpleen.configure(text= "Set spleen label")
         elif self.pixel_value > 0:
             print(np.bincount(mymask.astype(np.uint8).ravel()))
             mymask[mymask==self.pixel_value] = 2
             self.masks[self.slice_idx] = mymask
+            self.buttonLabelSpleen.configure(text= "Remove spleen label")
         self.displayMask()
-        self.buttonLabelSpleen.configure(text= "Remove spleen label")
 
     def label_quest(self):
         if self.quest.get() == 1:
@@ -334,6 +346,8 @@ class Application(Frame):
         self.lines = []
         self.line_segments = []
         self.displayMask()
+        self.buttonLabelLiver.configure(text= "Set liver label")
+        self.buttonLabelSpleen.configure(text= "Set spleen label")
 
 
     def partitionOrgans(self):
@@ -399,6 +413,8 @@ class Application(Frame):
             self.myCanvas.delete(line)
         self.lines = []
         self.line_segments = []
+        self.buttonLabelLiver.configure(text= "Set liver label")
+        self.buttonLabelSpleen.configure(text= "Set spleen label")
 
 
     def displayMask(self):
@@ -445,6 +461,8 @@ class Application(Frame):
         mask[mask>0] = mask[mask>0] + 2
         self.masks[self.slice_idx] = mask
         self.displayMask()
+        self.buttonLabelLiver.configure(text= "Set liver label")
+        self.buttonLabelSpleen.configure(text= "Set spleen label")
 
 
 
