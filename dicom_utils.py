@@ -107,16 +107,16 @@ def create_images_for_display(name, reverse=False):
     plt.savefig("assets/sample_crossections/" + name + ".png", format="png")
     return "success"
 
-def draw_region_outlines(img, mask):
+def draw_region_outlines(mask):
     # Color the mask light green. Color the edges of the mask darker green.
     mask = mask>0
-    new_mask = np.zeros([*img.shape, 4], dtype = np.uint(8))
+    new_mask = np.zeros([*mask.shape, 4], dtype = np.uint(8))
     print("mask shape", new_mask.shape)
     distance = ndi.distance_transform_edt(mask)
     print(distance.mean())
     print((mask>0).mean())
-    new_mask[:,:,1][mask > 0] = 30
-    new_mask[:,:,3][mask > 0] = 120
+    new_mask[:,:,1][mask > 0] = 60
+    new_mask[:,:,3][mask > 0] = 100
     print(new_mask.mean(axis=(0, 1)))
     #new_mask[mask > 0][3] = 100
     new_mask[:,:, 1][((distance > 0) & (distance <= 2))] = 220
