@@ -131,25 +131,13 @@ class Application(Frame):
                                  command=self.SetPatient)
         #Label(mainframe, text="Choose a dish").grid(row = 1, column = 0)
         patientMenu.grid(row = 0, column =1)
-        #----------------------------------------------
-        #self.bttn1 = Button(self.leftFrame,
-        #                     text = "Load patient", command = self.SetPatient)
-        #self.bttn1.grid(row = 2, column = 0, pady = 2, padx = 3, sticky = NW)
         self.myCanvas = Canvas(self, width = 800,
                                 height = 500, relief=RAISED, borderwidth=5)
-        self.myCanvas.pack(expand=YES, fill=BOTH)
-
-
-#----------------------------------------------------------------------
-
-    def create_slice_widgets(self):
         tk_rgb = "#%02x%02x%02x" % (128, 192, 200)
         self.labelThickness = Label(
                             self.leftFrame,
                             text = "Select slice",
                             bg = tk_rgb)
-        self.labelThickness.grid(row = 3,
-                                 column = 0, sticky= NW, pady = 2, padx = 3)
 
         self.myScale = Scale(
                             self.leftFrame, from_ = 1, to = 250,
@@ -157,94 +145,50 @@ class Application(Frame):
                             command = self.setSlice
                             )
         self.myScale.set(1)
-        self.myScale.grid(
-                          row = 3, column = 1,
-                          pady = 2, padx = 3,# sticky = S,
-                          )
 
 
         self.buttonPartition = Button(self.leftFrame, text = "correct partition",
                                       command = self.partitionOrgans)
-        self.buttonPartition.grid(padx = 3, pady = 2,
-                                    row = 10, column = 0,
-                                    sticky = NW)
 
         self.buttonAccept = Button(self.leftFrame, text = "OK",
                                       command = self.setPartition)
-        self.buttonAccept.grid(padx = 3, pady = 2,
-                                    row = 10, column = 1,
-                                    sticky = NW)
 
         self.buttonDeleteAll = Button(self.leftFrame, text = "clear edits",
                                       command = self.deleteAll)
-        self.buttonDeleteAll.grid(padx = 3, pady = 2,
-                                    row = 11, column = 0,
-                                    sticky = NW)
 
         self.buttonLabelLiver = Button(self.leftFrame, text = "set liver label",
                                       command = self.labelLiver)
-        self.buttonLabelLiver.grid(padx = 3, pady = 2,
-                                    row = 12, column = 0,
-                                    sticky = NW)
 
         self.buttonLabelSpleen = Button(self.leftFrame, text = "set spleen label",
                                       command = self.labelSpleen)
-        self.buttonLabelSpleen.grid(padx = 3, pady = 2,
-                                    row = 13, column = 0,
-                                    sticky = NW)
         self.buttonToggleMask = Button(self.leftFrame, text = "hide mask",
                                        command = self.toggleMask)
-        self.buttonToggleMask.grid(padx = 3, pady = 2,
-                                    row = 14, column = 0,
-                                    sticky = NW)
         self.boneIntensityScale = Scale(
                             self.leftFrame, from_ = 120, to = 220,
                             orient = HORIZONTAL,
                             command = self.set_liver_intensity)
         self.boneIntensityScale.set(200)
-        self.boneIntensityScale.grid(
-                          row = 15, column = 0,
-                          pady = 2, padx = 3, sticky = S,
-                          )
         self.bloodVesselIntensityScale = Scale(
                             self.leftFrame, from_ = 100, to = 200,
                             orient = HORIZONTAL,
                             command = self.set_liver_intensity)
         self.bloodVesselIntensityScale.set(170)
-        self.bloodVesselIntensityScale.grid(
-                          row = 16, column = 0,
-                          pady = 2, padx = 3, sticky = S,
-                          )
         self.liverIntensityScale = Scale(
                             self.leftFrame, from_ = 100, to = 200,
                             orient = HORIZONTAL,
                             command = self.set_liver_intensity)
         self.liverIntensityScale.set(120)
-        self.liverIntensityScale.grid(
-                          row = 17, column = 0,
-                          pady = 2, padx = 3, sticky = S,
-                          )
         self.buttonExtendInt = Button(self.leftFrame, text = "set thresholds globally",
                                        command = self.extend_thresholds)
-        self.buttonExtendInt.grid(padx = 3, pady = 2,
-                                    row = 18, column = 0,
-                                    sticky = NW)
         self.quest = IntVar()
         self.questCheck = Checkbutton(self.leftFrame, text='Bad slice',
                                       variable=self.quest,
                                       onvalue=1, offvalue=0, command=self.label_quest)
-        self.questCheck.grid(
-                          row = 19, column = 0,
-                          pady = 2, padx = 3, sticky = S,
-                          )
         self.entryFrame = Frame(self.leftFrame)
-        self.entryFrame.grid(row = 25, column = 0,
-                              sticky = NW, pady = 2, padx = 3)
 
         self.entry_label = Label(self.leftFrame,
-                                 text = "Expansion bounds (L/R)"
+                                 text = "Expansion bounds (L/R)",
                                  bg = tk_rgb)
-        self.entry_label.grid(row = 22, column = 0, sticky = NW, pady = 2, padx = 3)
         self.myEntry1 = Entry(self.entryFrame, width = 5, insertwidth = 3)
         self.myEntry1.pack(side = LEFT, pady = 2, padx = 4)
         self.myEntry1.insert(END, 10)
@@ -253,20 +197,67 @@ class Application(Frame):
         self.myEntry2.insert(END, 10)
         self.buttonExtend = Button(self.leftFrame, text = "extend liver/spleen labels",
                                        command = self.extend_labels)
-        self.buttonExtend.grid(padx = 3, pady = 2,
-                                    row = 26, column = 0,
-                                    sticky = NW)
         self.buttonSave = Button(self.leftFrame, text = "save",
                                       command = self.fileSave)
-        self.buttonSave.grid(padx = 3, pady = 2,
-                                    row = 30, column = 0,
-                                    sticky = NW)
-#----------------------------------------------------------------------
-        #self.myCanvas = Canvas(self, width = 800,
-        #                        height = 500, relief=RAISED, borderwidth=5)
         self.myCanvas.pack(expand=YES, fill=BOTH)
         self.myCanvas.bind("<Button-1>", self.highlightOrgan)
 
+
+    def hide_button(self):
+        print("hiding button")
+        self.buttonSave.grid_forget()
+        self.buttonExtendInt.grid_forget()
+
+    def show_button(self):
+        self.buttonSave.grid(padx = 3, pady = 2,
+                                    row = 30, column = 0,
+                                    sticky = NW)
+        self.buttonExtendInt.grid(padx = 3, pady = 2,
+                                    row = 18, column = 0,
+                                    sticky = NW)
+
+    def navigation_controls(self):
+        return [[self.labelThickness, self.myScale]]
+
+    def slice_editing_controls(self):
+        return [[self.questCheck],
+                [self.buttonToggleMask],
+                [self.boneIntensityScale],
+                [self.bloodVesselIntensityScale],
+                [self.liverIntensityScale],
+                [self.buttonExtendInt],
+                [self.buttonPartition],
+                [self.buttonAccept, self.buttonDeleteAll],
+                ]
+
+    def label_controls(self):
+        return [
+            [self.buttonLabelLiver],
+            [self.buttonLabelSpleen],
+            [self.entry_label],
+            [self.entryFrame],
+            [self.buttonExtend]
+        ]
+
+    def save_controls(self):
+        return [[self.buttonSave]]
+
+
+    def show_controls(self, controls, offset):
+        for i, control_row in enumerate(controls):
+            for j, control_col in enumerate(control_row):
+                control_col.grid(
+                    row = offset + i,
+                    column = j,
+                    pady = 2,
+                    padx = 3,
+                    sticky = NW
+                )
+
+    def hide_controls(self, controls):
+        for control_row in controls:
+            for control in control_row:
+                control.grid_forget()
 
 
     def setSlice(self, event):
@@ -282,6 +273,7 @@ class Application(Frame):
             if pixel_value == 0:
                 self.pixel_value = pixel_value
                 self.myCanvas.delete(self.highlight_img)
+                self.hide_controls(self.label_controls())
                 return
             if self.pixel_value == pixel_value:
                 return
@@ -304,10 +296,9 @@ class Application(Frame):
             else:
                 self.buttonLabelLiver.configure(text= "")
                 self.buttonLabelSpleen.configure(text= "")
+            self.show_controls(self.label_controls(), 40)
 
     def labelLiver(self):
-        # TODO Jen - bug - if liver is in multiple pieces they should
-        # be independently togglable.
         mymask = self.masks[self.slice_idx]
         if self.pixel_value == 1:
             tempmask = (mymask > 0).astype(np.uint8)
@@ -344,7 +335,8 @@ class Application(Frame):
             if self.slice_idx in self.questionable_slices[self.patient_id]:
                 self.questionable_slices[self.patient_id] = \
                 [x for x in self.questionable_slices[self.patient_id] if x != self.slice_idx]
-
+        self.hide_controls(slice_editing_controls)
+        self.hide_controls(label_controls)
 
 
     def extend_labels(self):
@@ -411,6 +403,7 @@ class Application(Frame):
 
     def partitionOrgans(self):
         self.drawLine = True
+        self.hide_controls(self.label_controls())
         self.myCanvas.bind("<Button-1>", self.enableLineDrawing)
 
 
@@ -434,7 +427,6 @@ class Application(Frame):
         if val1 in self.patients:
             self.patient_id = val1
             self.load_masks(self.patient_id)
-            self.create_slice_widgets()
             good_slice = self.set_threshold_toggles()
             self.label.configure(text = "Current patient: %d" % val1)
             patient_dir = os.path.join(self.file_dir, str(self.patient_id))
@@ -445,6 +437,10 @@ class Application(Frame):
             self.myScale.set(self.slice_idx)
             self.showMask = True
             self.loadSlice()
+            self.hide_controls(self.label_controls())
+            self.hide_controls(self.slice_editing_controls())
+            self.show_controls(self.navigation_controls(), 10)
+            self.show_controls(self.save_controls(), 100)
 
 
         else:
@@ -475,6 +471,7 @@ class Application(Frame):
         self.line_segments = []
         self.buttonLabelLiver.configure(text= "Set liver label")
         self.buttonLabelSpleen.configure(text= "Set spleen label")
+        self.show_controls(self.slice_editing_controls(), 20)
 
 
     def displayMask(self):
@@ -552,6 +549,7 @@ class Application(Frame):
         self.previousY = -1
         self.myCanvas.delete("all")
         self.loadSlice()
+        self.hide_controls(self.label_controls())
 
     def fileSave(self):
         for slice in self.slices():
