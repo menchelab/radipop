@@ -214,12 +214,17 @@ class Application(Frame):
                           row = 17, column = 0,
                           pady = 2, padx = 3, sticky = S,
                           )
+        self.buttonExtendInt = Button(self.leftFrame, text = "set thresholds globally",
+                                       command = self.extend_thresholds)
+        self.buttonExtendInt.grid(padx = 3, pady = 2,
+                                    row = 18, column = 0,
+                                    sticky = NW)
         self.quest = IntVar()
         self.questCheck = Checkbutton(self.leftFrame, text='Bad slice',
                                       variable=self.quest,
                                       onvalue=1, offvalue=0, command=self.label_quest)
         self.questCheck.grid(
-                          row = 18, column = 0,
+                          row = 19, column = 0,
                           pady = 2, padx = 3, sticky = S,
                           )
         self.entryFrame = Frame(self.leftFrame)
@@ -341,6 +346,28 @@ class Application(Frame):
         for i in range(1, min(right_extend, len(self.slices) - cur_idx)):
             self.masks[self.slice_idx + i] = dicom_utils.guess_bounds(self.masks[self.slice_idx + i], self.masks[ref_slice_idx])
             ref_slice_idx = self.slice_idx + i
+
+    def extend_thresholds(self):
+        bone_intensity = self.boneIntensityScale.get()
+        blood_vessel_intensity = self.bloodVesselIntensityScale.get()
+        liver_intensity = self.liverIntensityScale.get()
+        blood_vessels_thresh = [blood_vessel_intensity, 5, 64]
+        bones_thresh = [bone_intensity, 2, 64]
+        liver_thresh = [liver_intensity, 1, 64]
+        for slice_idx in self.slices:
+            img_path = os.path.join(os.getcwd(), "assets", "niftynet_raw_images", str(self.patient_id), str(slice_idx) + ".png")
+            img = skio.imread(img_path)
+            mask = dicom_utils.partition_at_threshold(img, *bones_thresh, title="Bones", show_plot=False)
+            imgb = img.copy() * (1 - mask)
+            mask = dicom_utils.partition_at_threshold(imgb, *blood_vessels_thresh, title="Blood vessels", show_plot=False)
+            imgb = imgb * (1 - mask)
+            liver = dicom_utils.partition_at_threshold(imgb, *liver_thresh, title = "Organs/Liver", show_plot=False)
+            liver = dicom_utils.add_sobel_edges(liver, img)
+            mask = label(liver)
+            mask[mask>0] = mask[mask>0] + 2
+            self.masks[slice_idx] = mask
+        self.displayMask()
+
 
     def setPartition(self):
         self.myCanvas.bind("<Button-1>", self.highlightOrgan)
