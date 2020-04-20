@@ -56,9 +56,9 @@ def assign_colors(mask):
 # Mark and ignore messed up slices
 # Still missing:
 # Check that save button works
-# Make configurable how far to extend corrections to each side
+# Make configurable how far to extend corrections to each side - done
 # Display which slices were hand-corrected and which have liver/spleen
-# Extend threshold adjustments
+# Extend threshold adjustments - done
 
 class Application(Frame):
 
@@ -104,13 +104,14 @@ class Application(Frame):
 
 
     def createWidgets(self):
-        print("creating!")
         tk_rgb = "#%02x%02x%02x" % (128, 192, 200)
 
         self.leftFrame = Frame(self, bg = tk_rgb)
         self.leftFrame.pack(side = LEFT, fill = Y)
 
-        self.label = Label(self.leftFrame, text = "enter patient id ")
+        self.label = Label(self.leftFrame,
+                           text = "Patient id ",
+                           bg = tk_rgb)
         self.label.grid(row = 0, column = 0, sticky = NW, pady = 2, padx = 3)
         #-----------------------------------------------
         #self.entryFrame = Frame(self.leftFrame)
@@ -129,17 +130,26 @@ class Application(Frame):
         patientMenu = OptionMenu(self.leftFrame, self.tkvar, *choices,
                                  command=self.SetPatient)
         #Label(mainframe, text="Choose a dish").grid(row = 1, column = 0)
-        patientMenu.grid(row = 1, column =0)
+        patientMenu.grid(row = 0, column =1)
         #----------------------------------------------
         #self.bttn1 = Button(self.leftFrame,
         #                     text = "Load patient", command = self.SetPatient)
         #self.bttn1.grid(row = 2, column = 0, pady = 2, padx = 3, sticky = NW)
+        self.myCanvas = Canvas(self, width = 800,
+                                height = 500, relief=RAISED, borderwidth=5)
+        self.myCanvas.pack(expand=YES, fill=BOTH)
 
+
+#----------------------------------------------------------------------
+
+    def create_slice_widgets(self):
+        tk_rgb = "#%02x%02x%02x" % (128, 192, 200)
         self.labelThickness = Label(
                             self.leftFrame,
-                            text = "Select slice")
+                            text = "Select slice",
+                            bg = tk_rgb)
         self.labelThickness.grid(row = 3,
-                                 column = 0, pady = 2, padx = 3)
+                                 column = 0, sticky= NW, pady = 2, padx = 3)
 
         self.myScale = Scale(
                             self.leftFrame, from_ = 1, to = 250,
@@ -148,8 +158,8 @@ class Application(Frame):
                             )
         self.myScale.set(1)
         self.myScale.grid(
-                          row = 4, column = 0,
-                          pady = 2, padx = 3, sticky = S,
+                          row = 3, column = 1,
+                          pady = 2, padx = 3,# sticky = S,
                           )
 
 
@@ -231,7 +241,9 @@ class Application(Frame):
         self.entryFrame.grid(row = 25, column = 0,
                               sticky = NW, pady = 2, padx = 3)
 
-        self.entry_label = Label(self.leftFrame, text = "Expansion bounds (L/R)")
+        self.entry_label = Label(self.leftFrame,
+                                 text = "Expansion bounds (L/R)"
+                                 bg = tk_rgb)
         self.entry_label.grid(row = 22, column = 0, sticky = NW, pady = 2, padx = 3)
         self.myEntry1 = Entry(self.entryFrame, width = 5, insertwidth = 3)
         self.myEntry1.pack(side = LEFT, pady = 2, padx = 4)
@@ -250,12 +262,13 @@ class Application(Frame):
                                     row = 30, column = 0,
                                     sticky = NW)
 #----------------------------------------------------------------------
-        self.myCanvas = Canvas(self, width = 800,
-                                height = 500, relief=RAISED, borderwidth=5)
+        #self.myCanvas = Canvas(self, width = 800,
+        #                        height = 500, relief=RAISED, borderwidth=5)
         self.myCanvas.pack(expand=YES, fill=BOTH)
         self.myCanvas.bind("<Button-1>", self.highlightOrgan)
 
-#----------------------------------------------------------------------
+
+
     def setSlice(self, event):
         self.slice_idx = self.myScale.get()
         self.loadSlice()
@@ -420,8 +433,9 @@ class Application(Frame):
         val1 = int(choice)
         if val1 in self.patients:
             self.patient_id = val1
-            good_slice = self.set_threshold_toggles()
             self.load_masks(self.patient_id)
+            self.create_slice_widgets()
+            good_slice = self.set_threshold_toggles()
             self.label.configure(text = "Current patient: %d" % val1)
             patient_dir = os.path.join(self.file_dir, str(self.patient_id))
             self.slices = [int(x.split(".")[0]) for x in os.listdir(patient_dir)]
