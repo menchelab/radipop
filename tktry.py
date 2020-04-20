@@ -61,7 +61,7 @@ class Application(Frame):
         super().__init__(master)
         self.radiobuttonValue = IntVar()
         self.radiobuttonValue.set(1)
-        self.toolsThickness = 2
+        self.toolsThickness = 3
         self.rgb = "#%02x%02x%02x" % (100, 100, 100)
         self.drawLine = False
         self.previousX = -1
@@ -73,6 +73,10 @@ class Application(Frame):
         self.highlight_img = -1
         self.mask_img = -1
         self.slice_idx = -1
+        self.patient_id = 1
+        self.file_dir = os.path.join(os.getcwd(), "assets", "niftynet_raw_images")
+        self.patients = [int(x) for x in os.listdir(self.file_dir) if len(os.listdir(os.path.join(self.file_dir, str(x)))) > 0]
+        print("patients are", self.patients)
         thresholds_file = "/Users/eiofinova/niftynet/thresholds.json"
         with open(thresholds_file, 'r') as f:
             self.thresholds = json.load(f)
@@ -104,30 +108,40 @@ class Application(Frame):
         self.label = Label(self.leftFrame, text = "enter patient id ")
         self.label.grid(row = 0, column = 0, sticky = NW, pady = 2, padx = 3)
         #-----------------------------------------------
-        self.entryFrame = Frame(self.leftFrame)
-        self.entryFrame.grid(row = 1, column = 0,
-                              sticky = NW, pady = 2, padx = 3)
+        #self.entryFrame = Frame(self.leftFrame)
+        #self.entryFrame.grid(row = 1, column = 0,
+        #                      sticky = NW, pady = 2, padx = 3)
 
-        self.myEntry1 = Entry(self.entryFrame, width = 5, insertwidth = 3)
-        self.myEntry1.pack(side = LEFT, pady = 2, padx = 4)
+        #self.myEntry1 = Entry(self.entryFrame, width = 5, insertwidth = 3)
+        #self.myEntry1.pack(side = LEFT, pady = 2, padx = 4)
+        # Create a Tkinter variable
+        self.tkvar = IntVar(root)
+
+        # Dictionary with options
+        choices = {p for p in self.patients}
+        self.tkvar.set(1) # set the default option
+
+        patientMenu = OptionMenu(self.leftFrame, self.tkvar, *choices,
+                                 command=self.SetPatient)
+        #Label(mainframe, text="Choose a dish").grid(row = 1, column = 0)
+        patientMenu.grid(row = 1, column =0)
         #----------------------------------------------
-        self.bttn1 = Button(self.leftFrame,
-                             text = "Load patient", command = self.SetPatient)
-        self.bttn1.grid(row = 2, column = 0, pady = 2, padx = 3, sticky = NW)
+        #self.bttn1 = Button(self.leftFrame,
+        #                     text = "Load patient", command = self.SetPatient)
+        #self.bttn1.grid(row = 2, column = 0, pady = 2, padx = 3, sticky = NW)
 
         self.labelThickness = Label(
                             self.leftFrame,
-                            text = "Position selector")
+                            text = "Select slice")
         self.labelThickness.grid(row = 3,
                                  column = 0, pady = 2, padx = 3)
 
         self.myScale = Scale(
-                            self.leftFrame, from_ = 1, to = 25,
+                            self.leftFrame, from_ = 1, to = 250,
                             orient = HORIZONTAL,
                             command = self.setSlice
                             )
-        self.myScale.set(2)
-        self.toolsThickness = 3
+        self.myScale.set(1)
         self.myScale.grid(
                           row = 4, column = 0,
                           pady = 2, padx = 3, sticky = S,
@@ -152,13 +166,13 @@ class Application(Frame):
                                     row = 11, column = 0,
                                     sticky = NW)
 
-        self.buttonLabelLiver = Button(self.leftFrame, text = "toggle liver label",
+        self.buttonLabelLiver = Button(self.leftFrame, text = "set liver label",
                                       command = self.labelLiver)
         self.buttonLabelLiver.grid(padx = 3, pady = 2,
                                     row = 12, column = 0,
                                     sticky = NW)
 
-        self.buttonLabelSpleen = Button(self.leftFrame, text = "toggle spleen label",
+        self.buttonLabelSpleen = Button(self.leftFrame, text = "set spleen label",
                                       command = self.labelSpleen)
         self.buttonLabelSpleen.grid(padx = 3, pady = 2,
                                     row = 13, column = 0,
@@ -259,6 +273,7 @@ class Application(Frame):
             mymask[mymask==self.pixel_value] = 1
             self.masks[self.slice_idx] = mymask
         self.displayMask()
+        self.buttonLabelLiver.configure(text= "Remove liver label")
 
     def labelSpleen(self):
         mymask = self.masks[self.slice_idx]
@@ -272,6 +287,7 @@ class Application(Frame):
             mymask[mymask==self.pixel_value] = 2
             self.masks[self.slice_idx] = mymask
         self.displayMask()
+        self.buttonLabelSpleen.configure(text= "Remove spleen label")
 
     def label_quest(self):
         if self.quest.get() == 1:
@@ -339,17 +355,15 @@ class Application(Frame):
         else:
             return None
 
-    def SetPatient(self):
-        file_dir = os.path.join(os.getcwd(), "assets", "niftynet_raw_images")
-        patients = [int(x) for x in os.listdir(file_dir) if len(os.listdir(os.path.join(file_dir, str(x)))) > 0]
-        print("patients are", patients)
-        val1 = int(self.myEntry1.get())
-        if val1 in patients:
+    def SetPatient(self, choice):
+        val1 = int(self.tkvar.get())
+        val1 = int(choice)
+        if val1 in self.patients:
             self.patient_id = val1
             good_slice = self.set_threshold_toggles()
             self.load_masks(self.patient_id)
             self.label.configure(text = "Current patient: %d" % val1)
-            patient_dir = os.path.join(file_dir, str(self.patient_id))
+            patient_dir = os.path.join(self.file_dir, str(self.patient_id))
             self.slices = [int(x.split(".")[0]) for x in os.listdir(patient_dir)]
             self.slices.sort()
             self.myScale.configure(from_ = self.slices[0], to=self.slices[-1])
