@@ -163,16 +163,28 @@ class Application(Frame):
                                       command = self.labelSpleen)
         self.buttonToggleMask = Button(self.leftFrame, text = "hide mask",
                                        command = self.toggleMask)
+        self.labelBoneIntensity = Label(
+                            self.leftFrame,
+                            text = "Bone intensity",
+                            bg = tk_rgb)
         self.boneIntensityScale = Scale(
                             self.leftFrame, from_ = 120, to = 220,
                             orient = HORIZONTAL,
                             command = self.set_liver_intensity)
         self.boneIntensityScale.set(200)
+        self.labelBloodVesselIntensity = Label(
+                            self.leftFrame,
+                            text = "Blood vessel intensity",
+                            bg = tk_rgb)
         self.bloodVesselIntensityScale = Scale(
                             self.leftFrame, from_ = 100, to = 200,
                             orient = HORIZONTAL,
                             command = self.set_liver_intensity)
         self.bloodVesselIntensityScale.set(170)
+        self.labelLiverIntensity = Label(
+                            self.leftFrame,
+                            text = "Liver intensity",
+                            bg = tk_rgb)
         self.liverIntensityScale = Scale(
                             self.leftFrame, from_ = 100, to = 200,
                             orient = HORIZONTAL,
@@ -222,8 +234,11 @@ class Application(Frame):
     def slice_editing_controls(self):
         return [[self.questCheck],
                 [self.buttonToggleMask],
+                [self.labelBoneIntensity],
                 [self.boneIntensityScale],
+                [self.labelBloodVesselIntensity],
                 [self.bloodVesselIntensityScale],
+                [self.labelLiverIntensity],
                 [self.liverIntensityScale],
                 [self.buttonExtendInt],
                 [self.buttonPartition],
@@ -552,8 +567,12 @@ class Application(Frame):
         self.hide_controls(self.label_controls())
 
     def fileSave(self):
-        for slice in self.slices():
-            np.savetxt('/Users/eiofinova/niftynet/assets/masks/%s/%s' % (str(self.patient_id), str(self.slice_idx)))
+        for slice in self.slices:
+            np.savetxt('/Users/eiofinova/niftynet/assets/masks/%s/%s' % (str(self.patient_id), str(self.slice_idx)), self.masks[slice])
+        with open("./questionable_slices.json", 'w') as f:
+            json.dump(self.questionable_slices, f)
+        with open("./thresholds.json", 'w') as f:
+            json.dump(self.thresholds, f)
 
 root = Tk()
 root.title("Segmentation Editor")
