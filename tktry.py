@@ -361,10 +361,12 @@ class Application(Frame):
         right_extend = int(self.myEntry2.get())
         for i in range(1, min(left_extend+1, cur_idx)):
             self.masks[self.slice_idx - i] = dicom_utils.guess_bounds(self.masks[self.slice_idx - i], self.masks[ref_slice_idx])
-            ref_slice_idx = self.slice_idx - i
+            if self.slice_idx - i in self.questionable_slices:
+                ref_slice_idx = self.slice_idx - i
         ref_slice_idx = self.slice_idx
         for i in range(1, min(right_extend+1, len(self.slices) - cur_idx)):
             self.masks[self.slice_idx + i] = dicom_utils.guess_bounds(self.masks[self.slice_idx + i], self.masks[ref_slice_idx])
+            if self.slice_idx + i not in self.questionable_slices:
             ref_slice_idx = self.slice_idx + i
 
     def extend_thresholds(self):
