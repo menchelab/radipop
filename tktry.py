@@ -9,6 +9,7 @@ import numpy as np
 import colorsys
 import dicom_utils
 import json
+import pickle
 
 # crappy code for creating colors, w00t
 N = 81
@@ -154,7 +155,7 @@ class Application(Frame):
                                       command = self.setPartition)
 
         self.buttonDeleteAll = Button(self.leftFrame, text = "clear edits",
-                                      command = self.deleteAll)
+                                      command = self.deleteAndReload)
 
         self.buttonLabelLiver = Button(self.leftFrame, text = "set liver label",
                                       command = self.labelLiver)
@@ -350,8 +351,7 @@ class Application(Frame):
             if self.slice_idx in self.questionable_slices[self.patient_id]:
                 self.questionable_slices[self.patient_id] = \
                 [x for x in self.questionable_slices[self.patient_id] if x != self.slice_idx]
-        self.hide_controls(slice_editing_controls)
-        self.hide_controls(label_controls)
+        self.hide_controls(self.label_controls())
 
 
     def extend_labels(self):
@@ -367,7 +367,7 @@ class Application(Frame):
         for i in range(1, min(right_extend+1, len(self.slices) - cur_idx)):
             self.masks[self.slice_idx + i] = dicom_utils.guess_bounds(self.masks[self.slice_idx + i], self.masks[ref_slice_idx])
             if self.slice_idx + i not in self.questionable_slices:
-            ref_slice_idx = self.slice_idx + i
+                ref_slice_idx = self.slice_idx + i
 
     def extend_thresholds(self):
         bone_intensity = self.boneIntensityScale.get()
@@ -376,6 +376,12 @@ class Application(Frame):
         blood_vessels_thresh = [blood_vessel_intensity, 5, 64]
         bones_thresh = [bone_intensity, 2, 64]
         liver_thresh = [liver_intensity, 1, 64]
+        self.thresholds[self.patient_id] = {
+            "bones_thresh": bones_thresh,
+            "blood_vessels_thresh": blood_vessels_thresh,
+            "liver_thresh": liver_thresh,
+            "ref_slice_idx": self.slice_idx,
+        }
         for slice_idx in self.slices:
             img_path = os.path.join(os.getcwd(), "assets", "niftynet_raw_images", str(self.patient_id), str(slice_idx) + ".png")
             img = skio.imread(img_path)
@@ -426,7 +432,8 @@ class Application(Frame):
 
     def load_masks(self, patient_id):
         file_dir = os.path.join(os.getcwd(), "assets", "masks", str(patient_id))
-        self.masks = {int(file.split(".")[0]): np.loadtxt(os.path.join(file_dir, file), dtype=np.uint8) for file in os.listdir(file_dir) }
+        self.masks = {int(file.split(".")[0]): \
+                      pickle.load(open(os.path.join(file_dir, file), 'rb')) for file in os.listdir(file_dir) }
 
     def set_threshold_toggles(self):
         thresholds = self.thresholds[self.patient_id]
@@ -439,6 +446,7 @@ class Application(Frame):
             return None
 
     def SetPatient(self, choice):
+        self.deleteAll()
         val1 = int(self.tkvar.get())
         val1 = int(choice)
         if val1 in self.patients:
@@ -560,20 +568,26 @@ class Application(Frame):
             self.line_segments.append([self.previousX, self.previousY, x, y])
             self.lines.append(line)
 
+    def deleteAndReload(self):
+        self.deleteAll()
+        self.loadSlice()
+
     def deleteAll(self):
         print("deleting")
         self.previousX = -1
         self.previousY = -1
         self.myCanvas.delete("all")
-        self.loadSlice()
         self.hide_controls(self.label_controls())
 
     def fileSave(self):
         for slice in self.slices:
-            np.savetxt('/Users/eiofinova/niftynet/assets/masks/%s/%s' % (str(self.patient_id), str(self.slice_idx)), self.masks[slice])
+            print("saving slice", slice, )
+            pickle.dump(self.masks[slice],
+                        open('/Users/eiofinova/niftynet/assets/masks/%s/%s.txt' % (str(self.patient_id), str(slice)), 'wb'))
         with open("./questionable_slices.json", 'w') as f:
             json.dump(self.questionable_slices, f)
         with open("./thresholds.json", 'w') as f:
+            print("thresh", self.thresholds[self.patient_id])
             json.dump(self.thresholds, f)
 
 root = Tk()

@@ -22,6 +22,7 @@ import numpy as np
 import os
 import pydicom
 import sys
+import pickle
 
 def create_images_for_display(name, reverse=False):
     path = "/Users/eiofinova/niftynet/data/ct_dicom/" + name
@@ -172,7 +173,9 @@ def mask_img(img, mask, path):
 
 
 def save_partition(mask, path):
-    np.savetxt(path + ".txt", mask)
+    mask = mask.astype(np.uint8)
+    pickle.dump(mask, open( path + ".p", "wb" ))
+
 
 
 def guess_bounds(regions_map, reference_map):
