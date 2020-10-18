@@ -39,7 +39,6 @@ def find_organs(slice_idx, patient_id, bones_thresh, blood_vessels_thresh, liver
         - Everything that then remains above liver threshold is called an organ.
         - Use contiguous area divisions to roughly split into organs.
     '''
-    print("finding organs")
     img_path = os.path.join(os.getcwd(), "assets", "niftynet_raw_images", str(patient_id), str(slice_idx) + ".png")
     img = skio.imread(img_path)
     mask = segmentation_utils.partition_at_threshold(img, *bones_thresh, title="Bones", show_plot=False)
@@ -87,15 +86,15 @@ class Application(Frame):
         self.file_dir = os.path.join(os.getcwd(), "assets", "niftynet_raw_images")
         self.patients = [int(x) for x in os.listdir(self.file_dir) if len(os.listdir(os.path.join(self.file_dir, str(x)))) > 0]
         print("patients are", self.patients)
-        thresholds_file = "/Users/eiofinova/niftynet/thresholds.json"
+
+        thresholds_file = os.path.join(os.getcwd(), "thresholds.json")
         with open(thresholds_file, 'r') as f:
             self.thresholds = json.load(f)
         self.thresholds = {int(k): v for k, v in self.thresholds.items()}
-        questionable_slices_file = "/Users/eiofinova/niftynet/questionable_slices.json"
+        questionable_slices_file = os.path.join(os.getcwd(), "questionable_slices.json")
         with open(questionable_slices_file, 'r') as f:
             self.questionable_slices = json.load(f)
         self.questionable_slices = {int(k): [int(x) for x in v] for k, v in self.questionable_slices.items()}
-        print(self.questionable_slices)
 
         self.pack()
         self.createWidgets()
@@ -156,11 +155,13 @@ class Application(Frame):
                             self.leftFrame,
                             text = "Bone intensity",
                             bg = tk_rgb)
+        self.bone_var = IntVar()
         self.boneIntensityScale = Scale(
                             self.leftFrame, from_ = 120, to = 220,
                             orient = HORIZONTAL,
+                            variable = self.bone_var,
                             command = self.set_liver_intensity)
-        self.boneIntensityScale.set(200)
+        self.blood_vessel_var = IntVar()
         self.labelBloodVesselIntensity = Label(
                             self.leftFrame,
                             text = "Blood vessel intensity",
@@ -168,8 +169,9 @@ class Application(Frame):
         self.bloodVesselIntensityScale = Scale(
                             self.leftFrame, from_ = 100, to = 200,
                             orient = HORIZONTAL,
+                            variable = self.blood_vessel_var,
                             command = self.set_liver_intensity)
-        self.bloodVesselIntensityScale.set(170)
+        self.liver_var = IntVar()
         self.labelLiverIntensity = Label(
                             self.leftFrame,
                             text = "Liver intensity",
@@ -177,8 +179,8 @@ class Application(Frame):
         self.liverIntensityScale = Scale(
                             self.leftFrame, from_ = 100, to = 200,
                             orient = HORIZONTAL,
+                            variable = self.liver_var,
                             command = self.set_liver_intensity)
-        self.liverIntensityScale.set(120)
         self.buttonExtendInt = Button(self.leftFrame, text = "set thresholds globally",
                                        command = self.extend_thresholds)
         self.quest = IntVar()
@@ -325,7 +327,6 @@ class Application(Frame):
             mymask[tempmask==pixel_value] = mymask.max() + 1
             self.buttonLabelSpleen.configure(text= "Set spleen label")
         elif self.pixel_value > 0:
-            print(np.bincount(mymask.astype(np.uint8).ravel()))
             mymask[mymask==self.pixel_value] = 2
             self.masks[self.slice_idx] = mymask
             self.buttonLabelSpleen.configure(text= "Remove spleen label")
@@ -410,14 +411,22 @@ class Application(Frame):
 
     def load_masks(self, patient_id):
         file_dir = os.path.join(os.getcwd(), "assets", "masks", str(patient_id))
+        print("loading masks from ", file_dir)
         self.masks = {int(file.split(".")[0]): \
                       pickle.load(open(os.path.join(file_dir, file), 'rb')) for file in os.listdir(file_dir) }
 
     def set_threshold_toggles(self):
-        thresholds = self.thresholds[self.patient_id]
-        self.boneIntensityScale.set(thresholds['bones_thresh'][0])
-        self.bloodVesselIntensityScale.set(thresholds['blood_vessels_thresh'][0])
+        if self.patient_id in self.thresholds.keys():
+            thresholds = self.thresholds[self.patient_id]
+        else:
+            thresholds = {"bones_thresh": [200, 2, 64],
+                          "blood_vessels_thresh": [165, 5, 64],
+                          "liver_thresh": [130, 1, 64]}
+        self.bone_var.set(thresholds['bones_thresh'][0])
+        self.blood_vessel_var.set(thresholds['blood_vessels_thresh'][0])
+        self.liver_var.set(thresholds['liver_thresh'][0])
         self.liverIntensityScale.set(thresholds['liver_thresh'][0])
+
         if 'slice_idx' in thresholds.keys():
             return thresholds['slice_idx']
         else:
@@ -463,6 +472,8 @@ class Application(Frame):
         root.img = img
         self.img = self.myCanvas.create_image(0, 0, image=img, anchor=NW)
         self.displayMask()
+        if self.patient_id not in self.questionable_slices:
+            self.questionable_slices[self.patient_id] = []
         if self.slice_idx in self.questionable_slices[self.patient_id]:
             self.quest.set(1)
         else:
@@ -550,12 +561,12 @@ class Application(Frame):
     def fileSave(self):
         for slice in self.slices:
             print("saving slice", slice, )
+            file_dir = os.path.join(os.getcwd(), "assets", "masks", str(self.patient_id))
             pickle.dump(self.masks[slice],
-                        open('/Users/eiofinova/niftynet/assets/masks/%s/%s.txt' % (str(self.patient_id), str(slice)), 'wb'))
+                        open(os.path.join(file_dir, str(slice) + '.p'), 'wb'))
         with open("./questionable_slices.json", 'w') as f:
             json.dump(self.questionable_slices, f)
         with open("./thresholds.json", 'w') as f:
-            print("thresh", self.thresholds[self.patient_id])
             json.dump(self.thresholds, f)
 
 root = Tk()

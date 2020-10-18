@@ -24,13 +24,20 @@ import pydicom
 import sys
 import pickle
 
-def create_images_for_display(name, reverse=False):
-    path = "/Users/eiofinova/niftynet/data/ct_dicom/" + name
-    #mask_path = "/Users/eiofinova/niftynet/data/mask_jpg/"
-    #!mkdir -p {os.path.join(os.getcwd(), "assets/niftynet_masked_images", name)}
+def create_images_for_display(name, input_dir=None, output_dir=None):
+    '''
+    Convert images from DICOM to png.
+    '''
+    if input_dir == None:
+        input_dir = "data/ct_dicom/"
+    path = input_dir  + name
+
+    if output_dir == None:
+        output_dir = "assets/niftynet_raw_images"
     try:
-        os.mkdir(os.path.join(os.getcwd(), "assets/niftynet_raw_images", name))
+        os.mkdir_p(os.path.join(output_dir, name))
     except:
+        print("Patient %s failed" % name)
         pass
     files = [pydicom.dcmread(os.path.join(path, f)) for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     if not files:
@@ -40,21 +47,12 @@ def create_images_for_display(name, reverse=False):
     # Patient scans are either "feet first" (FFS) or "head first" (HFS). If FFS, they must be reversed.
     reverse = patient_position == "FFS"
     files.sort(key=lambda x: float(x.SliceLocation), reverse=reverse)
-    #print(name, "slice width ", abs(round((files[0].SliceLocation - files[-1].SliceLocation) / len(files), 1)), len(files))
 
 
     organs = get_longest_frame_interval(name)
     files = files[organs[0]:organs[1]]
 
     num_slides = len(files)
-
-
-    plt.figure(figsize = (4,4))
-    gs1 = gridspec.GridSpec(4, 4)
-    gs1.update(wspace=0.025, hspace=0.05) # set the spacing between axes.
-
-    from matplotlib.pyplot import figure
-    figure(num=None, figsize=(16, 16))
 
     max_frame = [10000, 10000, 0, 0]
     for i, file in enumerate(files):
@@ -66,51 +64,18 @@ def create_images_for_display(name, reverse=False):
 
 
     for i, file in enumerate(files):
-        #file = file[50]
-
-        idx = int(i/16)
 
         ext = i + organs[0]
-        #try:
-        #    mask = io.imread(os.path.join(mask_path, '%s-slice%s.jpg' % (name, str(ext).zfill(3))))
-        #except:
-        #    print(os.path.join(mask_path, '%s-slice%s.jpg' % (name, str(ext).zfill(3))))
-        #    continue
-        # Keep only the green channel.
-        #mask[:,:,0] = 0
-        #mask[:,:,2] = 0
         orig = extract_pixels_for_viewing(file)
-        #print("orig", np.sum(orig))
         aim = Image.fromarray(orig, mode='L')
         orig, _ = trim_background(orig, max_frame)
-        #print(np.sum(orig))
         aim = Image.fromarray(orig, mode='L')
-        #mask = mask[frame[0]:frame[2],frame[1]:frame[3],:]
-
-        #m = np.ones((mask.shape[0], mask.shape[1], 1))*50
-        #mm = np.concatenate((mask, m), axis=2)
-        #mim = Image.fromarray(np.uint8(mm))
-        aim.save(os.path.join(os.getcwd(), "assets/niftynet_raw_images", name, str(ext)+".png"), format='PNG')
-        #rgbimg = Image.new("RGBA", aim.size)
-        #rgbimg.paste(aim)
-        #rgbimg.paste(mim, (0, 0), mim)
-
-        #rgbimg.save(os.path.join(os.getcwd(), "assets/niftynet_masked_images/", name, str(ext)+".png"), format='PNG')
-        if i % 16 == 0 and idx < 16:
-            ax1 = plt.subplot(gs1[idx])
-            plt.axis('off')
-            ax1.set_xticklabels([])
-            ax1.set_yticklabels([])
-            ax1.set_aspect('equal')
-            plt.subplots_adjust(wspace=None, hspace=None)
-            plt.imshow(orig)
-    #plt.show()
-    plt.savefig("assets/sample_crossections/" + name + ".png", format="png")
+        aim.save(os.path.join(os.getcwd(), output_dir, name, str(ext)+".png"), format='PNG')
     return "success"
 
 def draw_region_outlines(mask):
     # Color the mask light green. Color the edges of the mask darker green.
-    mask = mask>0
+    mask = mask > 0
     new_mask = np.zeros([*mask.shape, 4], dtype = np.uint(8))
     print("mask shape", new_mask.shape)
     distance = ndi.distance_transform_edt(mask)
@@ -119,10 +84,7 @@ def draw_region_outlines(mask):
     new_mask[:,:,1][mask > 0] = 60
     new_mask[:,:,3][mask > 0] = 100
     print(new_mask.mean(axis=(0, 1)))
-    #new_mask[mask > 0][3] = 100
     new_mask[:,:, 1][((distance > 0) & (distance <= 2))] = 220
-    #print(new_mask.mean(axis=(0, 1)))
-    #print(new_mask.mean(axis=1))
     #print(new_mask.mean(axis=2))
     return new_mask
 
@@ -179,64 +141,85 @@ def save_partition(mask, path):
 
 
 def guess_bounds(regions_map, reference_map):
-        regions = regionprops(reference_map)
-        new_regions = regionprops(regions_map)
-        output = np.ones([regions_map.shape[0], regions_map.shape[1], len(regions)]) * 1000
-        labelz = np.array([x.label for x in regions])
-        for i, region in enumerate(regions):
-            regmask = np.zeros_like(reference_map)
-            regmask[reference_map == region.label] = 1
-            regmask = morphology.dilation(regmask, morphology.square(3)) * regions_map > 0
-            regmask = regmask.astype(np.int32)
-            if np.sum(regmask) == 0:
+    '''
+    Guess the bounds of the region based on reference region
+    (generally neighboring slice).
+
+    '''
+    reference_regions = regionprops(reference_map)
+    new_regions = regionprops(regions_map)
+    # Initialize a large array of ones that we will use to track the distance
+    # from each organ region on new slice to known regions on previous slice.
+    ref_regions = np.ones([regions_map.shape[0], regions_map.shape[1], len(reference_regions)]) * 1000
+
+    labels_array = np.array([x.label for x in reference_regions])
+    # Rather complex logic for figuring out which region in the reference.
+    # For each region in the reference slice, we estimate its projection onto the new slice as follows:
+    #   Any pixels of the new slice that are considered organ pixels that come within
+    #   three pixels of that organ on the reference slice are mapped to that region.
+    #   Then we measure shift of the center of mass of the new region vs the projected region
+    #   And also measure growth/shrinkage.
+    # From there, update the projection of reference region onto new slice by applying
+    # the shift and growth/shrinkage computed from the estimate.
+    # Finally, map every pixel in the new slice to the region whose projection it's closest to.
+    for i, ref_region in enumerate(reference_regions):
+        # Create a mask of each reference region.
+        regmask = np.zeros_like(reference_map)
+        regmask[reference_map == ref_region.label] = 1
+        # In case the region has grown from the reference slice to the slice, allow
+        # it to expand up to 3 pixels.
+        regmask = morphology.dilation(regmask, morphology.square(3)) * regions_map > 0
+        regmask = regmask.astype(np.int32)
+        if np.sum(regmask) == 0:
+            continue
+
+        c1 = ref_region.centroid
+        c2 = regionprops(regmask)[0].centroid
+        centroid_move = (round(c2[0]-c1[0]), round(c2[1]-c1[1]))
+        growth_ratio = ref_region.area - regionprops(regmask)[0].area
+        marginal_growth = int(round(growth_ratio / max(ref_region.perimeter, 1)))
+        expected_newslice = (reference_map == ref_region.label)
+        expected_newslice = expected_newslice.astype(np.int32)
+
+        if marginal_growth >= 1:
+            expected_newslice = morphology.dilation(
+                expected_newslice, morphology.square(marginal_growth))
+        elif marginal_growth <= -1:
+            expected_newslice = morphology.erosion(
+                expected_newslice, morphology.square(-1*marginal_growth))
+        expected_newslice = shift(expected_newslice, centroid_move, cval=0)
+
+        ref_regions[:,:,i] = ndi.distance_transform_edt(np.ones_like(expected_newslice) - expected_newslice)
+    next_region_id = labels_array.max() + 1
+
+
+    # make a map dict of which region touches which other region, so we can map the relevant pixels.
+    labelmap ={}
+    for region in new_regions:
+        labelmap[region.label] = [x for x in np.unique(reference_map * (regions_map == region.label)) if x > 0]
+
+
+    finalfinal = np.zeros_like(regions_map)
+    for i in range(finalfinal.shape[0]):
+        for j in range(finalfinal.shape[1]):
+            pixel_val = regions_map[i,j]
+            if pixel_val == 0 or not labelmap[pixel_val]:
                 continue
+            poss_labels = labelmap[pixel_val]
+            labels_idx = [list(labels_array).index(x) for x in poss_labels]
+            candidates = ref_regions[i][j][labels_idx]
+            #TODO: this should be filtered by whether there is any intersection at all with this layer
+            finalfinal[i][j] = poss_labels[list(candidates).index(min(candidates))]
 
-            c1 = region.centroid
-            c2 = regionprops(regmask)[0].centroid
-            centroid_move = (round(c2[0]-c1[0]), round(c2[1]-c1[1]))
-            growth_ratio = region.area - regionprops(regmask)[0].area
-            rat = round(growth_ratio / max(region.perimeter, 1))
-            rat = int(rat)
-            expected_newslice = (reference_map == region.label)
-
-            expected_newslice = expected_newslice.astype(np.int32)
-            if rat >= 1:
-                expected_newslice = morphology.dilation(expected_newslice, morphology.square(rat))
-            elif rat <= -1:
-                expected_newslice = morphology.erosion(expected_newslice, morphology.square(-1*rat))
-            expected_newslice = shift(expected_newslice, centroid_move, cval=0)
-
-            output[:,:,i] = ndi.distance_transform_edt(np.ones_like(expected_newslice) - expected_newslice)
-        next_region_id = labelz.max() + 1
+    finalfinal = finalfinal * (regions_map > 0)
 
 
-        # make a map dict of which region touches which other region
-        labelmap ={}
-        for region in new_regions:
-            labelmap[region.label] = [x for x in np.unique(reference_map * (regions_map == region.label)) if x > 0]
-        print("labelmap", labelmap)
-
-
-        finalfinal = np.zeros_like(regions_map)
-        for i in range(finalfinal.shape[0]):
-            for j in range(finalfinal.shape[1]):
-                pixel_val = regions_map[i,j]
-                if pixel_val == 0 or not labelmap[pixel_val]:
-                    continue
-                poss_labels = labelmap[pixel_val]
-                labels_idx = [list(labelz).index(x) for x in poss_labels]
-                candidates = output[i][j][labels_idx]
-                #TODO: this should be filtered by whether there is any intersection at all with this layer
-                finalfinal[i][j] = poss_labels[list(candidates).index(min(candidates))]
-
-        finalfinal = finalfinal * (regions_map > 0)
-
-
-        for new_region in new_regions:
-            if not ((regions_map == new_region.label) & (reference_map > 0)).sum():
-                finalfinal[regions_map == new_region.label] = next_region_id
-                next_region_id += 1
-        return finalfinal
+    # If the region doesn't touch any existing organ, give it a new ID.
+    for new_region in new_regions:
+        if not ((regions_map == new_region.label) & (reference_map > 0)).sum():
+            finalfinal[regions_map == new_region.label] = next_region_id
+            next_region_id += 1
+    return finalfinal
 
 
 def compute_slice_width():
@@ -351,7 +334,6 @@ def partition_at_threshold(img, thresh, square_size, min_size, title=None, show_
 
     # Now start looking for the border of the image. Filter out anything below threshold
     bw = ndi.gaussian_filter(img, sigma=(1), order=0) > thresh
-    # Let's look it
     if show_plot:
         axes[0].imshow(bw, cmap=plt.cm.gray)
         axes[0].set_title('thresholded on intensity')
@@ -361,7 +343,6 @@ def partition_at_threshold(img, thresh, square_size, min_size, title=None, show_
     remove_small_holes(bw, area_threshold=40, in_place=True)
     remove_small_objects(bw, min_size=min_size, in_place=True)
     cleared = closing(bw, square(square_size))
-    #cleared = ndi.binary_fill_holes(cleared)
     distance = ndi.distance_transform_edt(np.logical_not(cleared))
     mask = np.zeros_like(distance)
     mask[distance <= 2] = 1
@@ -383,6 +364,41 @@ def partition_at_threshold(img, thresh, square_size, min_size, title=None, show_
     #axes[2, 0].axis('off')
     return cleared
 
+
+def compute_preliminary_masks(patient_id, input_dir=None, output_dir=None):
+    bones_thresh = [200, 2, 64]
+    blood_vessels_thresh = [165, 5, 64]
+    liver_thresh = [130, 1, 64]
+
+    if not input_dir:
+        input_dir = "assets/niftynet_raw_images"
+    if not output_dir:
+        output_dir = "assets/masks"
+
+    file_dir = os.path.join(os.getcwd(), "assets", "niftynet_raw_images", str(patient_id))
+    os.makedirs(os.path.join(os.getcwd(), "assets", "masks2", str(patient_id)), exist_ok = True)
+    slices = [int(x.split(".")[0]) for x in os.listdir(file_dir)]
+
+    for slice in slices:
+        img_path = os.path.join(input_dir, "%d/%d.png" % (patient_id, slice))
+        img = skio.imread(img_path)
+        mask = partition_at_threshold(img, *bones_thresh, title="Bones", show_plot=False)
+        imgb = img.copy() * (1 - mask)
+        mask = partition_at_threshold(imgb, *blood_vessels_thresh, title="Blood vessels", show_plot=False)
+        imgb = imgb * (1 - mask)
+        liver = partition_at_threshold(imgb, *liver_thresh, title = "Organs/Liver", show_plot=False)
+        edge_sobel = feature.canny(img, sigma=3)
+        edge_sobel[liver == 0] = 0
+        distance = ndi.distance_transform_edt(np.logical_not(edge_sobel))
+        liver[distance <= 1] = 0
+        mask = liver > 0
+        remove_small_objects(mask, in_place=True)
+        liver[mask==0] = 0
+        newliver = label(liver)
+        newliver[newliver>0] = newliver[newliver>0] + 2
+        print(os.path.join(output_dir, "%d/%d" % (patient_id, slice)))
+        save_partition(newliver, os.path.join(output_dir, "%d/%d" % (patient_id, slice)))
+
 def label_image(img, orig=None, show_plot=True):
     if show_plot:
         fig, axes = plt.subplots(1, 2, figsize=(15, 5), sharey=True, sharex=True)
@@ -397,9 +413,9 @@ def label_image(img, orig=None, show_plot=True):
         axes[0].imshow(labels, cmap=plt.cm.nipy_spectral)
         axes[0].set_title('watershed segmentation')
         axes[0].axis('off')
-    if show_plot and orig:
-        axes[1].imshow(orig, cmap=plt.cm.gray)
-        axes[1].set_title('Original image')
-        axes[1].axis('off')
+        if len(orig) > 0:
+            axes[1].imshow(orig, cmap=plt.cm.gray)
+            axes[1].set_title('Original image')
+            axes[1].axis('off')
     return labels
 
