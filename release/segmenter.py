@@ -178,7 +178,7 @@ class Application(Frame):
                             text = "Blood vessel intensity",
                             bg = tk_rgb)
         self.bloodVesselIntensityScale = Scale(
-                            self.leftFrame, from_ = 100, to = 200,
+                            self.leftFrame, from_ = 100, to = 250,
                             orient = HORIZONTAL,
                             command = self.set_liver_intensity)
         self.bloodVesselIntensityScale.set(170)
@@ -187,7 +187,7 @@ class Application(Frame):
                             text = "Liver intensity",
                             bg = tk_rgb)
         self.liverIntensityScale = Scale(
-                            self.leftFrame, from_ = 100, to = 200,
+                            self.leftFrame, from_ = 100, to = 250,
                             orient = HORIZONTAL,
                             command = self.set_liver_intensity)
         self.liverIntensityScale.set(120)
