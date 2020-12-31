@@ -83,11 +83,11 @@ class Application(Frame):
         self.file_dir = os.path.join(os.getcwd(), "assets", "niftynet_raw_images")
         self.patients = [int(x) for x in os.listdir(self.file_dir) if len(os.listdir(os.path.join(self.file_dir, str(x)))) > 0]
         print("patients are", self.patients)
-        thresholds_file = "/Users/eiofinova/niftynet/thresholds.json"
+        thresholds_file = os.path.join(os.getcwd(), "thresholds.json")
         with open(thresholds_file, 'r') as f:
             self.thresholds = json.load(f)
         self.thresholds = {int(k): v for k, v in self.thresholds.items()}
-        questionable_slices_file = "/Users/eiofinova/niftynet/questionable_slices.json"
+        questionable_slices_file = os.path.join(os.getcwd(), "questionable_slices.json")
         with open(questionable_slices_file, 'r') as f:
             self.questionable_slices = json.load(f)
         self.questionable_slices = {int(k): [int(x) for x in v] for k, v in self.questionable_slices.items()}
@@ -582,8 +582,9 @@ class Application(Frame):
     def fileSave(self):
         for slice in self.slices:
             print("saving slice", slice, )
+            file_dir = os.path.join(os.getcwd(), "assets", "masks", str(self.patient_id))
             pickle.dump(self.masks[slice],
-                        open('/Users/eiofinova/niftynet/assets/masks/%s/%s.txt' % (str(self.patient_id), str(slice)), 'wb'))
+                        open(os.path.join(file_dir, str(slice) + '.p'), 'wb'))
         with open("./questionable_slices.json", 'w') as f:
             json.dump(self.questionable_slices, f)
         with open("./thresholds.json", 'w') as f:
