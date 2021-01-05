@@ -167,7 +167,7 @@ class Application(Frame):
                             text = "Blood vessel intensity",
                             bg = tk_rgb)
         self.bloodVesselIntensityScale = Scale(
-                            self.leftFrame, from_ = 100, to = 250,
+                            self.leftFrame, from_ = 100, to = 200,
                             orient = HORIZONTAL,
                             variable = self.blood_vessel_var,
                             command = self.set_liver_intensity)
@@ -177,7 +177,7 @@ class Application(Frame):
                             text = "Liver intensity",
                             bg = tk_rgb)
         self.liverIntensityScale = Scale(
-                            self.leftFrame, from_ = 100, to = 250,
+                            self.leftFrame, from_ = 100, to = 200,
                             orient = HORIZONTAL,
                             variable = self.liver_var,
                             command = self.set_liver_intensity)
@@ -419,9 +419,9 @@ class Application(Frame):
         if self.patient_id in self.thresholds.keys():
             thresholds = self.thresholds[self.patient_id]
         else:
-            thresholds = {"bones_thresh": [200, 2, 64],
-                          "blood_vessels_thresh": [165, 5, 64],
-                          "liver_thresh": [130, 1, 64]}
+            thresholds = {"bones_thresh": 200,
+                          "blood_vessels_thresh": 170,
+                          "liver_thresh": 135}
         self.bone_var.set(thresholds['bones_thresh'][0])
         self.blood_vessel_var.set(thresholds['blood_vessels_thresh'][0])
         self.liver_var.set(thresholds['liver_thresh'][0])
@@ -472,8 +472,6 @@ class Application(Frame):
         root.img = img
         self.img = self.myCanvas.create_image(0, 0, image=img, anchor=NW)
         self.displayMask()
-        if self.patient_id not in self.questionable_slices:
-            self.questionable_slices[self.patient_id] = []
         if self.slice_idx in self.questionable_slices[self.patient_id]:
             self.quest.set(1)
         else:
