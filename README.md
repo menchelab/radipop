@@ -20,9 +20,9 @@ To start the graphical user interface:
 The slices (.png) and mask (.p) files must be put in the directories as follows: 
 
     #Slices (.png files) --> one directory per patient, directory name (PATIENT_ID) must be integer
-    assests/niftynet_raw_images/PATIENT_ID/
+    assets/niftynet_raw_images/PATIENT_ID/
     
     #Masks (.p files) --> one directory per patient, directory name (PATIENT_ID) must be integer
-    assests/masks/PATIENT_ID/
+    assets/masks/PATIENT_ID/
     
         
