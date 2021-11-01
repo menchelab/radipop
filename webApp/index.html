@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <meta charset="utf8">
+        <!-- Otherwise, mobile devices will try to fit the whole page on screen -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>RadiPOP - Segmentation Editor </title>
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+
+    <body>
+        <div class = "toolbar"> 
+            <div id="toolbar-spaceholder"></div>   
+        </div>
+        <div class = "row">
+            <div class="col-lg-3 col-md-12">
+                <div class="utility-area">
+                    <div class="subtoolbar TODO">
+                            <button>Open</button> <button>Segmentation</button> <button>save</button> 
+                    </div>
+                    <div class="tools">
+                        <div>
+                            <input type="checkbox" id="bad-slice-chechbox" name="bad-slice-chechbox">
+                            <label for="bad-slice-chechbox">Bad slice</label>
+                        </div>
+                        
+                        <div>
+                        <input type="checkbox" id="hide-mask-checkbox" name="hide-mask-checkbox">
+                        <label for="hide-mask-checkbox">Hide mask</label>
+                        </div>
+                    </div>   
+                    <div class="tools">
+                        <div class="slidecontainer">
+                            Bone Intensity: <span id="bone-intensity-slider-output">50</span>
+                            <input type="range" min="1" max="100" value="50" class="slider" id="bone-intensity-slider">
+                        </div>
+
+                        <div class="slidecontainer">
+                            Blood vessel intensity: <span id="blood-vessel-intensity-slider-output">50</span>
+                            <input type="range" min="1" max="100" value="50" class="slider" id="blood-vessel-intensity-slider">
+                        </div>
+
+                        <div class="slidecontainer">
+                            Liver Intensity: <span id="liver-intensity-slider-output">50</span>
+                            <input type="range" min="1" max="100" value="50" class="slider" id="liver-intensity-slider">
+                        </div>
+                    </div>
+                    <div class="tools">
+                        <div class="expansion-bounds">
+                            Expansion bounds: <br>
+                            <div> Left: <input type="number" > Right: <input type="number">  </div>
+                        </div>
+                    </div>
+                    <div class="tools">
+                        <div class= "label-buttons TODO" >
+                            <button>Set liver label</button> <br>
+                            <button>Set spleen label</button> <br>
+                            <button>Extend liver/spleen labels</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+               <div class= "display-area"> 
+                   <div class="subtoolbar"> 
+                    <button>Set thresholds globally</button>
+                    <button>Correct partition</button>
+                    <button>Clear edits</button>
+                   </div>
+                   <div id=display-area-slice> 
+                        Select slice: Adjust masks <br>
+                        <div id="slice"></div>   
+                   </div>
+                   <div id="display-area-log-bar" class="TODO">    
+                        Spaceholder for processing/log reporting
+                   </div>
+               </div>
+            </div>
+            <div class="col-lg-3 col-md-12">
+                <div class= "scrollbar-area"> 
+                    <div class="subtoolbar"> 
+                    Search: <input type="text" >
+                    </div>
+                    <div id=scrollbar-area-preview> 
+                        CT slices: <br>
+                    <div id="preview"></div>   
+                </div>
+            </div>
+            
+        </div>
+
+        <script src="js/script.js"></script>
+    </body>
+    
+</html>
