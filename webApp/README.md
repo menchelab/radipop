@@ -15,5 +15,5 @@
     images/
 
 ## Remarks
-    The HTML page layout/CSS styling adapts the view depending on the screen size of the device - If a small screen size (e.g.: mobile device) is detected the 3 column layout collapses to a 1 column layout. This is a feature that can of course be removed easily if not needed, but would be hard implement at a later stage.
+The HTML page layout/CSS styling adapts the view depending on the screen size of the device - If a small screen size (e.g.: mobile device) is detected the 3 column layout collapses to a 1 column layout. This is a feature that can of course be removed easily if not needed, but would be hard implement at a later stage.
 
