@@ -9,26 +9,26 @@
     </head>
 
     <body>
-        <div class = "toolbar"> 
-            <div id="toolbar-spaceholder"></div>   
+        <div class = "toolbar">
+            <div id="toolbar-spaceholder"></div>
         </div>
         <div class = "row">
             <div class="col-lg-3 col-md-12">
                 <div class="utility-area">
                     <div class="subtoolbar TODO">
-                            <button>Open</button> <button>Segmentation</button> <button>save</button> 
+                            <button>Open</button> <button>Segmentation</button> <button>Save</button> 
                     </div>
                     <div class="tools">
                         <div>
                             <input type="checkbox" id="bad-slice-chechbox" name="bad-slice-chechbox">
                             <label for="bad-slice-chechbox">Bad slice</label>
                         </div>
-                        
+
                         <div>
                         <input type="checkbox" id="hide-mask-checkbox" name="hide-mask-checkbox">
                         <label for="hide-mask-checkbox">Hide mask</label>
                         </div>
-                    </div>   
+                    </div>
                     <div class="tools">
                         <div class="slidecontainer">
                             Bone Intensity: <span id="bone-intensity-slider-output">50</span>
@@ -58,39 +58,39 @@
                             <button>Extend liver/spleen labels</button>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="col-lg-6 col-md-12">
-               <div class= "display-area"> 
-                   <div class="subtoolbar"> 
+               <div class= "display-area">
+                   <div class="subtoolbar">
                     <button>Set thresholds globally</button>
                     <button>Correct partition</button>
                     <button>Clear edits</button>
                    </div>
-                   <div id=display-area-slice> 
+                   <div id=display-area-slice>
                         Select slice: Adjust masks <br>
-                        <div id="slice"></div>   
+                        <div id="slice"></div>
                    </div>
-                   <div id="display-area-log-bar" class="TODO">    
+                   <div id="display-area-log-bar" class="TODO">
                         Spaceholder for processing/log reporting
                    </div>
                </div>
             </div>
             <div class="col-lg-3 col-md-12">
-                <div class= "scrollbar-area"> 
-                    <div class="subtoolbar"> 
+                <div class= "scrollbar-area">
+                    <div class="subtoolbar">
                     Search: <input type="text" >
                     </div>
-                    <div id=scrollbar-area-preview> 
+                    <div id=scrollbar-area-preview>
                         CT slices: <br>
-                    <div id="preview"></div>   
+                    <div id="preview"></div>
                 </div>
             </div>
-            
+
         </div>
 
         <script src="js/script.js"></script>
     </body>
-    
+
 </html>
