@@ -26,7 +26,11 @@ import pickle
 
 
 def draw_region_outlines(mask):
-    # Color the mask light green. Color the edges of the mask darker green.
+    """! Color the mask light green. Color the edges of the mask darker green.
+    @param mask mask for which to color the outlines
+
+    @return mask with colored outlines
+    """
     mask = mask > 0
     new_mask = np.zeros([*mask.shape, 4], dtype = np.uint(8))
     distance = ndi.distance_transform_edt(mask)
@@ -36,13 +40,23 @@ def draw_region_outlines(mask):
     return new_mask
 
 def add_sobel_edges(mask, img):
-        edge_sobel = feature.canny(img, sigma=3)
-        edge_sobel[mask == 0] = 0
-        distance = ndi.distance_transform_edt(np.logical_not(edge_sobel))
-        mask[distance <= 1] = 0
-        mask = mask > 0
-        remove_small_objects(mask, in_place=True)
-        return(mask)
+    """! Smooth edges
+    Steps:
+        - Edge filter image using the Canny algorithm.
+        - euclidean distance transform
+
+    @param mask mask corresponding to image
+    @param img image corresponding to mask
+
+    @return mask with smoothed edges
+    """
+    edge_sobel = feature.canny(img, sigma=3)
+    edge_sobel[mask == 0] = 0
+    distance = ndi.distance_transform_edt(np.logical_not(edge_sobel))
+    mask[distance <= 1] = 0
+    mask = mask > 0
+    remove_small_objects(mask, in_place=True)
+    return(mask)
 
 def save_partition(mask, path):
     mask = mask.astype(np.uint8)
@@ -51,11 +65,16 @@ def save_partition(mask, path):
 
 
 def guess_bounds(regions_map, reference_map):
-    '''
-    Guess the bounds of the region based on reference region
+    '''!Guess the bounds/labels of the region based on reference region
+    Guess the bounds/labels of the region based on reference region
     (generally neighboring slice).
 
+    @param regions_map mask to guess labels for
+    @param reference_map reference mask (already labelled)
+
+    @return mask (labelled)
     '''
+
     reference_regions = regionprops(reference_map)
     new_regions = regionprops(regions_map)
     # Initialize a large array of ones that we will use to track the distance
@@ -167,6 +186,22 @@ def trim_background(img, dims = None):
 
 
 def partition_at_threshold(img, thresh, square_size, min_size, title=None, show_plot=True):
+    """! After some smoothing, calculate new mask for img
+    Steps:
+        - gaussian filter,
+        - remove small objects,
+        - greyscale morphological closing,
+        - euclidean distance transform
+
+        @param img type numpy.ndarray
+        @param thres Threshold value
+        @param min_size Minimum size of an organ in the mask
+        @param squaresize For greyscale morphological closing
+        @param title Title of plot
+        @param show_plot Show plot True/False
+
+        @return New binary mask (same size as img)
+    """
     if show_plot:
         fig, axes = plt.subplots(1, 2, figsize=(15, 5), sharey=True, sharex=True)
         if title:
@@ -180,14 +215,21 @@ def partition_at_threshold(img, thresh, square_size, min_size, title=None, show_
         axes[0].axis('off')
 
     # Smooth what remains
+
+    #Remove objects smaller than the specified size.
     remove_small_holes(bw, area_threshold=40, in_place=True)
+    #Remove objects smaller than the specified size.
     remove_small_objects(bw, min_size=min_size, in_place=True)
+    #Return greyscale morphological closing of an image.
     cleared = closing(bw, square(square_size))
+    # Exact euclidean distance transform.
     distance = ndi.distance_transform_edt(np.logical_not(cleared))
     mask = np.zeros_like(distance)
     mask[distance <= 2] = 1
     distance = ndi.distance_transform_edt(mask)
     cleared = np.zeros_like(distance)
+
+    # Smooths the edges of organs
     cleared[distance > 2] = 1
 
     if show_plot:

@@ -13,11 +13,15 @@ import pickle
 
 
 def assign_colors(mask):
-    '''
-    Display utility; colors every region green with a darker
-    green outline; regions labeled 1 and 2 are special (they
-    are known liver/spleen) and are colored bright red/blue.
-    '''
+    """! Display utility;
+    colors every region green with a darker green outline;
+    regions labeled 1 and 2 are special (they are known liver/spleen) and are colored bright red/blue.
+
+    @param mask labelled mask
+
+    @return colored mask
+    """
+    #TODO: display_liver name is misleading -> Change to something more meaningful like colored_mask
 
     display_liver = segmentation_utils.draw_region_outlines(mask)
     for row in range(mask.shape[0]):
@@ -29,18 +33,25 @@ def assign_colors(mask):
     return display_liver
 
 def find_organs(slice_idx, patient_id, bones_thresh, blood_vessels_thresh, liver_thresh):
-    '''
-    Uses three threshold values (bones threshold, blood vessels threshold, liver_threshold)
-    to find organs.
+    """! Uses three threshold values to find organs.
 
     The algorithm is:
         - After some smoothing, remove every pixel above bones threshold from the image.
         - After some smoothing, remove every pixel above blood vessel threshold.
         - Everything that then remains above liver threshold is called an organ.
         - Use contiguous area divisions to roughly split into organs.
-    '''
+
+        @param slice_inx Index of slice on which to find organs
+        @param patient_id Id of Patient
+        @param bones_thres bones threshold: [threshold, square_size , min_size]
+        @param blood_vessels_thresh blood vessels threshold: [threshold, square_size , min_size]
+        @param liver_thresh liver threshold: [threshold, square_size , min_size]
+
+        @return New binary mask (same size as slice)
+    """
     img_path = os.path.join(os.getcwd(), "assets", "niftynet_raw_images", str(patient_id), str(slice_idx) + ".png")
     img = skio.imread(img_path)
+    # *bones_thres unfolds to arguments: threshold, square_size , min_size
     mask = segmentation_utils.partition_at_threshold(img, *bones_thresh, title="Bones", show_plot=False)
     imgb = img.copy() * (1 - mask)
     mask = segmentation_utils.partition_at_threshold(imgb, *blood_vessels_thresh, title="Blood vessels", show_plot=False)
@@ -51,20 +62,23 @@ def find_organs(slice_idx, patient_id, bones_thresh, blood_vessels_thresh, liver
     mask[mask>0] = mask[mask>0] + 2
     return mask
 
-# Features:
-# Open patient and flip through frames - v1 done
-# Draw line to separate organs - line drawing is done
-# Label liver (lobes, spleen)
-# Organ lights up when clicked - v1 done
-# Organ label consistency across slices
-# Mark and ignore messed up slices
-# Still missing:
-# Check that save button works
-# Make configurable how far to extend corrections to each side - done
-# Display which slices were hand-corrected and which have liver/spleen
-# Extend threshold adjustments - done
+
 
 class Application(Frame):
+    """!Tkinter frame
+    ## Features:
+        - Open patient and flip through frames - v1 done
+        - Draw line to separate organs - line drawing is done
+        - Label liver (lobes, spleen)
+        - Organ lights up when clicked - v1 done
+        - Organ label consistency across slices
+        - Mark and ignore messed up slices
+        - Still missing:
+        - Check that save button works
+        - Make configurable how far to extend corrections to each side - done
+        - Display which slices were hand-corrected and which have liver/spleen
+        - Extend threshold adjustments - done
+    """
 
     def __init__(self, master):
         super().__init__(master)
@@ -72,11 +86,22 @@ class Application(Frame):
         self.radiobuttonValue.set(1)
         self.toolsThickness = 3
         self.rgb = "#%02x%02x%02x" % (100, 100, 100)
+
+        ## Drawing mode on/off
         self.drawLine = False
+
+        ## Last X coordinate user clicked on, on the canvas
         self.previousX = -1
+
+        ## Last Y coordinate user clicked on, on the canvas
         self.previousY = -1
+
+        ## Line segments, created from the points the user clicked on on the canvas
         self.line_segments = []
+
+        ## Line drawn on canvas
         self.lines = []
+
         self.pixel_value = 0
         self.showMask = True
         self.highlight_img = -1
@@ -100,6 +125,8 @@ class Application(Frame):
         self.createWidgets()
 
     def createWidgets(self):
+        """!Creates all input elements of GUI
+        """
         tk_rgb = "#%02x%02x%02x" % (128, 192, 200)
 
         self.leftFrame = Frame(self, bg = tk_rgb)
@@ -135,12 +162,14 @@ class Application(Frame):
         self.myScale.set(1)
 
 
+        ## Button: Activates drawing mode --> delete regions of masks manually
         self.buttonPartition = Button(self.leftFrame, text = "correct partition",
                                       command = self.partitionOrgans)
-
+        ## Button: Deactivates drawing mode and applies manual changes to mask
         self.buttonAccept = Button(self.leftFrame, text = "OK",
                                       command = self.setPartition)
 
+        ## Button: Revokes manual changes of mask made in drawing mode (buttonParition) - only works in drawing mode
         self.buttonDeleteAll = Button(self.leftFrame, text = "clear edits",
                                       command = self.deleteAndReload)
 
@@ -149,38 +178,61 @@ class Application(Frame):
 
         self.buttonLabelSpleen = Button(self.leftFrame, text = "set spleen label",
                                       command = self.labelSpleen)
+
+        ## Button: Hide/Display mask Button
         self.buttonToggleMask = Button(self.leftFrame, text = "hide mask",
                                        command = self.toggleMask)
+
+        ## Text label: bone intensity slider
         self.labelBoneIntensity = Label(
                             self.leftFrame,
                             text = "Bone intensity",
                             bg = tk_rgb)
+
+        ## Variable value: bone intensity slider
         self.bone_var = IntVar()
+
+        ## Slider: bone intensity
         self.boneIntensityScale = Scale(
                             self.leftFrame, from_ = 120, to = 250,
                             orient = HORIZONTAL,
                             variable = self.bone_var,
                             command = self.set_liver_intensity)
+
+
+        ## Variable value: blood vessel intensity slider
         self.blood_vessel_var = IntVar()
+
+        ## Text label: blood vessel intensity slider
         self.labelBloodVesselIntensity = Label(
                             self.leftFrame,
                             text = "Blood vessel intensity",
                             bg = tk_rgb)
+
+        ## Slider: blood vessel intensity
         self.bloodVesselIntensityScale = Scale(
                             self.leftFrame, from_ = 100, to = 250,
                             orient = HORIZONTAL,
                             variable = self.blood_vessel_var,
                             command = self.set_liver_intensity)
+
+        ## Variable value: liver intensity slider
         self.liver_var = IntVar()
+
+        ## Text label: liver intensity slider
         self.labelLiverIntensity = Label(
                             self.leftFrame,
                             text = "Liver intensity",
                             bg = tk_rgb)
+
+        ## Slider: liver intensity
         self.liverIntensityScale = Scale(
                             self.leftFrame, from_ = 100, to = 250,
                             orient = HORIZONTAL,
                             variable = self.liver_var,
                             command = self.set_liver_intensity)
+
+        ## Button: Apply thresholds on all slices
         self.buttonExtendInt = Button(self.leftFrame, text = "set thresholds globally",
                                        command = self.extend_thresholds)
         self.quest = IntVar()
@@ -189,17 +241,25 @@ class Application(Frame):
                                       onvalue=1, offvalue=0, command=self.label_quest)
         self.entryFrame = Frame(self.leftFrame)
 
+        ## Set expansion Bounds - section text
         self.entry_label = Label(self.leftFrame,
                                  text = "Expansion bounds (L/R)",
                                  bg = tk_rgb)
+
+        ## Left expansion bound
         self.myEntry1 = Entry(self.entryFrame, width = 5, insertwidth = 3)
         self.myEntry1.pack(side = LEFT, pady = 2, padx = 4)
         self.myEntry1.insert(END, 10)
+
+        ## Right expansion bound
         self.myEntry2 = Entry(self.entryFrame, width = 5, insertwidth = 3)
         self.myEntry2.pack(side = LEFT, pady = 2, padx = 4)
         self.myEntry2.insert(END, 10)
+
+        ## expansion bounds --> propagate labelling to left and right from current slice
         self.buttonExtend = Button(self.leftFrame, text = "extend liver/spleen labels",
                                        command = self.extend_labels)
+
         self.buttonSave = Button(self.leftFrame, text = "save",
                                       command = self.fileSave)
         self.myCanvas.pack(expand=YES, fill=BOTH)
@@ -261,6 +321,9 @@ class Application(Frame):
                 )
 
     def hide_controls(self, controls):
+        """! Hide given GUI control element
+        @param controls control element to hide from GUI
+        """
         for control_row in controls:
             for control in control_row:
                 control.grid_forget()
@@ -271,6 +334,9 @@ class Application(Frame):
         self.loadSlice()
 
     def highlightOrgan(self, event):
+        """! Highlights regions of the mask (organs) that were clicked on by user.
+        The function is bound to the canvas.
+        """
         y, x = (event.x, event.y)
         if x < self.masks[self.slice_idx].shape[0] and y < self.masks[self.slice_idx].shape[1]:
             self.last_clicked_x = x
@@ -344,13 +410,17 @@ class Application(Frame):
 
 
     def extend_labels(self):
+        """! Extend labels from current slice to neighbouring slices
+            Extends labels left and right from current slice
+            How far the labels are extended is taken from left and right expansion bounds
+        """
         cur_idx = self.slices.index(self.slice_idx)
         ref_slice_idx = self.slice_idx
         left_extend = int(self.myEntry1.get())
         right_extend = int(self.myEntry2.get())
         for i in range(1, min(left_extend+1, cur_idx)):
             self.masks[self.slice_idx - i] = segmentation_utils.guess_bounds(self.masks[self.slice_idx - i], self.masks[ref_slice_idx])
-            if self.slice_idx - i in self.questionable_slices:
+            if self.slice_idx - i in self.questionable_slices: #TODO: Why in self.questionable_slices and below NOT in questionable.slices?
                 ref_slice_idx = self.slice_idx - i
         ref_slice_idx = self.slice_idx
         for i in range(1, min(right_extend+1, len(self.slices) - cur_idx)):
@@ -358,7 +428,11 @@ class Application(Frame):
             if self.slice_idx + i not in self.questionable_slices:
                 ref_slice_idx = self.slice_idx + i
 
+
     def extend_thresholds(self):
+        """! Extends the three thresholds to all slices
+        Also runs find_organs on all slices and updates the masks
+        """
         bone_intensity = self.boneIntensityScale.get()
         blood_vessel_intensity = self.bloodVesselIntensityScale.get()
         liver_intensity = self.liverIntensityScale.get()
@@ -381,6 +455,12 @@ class Application(Frame):
 
 
     def setPartition(self):
+        """! Apply changes made in drawing mode
+        Removes regions of the mask that were marked by the user with lines
+        Deactivates drawing mode
+        Deletes lines drawn by user after the masks have been partitioned
+        """
+        # Button-1 is left mouse
         self.myCanvas.bind("<Button-1>", self.highlightOrgan)
         self.previousX = -1
         self.previousY = -1
@@ -404,8 +484,12 @@ class Application(Frame):
 
 
     def partitionOrgans(self):
+        """! Activates drawing mode
+        Enables drawing lines on slice which mark regions of the mask that should be removed
+        """
         self.drawLine = True
         self.hide_controls(self.label_controls())
+        # Activates the drawing mode of the canvas by binding the the function enableLineDrawing(event) to the canvas
         self.myCanvas.bind("<Button-1>", self.enableLineDrawing)
 
 
@@ -462,6 +546,9 @@ class Application(Frame):
 
 
     def loadSlice(self):
+        """! Reset canvas and load slice of current index and patient
+        Also deactivates drawing mode
+        """
         self.drawLine = False
         for line in self.lines:
             self.myCanvas.delete
@@ -486,6 +573,7 @@ class Application(Frame):
 
 
     def displayMask(self):
+        """! Shows mask on canvas if self.showMask is true """
         if self.showMask:
             if self.mask_img > 0:
                 self.myCanvas.delete(self.mask_img)
@@ -497,6 +585,11 @@ class Application(Frame):
 
 
     def toggleMask(self):
+        """! Display/Hide mask
+        Sets self.showMask to true/false
+        Deletes mask from canvas
+        Changes label of button: show mask/hide mask
+        """
         if self.showMask:
             self.showMask = False
             self.myCanvas.delete(self.mask_img)
@@ -511,6 +604,15 @@ class Application(Frame):
             self.displayMask()
 
     def set_liver_intensity(self, event):
+        """! Sets threshold for liver intensity
+        Steps:
+            - Sets thresholds for current slice (self.slice_idx)
+            - Runs self.find_organs on current slice with new thresholds
+            - Updates self.masks at current slice index
+
+            @param self self
+            @param event Unused - kept just in case
+        """
         bone_intensity = self.boneIntensityScale.get()
         blood_vessel_intensity = self.bloodVesselIntensityScale.get()
         liver_intensity = self.liverIntensityScale.get()
@@ -526,6 +628,10 @@ class Application(Frame):
 
 
     def enableLineDrawing(self, event):
+            """! Draw lines on display area
+            Activated if user clicks on display area/canvas and the drawing mode is enabled (correctParitionButton)
+            @param event GUI event
+            """
             if not self.drawLine:
                 print("Drawing mode not enabled")
                 return
@@ -546,10 +652,13 @@ class Application(Frame):
             self.lines.append(line)
 
     def deleteAndReload(self):
+        """! Discards lines drawn by user on the canvas and reloads current slice.
+        """
         self.deleteAll()
         self.loadSlice()
 
     def deleteAll(self):
+        """! Deletes lines drawn by the user. Resets canvas. """
         print("deleting")
         self.previousX = -1
         self.previousY = -1
