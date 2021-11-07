@@ -1,0 +1,120 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\contentsline {chapter}{\numberline {1}Namespace Index}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Packages}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {2}Hierarchical Index}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Class Hierarchy}{3}{section.2.1}%
+\contentsline {chapter}{\numberline {3}Class Index}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Class List}{5}{section.3.1}%
+\contentsline {chapter}{\numberline {4}File Index}{7}{chapter.4}%
+\contentsline {section}{\numberline {4.1}File List}{7}{section.4.1}%
+\contentsline {chapter}{\numberline {5}Namespace Documentation}{9}{chapter.5}%
+\contentsline {section}{\numberline {5.1}segmentation Namespace Reference}{9}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Function Documentation}{9}{subsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.1.1}assign\_colors()}{9}{subsubsection.5.1.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.1.2}find\_organs()}{10}{subsubsection.5.1.1.2}%
+\contentsline {subsection}{\numberline {5.1.2}Variable Documentation}{10}{subsection.5.1.2}%
+\contentsline {subsubsection}{\numberline {5.1.2.1}app}{10}{subsubsection.5.1.2.1}%
+\contentsline {subsubsection}{\numberline {5.1.2.2}root}{11}{subsubsection.5.1.2.2}%
+\contentsline {section}{\numberline {5.2}segmentation\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils Namespace Reference}{11}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Function Documentation}{11}{subsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.1.1}add\_sobel\_edges()}{11}{subsubsection.5.2.1.1}%
+\contentsline {subsubsection}{\numberline {5.2.1.2}draw\_region\_outlines()}{12}{subsubsection.5.2.1.2}%
+\contentsline {subsubsection}{\numberline {5.2.1.3}guess\_bounds()}{12}{subsubsection.5.2.1.3}%
+\contentsline {subsubsection}{\numberline {5.2.1.4}partition\_at\_threshold()}{12}{subsubsection.5.2.1.4}%
+\contentsline {subsubsection}{\numberline {5.2.1.5}save\_partition()}{13}{subsubsection.5.2.1.5}%
+\contentsline {subsubsection}{\numberline {5.2.1.6}trim\_background()}{13}{subsubsection.5.2.1.6}%
+\contentsline {chapter}{\numberline {6}Class Documentation}{15}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Application Class Reference}{15}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Detailed Description}{18}{subsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.1.1}Features\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}:}{18}{subsubsection.6.1.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Constructor \& Destructor Documentation}{18}{subsection.6.1.2}%
+\contentsline {subsubsection}{\numberline {6.1.2.1}\_\_init\_\_()}{18}{subsubsection.6.1.2.1}%
+\contentsline {subsection}{\numberline {6.1.3}Member Function Documentation}{18}{subsection.6.1.3}%
+\contentsline {subsubsection}{\numberline {6.1.3.1}createWidgets()}{18}{subsubsection.6.1.3.1}%
+\contentsline {subsubsection}{\numberline {6.1.3.2}deleteAll()}{19}{subsubsection.6.1.3.2}%
+\contentsline {subsubsection}{\numberline {6.1.3.3}deleteAndReload()}{19}{subsubsection.6.1.3.3}%
+\contentsline {subsubsection}{\numberline {6.1.3.4}displayMask()}{19}{subsubsection.6.1.3.4}%
+\contentsline {subsubsection}{\numberline {6.1.3.5}enableLineDrawing()}{19}{subsubsection.6.1.3.5}%
+\contentsline {subsubsection}{\numberline {6.1.3.6}extend\_labels()}{19}{subsubsection.6.1.3.6}%
+\contentsline {subsubsection}{\numberline {6.1.3.7}extend\_thresholds()}{20}{subsubsection.6.1.3.7}%
+\contentsline {subsubsection}{\numberline {6.1.3.8}fileSave()}{20}{subsubsection.6.1.3.8}%
+\contentsline {subsubsection}{\numberline {6.1.3.9}hide\_button()}{20}{subsubsection.6.1.3.9}%
+\contentsline {subsubsection}{\numberline {6.1.3.10}hide\_controls()}{20}{subsubsection.6.1.3.10}%
+\contentsline {subsubsection}{\numberline {6.1.3.11}highlightOrgan()}{20}{subsubsection.6.1.3.11}%
+\contentsline {subsubsection}{\numberline {6.1.3.12}label\_controls()}{21}{subsubsection.6.1.3.12}%
+\contentsline {subsubsection}{\numberline {6.1.3.13}label\_quest()}{21}{subsubsection.6.1.3.13}%
+\contentsline {subsubsection}{\numberline {6.1.3.14}labelLiver()}{21}{subsubsection.6.1.3.14}%
+\contentsline {subsubsection}{\numberline {6.1.3.15}labelSpleen()}{21}{subsubsection.6.1.3.15}%
+\contentsline {subsubsection}{\numberline {6.1.3.16}load\_masks()}{21}{subsubsection.6.1.3.16}%
+\contentsline {subsubsection}{\numberline {6.1.3.17}loadSlice()}{21}{subsubsection.6.1.3.17}%
+\contentsline {subsubsection}{\numberline {6.1.3.18}navigation\_controls()}{22}{subsubsection.6.1.3.18}%
+\contentsline {subsubsection}{\numberline {6.1.3.19}partitionOrgans()}{22}{subsubsection.6.1.3.19}%
+\contentsline {subsubsection}{\numberline {6.1.3.20}save\_controls()}{22}{subsubsection.6.1.3.20}%
+\contentsline {subsubsection}{\numberline {6.1.3.21}set\_liver\_intensity()}{22}{subsubsection.6.1.3.21}%
+\contentsline {subsubsection}{\numberline {6.1.3.22}set\_threshold\_toggles()}{22}{subsubsection.6.1.3.22}%
+\contentsline {subsubsection}{\numberline {6.1.3.23}setPartition()}{23}{subsubsection.6.1.3.23}%
+\contentsline {subsubsection}{\numberline {6.1.3.24}SetPatient()}{23}{subsubsection.6.1.3.24}%
+\contentsline {subsubsection}{\numberline {6.1.3.25}setSlice()}{23}{subsubsection.6.1.3.25}%
+\contentsline {subsubsection}{\numberline {6.1.3.26}show\_button()}{23}{subsubsection.6.1.3.26}%
+\contentsline {subsubsection}{\numberline {6.1.3.27}show\_controls()}{23}{subsubsection.6.1.3.27}%
+\contentsline {subsubsection}{\numberline {6.1.3.28}slice\_editing\_controls()}{23}{subsubsection.6.1.3.28}%
+\contentsline {subsubsection}{\numberline {6.1.3.29}toggleMask()}{24}{subsubsection.6.1.3.29}%
+\contentsline {subsection}{\numberline {6.1.4}Member Data Documentation}{24}{subsection.6.1.4}%
+\contentsline {subsubsection}{\numberline {6.1.4.1}blood\_vessel\_var}{24}{subsubsection.6.1.4.1}%
+\contentsline {subsubsection}{\numberline {6.1.4.2}bloodVesselIntensityScale}{24}{subsubsection.6.1.4.2}%
+\contentsline {subsubsection}{\numberline {6.1.4.3}bone\_var}{24}{subsubsection.6.1.4.3}%
+\contentsline {subsubsection}{\numberline {6.1.4.4}boneIntensityScale}{24}{subsubsection.6.1.4.4}%
+\contentsline {subsubsection}{\numberline {6.1.4.5}buttonAccept}{25}{subsubsection.6.1.4.5}%
+\contentsline {subsubsection}{\numberline {6.1.4.6}buttonDeleteAll}{25}{subsubsection.6.1.4.6}%
+\contentsline {subsubsection}{\numberline {6.1.4.7}buttonExtend}{25}{subsubsection.6.1.4.7}%
+\contentsline {subsubsection}{\numberline {6.1.4.8}buttonExtendInt}{25}{subsubsection.6.1.4.8}%
+\contentsline {subsubsection}{\numberline {6.1.4.9}buttonLabelLiver}{25}{subsubsection.6.1.4.9}%
+\contentsline {subsubsection}{\numberline {6.1.4.10}buttonLabelSpleen}{25}{subsubsection.6.1.4.10}%
+\contentsline {subsubsection}{\numberline {6.1.4.11}buttonPartition}{26}{subsubsection.6.1.4.11}%
+\contentsline {subsubsection}{\numberline {6.1.4.12}buttonSave}{26}{subsubsection.6.1.4.12}%
+\contentsline {subsubsection}{\numberline {6.1.4.13}buttonToggleMask}{26}{subsubsection.6.1.4.13}%
+\contentsline {subsubsection}{\numberline {6.1.4.14}drawLine}{26}{subsubsection.6.1.4.14}%
+\contentsline {subsubsection}{\numberline {6.1.4.15}entry\_label}{26}{subsubsection.6.1.4.15}%
+\contentsline {subsubsection}{\numberline {6.1.4.16}entryFrame}{26}{subsubsection.6.1.4.16}%
+\contentsline {subsubsection}{\numberline {6.1.4.17}file\_dir}{26}{subsubsection.6.1.4.17}%
+\contentsline {subsubsection}{\numberline {6.1.4.18}highlight\_img}{27}{subsubsection.6.1.4.18}%
+\contentsline {subsubsection}{\numberline {6.1.4.19}img}{27}{subsubsection.6.1.4.19}%
+\contentsline {subsubsection}{\numberline {6.1.4.20}label}{27}{subsubsection.6.1.4.20}%
+\contentsline {subsubsection}{\numberline {6.1.4.21}labelBloodVesselIntensity}{27}{subsubsection.6.1.4.21}%
+\contentsline {subsubsection}{\numberline {6.1.4.22}labelBoneIntensity}{27}{subsubsection.6.1.4.22}%
+\contentsline {subsubsection}{\numberline {6.1.4.23}labelLiverIntensity}{27}{subsubsection.6.1.4.23}%
+\contentsline {subsubsection}{\numberline {6.1.4.24}labelThickness}{27}{subsubsection.6.1.4.24}%
+\contentsline {subsubsection}{\numberline {6.1.4.25}last\_clicked\_x}{28}{subsubsection.6.1.4.25}%
+\contentsline {subsubsection}{\numberline {6.1.4.26}last\_clicked\_y}{28}{subsubsection.6.1.4.26}%
+\contentsline {subsubsection}{\numberline {6.1.4.27}leftFrame}{28}{subsubsection.6.1.4.27}%
+\contentsline {subsubsection}{\numberline {6.1.4.28}line\_segments}{28}{subsubsection.6.1.4.28}%
+\contentsline {subsubsection}{\numberline {6.1.4.29}lines}{28}{subsubsection.6.1.4.29}%
+\contentsline {subsubsection}{\numberline {6.1.4.30}liver\_var}{28}{subsubsection.6.1.4.30}%
+\contentsline {subsubsection}{\numberline {6.1.4.31}liverIntensityScale}{28}{subsubsection.6.1.4.31}%
+\contentsline {subsubsection}{\numberline {6.1.4.32}mask}{29}{subsubsection.6.1.4.32}%
+\contentsline {subsubsection}{\numberline {6.1.4.33}mask\_img}{29}{subsubsection.6.1.4.33}%
+\contentsline {subsubsection}{\numberline {6.1.4.34}masks}{29}{subsubsection.6.1.4.34}%
+\contentsline {subsubsection}{\numberline {6.1.4.35}myCanvas}{29}{subsubsection.6.1.4.35}%
+\contentsline {subsubsection}{\numberline {6.1.4.36}myEntry1}{29}{subsubsection.6.1.4.36}%
+\contentsline {subsubsection}{\numberline {6.1.4.37}myEntry2}{29}{subsubsection.6.1.4.37}%
+\contentsline {subsubsection}{\numberline {6.1.4.38}myScale}{29}{subsubsection.6.1.4.38}%
+\contentsline {subsubsection}{\numberline {6.1.4.39}patient\_id}{30}{subsubsection.6.1.4.39}%
+\contentsline {subsubsection}{\numberline {6.1.4.40}patients}{30}{subsubsection.6.1.4.40}%
+\contentsline {subsubsection}{\numberline {6.1.4.41}pixel\_value}{30}{subsubsection.6.1.4.41}%
+\contentsline {subsubsection}{\numberline {6.1.4.42}previousX}{30}{subsubsection.6.1.4.42}%
+\contentsline {subsubsection}{\numberline {6.1.4.43}previousY}{30}{subsubsection.6.1.4.43}%
+\contentsline {subsubsection}{\numberline {6.1.4.44}quest}{30}{subsubsection.6.1.4.44}%
+\contentsline {subsubsection}{\numberline {6.1.4.45}questCheck}{30}{subsubsection.6.1.4.45}%
+\contentsline {subsubsection}{\numberline {6.1.4.46}questionable\_slices}{31}{subsubsection.6.1.4.46}%
+\contentsline {subsubsection}{\numberline {6.1.4.47}radiobuttonValue}{31}{subsubsection.6.1.4.47}%
+\contentsline {subsubsection}{\numberline {6.1.4.48}rgb}{31}{subsubsection.6.1.4.48}%
+\contentsline {subsubsection}{\numberline {6.1.4.49}showMask}{31}{subsubsection.6.1.4.49}%
+\contentsline {subsubsection}{\numberline {6.1.4.50}slice\_idx}{31}{subsubsection.6.1.4.50}%
+\contentsline {subsubsection}{\numberline {6.1.4.51}slices}{31}{subsubsection.6.1.4.51}%
+\contentsline {subsubsection}{\numberline {6.1.4.52}thresholds}{31}{subsubsection.6.1.4.52}%
+\contentsline {subsubsection}{\numberline {6.1.4.53}tkvar}{31}{subsubsection.6.1.4.53}%
+\contentsline {subsubsection}{\numberline {6.1.4.54}toolsThickness}{31}{subsubsection.6.1.4.54}%
+\contentsline {chapter}{\numberline {7}File Documentation}{33}{chapter.7}%
+\contentsline {section}{\numberline {7.1}/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Users/lorenz/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Desktop/release/radipop/segmentation.py File Reference}{33}{section.7.1}%
+\contentsline {section}{\numberline {7.2}/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Users/lorenz/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Desktop/release/radipop/segmentation\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.py File Reference}{33}{section.7.2}%
+\contentsline {chapter}{Index}{35}{section*.14}%

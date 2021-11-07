@@ -1,0 +1,344 @@
+\begin{theindex}
+
+  \item {/Users/lorenz/Desktop/release/radipop/segmentation.py}, 
+		\hyperpage{33}
+  \item {/Users/lorenz/Desktop/release/radipop/segmentation\_utils.py}, 
+		\hyperpage{33}
+  \item {\_\_init\_\_}
+    \subitem {Application}, \hyperpage{18}
+
+  \indexspace
+
+  \item {add\_sobel\_edges}
+    \subitem {segmentation\_utils}, \hyperpage{11}
+  \item {app}
+    \subitem {segmentation}, \hyperpage{10}
+  \item {Application}, \hyperpage{15}
+    \subitem {\_\_init\_\_}, \hyperpage{18}
+    \subitem {blood\_vessel\_var}, \hyperpage{24}
+    \subitem {bloodVesselIntensityScale}, \hyperpage{24}
+    \subitem {bone\_var}, \hyperpage{24}
+    \subitem {boneIntensityScale}, \hyperpage{24}
+    \subitem {buttonAccept}, \hyperpage{24}
+    \subitem {buttonDeleteAll}, \hyperpage{25}
+    \subitem {buttonExtend}, \hyperpage{25}
+    \subitem {buttonExtendInt}, \hyperpage{25}
+    \subitem {buttonLabelLiver}, \hyperpage{25}
+    \subitem {buttonLabelSpleen}, \hyperpage{25}
+    \subitem {buttonPartition}, \hyperpage{25}
+    \subitem {buttonSave}, \hyperpage{26}
+    \subitem {buttonToggleMask}, \hyperpage{26}
+    \subitem {createWidgets}, \hyperpage{18}
+    \subitem {deleteAll}, \hyperpage{18}
+    \subitem {deleteAndReload}, \hyperpage{19}
+    \subitem {displayMask}, \hyperpage{19}
+    \subitem {drawLine}, \hyperpage{26}
+    \subitem {enableLineDrawing}, \hyperpage{19}
+    \subitem {entry\_label}, \hyperpage{26}
+    \subitem {entryFrame}, \hyperpage{26}
+    \subitem {extend\_labels}, \hyperpage{19}
+    \subitem {extend\_thresholds}, \hyperpage{19}
+    \subitem {file\_dir}, \hyperpage{26}
+    \subitem {fileSave}, \hyperpage{20}
+    \subitem {hide\_button}, \hyperpage{20}
+    \subitem {hide\_controls}, \hyperpage{20}
+    \subitem {highlight\_img}, \hyperpage{26}
+    \subitem {highlightOrgan}, \hyperpage{20}
+    \subitem {img}, \hyperpage{27}
+    \subitem {label}, \hyperpage{27}
+    \subitem {label\_controls}, \hyperpage{20}
+    \subitem {label\_quest}, \hyperpage{21}
+    \subitem {labelBloodVesselIntensity}, \hyperpage{27}
+    \subitem {labelBoneIntensity}, \hyperpage{27}
+    \subitem {labelLiver}, \hyperpage{21}
+    \subitem {labelLiverIntensity}, \hyperpage{27}
+    \subitem {labelSpleen}, \hyperpage{21}
+    \subitem {labelThickness}, \hyperpage{27}
+    \subitem {last\_clicked\_x}, \hyperpage{27}
+    \subitem {last\_clicked\_y}, \hyperpage{28}
+    \subitem {leftFrame}, \hyperpage{28}
+    \subitem {line\_segments}, \hyperpage{28}
+    \subitem {lines}, \hyperpage{28}
+    \subitem {liver\_var}, \hyperpage{28}
+    \subitem {liverIntensityScale}, \hyperpage{28}
+    \subitem {load\_masks}, \hyperpage{21}
+    \subitem {loadSlice}, \hyperpage{21}
+    \subitem {mask}, \hyperpage{28}
+    \subitem {mask\_img}, \hyperpage{29}
+    \subitem {masks}, \hyperpage{29}
+    \subitem {myCanvas}, \hyperpage{29}
+    \subitem {myEntry1}, \hyperpage{29}
+    \subitem {myEntry2}, \hyperpage{29}
+    \subitem {myScale}, \hyperpage{29}
+    \subitem {navigation\_controls}, \hyperpage{21}
+    \subitem {partitionOrgans}, \hyperpage{22}
+    \subitem {patient\_id}, \hyperpage{29}
+    \subitem {patients}, \hyperpage{30}
+    \subitem {pixel\_value}, \hyperpage{30}
+    \subitem {previousX}, \hyperpage{30}
+    \subitem {previousY}, \hyperpage{30}
+    \subitem {quest}, \hyperpage{30}
+    \subitem {questCheck}, \hyperpage{30}
+    \subitem {questionable\_slices}, \hyperpage{30}
+    \subitem {radiobuttonValue}, \hyperpage{31}
+    \subitem {rgb}, \hyperpage{31}
+    \subitem {save\_controls}, \hyperpage{22}
+    \subitem {set\_liver\_intensity}, \hyperpage{22}
+    \subitem {set\_threshold\_toggles}, \hyperpage{22}
+    \subitem {setPartition}, \hyperpage{22}
+    \subitem {SetPatient}, \hyperpage{23}
+    \subitem {setSlice}, \hyperpage{23}
+    \subitem {show\_button}, \hyperpage{23}
+    \subitem {show\_controls}, \hyperpage{23}
+    \subitem {showMask}, \hyperpage{31}
+    \subitem {slice\_editing\_controls}, \hyperpage{23}
+    \subitem {slice\_idx}, \hyperpage{31}
+    \subitem {slices}, \hyperpage{31}
+    \subitem {thresholds}, \hyperpage{31}
+    \subitem {tkvar}, \hyperpage{31}
+    \subitem {toggleMask}, \hyperpage{23}
+    \subitem {toolsThickness}, \hyperpage{31}
+  \item {assign\_colors}
+    \subitem {segmentation}, \hyperpage{9}
+
+  \indexspace
+
+  \item {blood\_vessel\_var}
+    \subitem {Application}, \hyperpage{24}
+  \item {bloodVesselIntensityScale}
+    \subitem {Application}, \hyperpage{24}
+  \item {bone\_var}
+    \subitem {Application}, \hyperpage{24}
+  \item {boneIntensityScale}
+    \subitem {Application}, \hyperpage{24}
+  \item {buttonAccept}
+    \subitem {Application}, \hyperpage{24}
+  \item {buttonDeleteAll}
+    \subitem {Application}, \hyperpage{25}
+  \item {buttonExtend}
+    \subitem {Application}, \hyperpage{25}
+  \item {buttonExtendInt}
+    \subitem {Application}, \hyperpage{25}
+  \item {buttonLabelLiver}
+    \subitem {Application}, \hyperpage{25}
+  \item {buttonLabelSpleen}
+    \subitem {Application}, \hyperpage{25}
+  \item {buttonPartition}
+    \subitem {Application}, \hyperpage{25}
+  \item {buttonSave}
+    \subitem {Application}, \hyperpage{26}
+  \item {buttonToggleMask}
+    \subitem {Application}, \hyperpage{26}
+
+  \indexspace
+
+  \item {createWidgets}
+    \subitem {Application}, \hyperpage{18}
+
+  \indexspace
+
+  \item {deleteAll}
+    \subitem {Application}, \hyperpage{18}
+  \item {deleteAndReload}
+    \subitem {Application}, \hyperpage{19}
+  \item {displayMask}
+    \subitem {Application}, \hyperpage{19}
+  \item {draw\_region\_outlines}
+    \subitem {segmentation\_utils}, \hyperpage{11}
+  \item {drawLine}
+    \subitem {Application}, \hyperpage{26}
+
+  \indexspace
+
+  \item {enableLineDrawing}
+    \subitem {Application}, \hyperpage{19}
+  \item {entry\_label}
+    \subitem {Application}, \hyperpage{26}
+  \item {entryFrame}
+    \subitem {Application}, \hyperpage{26}
+  \item {extend\_labels}
+    \subitem {Application}, \hyperpage{19}
+  \item {extend\_thresholds}
+    \subitem {Application}, \hyperpage{19}
+
+  \indexspace
+
+  \item {file\_dir}
+    \subitem {Application}, \hyperpage{26}
+  \item {fileSave}
+    \subitem {Application}, \hyperpage{20}
+  \item {find\_organs}
+    \subitem {segmentation}, \hyperpage{10}
+
+  \indexspace
+
+  \item {guess\_bounds}
+    \subitem {segmentation\_utils}, \hyperpage{12}
+
+  \indexspace
+
+  \item {hide\_button}
+    \subitem {Application}, \hyperpage{20}
+  \item {hide\_controls}
+    \subitem {Application}, \hyperpage{20}
+  \item {highlight\_img}
+    \subitem {Application}, \hyperpage{26}
+  \item {highlightOrgan}
+    \subitem {Application}, \hyperpage{20}
+
+  \indexspace
+
+  \item {img}
+    \subitem {Application}, \hyperpage{27}
+
+  \indexspace
+
+  \item {label}
+    \subitem {Application}, \hyperpage{27}
+  \item {label\_controls}
+    \subitem {Application}, \hyperpage{20}
+  \item {label\_quest}
+    \subitem {Application}, \hyperpage{21}
+  \item {labelBloodVesselIntensity}
+    \subitem {Application}, \hyperpage{27}
+  \item {labelBoneIntensity}
+    \subitem {Application}, \hyperpage{27}
+  \item {labelLiver}
+    \subitem {Application}, \hyperpage{21}
+  \item {labelLiverIntensity}
+    \subitem {Application}, \hyperpage{27}
+  \item {labelSpleen}
+    \subitem {Application}, \hyperpage{21}
+  \item {labelThickness}
+    \subitem {Application}, \hyperpage{27}
+  \item {last\_clicked\_x}
+    \subitem {Application}, \hyperpage{27}
+  \item {last\_clicked\_y}
+    \subitem {Application}, \hyperpage{28}
+  \item {leftFrame}
+    \subitem {Application}, \hyperpage{28}
+  \item {line\_segments}
+    \subitem {Application}, \hyperpage{28}
+  \item {lines}
+    \subitem {Application}, \hyperpage{28}
+  \item {liver\_var}
+    \subitem {Application}, \hyperpage{28}
+  \item {liverIntensityScale}
+    \subitem {Application}, \hyperpage{28}
+  \item {load\_masks}
+    \subitem {Application}, \hyperpage{21}
+  \item {loadSlice}
+    \subitem {Application}, \hyperpage{21}
+
+  \indexspace
+
+  \item {mask}
+    \subitem {Application}, \hyperpage{28}
+  \item {mask\_img}
+    \subitem {Application}, \hyperpage{29}
+  \item {masks}
+    \subitem {Application}, \hyperpage{29}
+  \item {myCanvas}
+    \subitem {Application}, \hyperpage{29}
+  \item {myEntry1}
+    \subitem {Application}, \hyperpage{29}
+  \item {myEntry2}
+    \subitem {Application}, \hyperpage{29}
+  \item {myScale}
+    \subitem {Application}, \hyperpage{29}
+
+  \indexspace
+
+  \item {navigation\_controls}
+    \subitem {Application}, \hyperpage{21}
+
+  \indexspace
+
+  \item {partition\_at\_threshold}
+    \subitem {segmentation\_utils}, \hyperpage{12}
+  \item {partitionOrgans}
+    \subitem {Application}, \hyperpage{22}
+  \item {patient\_id}
+    \subitem {Application}, \hyperpage{29}
+  \item {patients}
+    \subitem {Application}, \hyperpage{30}
+  \item {pixel\_value}
+    \subitem {Application}, \hyperpage{30}
+  \item {previousX}
+    \subitem {Application}, \hyperpage{30}
+  \item {previousY}
+    \subitem {Application}, \hyperpage{30}
+
+  \indexspace
+
+  \item {quest}
+    \subitem {Application}, \hyperpage{30}
+  \item {questCheck}
+    \subitem {Application}, \hyperpage{30}
+  \item {questionable\_slices}
+    \subitem {Application}, \hyperpage{30}
+
+  \indexspace
+
+  \item {radiobuttonValue}
+    \subitem {Application}, \hyperpage{31}
+  \item {rgb}
+    \subitem {Application}, \hyperpage{31}
+  \item {root}
+    \subitem {segmentation}, \hyperpage{10}
+
+  \indexspace
+
+  \item {save\_controls}
+    \subitem {Application}, \hyperpage{22}
+  \item {save\_partition}
+    \subitem {segmentation\_utils}, \hyperpage{13}
+  \item {segmentation}, \hyperpage{9}
+    \subitem {app}, \hyperpage{10}
+    \subitem {assign\_colors}, \hyperpage{9}
+    \subitem {find\_organs}, \hyperpage{10}
+    \subitem {root}, \hyperpage{10}
+  \item {segmentation\_utils}, \hyperpage{11}
+    \subitem {add\_sobel\_edges}, \hyperpage{11}
+    \subitem {draw\_region\_outlines}, \hyperpage{11}
+    \subitem {guess\_bounds}, \hyperpage{12}
+    \subitem {partition\_at\_threshold}, \hyperpage{12}
+    \subitem {save\_partition}, \hyperpage{13}
+    \subitem {trim\_background}, \hyperpage{13}
+  \item {set\_liver\_intensity}
+    \subitem {Application}, \hyperpage{22}
+  \item {set\_threshold\_toggles}
+    \subitem {Application}, \hyperpage{22}
+  \item {setPartition}
+    \subitem {Application}, \hyperpage{22}
+  \item {SetPatient}
+    \subitem {Application}, \hyperpage{23}
+  \item {setSlice}
+    \subitem {Application}, \hyperpage{23}
+  \item {show\_button}
+    \subitem {Application}, \hyperpage{23}
+  \item {show\_controls}
+    \subitem {Application}, \hyperpage{23}
+  \item {showMask}
+    \subitem {Application}, \hyperpage{31}
+  \item {slice\_editing\_controls}
+    \subitem {Application}, \hyperpage{23}
+  \item {slice\_idx}
+    \subitem {Application}, \hyperpage{31}
+  \item {slices}
+    \subitem {Application}, \hyperpage{31}
+
+  \indexspace
+
+  \item {thresholds}
+    \subitem {Application}, \hyperpage{31}
+  \item {tkvar}
+    \subitem {Application}, \hyperpage{31}
+  \item {toggleMask}
+    \subitem {Application}, \hyperpage{23}
+  \item {toolsThickness}
+    \subitem {Application}, \hyperpage{31}
+  \item {trim\_background}
+    \subitem {segmentation\_utils}, \hyperpage{13}
+
+\end{theindex}

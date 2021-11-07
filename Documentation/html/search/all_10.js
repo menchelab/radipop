@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['save_5fcontrols_0',['save_controls',['../classsegmentation_1_1_application.html#a883b396c00d0fa4ded8c9c6b264d5cef',1,'segmentation::Application']]],
+  ['save_5fpartition_1',['save_partition',['../namespacesegmentation__utils.html#a272d79f96a54b40b689cba7c0491ff9e',1,'segmentation_utils']]],
+  ['segmentation_2',['segmentation',['../namespacesegmentation.html',1,'']]],
+  ['segmentation_2epy_3',['segmentation.py',['../segmentation_8py.html',1,'']]],
+  ['segmentation_5futils_4',['segmentation_utils',['../namespacesegmentation__utils.html',1,'']]],
+  ['segmentation_5futils_2epy_5',['segmentation_utils.py',['../segmentation__utils_8py.html',1,'']]],
+  ['set_5fliver_5fintensity_6',['set_liver_intensity',['../classsegmentation_1_1_application.html#a44a6691bc217952c4b859e2e8eb3137b',1,'segmentation::Application']]],
+  ['set_5fthreshold_5ftoggles_7',['set_threshold_toggles',['../classsegmentation_1_1_application.html#a3f7bef1d1365511df579d50908ca8c6f',1,'segmentation::Application']]],
+  ['setpartition_8',['setPartition',['../classsegmentation_1_1_application.html#a439abd4931f8ec80a1abb1506cc695d4',1,'segmentation::Application']]],
+  ['setpatient_9',['SetPatient',['../classsegmentation_1_1_application.html#a3eb28d1d1db8f370855eeecf75b66d35',1,'segmentation::Application']]],
+  ['setslice_10',['setSlice',['../classsegmentation_1_1_application.html#ad0547fad016943cf348b296104a524d2',1,'segmentation::Application']]],
+  ['show_5fbutton_11',['show_button',['../classsegmentation_1_1_application.html#aa1c364708819ac9ea6b4ed0160b7852f',1,'segmentation::Application']]],
+  ['show_5fcontrols_12',['show_controls',['../classsegmentation_1_1_application.html#a6e038dcd1191c37cf1e5f9c5210423ca',1,'segmentation::Application']]],
+  ['showmask_13',['showMask',['../classsegmentation_1_1_application.html#ab6a98fa709860be4c56c1791b6ed375f',1,'segmentation::Application']]],
+  ['slice_5fediting_5fcontrols_14',['slice_editing_controls',['../classsegmentation_1_1_application.html#ae5378bccddfb644212097b4c964be3b5',1,'segmentation::Application']]],
+  ['slice_5fidx_15',['slice_idx',['../classsegmentation_1_1_application.html#ab4a89f1e052a6dd7f9ed596ed44f7534',1,'segmentation::Application']]],
+  ['slices_16',['slices',['../classsegmentation_1_1_application.html#a178feada29e30033e5be72f5522cba27',1,'segmentation::Application']]]
+];

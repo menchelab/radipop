@@ -1,0 +1,91 @@
+\hypertarget{namespacesegmentation}{}\doxysection{segmentation Namespace Reference}
+\label{namespacesegmentation}\index{segmentation@{segmentation}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsegmentation_1_1_application}{Application}}
+\begin{DoxyCompactList}\small\item\em Tkinter frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespacesegmentation_a322da80ccf36dbb3640bc0f261645661}{assign\+\_\+colors}} (mask)
+\begin{DoxyCompactList}\small\item\em Display utility; colors every region green with a darker green outline; regions labeled 1 and 2 are special (they are known liver/spleen) and are colored bright red/blue. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmentation_ab83218b9a1a4495913465d817de58814}{find\+\_\+organs}} (slice\+\_\+idx, patient\+\_\+id, bones\+\_\+thresh, blood\+\_\+vessels\+\_\+thresh, liver\+\_\+thresh)
+\begin{DoxyCompactList}\small\item\em Uses three threshold values to find organs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesegmentation_afe63fea7be31b0200b496d08bc6b517d}{app}} = \mbox{\hyperlink{classsegmentation_1_1_application}{Application}}(\mbox{\hyperlink{namespacesegmentation_ab4b8daf4b8ea9d39568719e1e320076f}{root}})
+\item 
+\mbox{\hyperlink{namespacesegmentation_ab4b8daf4b8ea9d39568719e1e320076f}{root}} = Tk()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacesegmentation_a322da80ccf36dbb3640bc0f261645661}\label{namespacesegmentation_a322da80ccf36dbb3640bc0f261645661}} 
+\index{segmentation@{segmentation}!assign\_colors@{assign\_colors}}
+\index{assign\_colors@{assign\_colors}!segmentation@{segmentation}}
+\doxysubsubsection{\texorpdfstring{assign\_colors()}{assign\_colors()}}
+{\footnotesize\ttfamily def segmentation.\+assign\+\_\+colors (\begin{DoxyParamCaption}\item[{}]{mask }\end{DoxyParamCaption})}
+
+
+
+Display utility; colors every region green with a darker green outline; regions labeled 1 and 2 are special (they are known liver/spleen) and are colored bright red/blue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mask} & labelled mask\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+colored mask 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacesegmentation_ab83218b9a1a4495913465d817de58814}\label{namespacesegmentation_ab83218b9a1a4495913465d817de58814}} 
+\index{segmentation@{segmentation}!find\_organs@{find\_organs}}
+\index{find\_organs@{find\_organs}!segmentation@{segmentation}}
+\doxysubsubsection{\texorpdfstring{find\_organs()}{find\_organs()}}
+{\footnotesize\ttfamily def segmentation.\+find\+\_\+organs (\begin{DoxyParamCaption}\item[{}]{slice\+\_\+idx,  }\item[{}]{patient\+\_\+id,  }\item[{}]{bones\+\_\+thresh,  }\item[{}]{blood\+\_\+vessels\+\_\+thresh,  }\item[{}]{liver\+\_\+thresh }\end{DoxyParamCaption})}
+
+
+
+Uses three threshold values to find organs. 
+
+The algorithm is\+:
+\begin{DoxyItemize}
+\item After some smoothing, remove every pixel above bones threshold from the image.
+\item After some smoothing, remove every pixel above blood vessel threshold.
+\item Everything that then remains above liver threshold is called an organ.
+\item Use contiguous area divisions to roughly split into organs.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em slice\+\_\+inx} & Index of slice on which to find organs \\
+\hline
+{\em patient\+\_\+id} & Id of Patient \\
+\hline
+{\em bones\+\_\+thres} & bones threshold\+: \mbox{[}threshold, square\+\_\+size , min\+\_\+size\mbox{]} \\
+\hline
+{\em blood\+\_\+vessels\+\_\+thresh} & blood vessels threshold\+: \mbox{[}threshold, square\+\_\+size , min\+\_\+size\mbox{]} \\
+\hline
+{\em liver\+\_\+thresh} & liver threshold\+: \mbox{[}threshold, square\+\_\+size , min\+\_\+size\mbox{]}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+New binary mask (same size as slice) 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespacesegmentation_afe63fea7be31b0200b496d08bc6b517d}\label{namespacesegmentation_afe63fea7be31b0200b496d08bc6b517d}} 
+\index{segmentation@{segmentation}!app@{app}}
+\index{app@{app}!segmentation@{segmentation}}
+\doxysubsubsection{\texorpdfstring{app}{app}}
+{\footnotesize\ttfamily app = \mbox{\hyperlink{classsegmentation_1_1_application}{Application}}(\mbox{\hyperlink{namespacesegmentation_ab4b8daf4b8ea9d39568719e1e320076f}{root}})}
+
+\mbox{\Hypertarget{namespacesegmentation_ab4b8daf4b8ea9d39568719e1e320076f}\label{namespacesegmentation_ab4b8daf4b8ea9d39568719e1e320076f}} 
+\index{segmentation@{segmentation}!root@{root}}
+\index{root@{root}!segmentation@{segmentation}}
+\doxysubsubsection{\texorpdfstring{root}{root}}
+{\footnotesize\ttfamily root = Tk()}
+

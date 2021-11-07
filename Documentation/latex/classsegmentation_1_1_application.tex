@@ -1,0 +1,896 @@
+\hypertarget{classsegmentation_1_1_application}{}\doxysection{Application Class Reference}
+\label{classsegmentation_1_1_application}\index{Application@{Application}}
+
+
+Tkinter frame.  
+
+
+Inheritance diagram for Application\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classsegmentation_1_1_application}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_aa7a4e2c13d6198a41bbf8f878589394b}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, master)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_aef425c6edf62401d633fa4598e8dcceb}{create\+Widgets}} (self)
+\begin{DoxyCompactList}\small\item\em Creates all input elements of GUI. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a411d5cefd7d5821f383548bf60b21345}{delete\+All}} (self)
+\begin{DoxyCompactList}\small\item\em Deletes lines drawn by the user. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a9029cf62fbdca65f934e97b1ad95c50f}{delete\+And\+Reload}} (self)
+\begin{DoxyCompactList}\small\item\em Discards lines drawn by user on the canvas and reloads current slice. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a746d17498ce5b2aa9c6863d1ac73200c}{display\+Mask}} (self)
+\begin{DoxyCompactList}\small\item\em Shows mask on canvas if self.\+show\+Mask is true. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_aa4934df6ae240368796761f2033d20ca}{enable\+Line\+Drawing}} (self, event)
+\begin{DoxyCompactList}\small\item\em Draw lines on display area Activated if user clicks on display area/canvas and the drawing mode is enabled (correct\+Parition\+Button) \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a5dbaac41934c37913c78f0e963c9e93d}{extend\+\_\+labels}} (self)
+\begin{DoxyCompactList}\small\item\em Extend labels from current slice to neighbouring slices Extends labels left and right from current slice How far the labels are extended is taken from left and right expansion bounds. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a99ed8575740c362af3d45b07c929a717}{extend\+\_\+thresholds}} (self)
+\begin{DoxyCompactList}\small\item\em Extends the three thresholds to all slices Also runs find\+\_\+organs on all slices and updates the masks. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_ab1f2ab1a149cfa3d65f00719b61b987f}{file\+Save}} (self)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_ad715ce45cef25f4e1fb1dbb430d60fc4}{hide\+\_\+button}} (self)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a9504bf1b6919227bf8a64564c80869a0}{hide\+\_\+controls}} (self, controls)
+\begin{DoxyCompactList}\small\item\em Hide given GUI control element. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a6c0e522502f9f6f89304cf07801dd0b6}{highlight\+Organ}} (self, event)
+\begin{DoxyCompactList}\small\item\em Highlights regions of the mask (organs) that were clicked on by user. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a0673580db3f4b772a313a9e529cf8ee7}{label\+\_\+controls}} (self)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a855701eb05572320fe28c54614eb58c0}{label\+\_\+quest}} (self)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_acb380ccd813570f3534c2b51d37384cf}{label\+Liver}} (self)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a9f5c033fc148bd6c405380111e54795e}{label\+Spleen}} (self)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a83c96ecc5890a28e7eee421cdcb417a1}{load\+\_\+masks}} (self, \mbox{\hyperlink{classsegmentation_1_1_application_acd763457c9913ff7e6799ea450748b43}{patient\+\_\+id}})
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a5ca3eb0c59840fdc6c8712b51df4d76a}{load\+Slice}} (self)
+\begin{DoxyCompactList}\small\item\em Reset canvas and load slice of current index and patient Also deactivates drawing mode. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a521939db5eec164938a55d0c132cedc5}{navigation\+\_\+controls}} (self)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_ae51f0259eae0c33c6832292abf6f1e70}{partition\+Organs}} (self)
+\begin{DoxyCompactList}\small\item\em Activates drawing mode Enables drawing lines on slice which mark regions of the mask that should be removed. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a883b396c00d0fa4ded8c9c6b264d5cef}{save\+\_\+controls}} (self)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a44a6691bc217952c4b859e2e8eb3137b}{set\+\_\+liver\+\_\+intensity}} (self, event)
+\begin{DoxyCompactList}\small\item\em Sets threshold for liver intensity Steps\+: \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a3f7bef1d1365511df579d50908ca8c6f}{set\+\_\+threshold\+\_\+toggles}} (self)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a439abd4931f8ec80a1abb1506cc695d4}{set\+Partition}} (self)
+\begin{DoxyCompactList}\small\item\em Apply changes made in drawing mode Removes regions of the mask that were marked by the user with lines Deactivates drawing mode Deletes lines drawn by user after the masks have been partitioned. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a3eb28d1d1db8f370855eeecf75b66d35}{Set\+Patient}} (self, choice)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_ad0547fad016943cf348b296104a524d2}{set\+Slice}} (self, event)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_aa1c364708819ac9ea6b4ed0160b7852f}{show\+\_\+button}} (self)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a6e038dcd1191c37cf1e5f9c5210423ca}{show\+\_\+controls}} (self, controls, offset)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_ae5378bccddfb644212097b4c964be3b5}{slice\+\_\+editing\+\_\+controls}} (self)
+\item 
+def \mbox{\hyperlink{classsegmentation_1_1_application_a94d722b0dca49938e49d58ccb1df165f}{toggle\+Mask}} (self)
+\begin{DoxyCompactList}\small\item\em Display/\+Hide mask Sets self.\+show\+Mask to true/false Deletes mask from canvas Changes label of button\+: show mask/hide mask. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a1cbcb9363d28cd1faeef6a622ef876cc}{blood\+\_\+vessel\+\_\+var}}
+\begin{DoxyCompactList}\small\item\em Variable value\+: blood vessel intensity slider. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a08fcd4135dc43132fd864c0abaa75f95}{blood\+Vessel\+Intensity\+Scale}}
+\begin{DoxyCompactList}\small\item\em Slider\+: blood vessel intensity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_ac11d3e4995994143ced0d44d7bf6df7e}{bone\+\_\+var}}
+\begin{DoxyCompactList}\small\item\em Variable value\+: bone intensity slider. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a15215282eff10d93376c570d8257470f}{bone\+Intensity\+Scale}}
+\begin{DoxyCompactList}\small\item\em Slider\+: bone intensity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_ae9c4b44a13ab4f89ffaa8acc933b0238}{button\+Accept}}
+\begin{DoxyCompactList}\small\item\em Button\+: Deactivates drawing mode and applies manual changes to mask. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_adc6ae3f16962eb393f26b45c12b30694}{button\+Delete\+All}}
+\begin{DoxyCompactList}\small\item\em Button\+: Revokes manual changes of mask made in drawing mode (button\+Parition) -\/ only works in drawing mode. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_af03afc490074f6ec4b2b2bf45be1b5ca}{button\+Extend}}
+\begin{DoxyCompactList}\small\item\em expansion bounds -\/-\/\texorpdfstring{$>$}{>} propagate labelling to left and right from current slice \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a3a763ec4fda06830c2317698d7f500a4}{button\+Extend\+Int}}
+\begin{DoxyCompactList}\small\item\em Button\+: Apply thresholds on all slices. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_ad16848c00c25cdcb615930acf7c5b298}{button\+Label\+Liver}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a492390cb088a8fd2df91890ceee17637}{button\+Label\+Spleen}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a401013491db5bd13c06ac5f5faf575da}{button\+Partition}}
+\begin{DoxyCompactList}\small\item\em Button\+: Activates drawing mode -\/-\/\texorpdfstring{$>$}{>} delete regions of masks manually. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a7e3b95a65eb7add0f12bd1069cb02d2a}{button\+Save}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_ad013ad5e0867bbb9b76afe5d47febfd9}{button\+Toggle\+Mask}}
+\begin{DoxyCompactList}\small\item\em Button\+: Hide/\+Display mask Button. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_aed0b52602d368db3fd2d881155af2c5f}{draw\+Line}}
+\begin{DoxyCompactList}\small\item\em Drawing mode on/off. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a939a1aa7bdf7e68150bc5773b99d3117}{entry\+\_\+label}}
+\begin{DoxyCompactList}\small\item\em Set expansion Bounds -\/ section text. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a99cf55410060b351065edc87b57c49bb}{entry\+Frame}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_aa9785a6402120b515e61ff3608ef792e}{file\+\_\+dir}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a0822b4fa69b000b9ef8807dac2f2e6b6}{highlight\+\_\+img}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a86d0d51ceb4bc3bd26707520f257a5a4}{img}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a22f45a3cb4f074e609f58ebaeef0ecf9}{label}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_ad2af522e5d42c58616fcce0ba7e4b81d}{label\+Blood\+Vessel\+Intensity}}
+\begin{DoxyCompactList}\small\item\em Text label\+: blood vessel intensity slider. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a0ce07fd8a23c10c4bc5d48ca71f75376}{label\+Bone\+Intensity}}
+\begin{DoxyCompactList}\small\item\em Text label\+: bone intensity slider. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a5af1afa400e761467d84d2bba3fc205b}{label\+Liver\+Intensity}}
+\begin{DoxyCompactList}\small\item\em Text label\+: liver intensity slider. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a96b9086c9a5d30055917ff5eb0ee33fd}{label\+Thickness}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a47338509f293071942e5829fe22ea4b6}{last\+\_\+clicked\+\_\+x}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a515cdca5961d2ca94b7e1837dbed355c}{last\+\_\+clicked\+\_\+y}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a62fbe7ec8de4f6223411d134fad6ac52}{left\+Frame}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a5f2dfaad60500e310f1adcc8e8e589cd}{line\+\_\+segments}}
+\begin{DoxyCompactList}\small\item\em Line segments, created from the points the user clicked on on the canvas. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a22ea78f101680108434cb132f12afa0a}{lines}}
+\begin{DoxyCompactList}\small\item\em Line drawn on canvas. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a256e0854516edaaf8668fa9cbacba021}{liver\+\_\+var}}
+\begin{DoxyCompactList}\small\item\em Variable value\+: liver intensity slider. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a6fb94f88550dc7254a0727c64f960ddf}{liver\+Intensity\+Scale}}
+\begin{DoxyCompactList}\small\item\em Slider\+: liver intensity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a5d76cc2129e79ba1941d2cc2f53b9e8e}{mask}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a452610a111f2007c81511000b9dd01e7}{mask\+\_\+img}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_adad90fa030af56592ad194a41341ffcd}{masks}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_aef6529a41c5a86c9434774ef9f7219fa}{my\+Canvas}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a2b727b46c2111ddddb16b248fa387518}{my\+Entry1}}
+\begin{DoxyCompactList}\small\item\em Left expansion bound. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a76c6727d1d16a47e9d246523bd60db82}{my\+Entry2}}
+\begin{DoxyCompactList}\small\item\em Right expansion bound. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_acb4bd2fa36bbc7ab317c91c83d2d214c}{my\+Scale}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_acd763457c9913ff7e6799ea450748b43}{patient\+\_\+id}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a459a377e2c07085dde46df586a7c85e4}{patients}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_aef60f286071bef345f909b09b9167f0e}{pixel\+\_\+value}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a33d89217c36b6e709404924f998ab94c}{previousX}}
+\begin{DoxyCompactList}\small\item\em Last X coordinate user clicked on, on the canvas. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a570238b5e5000b8e9e38754bf2ee4c94}{previousY}}
+\begin{DoxyCompactList}\small\item\em Last Y coordinate user clicked on, on the canvas. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_aca48107de1c4b4467a4372524f53c761}{quest}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a8167be1c75ba1fe261c0d20af97e355e}{quest\+Check}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_af01c1637c92682f17ed3994a0c963c31}{questionable\+\_\+slices}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_ac026cad56357674f1fa14ba5707ee88e}{radiobutton\+Value}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_ac9352d49e6b05c3bef53620f0556714b}{rgb}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_ab6a98fa709860be4c56c1791b6ed375f}{show\+Mask}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_ab4a89f1e052a6dd7f9ed596ed44f7534}{slice\+\_\+idx}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a178feada29e30033e5be72f5522cba27}{slices}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_aed895f32a296510c2367093c44bbf3c5}{thresholds}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a4a228bcd98b9cf4153720f7bae419eaa}{tkvar}}
+\item 
+\mbox{\hyperlink{classsegmentation_1_1_application_a2b50ce208dedc7e9997426f8983f5cc9}{tools\+Thickness}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Tkinter frame. 
+
+\hypertarget{classsegmentation_1_1_application_autotoc_md0}{}\doxysubsubsection{Features\+:}\label{classsegmentation_1_1_application_autotoc_md0}
+
+\begin{DoxyItemize}
+\item Open patient and flip through frames -\/ v1 done
+\item Draw line to separate organs -\/ line drawing is done
+\item Label liver (lobes, spleen)
+\item Organ lights up when clicked -\/ v1 done
+\item Organ label consistency across slices
+\item Mark and ignore messed up slices
+\item Still missing\+:
+\item Check that save button works
+\item Make configurable how far to extend corrections to each side -\/ done
+\item Display which slices were hand-\/corrected and which have liver/spleen
+\item Extend threshold adjustments -\/ done 
+\end{DoxyItemize}
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classsegmentation_1_1_application_aa7a4e2c13d6198a41bbf8f878589394b}\label{classsegmentation_1_1_application_aa7a4e2c13d6198a41bbf8f878589394b}} 
+\index{Application@{Application}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{master }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classsegmentation_1_1_application_aef425c6edf62401d633fa4598e8dcceb}\label{classsegmentation_1_1_application_aef425c6edf62401d633fa4598e8dcceb}} 
+\index{Application@{Application}!createWidgets@{createWidgets}}
+\index{createWidgets@{createWidgets}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{createWidgets()}{createWidgets()}}
+{\footnotesize\ttfamily def create\+Widgets (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Creates all input elements of GUI. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a411d5cefd7d5821f383548bf60b21345}\label{classsegmentation_1_1_application_a411d5cefd7d5821f383548bf60b21345}} 
+\index{Application@{Application}!deleteAll@{deleteAll}}
+\index{deleteAll@{deleteAll}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{deleteAll()}{deleteAll()}}
+{\footnotesize\ttfamily def delete\+All (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Deletes lines drawn by the user. 
+
+Resets canvas. \mbox{\Hypertarget{classsegmentation_1_1_application_a9029cf62fbdca65f934e97b1ad95c50f}\label{classsegmentation_1_1_application_a9029cf62fbdca65f934e97b1ad95c50f}} 
+\index{Application@{Application}!deleteAndReload@{deleteAndReload}}
+\index{deleteAndReload@{deleteAndReload}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{deleteAndReload()}{deleteAndReload()}}
+{\footnotesize\ttfamily def delete\+And\+Reload (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Discards lines drawn by user on the canvas and reloads current slice. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a746d17498ce5b2aa9c6863d1ac73200c}\label{classsegmentation_1_1_application_a746d17498ce5b2aa9c6863d1ac73200c}} 
+\index{Application@{Application}!displayMask@{displayMask}}
+\index{displayMask@{displayMask}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{displayMask()}{displayMask()}}
+{\footnotesize\ttfamily def display\+Mask (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Shows mask on canvas if self.\+show\+Mask is true. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_aa4934df6ae240368796761f2033d20ca}\label{classsegmentation_1_1_application_aa4934df6ae240368796761f2033d20ca}} 
+\index{Application@{Application}!enableLineDrawing@{enableLineDrawing}}
+\index{enableLineDrawing@{enableLineDrawing}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{enableLineDrawing()}{enableLineDrawing()}}
+{\footnotesize\ttfamily def enable\+Line\+Drawing (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{event }\end{DoxyParamCaption})}
+
+
+
+Draw lines on display area Activated if user clicks on display area/canvas and the drawing mode is enabled (correct\+Parition\+Button) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & GUI event \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsegmentation_1_1_application_a5dbaac41934c37913c78f0e963c9e93d}\label{classsegmentation_1_1_application_a5dbaac41934c37913c78f0e963c9e93d}} 
+\index{Application@{Application}!extend\_labels@{extend\_labels}}
+\index{extend\_labels@{extend\_labels}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{extend\_labels()}{extend\_labels()}}
+{\footnotesize\ttfamily def extend\+\_\+labels (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Extend labels from current slice to neighbouring slices Extends labels left and right from current slice How far the labels are extended is taken from left and right expansion bounds. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a99ed8575740c362af3d45b07c929a717}\label{classsegmentation_1_1_application_a99ed8575740c362af3d45b07c929a717}} 
+\index{Application@{Application}!extend\_thresholds@{extend\_thresholds}}
+\index{extend\_thresholds@{extend\_thresholds}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{extend\_thresholds()}{extend\_thresholds()}}
+{\footnotesize\ttfamily def extend\+\_\+thresholds (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Extends the three thresholds to all slices Also runs find\+\_\+organs on all slices and updates the masks. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_ab1f2ab1a149cfa3d65f00719b61b987f}\label{classsegmentation_1_1_application_ab1f2ab1a149cfa3d65f00719b61b987f}} 
+\index{Application@{Application}!fileSave@{fileSave}}
+\index{fileSave@{fileSave}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{fileSave()}{fileSave()}}
+{\footnotesize\ttfamily def file\+Save (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_ad715ce45cef25f4e1fb1dbb430d60fc4}\label{classsegmentation_1_1_application_ad715ce45cef25f4e1fb1dbb430d60fc4}} 
+\index{Application@{Application}!hide\_button@{hide\_button}}
+\index{hide\_button@{hide\_button}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{hide\_button()}{hide\_button()}}
+{\footnotesize\ttfamily def hide\+\_\+button (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a9504bf1b6919227bf8a64564c80869a0}\label{classsegmentation_1_1_application_a9504bf1b6919227bf8a64564c80869a0}} 
+\index{Application@{Application}!hide\_controls@{hide\_controls}}
+\index{hide\_controls@{hide\_controls}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{hide\_controls()}{hide\_controls()}}
+{\footnotesize\ttfamily def hide\+\_\+controls (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{controls }\end{DoxyParamCaption})}
+
+
+
+Hide given GUI control element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em controls} & control element to hide from GUI \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsegmentation_1_1_application_a6c0e522502f9f6f89304cf07801dd0b6}\label{classsegmentation_1_1_application_a6c0e522502f9f6f89304cf07801dd0b6}} 
+\index{Application@{Application}!highlightOrgan@{highlightOrgan}}
+\index{highlightOrgan@{highlightOrgan}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{highlightOrgan()}{highlightOrgan()}}
+{\footnotesize\ttfamily def highlight\+Organ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{event }\end{DoxyParamCaption})}
+
+
+
+Highlights regions of the mask (organs) that were clicked on by user. 
+
+The function is bound to the canvas. \mbox{\Hypertarget{classsegmentation_1_1_application_a0673580db3f4b772a313a9e529cf8ee7}\label{classsegmentation_1_1_application_a0673580db3f4b772a313a9e529cf8ee7}} 
+\index{Application@{Application}!label\_controls@{label\_controls}}
+\index{label\_controls@{label\_controls}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{label\_controls()}{label\_controls()}}
+{\footnotesize\ttfamily def label\+\_\+controls (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a855701eb05572320fe28c54614eb58c0}\label{classsegmentation_1_1_application_a855701eb05572320fe28c54614eb58c0}} 
+\index{Application@{Application}!label\_quest@{label\_quest}}
+\index{label\_quest@{label\_quest}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{label\_quest()}{label\_quest()}}
+{\footnotesize\ttfamily def label\+\_\+quest (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_acb380ccd813570f3534c2b51d37384cf}\label{classsegmentation_1_1_application_acb380ccd813570f3534c2b51d37384cf}} 
+\index{Application@{Application}!labelLiver@{labelLiver}}
+\index{labelLiver@{labelLiver}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{labelLiver()}{labelLiver()}}
+{\footnotesize\ttfamily def label\+Liver (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a9f5c033fc148bd6c405380111e54795e}\label{classsegmentation_1_1_application_a9f5c033fc148bd6c405380111e54795e}} 
+\index{Application@{Application}!labelSpleen@{labelSpleen}}
+\index{labelSpleen@{labelSpleen}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{labelSpleen()}{labelSpleen()}}
+{\footnotesize\ttfamily def label\+Spleen (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a83c96ecc5890a28e7eee421cdcb417a1}\label{classsegmentation_1_1_application_a83c96ecc5890a28e7eee421cdcb417a1}} 
+\index{Application@{Application}!load\_masks@{load\_masks}}
+\index{load\_masks@{load\_masks}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{load\_masks()}{load\_masks()}}
+{\footnotesize\ttfamily def load\+\_\+masks (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{patient\+\_\+id }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a5ca3eb0c59840fdc6c8712b51df4d76a}\label{classsegmentation_1_1_application_a5ca3eb0c59840fdc6c8712b51df4d76a}} 
+\index{Application@{Application}!loadSlice@{loadSlice}}
+\index{loadSlice@{loadSlice}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{loadSlice()}{loadSlice()}}
+{\footnotesize\ttfamily def load\+Slice (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Reset canvas and load slice of current index and patient Also deactivates drawing mode. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a521939db5eec164938a55d0c132cedc5}\label{classsegmentation_1_1_application_a521939db5eec164938a55d0c132cedc5}} 
+\index{Application@{Application}!navigation\_controls@{navigation\_controls}}
+\index{navigation\_controls@{navigation\_controls}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{navigation\_controls()}{navigation\_controls()}}
+{\footnotesize\ttfamily def navigation\+\_\+controls (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_ae51f0259eae0c33c6832292abf6f1e70}\label{classsegmentation_1_1_application_ae51f0259eae0c33c6832292abf6f1e70}} 
+\index{Application@{Application}!partitionOrgans@{partitionOrgans}}
+\index{partitionOrgans@{partitionOrgans}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{partitionOrgans()}{partitionOrgans()}}
+{\footnotesize\ttfamily def partition\+Organs (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Activates drawing mode Enables drawing lines on slice which mark regions of the mask that should be removed. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a883b396c00d0fa4ded8c9c6b264d5cef}\label{classsegmentation_1_1_application_a883b396c00d0fa4ded8c9c6b264d5cef}} 
+\index{Application@{Application}!save\_controls@{save\_controls}}
+\index{save\_controls@{save\_controls}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{save\_controls()}{save\_controls()}}
+{\footnotesize\ttfamily def save\+\_\+controls (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a44a6691bc217952c4b859e2e8eb3137b}\label{classsegmentation_1_1_application_a44a6691bc217952c4b859e2e8eb3137b}} 
+\index{Application@{Application}!set\_liver\_intensity@{set\_liver\_intensity}}
+\index{set\_liver\_intensity@{set\_liver\_intensity}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{set\_liver\_intensity()}{set\_liver\_intensity()}}
+{\footnotesize\ttfamily def set\+\_\+liver\+\_\+intensity (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{event }\end{DoxyParamCaption})}
+
+
+
+Sets threshold for liver intensity Steps\+: 
+
+
+\begin{DoxyItemize}
+\item Sets thresholds for current slice (self.\+slice\+\_\+idx)
+\item Runs self.\+find\+\_\+organs on current slice with new thresholds
+\item Updates self.\+masks at current slice index
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & self \\
+\hline
+{\em event} & Unused -\/ kept just in case \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsegmentation_1_1_application_a3f7bef1d1365511df579d50908ca8c6f}\label{classsegmentation_1_1_application_a3f7bef1d1365511df579d50908ca8c6f}} 
+\index{Application@{Application}!set\_threshold\_toggles@{set\_threshold\_toggles}}
+\index{set\_threshold\_toggles@{set\_threshold\_toggles}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{set\_threshold\_toggles()}{set\_threshold\_toggles()}}
+{\footnotesize\ttfamily def set\+\_\+threshold\+\_\+toggles (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a439abd4931f8ec80a1abb1506cc695d4}\label{classsegmentation_1_1_application_a439abd4931f8ec80a1abb1506cc695d4}} 
+\index{Application@{Application}!setPartition@{setPartition}}
+\index{setPartition@{setPartition}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{setPartition()}{setPartition()}}
+{\footnotesize\ttfamily def set\+Partition (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Apply changes made in drawing mode Removes regions of the mask that were marked by the user with lines Deactivates drawing mode Deletes lines drawn by user after the masks have been partitioned. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a3eb28d1d1db8f370855eeecf75b66d35}\label{classsegmentation_1_1_application_a3eb28d1d1db8f370855eeecf75b66d35}} 
+\index{Application@{Application}!SetPatient@{SetPatient}}
+\index{SetPatient@{SetPatient}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{SetPatient()}{SetPatient()}}
+{\footnotesize\ttfamily def Set\+Patient (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{choice }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_ad0547fad016943cf348b296104a524d2}\label{classsegmentation_1_1_application_ad0547fad016943cf348b296104a524d2}} 
+\index{Application@{Application}!setSlice@{setSlice}}
+\index{setSlice@{setSlice}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{setSlice()}{setSlice()}}
+{\footnotesize\ttfamily def set\+Slice (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{event }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_aa1c364708819ac9ea6b4ed0160b7852f}\label{classsegmentation_1_1_application_aa1c364708819ac9ea6b4ed0160b7852f}} 
+\index{Application@{Application}!show\_button@{show\_button}}
+\index{show\_button@{show\_button}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{show\_button()}{show\_button()}}
+{\footnotesize\ttfamily def show\+\_\+button (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a6e038dcd1191c37cf1e5f9c5210423ca}\label{classsegmentation_1_1_application_a6e038dcd1191c37cf1e5f9c5210423ca}} 
+\index{Application@{Application}!show\_controls@{show\_controls}}
+\index{show\_controls@{show\_controls}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{show\_controls()}{show\_controls()}}
+{\footnotesize\ttfamily def show\+\_\+controls (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{controls,  }\item[{}]{offset }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_ae5378bccddfb644212097b4c964be3b5}\label{classsegmentation_1_1_application_ae5378bccddfb644212097b4c964be3b5}} 
+\index{Application@{Application}!slice\_editing\_controls@{slice\_editing\_controls}}
+\index{slice\_editing\_controls@{slice\_editing\_controls}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{slice\_editing\_controls()}{slice\_editing\_controls()}}
+{\footnotesize\ttfamily def slice\+\_\+editing\+\_\+controls (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a94d722b0dca49938e49d58ccb1df165f}\label{classsegmentation_1_1_application_a94d722b0dca49938e49d58ccb1df165f}} 
+\index{Application@{Application}!toggleMask@{toggleMask}}
+\index{toggleMask@{toggleMask}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{toggleMask()}{toggleMask()}}
+{\footnotesize\ttfamily def toggle\+Mask (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Display/\+Hide mask Sets self.\+show\+Mask to true/false Deletes mask from canvas Changes label of button\+: show mask/hide mask. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classsegmentation_1_1_application_a1cbcb9363d28cd1faeef6a622ef876cc}\label{classsegmentation_1_1_application_a1cbcb9363d28cd1faeef6a622ef876cc}} 
+\index{Application@{Application}!blood\_vessel\_var@{blood\_vessel\_var}}
+\index{blood\_vessel\_var@{blood\_vessel\_var}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{blood\_vessel\_var}{blood\_vessel\_var}}
+{\footnotesize\ttfamily blood\+\_\+vessel\+\_\+var}
+
+
+
+Variable value\+: blood vessel intensity slider. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a08fcd4135dc43132fd864c0abaa75f95}\label{classsegmentation_1_1_application_a08fcd4135dc43132fd864c0abaa75f95}} 
+\index{Application@{Application}!bloodVesselIntensityScale@{bloodVesselIntensityScale}}
+\index{bloodVesselIntensityScale@{bloodVesselIntensityScale}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{bloodVesselIntensityScale}{bloodVesselIntensityScale}}
+{\footnotesize\ttfamily blood\+Vessel\+Intensity\+Scale}
+
+
+
+Slider\+: blood vessel intensity. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_ac11d3e4995994143ced0d44d7bf6df7e}\label{classsegmentation_1_1_application_ac11d3e4995994143ced0d44d7bf6df7e}} 
+\index{Application@{Application}!bone\_var@{bone\_var}}
+\index{bone\_var@{bone\_var}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{bone\_var}{bone\_var}}
+{\footnotesize\ttfamily bone\+\_\+var}
+
+
+
+Variable value\+: bone intensity slider. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a15215282eff10d93376c570d8257470f}\label{classsegmentation_1_1_application_a15215282eff10d93376c570d8257470f}} 
+\index{Application@{Application}!boneIntensityScale@{boneIntensityScale}}
+\index{boneIntensityScale@{boneIntensityScale}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{boneIntensityScale}{boneIntensityScale}}
+{\footnotesize\ttfamily bone\+Intensity\+Scale}
+
+
+
+Slider\+: bone intensity. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_ae9c4b44a13ab4f89ffaa8acc933b0238}\label{classsegmentation_1_1_application_ae9c4b44a13ab4f89ffaa8acc933b0238}} 
+\index{Application@{Application}!buttonAccept@{buttonAccept}}
+\index{buttonAccept@{buttonAccept}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{buttonAccept}{buttonAccept}}
+{\footnotesize\ttfamily button\+Accept}
+
+
+
+Button\+: Deactivates drawing mode and applies manual changes to mask. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_adc6ae3f16962eb393f26b45c12b30694}\label{classsegmentation_1_1_application_adc6ae3f16962eb393f26b45c12b30694}} 
+\index{Application@{Application}!buttonDeleteAll@{buttonDeleteAll}}
+\index{buttonDeleteAll@{buttonDeleteAll}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{buttonDeleteAll}{buttonDeleteAll}}
+{\footnotesize\ttfamily button\+Delete\+All}
+
+
+
+Button\+: Revokes manual changes of mask made in drawing mode (button\+Parition) -\/ only works in drawing mode. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_af03afc490074f6ec4b2b2bf45be1b5ca}\label{classsegmentation_1_1_application_af03afc490074f6ec4b2b2bf45be1b5ca}} 
+\index{Application@{Application}!buttonExtend@{buttonExtend}}
+\index{buttonExtend@{buttonExtend}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{buttonExtend}{buttonExtend}}
+{\footnotesize\ttfamily button\+Extend}
+
+
+
+expansion bounds -\/-\/\texorpdfstring{$>$}{>} propagate labelling to left and right from current slice 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a3a763ec4fda06830c2317698d7f500a4}\label{classsegmentation_1_1_application_a3a763ec4fda06830c2317698d7f500a4}} 
+\index{Application@{Application}!buttonExtendInt@{buttonExtendInt}}
+\index{buttonExtendInt@{buttonExtendInt}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{buttonExtendInt}{buttonExtendInt}}
+{\footnotesize\ttfamily button\+Extend\+Int}
+
+
+
+Button\+: Apply thresholds on all slices. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_ad16848c00c25cdcb615930acf7c5b298}\label{classsegmentation_1_1_application_ad16848c00c25cdcb615930acf7c5b298}} 
+\index{Application@{Application}!buttonLabelLiver@{buttonLabelLiver}}
+\index{buttonLabelLiver@{buttonLabelLiver}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{buttonLabelLiver}{buttonLabelLiver}}
+{\footnotesize\ttfamily button\+Label\+Liver}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a492390cb088a8fd2df91890ceee17637}\label{classsegmentation_1_1_application_a492390cb088a8fd2df91890ceee17637}} 
+\index{Application@{Application}!buttonLabelSpleen@{buttonLabelSpleen}}
+\index{buttonLabelSpleen@{buttonLabelSpleen}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{buttonLabelSpleen}{buttonLabelSpleen}}
+{\footnotesize\ttfamily button\+Label\+Spleen}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a401013491db5bd13c06ac5f5faf575da}\label{classsegmentation_1_1_application_a401013491db5bd13c06ac5f5faf575da}} 
+\index{Application@{Application}!buttonPartition@{buttonPartition}}
+\index{buttonPartition@{buttonPartition}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{buttonPartition}{buttonPartition}}
+{\footnotesize\ttfamily button\+Partition}
+
+
+
+Button\+: Activates drawing mode -\/-\/\texorpdfstring{$>$}{>} delete regions of masks manually. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a7e3b95a65eb7add0f12bd1069cb02d2a}\label{classsegmentation_1_1_application_a7e3b95a65eb7add0f12bd1069cb02d2a}} 
+\index{Application@{Application}!buttonSave@{buttonSave}}
+\index{buttonSave@{buttonSave}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{buttonSave}{buttonSave}}
+{\footnotesize\ttfamily button\+Save}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_ad013ad5e0867bbb9b76afe5d47febfd9}\label{classsegmentation_1_1_application_ad013ad5e0867bbb9b76afe5d47febfd9}} 
+\index{Application@{Application}!buttonToggleMask@{buttonToggleMask}}
+\index{buttonToggleMask@{buttonToggleMask}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{buttonToggleMask}{buttonToggleMask}}
+{\footnotesize\ttfamily button\+Toggle\+Mask}
+
+
+
+Button\+: Hide/\+Display mask Button. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_aed0b52602d368db3fd2d881155af2c5f}\label{classsegmentation_1_1_application_aed0b52602d368db3fd2d881155af2c5f}} 
+\index{Application@{Application}!drawLine@{drawLine}}
+\index{drawLine@{drawLine}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{drawLine}{drawLine}}
+{\footnotesize\ttfamily draw\+Line}
+
+
+
+Drawing mode on/off. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a939a1aa7bdf7e68150bc5773b99d3117}\label{classsegmentation_1_1_application_a939a1aa7bdf7e68150bc5773b99d3117}} 
+\index{Application@{Application}!entry\_label@{entry\_label}}
+\index{entry\_label@{entry\_label}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{entry\_label}{entry\_label}}
+{\footnotesize\ttfamily entry\+\_\+label}
+
+
+
+Set expansion Bounds -\/ section text. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a99cf55410060b351065edc87b57c49bb}\label{classsegmentation_1_1_application_a99cf55410060b351065edc87b57c49bb}} 
+\index{Application@{Application}!entryFrame@{entryFrame}}
+\index{entryFrame@{entryFrame}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{entryFrame}{entryFrame}}
+{\footnotesize\ttfamily entry\+Frame}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_aa9785a6402120b515e61ff3608ef792e}\label{classsegmentation_1_1_application_aa9785a6402120b515e61ff3608ef792e}} 
+\index{Application@{Application}!file\_dir@{file\_dir}}
+\index{file\_dir@{file\_dir}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{file\_dir}{file\_dir}}
+{\footnotesize\ttfamily file\+\_\+dir}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a0822b4fa69b000b9ef8807dac2f2e6b6}\label{classsegmentation_1_1_application_a0822b4fa69b000b9ef8807dac2f2e6b6}} 
+\index{Application@{Application}!highlight\_img@{highlight\_img}}
+\index{highlight\_img@{highlight\_img}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{highlight\_img}{highlight\_img}}
+{\footnotesize\ttfamily highlight\+\_\+img}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a86d0d51ceb4bc3bd26707520f257a5a4}\label{classsegmentation_1_1_application_a86d0d51ceb4bc3bd26707520f257a5a4}} 
+\index{Application@{Application}!img@{img}}
+\index{img@{img}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{img}{img}}
+{\footnotesize\ttfamily img}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a22f45a3cb4f074e609f58ebaeef0ecf9}\label{classsegmentation_1_1_application_a22f45a3cb4f074e609f58ebaeef0ecf9}} 
+\index{Application@{Application}!label@{label}}
+\index{label@{label}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{label}{label}}
+{\footnotesize\ttfamily label}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_ad2af522e5d42c58616fcce0ba7e4b81d}\label{classsegmentation_1_1_application_ad2af522e5d42c58616fcce0ba7e4b81d}} 
+\index{Application@{Application}!labelBloodVesselIntensity@{labelBloodVesselIntensity}}
+\index{labelBloodVesselIntensity@{labelBloodVesselIntensity}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{labelBloodVesselIntensity}{labelBloodVesselIntensity}}
+{\footnotesize\ttfamily label\+Blood\+Vessel\+Intensity}
+
+
+
+Text label\+: blood vessel intensity slider. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a0ce07fd8a23c10c4bc5d48ca71f75376}\label{classsegmentation_1_1_application_a0ce07fd8a23c10c4bc5d48ca71f75376}} 
+\index{Application@{Application}!labelBoneIntensity@{labelBoneIntensity}}
+\index{labelBoneIntensity@{labelBoneIntensity}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{labelBoneIntensity}{labelBoneIntensity}}
+{\footnotesize\ttfamily label\+Bone\+Intensity}
+
+
+
+Text label\+: bone intensity slider. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a5af1afa400e761467d84d2bba3fc205b}\label{classsegmentation_1_1_application_a5af1afa400e761467d84d2bba3fc205b}} 
+\index{Application@{Application}!labelLiverIntensity@{labelLiverIntensity}}
+\index{labelLiverIntensity@{labelLiverIntensity}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{labelLiverIntensity}{labelLiverIntensity}}
+{\footnotesize\ttfamily label\+Liver\+Intensity}
+
+
+
+Text label\+: liver intensity slider. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a96b9086c9a5d30055917ff5eb0ee33fd}\label{classsegmentation_1_1_application_a96b9086c9a5d30055917ff5eb0ee33fd}} 
+\index{Application@{Application}!labelThickness@{labelThickness}}
+\index{labelThickness@{labelThickness}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{labelThickness}{labelThickness}}
+{\footnotesize\ttfamily label\+Thickness}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a47338509f293071942e5829fe22ea4b6}\label{classsegmentation_1_1_application_a47338509f293071942e5829fe22ea4b6}} 
+\index{Application@{Application}!last\_clicked\_x@{last\_clicked\_x}}
+\index{last\_clicked\_x@{last\_clicked\_x}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{last\_clicked\_x}{last\_clicked\_x}}
+{\footnotesize\ttfamily last\+\_\+clicked\+\_\+x}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a515cdca5961d2ca94b7e1837dbed355c}\label{classsegmentation_1_1_application_a515cdca5961d2ca94b7e1837dbed355c}} 
+\index{Application@{Application}!last\_clicked\_y@{last\_clicked\_y}}
+\index{last\_clicked\_y@{last\_clicked\_y}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{last\_clicked\_y}{last\_clicked\_y}}
+{\footnotesize\ttfamily last\+\_\+clicked\+\_\+y}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a62fbe7ec8de4f6223411d134fad6ac52}\label{classsegmentation_1_1_application_a62fbe7ec8de4f6223411d134fad6ac52}} 
+\index{Application@{Application}!leftFrame@{leftFrame}}
+\index{leftFrame@{leftFrame}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{leftFrame}{leftFrame}}
+{\footnotesize\ttfamily left\+Frame}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a5f2dfaad60500e310f1adcc8e8e589cd}\label{classsegmentation_1_1_application_a5f2dfaad60500e310f1adcc8e8e589cd}} 
+\index{Application@{Application}!line\_segments@{line\_segments}}
+\index{line\_segments@{line\_segments}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{line\_segments}{line\_segments}}
+{\footnotesize\ttfamily line\+\_\+segments}
+
+
+
+Line segments, created from the points the user clicked on on the canvas. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a22ea78f101680108434cb132f12afa0a}\label{classsegmentation_1_1_application_a22ea78f101680108434cb132f12afa0a}} 
+\index{Application@{Application}!lines@{lines}}
+\index{lines@{lines}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{lines}{lines}}
+{\footnotesize\ttfamily lines}
+
+
+
+Line drawn on canvas. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a256e0854516edaaf8668fa9cbacba021}\label{classsegmentation_1_1_application_a256e0854516edaaf8668fa9cbacba021}} 
+\index{Application@{Application}!liver\_var@{liver\_var}}
+\index{liver\_var@{liver\_var}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{liver\_var}{liver\_var}}
+{\footnotesize\ttfamily liver\+\_\+var}
+
+
+
+Variable value\+: liver intensity slider. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a6fb94f88550dc7254a0727c64f960ddf}\label{classsegmentation_1_1_application_a6fb94f88550dc7254a0727c64f960ddf}} 
+\index{Application@{Application}!liverIntensityScale@{liverIntensityScale}}
+\index{liverIntensityScale@{liverIntensityScale}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{liverIntensityScale}{liverIntensityScale}}
+{\footnotesize\ttfamily liver\+Intensity\+Scale}
+
+
+
+Slider\+: liver intensity. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a5d76cc2129e79ba1941d2cc2f53b9e8e}\label{classsegmentation_1_1_application_a5d76cc2129e79ba1941d2cc2f53b9e8e}} 
+\index{Application@{Application}!mask@{mask}}
+\index{mask@{mask}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{mask}{mask}}
+{\footnotesize\ttfamily mask}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a452610a111f2007c81511000b9dd01e7}\label{classsegmentation_1_1_application_a452610a111f2007c81511000b9dd01e7}} 
+\index{Application@{Application}!mask\_img@{mask\_img}}
+\index{mask\_img@{mask\_img}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{mask\_img}{mask\_img}}
+{\footnotesize\ttfamily mask\+\_\+img}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_adad90fa030af56592ad194a41341ffcd}\label{classsegmentation_1_1_application_adad90fa030af56592ad194a41341ffcd}} 
+\index{Application@{Application}!masks@{masks}}
+\index{masks@{masks}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{masks}{masks}}
+{\footnotesize\ttfamily masks}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_aef6529a41c5a86c9434774ef9f7219fa}\label{classsegmentation_1_1_application_aef6529a41c5a86c9434774ef9f7219fa}} 
+\index{Application@{Application}!myCanvas@{myCanvas}}
+\index{myCanvas@{myCanvas}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{myCanvas}{myCanvas}}
+{\footnotesize\ttfamily my\+Canvas}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a2b727b46c2111ddddb16b248fa387518}\label{classsegmentation_1_1_application_a2b727b46c2111ddddb16b248fa387518}} 
+\index{Application@{Application}!myEntry1@{myEntry1}}
+\index{myEntry1@{myEntry1}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{myEntry1}{myEntry1}}
+{\footnotesize\ttfamily my\+Entry1}
+
+
+
+Left expansion bound. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a76c6727d1d16a47e9d246523bd60db82}\label{classsegmentation_1_1_application_a76c6727d1d16a47e9d246523bd60db82}} 
+\index{Application@{Application}!myEntry2@{myEntry2}}
+\index{myEntry2@{myEntry2}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{myEntry2}{myEntry2}}
+{\footnotesize\ttfamily my\+Entry2}
+
+
+
+Right expansion bound. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_acb4bd2fa36bbc7ab317c91c83d2d214c}\label{classsegmentation_1_1_application_acb4bd2fa36bbc7ab317c91c83d2d214c}} 
+\index{Application@{Application}!myScale@{myScale}}
+\index{myScale@{myScale}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{myScale}{myScale}}
+{\footnotesize\ttfamily my\+Scale}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_acd763457c9913ff7e6799ea450748b43}\label{classsegmentation_1_1_application_acd763457c9913ff7e6799ea450748b43}} 
+\index{Application@{Application}!patient\_id@{patient\_id}}
+\index{patient\_id@{patient\_id}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{patient\_id}{patient\_id}}
+{\footnotesize\ttfamily patient\+\_\+id}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a459a377e2c07085dde46df586a7c85e4}\label{classsegmentation_1_1_application_a459a377e2c07085dde46df586a7c85e4}} 
+\index{Application@{Application}!patients@{patients}}
+\index{patients@{patients}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{patients}{patients}}
+{\footnotesize\ttfamily patients}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_aef60f286071bef345f909b09b9167f0e}\label{classsegmentation_1_1_application_aef60f286071bef345f909b09b9167f0e}} 
+\index{Application@{Application}!pixel\_value@{pixel\_value}}
+\index{pixel\_value@{pixel\_value}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{pixel\_value}{pixel\_value}}
+{\footnotesize\ttfamily pixel\+\_\+value}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a33d89217c36b6e709404924f998ab94c}\label{classsegmentation_1_1_application_a33d89217c36b6e709404924f998ab94c}} 
+\index{Application@{Application}!previousX@{previousX}}
+\index{previousX@{previousX}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{previousX}{previousX}}
+{\footnotesize\ttfamily previousX}
+
+
+
+Last X coordinate user clicked on, on the canvas. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a570238b5e5000b8e9e38754bf2ee4c94}\label{classsegmentation_1_1_application_a570238b5e5000b8e9e38754bf2ee4c94}} 
+\index{Application@{Application}!previousY@{previousY}}
+\index{previousY@{previousY}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{previousY}{previousY}}
+{\footnotesize\ttfamily previousY}
+
+
+
+Last Y coordinate user clicked on, on the canvas. 
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_aca48107de1c4b4467a4372524f53c761}\label{classsegmentation_1_1_application_aca48107de1c4b4467a4372524f53c761}} 
+\index{Application@{Application}!quest@{quest}}
+\index{quest@{quest}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{quest}{quest}}
+{\footnotesize\ttfamily quest}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a8167be1c75ba1fe261c0d20af97e355e}\label{classsegmentation_1_1_application_a8167be1c75ba1fe261c0d20af97e355e}} 
+\index{Application@{Application}!questCheck@{questCheck}}
+\index{questCheck@{questCheck}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{questCheck}{questCheck}}
+{\footnotesize\ttfamily quest\+Check}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_af01c1637c92682f17ed3994a0c963c31}\label{classsegmentation_1_1_application_af01c1637c92682f17ed3994a0c963c31}} 
+\index{Application@{Application}!questionable\_slices@{questionable\_slices}}
+\index{questionable\_slices@{questionable\_slices}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{questionable\_slices}{questionable\_slices}}
+{\footnotesize\ttfamily questionable\+\_\+slices}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_ac026cad56357674f1fa14ba5707ee88e}\label{classsegmentation_1_1_application_ac026cad56357674f1fa14ba5707ee88e}} 
+\index{Application@{Application}!radiobuttonValue@{radiobuttonValue}}
+\index{radiobuttonValue@{radiobuttonValue}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{radiobuttonValue}{radiobuttonValue}}
+{\footnotesize\ttfamily radiobutton\+Value}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_ac9352d49e6b05c3bef53620f0556714b}\label{classsegmentation_1_1_application_ac9352d49e6b05c3bef53620f0556714b}} 
+\index{Application@{Application}!rgb@{rgb}}
+\index{rgb@{rgb}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{rgb}{rgb}}
+{\footnotesize\ttfamily rgb}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_ab6a98fa709860be4c56c1791b6ed375f}\label{classsegmentation_1_1_application_ab6a98fa709860be4c56c1791b6ed375f}} 
+\index{Application@{Application}!showMask@{showMask}}
+\index{showMask@{showMask}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{showMask}{showMask}}
+{\footnotesize\ttfamily show\+Mask}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_ab4a89f1e052a6dd7f9ed596ed44f7534}\label{classsegmentation_1_1_application_ab4a89f1e052a6dd7f9ed596ed44f7534}} 
+\index{Application@{Application}!slice\_idx@{slice\_idx}}
+\index{slice\_idx@{slice\_idx}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{slice\_idx}{slice\_idx}}
+{\footnotesize\ttfamily slice\+\_\+idx}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a178feada29e30033e5be72f5522cba27}\label{classsegmentation_1_1_application_a178feada29e30033e5be72f5522cba27}} 
+\index{Application@{Application}!slices@{slices}}
+\index{slices@{slices}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{slices}{slices}}
+{\footnotesize\ttfamily slices}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_aed895f32a296510c2367093c44bbf3c5}\label{classsegmentation_1_1_application_aed895f32a296510c2367093c44bbf3c5}} 
+\index{Application@{Application}!thresholds@{thresholds}}
+\index{thresholds@{thresholds}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{thresholds}{thresholds}}
+{\footnotesize\ttfamily thresholds}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a4a228bcd98b9cf4153720f7bae419eaa}\label{classsegmentation_1_1_application_a4a228bcd98b9cf4153720f7bae419eaa}} 
+\index{Application@{Application}!tkvar@{tkvar}}
+\index{tkvar@{tkvar}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{tkvar}{tkvar}}
+{\footnotesize\ttfamily tkvar}
+
+\mbox{\Hypertarget{classsegmentation_1_1_application_a2b50ce208dedc7e9997426f8983f5cc9}\label{classsegmentation_1_1_application_a2b50ce208dedc7e9997426f8983f5cc9}} 
+\index{Application@{Application}!toolsThickness@{toolsThickness}}
+\index{toolsThickness@{toolsThickness}!Application@{Application}}
+\doxysubsubsection{\texorpdfstring{toolsThickness}{toolsThickness}}
+{\footnotesize\ttfamily tools\+Thickness}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/lorenz/\+Desktop/release/radipop/\mbox{\hyperlink{segmentation_8py}{segmentation.\+py}}\end{DoxyCompactItemize}
