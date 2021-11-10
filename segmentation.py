@@ -310,6 +310,10 @@ class Application(Frame):
 
 
     def show_controls(self, controls, offset):
+        """! Display GUI control element
+        @param controls control element to display on GUI
+        @param offset offset for row i in control row
+        """
         for i, control_row in enumerate(controls):
             for j, control_col in enumerate(control_row):
                 control_col.grid(
