@@ -20,42 +20,49 @@
                     </div>
                     <div class="tools">
                         <div>
-                            <input type="checkbox" id="bad-slice-chechbox" name="bad-slice-chechbox">
-                            <label for="bad-slice-chechbox">Bad slice</label>
-                        </div>
-
-                        <div>
                         <input type="checkbox" id="hide-mask-checkbox" name="hide-mask-checkbox">
                         <label for="hide-mask-checkbox">Hide mask</label>
                         </div>
                     </div>
                     <div class="tools">
+                        Bone Intensity: <span id="bone-intensity-slider-output">50</span>
                         <div class="slidecontainer">
-                            Bone Intensity: <span id="bone-intensity-slider-output">50</span>
+                            <button id="bone-intensity-slider-minus">-</button>
                             <input type="range" min="1" max="100" value="50" class="slider" id="bone-intensity-slider">
+                            <button id="bone-intensity-slider-plus">+</button>
                         </div>
-
+                        Blood vessel intensity: <span id="blood-vessel-intensity-slider-output">50</span>
                         <div class="slidecontainer">
-                            Blood vessel intensity: <span id="blood-vessel-intensity-slider-output">50</span>
+                            <button id="blood-vessel-intensity-slider-minus">-</button>
                             <input type="range" min="1" max="100" value="50" class="slider" id="blood-vessel-intensity-slider">
+                            <button id="blood-vessel-intensity-slider-plus">+</button>
                         </div>
 
+                        Liver Intensity: <span id="liver-intensity-slider-output">50</span>
                         <div class="slidecontainer">
-                            Liver Intensity: <span id="liver-intensity-slider-output">50</span>
+                            <button id="liver-intensity-slider-minus">-</button>
                             <input type="range" min="1" max="100" value="50" class="slider" id="liver-intensity-slider">
+                            <button id="liver-intensity-slider-plus">+</button>
+                        </div>
+                        <div class="global-threshold-button">
+                            <button>Set thresholds globally</button>
                         </div>
                     </div>
                     <div class="tools">
                         <div class="expansion-bounds">
                             Expansion bounds: <br>
                             <div> Left: <input type="number" > Right: <input type="number">  </div>
+                        </div>  
+                        <br>
+                        <div class= "expansion-bounds-button" > 
+                            <button id="extend-label-button">Extend liver/spleen labels </button>
                         </div>
                     </div>
                     <div class="tools">
+                        Label: <br>
                         <div class= "label-buttons TODO" >
-                            <button>Set liver label</button> <br>
-                            <button>Set spleen label</button> <br>
-                            <button>Extend liver/spleen labels</button>
+                            <button>Set liver label</button> 
+                            <button>Set spleen label</button> 
                         </div>
                     </div>
 
@@ -64,13 +71,12 @@
             <div class="col-lg-6 col-md-12">
                <div class= "display-area">
                    <div class="subtoolbar">
-                    <button>Set thresholds globally</button>
                     <button>Correct partition</button>
                     <button>Clear edits</button>
                    </div>
                    <div id=display-area-slice>
                         Select slice: Adjust masks <br>
-                        <div id="slice"></div>
+                        <img id=slice, src="../images/sample_slice.png">
                    </div>
                    <div id="display-area-log-bar" class="TODO">
                         Spaceholder for processing/log reporting
@@ -84,7 +90,7 @@
                     </div>
                     <div id=scrollbar-area-preview>
                         CT slices: <br>
-                    <div id="preview"></div>
+                        <img id=preview, src="../images/slice-preview.png">
                 </div>
             </div>
 

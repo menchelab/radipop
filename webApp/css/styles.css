@@ -60,6 +60,9 @@ div.utility-area input[type="checkbox"] {
 .slidecontainer {
   width: 100%; /* Width of the outside container */
   margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .slider {
@@ -69,6 +72,9 @@ div.utility-area input[type="checkbox"] {
   transition: opacity .2s;
 }
 
+.global-threshold-button, .expansion-bounds-button { 
+  text-align: center;
+}
 
 /* Styling for expansion bounds of left/first columns */
 .expansion-bounds div{
@@ -81,9 +87,12 @@ div.utility-area input[type="checkbox"] {
 
 }
 
+
 /*Styling for labelling buttons */
 div.label-buttons {
-  text-align: center;
+  margin-top: 10px; 
+  display: flex;
+  justify-content: space-evenly;;
 }
 div.label-buttons button {
   margin-bottom: 10px;
@@ -95,8 +104,9 @@ div.label-buttons button {
   border-top: 1px solid grey;
   padding: 10px;
   background-color: white;
-  text-align: center;
   height: 45px;
+  display: flex;  /* evenly space out buttons/text */
+  justify-content: space-evenly; /* evenly space out buttons/text */
 }
 
 /* Styling of middle column */
@@ -108,11 +118,8 @@ div.display-area {
 }
 
 /* Spaceholder for main view of slices*/
-#slice {
-  background: url(../images/sample_slice.png) no-repeat center;
-  background-size: contain;
-  height: 500px;
-  margin: 10px;
+img {
+  width: 100%;
 }
 
 #display-area-slice {
@@ -137,13 +144,6 @@ div.scrollbar-area {
   border-bottom: 1px solid grey;    
 }
 
-/* Preview image is placeholder */
-#preview {
-  background: url(../images/slice-preview.png) no-repeat center;
-  background-size: contain;
-  height: 800px;
-  margin: 10px;
-}
 
 
 
