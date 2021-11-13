@@ -685,6 +685,9 @@ class Application(Frame):
         self.hide_controls(self.label_controls())
 
     def fileSave(self):
+        """! Loops through patient slices and writes the masks to the patient folder in assets/masks
+        Also saves the questionable slices and the thresholds to .json
+        """
         for slice in self.slices:
             print("saving slice", slice, )
             file_dir = os.path.join(os.getcwd(), "assets", "masks", str(self.patient_id))
