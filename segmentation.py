@@ -154,6 +154,7 @@ class Application(Frame):
                             text = "Select slice",
                             bg = tk_rgb)
 
+        ## Scale: slider to select the slice, default = 1
         self.myScale = Scale(
                             self.leftFrame, from_ = 1, to = 250,
                             orient = HORIZONTAL,
@@ -173,9 +174,10 @@ class Application(Frame):
         self.buttonDeleteAll = Button(self.leftFrame, text = "clear edits",
                                       command = self.deleteAndReload)
 
+        ## Button: Enables to define or remove the liver label of a mask
         self.buttonLabelLiver = Button(self.leftFrame, text = "set liver label",
                                       command = self.labelLiver)
-
+        ## Button: Enables to define or remove the spleen label of a mask
         self.buttonLabelSpleen = Button(self.leftFrame, text = "set spleen label",
                                       command = self.labelSpleen)
 
@@ -262,7 +264,7 @@ class Application(Frame):
         self.buttonExtend = Button(self.leftFrame, text = "extend liver/spleen labels",
                                        command = self.extend_labels)
 
-        ## Save the masks, thresholds and questionable slices of a patient
+        ## Button: Save the masks, thresholds and questionable slices of a patient
         self.buttonSave = Button(self.leftFrame, text = "save",
                                       command = self.fileSave)
         self.myCanvas.pack(expand=YES, fill=BOTH)
