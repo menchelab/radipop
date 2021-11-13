@@ -238,8 +238,9 @@ class Application(Frame):
         self.buttonExtendInt = Button(self.leftFrame, text = "set thresholds globally",
                                        command = self.extend_thresholds)
 
-        ## Checkbutton: Checkbox for bad slice - Not needed anymore
+        ## IntVar: Variable for Checkbutton self.questCheck
         self.quest = IntVar()
+        ## Checkbutton: Checkbox for bad slice - Not needed anymore
         self.questCheck = Checkbutton(self.leftFrame, text='Bad slice',
                                       variable=self.quest,
                                       onvalue=1, offvalue=0, command=self.label_quest)
