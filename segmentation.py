@@ -106,6 +106,8 @@ class Application(Frame):
         self.showMask = True
         self.highlight_img = -1
         self.mask_img = -1
+
+        ## Selected and displayed slice
         self.slice_idx = -1
         self.patient_id = 1
         self.file_dir = os.path.join(os.getcwd(), "assets", "niftynet_raw_images")
