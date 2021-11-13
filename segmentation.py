@@ -336,6 +336,9 @@ class Application(Frame):
 
 
     def setSlice(self, event):
+        """! Sets the selected slice by using the slice slider
+        Calls loadSlice() to display the slice
+        """
         self.slice_idx = self.myScale.get()
         self.loadSlice()
 
