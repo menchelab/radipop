@@ -395,6 +395,10 @@ class Application(Frame):
         self.displayMask()
 
     def labelSpleen(self):
+        """! Sets the values of the selected mask
+        Changes button label on click depending on pixel value
+        Displays mask in blue or green color by calling displayMask()
+        """
         mymask = self.masks[self.slice_idx]
         if self.pixel_value == 2:
             tempmask = (mymask > 0).astype(np.uint8)
