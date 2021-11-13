@@ -522,6 +522,11 @@ class Application(Frame):
                       pickle.load(open(os.path.join(file_dir, file), 'rb')) for file in os.listdir(file_dir) }
 
     def set_threshold_toggles(self):
+        """! Sets patient thresholds for bone, blood vessels and liver sliders
+        Uses predefined values (200, 170, 135) if thresholds are not available
+
+        @return thresholds['slice_idx'] if 'slice_idx' in thresholds.keys(); else None
+        """
         if self.patient_id in self.thresholds.keys():
             thresholds = self.thresholds[self.patient_id]
         else:
