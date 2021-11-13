@@ -262,6 +262,7 @@ class Application(Frame):
         self.buttonExtend = Button(self.leftFrame, text = "extend liver/spleen labels",
                                        command = self.extend_labels)
 
+        ## Save the masks, thresholds and questionable slices of a patient
         self.buttonSave = Button(self.leftFrame, text = "save",
                                       command = self.fileSave)
         self.myCanvas.pack(expand=YES, fill=BOTH)
@@ -299,6 +300,9 @@ class Application(Frame):
                 ]
 
     def label_controls(self):
+        """! Specifies GUI elements for labeling
+        @return list of list coressponding to label elements
+        """
         return [
             [self.buttonLabelLiver],
             [self.buttonLabelSpleen],
@@ -308,6 +312,10 @@ class Application(Frame):
         ]
 
     def save_controls(self):
+        """! Access to save button
+        @return list of list with save button
+
+        """
         return [[self.buttonSave]]
 
 
@@ -417,7 +425,7 @@ class Application(Frame):
 
     ## Function call on bad slice checkbox - Not needed anymore
     def label_quest(self):
-        """"! Marks slice as "questionable" if bad slice checkbox is clicked
+        """! Marks slice as "questionable" if bad slice checkbox is clicked
         In case the checkbox is clicked, the quest variable is 1 (bad slice) otherwise 0
         Also hides the controls (set labels, expansion bounds) on GUI, if checkbox is clicked
         """
