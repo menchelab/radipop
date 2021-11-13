@@ -31,7 +31,7 @@ def \mbox{\hyperlink{classsegmentation_1_1_application_a5dbaac41934c37913c78f0e9
 def \mbox{\hyperlink{classsegmentation_1_1_application_a99ed8575740c362af3d45b07c929a717}{extend\+\_\+thresholds}} (self)
 \begin{DoxyCompactList}\small\item\em Extends the three thresholds to all slices Also runs find\+\_\+organs on all slices and updates the masks. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_ab1f2ab1a149cfa3d65f00719b61b987f}{file\+Save}} (self)
-\item 
+\begin{DoxyCompactList}\small\item\em Loops through patient slices and writes the masks to the patient folder in assets/masks Also saves the questionable slices and the thresholds to .json. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_ad715ce45cef25f4e1fb1dbb430d60fc4}{hide\+\_\+button}} (self)
 \item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_a9504bf1b6919227bf8a64564c80869a0}{hide\+\_\+controls}} (self, controls)
@@ -39,15 +39,15 @@ def \mbox{\hyperlink{classsegmentation_1_1_application_a9504bf1b6919227bf8a64564
 def \mbox{\hyperlink{classsegmentation_1_1_application_a6c0e522502f9f6f89304cf07801dd0b6}{highlight\+Organ}} (self, event)
 \begin{DoxyCompactList}\small\item\em Highlights regions of the mask (organs) that were clicked on by user. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_a0673580db3f4b772a313a9e529cf8ee7}{label\+\_\+controls}} (self)
-\item 
+\begin{DoxyCompactList}\small\item\em Specifies GUI elements for labeling. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_a855701eb05572320fe28c54614eb58c0}{label\+\_\+quest}} (self)
-\item 
+\begin{DoxyCompactList}\small\item\em Function call on bad slice checkbox -\/ Not needed anymore. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_acb380ccd813570f3534c2b51d37384cf}{label\+Liver}} (self)
-\item 
+\begin{DoxyCompactList}\small\item\em Sets the values of the selected mask Changes button label on click depending on pixel value Displays mask in red or green color by calling \mbox{\hyperlink{classsegmentation_1_1_application_a746d17498ce5b2aa9c6863d1ac73200c}{display\+Mask()}} \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_a9f5c033fc148bd6c405380111e54795e}{label\+Spleen}} (self)
-\item 
+\begin{DoxyCompactList}\small\item\em Sets the values of the selected mask Changes button label on click depending on pixel value Displays mask in blue or green color by calling \mbox{\hyperlink{classsegmentation_1_1_application_a746d17498ce5b2aa9c6863d1ac73200c}{display\+Mask()}} \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_a83c96ecc5890a28e7eee421cdcb417a1}{load\+\_\+masks}} (self, \mbox{\hyperlink{classsegmentation_1_1_application_acd763457c9913ff7e6799ea450748b43}{patient\+\_\+id}})
-\item 
+\begin{DoxyCompactList}\small\item\em Loads the masks of a patient from assets/masks/patient\+\_\+id in self.\+masks. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_a5ca3eb0c59840fdc6c8712b51df4d76a}{load\+Slice}} (self)
 \begin{DoxyCompactList}\small\item\em Reset canvas and load slice of current index and patient Also deactivates drawing mode. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_a521939db5eec164938a55d0c132cedc5}{navigation\+\_\+controls}} (self)
@@ -55,17 +55,17 @@ def \mbox{\hyperlink{classsegmentation_1_1_application_a521939db5eec164938a55d0c
 def \mbox{\hyperlink{classsegmentation_1_1_application_ae51f0259eae0c33c6832292abf6f1e70}{partition\+Organs}} (self)
 \begin{DoxyCompactList}\small\item\em Activates drawing mode Enables drawing lines on slice which mark regions of the mask that should be removed. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_a883b396c00d0fa4ded8c9c6b264d5cef}{save\+\_\+controls}} (self)
-\item 
+\begin{DoxyCompactList}\small\item\em Access to save button. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_a44a6691bc217952c4b859e2e8eb3137b}{set\+\_\+liver\+\_\+intensity}} (self, event)
 \begin{DoxyCompactList}\small\item\em Sets threshold for liver intensity Steps\+: \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_a3f7bef1d1365511df579d50908ca8c6f}{set\+\_\+threshold\+\_\+toggles}} (self)
-\item 
+\begin{DoxyCompactList}\small\item\em Sets patient thresholds for bone, blood vessels and liver sliders Uses predefined values (200, 170, 135) if thresholds are not available. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_a439abd4931f8ec80a1abb1506cc695d4}{set\+Partition}} (self)
 \begin{DoxyCompactList}\small\item\em Apply changes made in drawing mode Removes regions of the mask that were marked by the user with lines Deactivates drawing mode Deletes lines drawn by user after the masks have been partitioned. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_a3eb28d1d1db8f370855eeecf75b66d35}{Set\+Patient}} (self, choice)
 \item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_ad0547fad016943cf348b296104a524d2}{set\+Slice}} (self, event)
-\item 
+\begin{DoxyCompactList}\small\item\em Sets the selected slice by using the slice slider Calls \mbox{\hyperlink{classsegmentation_1_1_application_a5ca3eb0c59840fdc6c8712b51df4d76a}{load\+Slice()}} to display the slice. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_aa1c364708819ac9ea6b4ed0160b7852f}{show\+\_\+button}} (self)
 \item 
 def \mbox{\hyperlink{classsegmentation_1_1_application_a6e038dcd1191c37cf1e5f9c5210423ca}{show\+\_\+controls}} (self, controls, offset)
@@ -94,13 +94,13 @@ def \mbox{\hyperlink{classsegmentation_1_1_application_a94d722b0dca49938e49d58cc
 \mbox{\hyperlink{classsegmentation_1_1_application_a3a763ec4fda06830c2317698d7f500a4}{button\+Extend\+Int}}
 \begin{DoxyCompactList}\small\item\em Button\+: Apply thresholds on all slices. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsegmentation_1_1_application_ad16848c00c25cdcb615930acf7c5b298}{button\+Label\+Liver}}
-\item 
+\begin{DoxyCompactList}\small\item\em Button\+: Enables to define or remove the liver label of a mask. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsegmentation_1_1_application_a492390cb088a8fd2df91890ceee17637}{button\+Label\+Spleen}}
-\item 
+\begin{DoxyCompactList}\small\item\em Button\+: Enables to define or remove the spleen label of a mask. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsegmentation_1_1_application_a401013491db5bd13c06ac5f5faf575da}{button\+Partition}}
 \begin{DoxyCompactList}\small\item\em Button\+: Activates drawing mode -\/-\/\texorpdfstring{$>$}{>} delete regions of masks manually. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsegmentation_1_1_application_a7e3b95a65eb7add0f12bd1069cb02d2a}{button\+Save}}
-\item 
+\begin{DoxyCompactList}\small\item\em Button\+: Save the masks, thresholds and questionable slices of a patient. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsegmentation_1_1_application_ad013ad5e0867bbb9b76afe5d47febfd9}{button\+Toggle\+Mask}}
 \begin{DoxyCompactList}\small\item\em Button\+: Hide/\+Display mask Button. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsegmentation_1_1_application_aed0b52602d368db3fd2d881155af2c5f}{draw\+Line}}
@@ -152,7 +152,7 @@ def \mbox{\hyperlink{classsegmentation_1_1_application_a94d722b0dca49938e49d58cc
 \mbox{\hyperlink{classsegmentation_1_1_application_a76c6727d1d16a47e9d246523bd60db82}{my\+Entry2}}
 \begin{DoxyCompactList}\small\item\em Right expansion bound. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsegmentation_1_1_application_acb4bd2fa36bbc7ab317c91c83d2d214c}{my\+Scale}}
-\item 
+\begin{DoxyCompactList}\small\item\em Scale\+: slider to select the slice, default = 1. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsegmentation_1_1_application_acd763457c9913ff7e6799ea450748b43}{patient\+\_\+id}}
 \item 
 \mbox{\hyperlink{classsegmentation_1_1_application_a459a377e2c07085dde46df586a7c85e4}{patients}}
@@ -164,9 +164,9 @@ def \mbox{\hyperlink{classsegmentation_1_1_application_a94d722b0dca49938e49d58cc
 \mbox{\hyperlink{classsegmentation_1_1_application_a570238b5e5000b8e9e38754bf2ee4c94}{previousY}}
 \begin{DoxyCompactList}\small\item\em Last Y coordinate user clicked on, on the canvas. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsegmentation_1_1_application_aca48107de1c4b4467a4372524f53c761}{quest}}
-\item 
+\begin{DoxyCompactList}\small\item\em Int\+Var\+: Variable for Checkbutton self.\+quest\+Check. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsegmentation_1_1_application_a8167be1c75ba1fe261c0d20af97e355e}{quest\+Check}}
-\item 
+\begin{DoxyCompactList}\small\item\em Checkbutton\+: Checkbox for bad slice -\/ Not needed anymore. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsegmentation_1_1_application_af01c1637c92682f17ed3994a0c963c31}{questionable\+\_\+slices}}
 \item 
 \mbox{\hyperlink{classsegmentation_1_1_application_ac026cad56357674f1fa14ba5707ee88e}{radiobutton\+Value}}
@@ -176,7 +176,7 @@ def \mbox{\hyperlink{classsegmentation_1_1_application_a94d722b0dca49938e49d58cc
 \mbox{\hyperlink{classsegmentation_1_1_application_ab6a98fa709860be4c56c1791b6ed375f}{show\+Mask}}
 \item 
 \mbox{\hyperlink{classsegmentation_1_1_application_ab4a89f1e052a6dd7f9ed596ed44f7534}{slice\+\_\+idx}}
-\item 
+\begin{DoxyCompactList}\small\item\em Selected and displayed slice. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classsegmentation_1_1_application_a178feada29e30033e5be72f5522cba27}{slices}}
 \item 
 \mbox{\hyperlink{classsegmentation_1_1_application_aed895f32a296510c2367093c44bbf3c5}{thresholds}}
@@ -297,6 +297,10 @@ Extends the three thresholds to all slices Also runs find\+\_\+organs on all sli
 \doxysubsubsection{\texorpdfstring{fileSave()}{fileSave()}}
 {\footnotesize\ttfamily def file\+Save (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
 
+
+
+Loops through patient slices and writes the masks to the patient folder in assets/masks Also saves the questionable slices and the thresholds to .json. 
+
 \mbox{\Hypertarget{classsegmentation_1_1_application_ad715ce45cef25f4e1fb1dbb430d60fc4}\label{classsegmentation_1_1_application_ad715ce45cef25f4e1fb1dbb430d60fc4}} 
 \index{Application@{Application}!hide\_button@{hide\_button}}
 \index{hide\_button@{hide\_button}!Application@{Application}}
@@ -334,17 +338,32 @@ The function is bound to the canvas. \mbox{\Hypertarget{classsegmentation_1_1_ap
 \doxysubsubsection{\texorpdfstring{label\_controls()}{label\_controls()}}
 {\footnotesize\ttfamily def label\+\_\+controls (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
 
+
+
+Specifies GUI elements for labeling. 
+
+\begin{DoxyReturn}{Returns}
+list of list coressponding to label elements 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classsegmentation_1_1_application_a855701eb05572320fe28c54614eb58c0}\label{classsegmentation_1_1_application_a855701eb05572320fe28c54614eb58c0}} 
 \index{Application@{Application}!label\_quest@{label\_quest}}
 \index{label\_quest@{label\_quest}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{label\_quest()}{label\_quest()}}
 {\footnotesize\ttfamily def label\+\_\+quest (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classsegmentation_1_1_application_acb380ccd813570f3534c2b51d37384cf}\label{classsegmentation_1_1_application_acb380ccd813570f3534c2b51d37384cf}} 
+
+
+Function call on bad slice checkbox -\/ Not needed anymore. 
+
+Marks slice as \char`\"{}questionable\char`\"{} if bad slice checkbox is clicked In case the checkbox is clicked, the quest variable is 1 (bad slice) otherwise 0 Also hides the controls (set labels, expansion bounds) on GUI, if checkbox is clicked \mbox{\Hypertarget{classsegmentation_1_1_application_acb380ccd813570f3534c2b51d37384cf}\label{classsegmentation_1_1_application_acb380ccd813570f3534c2b51d37384cf}} 
 \index{Application@{Application}!labelLiver@{labelLiver}}
 \index{labelLiver@{labelLiver}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{labelLiver()}{labelLiver()}}
 {\footnotesize\ttfamily def label\+Liver (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Sets the values of the selected mask Changes button label on click depending on pixel value Displays mask in red or green color by calling \mbox{\hyperlink{classsegmentation_1_1_application_a746d17498ce5b2aa9c6863d1ac73200c}{display\+Mask()}} 
 
 \mbox{\Hypertarget{classsegmentation_1_1_application_a9f5c033fc148bd6c405380111e54795e}\label{classsegmentation_1_1_application_a9f5c033fc148bd6c405380111e54795e}} 
 \index{Application@{Application}!labelSpleen@{labelSpleen}}
@@ -352,12 +371,25 @@ The function is bound to the canvas. \mbox{\Hypertarget{classsegmentation_1_1_ap
 \doxysubsubsection{\texorpdfstring{labelSpleen()}{labelSpleen()}}
 {\footnotesize\ttfamily def label\+Spleen (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
 
+
+
+Sets the values of the selected mask Changes button label on click depending on pixel value Displays mask in blue or green color by calling \mbox{\hyperlink{classsegmentation_1_1_application_a746d17498ce5b2aa9c6863d1ac73200c}{display\+Mask()}} 
+
 \mbox{\Hypertarget{classsegmentation_1_1_application_a83c96ecc5890a28e7eee421cdcb417a1}\label{classsegmentation_1_1_application_a83c96ecc5890a28e7eee421cdcb417a1}} 
 \index{Application@{Application}!load\_masks@{load\_masks}}
 \index{load\_masks@{load\_masks}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{load\_masks()}{load\_masks()}}
 {\footnotesize\ttfamily def load\+\_\+masks (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{patient\+\_\+id }\end{DoxyParamCaption})}
 
+
+
+Loads the masks of a patient from assets/masks/patient\+\_\+id in self.\+masks. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em patient\+\_\+id} & \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classsegmentation_1_1_application_a5ca3eb0c59840fdc6c8712b51df4d76a}\label{classsegmentation_1_1_application_a5ca3eb0c59840fdc6c8712b51df4d76a}} 
 \index{Application@{Application}!loadSlice@{loadSlice}}
 \index{loadSlice@{loadSlice}!Application@{Application}}
@@ -390,6 +422,13 @@ Activates drawing mode Enables drawing lines on slice which mark regions of the 
 \doxysubsubsection{\texorpdfstring{save\_controls()}{save\_controls()}}
 {\footnotesize\ttfamily def save\+\_\+controls (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
 
+
+
+Access to save button. 
+
+\begin{DoxyReturn}{Returns}
+list of list with save button 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classsegmentation_1_1_application_a44a6691bc217952c4b859e2e8eb3137b}\label{classsegmentation_1_1_application_a44a6691bc217952c4b859e2e8eb3137b}} 
 \index{Application@{Application}!set\_liver\_intensity@{set\_liver\_intensity}}
 \index{set\_liver\_intensity@{set\_liver\_intensity}!Application@{Application}}
@@ -420,6 +459,13 @@ Sets threshold for liver intensity Steps\+:
 \doxysubsubsection{\texorpdfstring{set\_threshold\_toggles()}{set\_threshold\_toggles()}}
 {\footnotesize\ttfamily def set\+\_\+threshold\+\_\+toggles (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
 
+
+
+Sets patient thresholds for bone, blood vessels and liver sliders Uses predefined values (200, 170, 135) if thresholds are not available. 
+
+\begin{DoxyReturn}{Returns}
+thresholds\mbox{[}\textquotesingle{}slice\+\_\+idx\textquotesingle{}\mbox{]} if \textquotesingle{}slice\+\_\+idx\textquotesingle{} in thresholds.\+keys(); else None 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classsegmentation_1_1_application_a439abd4931f8ec80a1abb1506cc695d4}\label{classsegmentation_1_1_application_a439abd4931f8ec80a1abb1506cc695d4}} 
 \index{Application@{Application}!setPartition@{setPartition}}
 \index{setPartition@{setPartition}!Application@{Application}}
@@ -441,6 +487,10 @@ Apply changes made in drawing mode Removes regions of the mask that were marked 
 \index{setSlice@{setSlice}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{setSlice()}{setSlice()}}
 {\footnotesize\ttfamily def set\+Slice (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{event }\end{DoxyParamCaption})}
+
+
+
+Sets the selected slice by using the slice slider Calls \mbox{\hyperlink{classsegmentation_1_1_application_a5ca3eb0c59840fdc6c8712b51df4d76a}{load\+Slice()}} to display the slice. 
 
 \mbox{\Hypertarget{classsegmentation_1_1_application_aa1c364708819ac9ea6b4ed0160b7852f}\label{classsegmentation_1_1_application_aa1c364708819ac9ea6b4ed0160b7852f}} 
 \index{Application@{Application}!show\_button@{show\_button}}
@@ -570,11 +620,19 @@ Button\+: Apply thresholds on all slices.
 \doxysubsubsection{\texorpdfstring{buttonLabelLiver}{buttonLabelLiver}}
 {\footnotesize\ttfamily button\+Label\+Liver}
 
+
+
+Button\+: Enables to define or remove the liver label of a mask. 
+
 \mbox{\Hypertarget{classsegmentation_1_1_application_a492390cb088a8fd2df91890ceee17637}\label{classsegmentation_1_1_application_a492390cb088a8fd2df91890ceee17637}} 
 \index{Application@{Application}!buttonLabelSpleen@{buttonLabelSpleen}}
 \index{buttonLabelSpleen@{buttonLabelSpleen}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{buttonLabelSpleen}{buttonLabelSpleen}}
 {\footnotesize\ttfamily button\+Label\+Spleen}
+
+
+
+Button\+: Enables to define or remove the spleen label of a mask. 
 
 \mbox{\Hypertarget{classsegmentation_1_1_application_a401013491db5bd13c06ac5f5faf575da}\label{classsegmentation_1_1_application_a401013491db5bd13c06ac5f5faf575da}} 
 \index{Application@{Application}!buttonPartition@{buttonPartition}}
@@ -591,6 +649,10 @@ Button\+: Activates drawing mode -\/-\/\texorpdfstring{$>$}{>} delete regions of
 \index{buttonSave@{buttonSave}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{buttonSave}{buttonSave}}
 {\footnotesize\ttfamily button\+Save}
+
+
+
+Button\+: Save the masks, thresholds and questionable slices of a patient. 
 
 \mbox{\Hypertarget{classsegmentation_1_1_application_ad013ad5e0867bbb9b76afe5d47febfd9}\label{classsegmentation_1_1_application_ad013ad5e0867bbb9b76afe5d47febfd9}} 
 \index{Application@{Application}!buttonToggleMask@{buttonToggleMask}}
@@ -796,6 +858,10 @@ Right expansion bound.
 \doxysubsubsection{\texorpdfstring{myScale}{myScale}}
 {\footnotesize\ttfamily my\+Scale}
 
+
+
+Scale\+: slider to select the slice, default = 1. 
+
 \mbox{\Hypertarget{classsegmentation_1_1_application_acd763457c9913ff7e6799ea450748b43}\label{classsegmentation_1_1_application_acd763457c9913ff7e6799ea450748b43}} 
 \index{Application@{Application}!patient\_id@{patient\_id}}
 \index{patient\_id@{patient\_id}!Application@{Application}}
@@ -840,11 +906,19 @@ Last Y coordinate user clicked on, on the canvas.
 \doxysubsubsection{\texorpdfstring{quest}{quest}}
 {\footnotesize\ttfamily quest}
 
+
+
+Int\+Var\+: Variable for Checkbutton self.\+quest\+Check. 
+
 \mbox{\Hypertarget{classsegmentation_1_1_application_a8167be1c75ba1fe261c0d20af97e355e}\label{classsegmentation_1_1_application_a8167be1c75ba1fe261c0d20af97e355e}} 
 \index{Application@{Application}!questCheck@{questCheck}}
 \index{questCheck@{questCheck}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{questCheck}{questCheck}}
 {\footnotesize\ttfamily quest\+Check}
+
+
+
+Checkbutton\+: Checkbox for bad slice -\/ Not needed anymore. 
 
 \mbox{\Hypertarget{classsegmentation_1_1_application_af01c1637c92682f17ed3994a0c963c31}\label{classsegmentation_1_1_application_af01c1637c92682f17ed3994a0c963c31}} 
 \index{Application@{Application}!questionable\_slices@{questionable\_slices}}
@@ -875,6 +949,10 @@ Last Y coordinate user clicked on, on the canvas.
 \index{slice\_idx@{slice\_idx}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{slice\_idx}{slice\_idx}}
 {\footnotesize\ttfamily slice\+\_\+idx}
+
+
+
+Selected and displayed slice. 
 
 \mbox{\Hypertarget{classsegmentation_1_1_application_a178feada29e30033e5be72f5522cba27}\label{classsegmentation_1_1_application_a178feada29e30033e5be72f5522cba27}} 
 \index{Application@{Application}!slices@{slices}}
