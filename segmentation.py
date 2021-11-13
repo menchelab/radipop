@@ -235,6 +235,8 @@ class Application(Frame):
         ## Button: Apply thresholds on all slices
         self.buttonExtendInt = Button(self.leftFrame, text = "set thresholds globally",
                                        command = self.extend_thresholds)
+
+        ## Bad Slice Checkbox: Not needed anymore
         self.quest = IntVar()
         self.questCheck = Checkbutton(self.leftFrame, text='Bad slice',
                                       variable=self.quest,
@@ -402,7 +404,12 @@ class Application(Frame):
             self.buttonLabelSpleen.configure(text= "Remove spleen label")
         self.displayMask()
 
+    ## Function call on bad slice checkbox - Not needed anymore
     def label_quest(self):
+        """"! Marks slice as "questionable" if bad slice checkbox is clicked
+        In case the checkbox is clicked, the quest variable is 1 (bad slice) otherwise 0
+        Also hides the controls (set labels, expansion bounds) on GUI, if checkbox is clicked
+        """
         if self.quest.get() == 1:
             if self.slice_idx not in self.questionable_slices[self.patient_id]:
                 self.questionable_slices[self.patient_id].append(self.slice_idx)
