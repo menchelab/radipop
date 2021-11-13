@@ -377,6 +377,10 @@ class Application(Frame):
             self.show_controls(self.label_controls(), 40)
 
     def labelLiver(self):
+        """! Sets the values of the selected mask
+        Changes button label on click depending on pixel value
+        Displays mask in red or green color by calling displayMask()
+        """
         mymask = self.masks[self.slice_idx]
         if self.pixel_value == 1:
             tempmask = (mymask > 0).astype(np.uint8)
