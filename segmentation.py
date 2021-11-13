@@ -524,6 +524,9 @@ class Application(Frame):
 
 
     def load_masks(self, patient_id):
+        """! Loads the masks of a patient from assets/masks/patient_id in self.masks
+        @param patient_id
+        """
         file_dir = os.path.join(os.getcwd(), "assets", "masks", str(patient_id))
         print("loading masks from ", file_dir)
         self.masks = {int(file.split(".")[0]): \
