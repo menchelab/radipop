@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <meta charset="utf8">
+        <!-- Otherwise, mobile devices will try to fit the whole page on screen -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>RadiPOP - Segmentation Editor </title>
+        <link rel="stylesheet" href="css/styles.css"> 
+        <script src="js/jquery-3.6.0.js"></script>
+        
+    </head>
+
+    <body>
+        <div class = "toolbar">
+            <div id="toolbar-spaceholder"></div>
+        </div>
+        <div class = "row">
+            <div class="col-lg-3 col-md-12">
+                <div class="utility-area">
+                    <div class="subtoolbar TODO">
+                        <input type="file" id="filepicker" name="fileList" webkitdirectory/> <button>Save</button> 
+                    </div>
+                    <div class="tools">
+                        <div>
+                        <input type="checkbox" id="hide-mask-checkbox" name="hide-mask-checkbox">
+                        <label for="hide-mask-checkbox">Hide mask</label>
+                        </div>
+                    </div>
+                    <div class="tools">
+                        Bone Intensity: <span id="bone-intensity-slider-output">50</span>
+                        <div class="slidecontainer">
+                            <button id="bone-intensity-slider-minus">-</button>
+                            <input type="range" min="1" max="100" value="50" class="slider" id="bone-intensity-slider">
+                            <button id="bone-intensity-slider-plus">+</button>
+                        </div>
+                        Blood vessel intensity: <span id="blood-vessel-intensity-slider-output">50</span>
+                        <div class="slidecontainer">
+                            <button id="blood-vessel-intensity-slider-minus">-</button>
+                            <input type="range" min="1" max="100" value="50" class="slider" id="blood-vessel-intensity-slider">
+                            <button id="blood-vessel-intensity-slider-plus">+</button>
+                        </div>
+
+                        Liver Intensity: <span id="liver-intensity-slider-output">50</span>
+                        <div class="slidecontainer">
+                            <button id="liver-intensity-slider-minus">-</button>
+                            <input type="range" min="1" max="100" value="50" class="slider" id="liver-intensity-slider">
+                            <button id="liver-intensity-slider-plus">+</button>
+                        </div>
+                        <div class="global-threshold-button">
+                            <button>Set thresholds globally</button>
+                        </div>
+                    </div>
+                    <div class="tools">
+                        <div class="expansion-bounds">
+                            Expansion bounds: <br>
+                            <div> Left: <input type="number" > Right: <input type="number">  </div>
+                        </div>  
+                        <br>
+                        <div class= "expansion-bounds-button" > 
+                            <button id="extend-label-button">Extend liver/spleen labels </button>
+                        </div>
+                    </div>
+                    <div class="tools">
+                        Label: <br>
+                        <div class= "label-buttons TODO" >
+                            <button>Set liver label</button> 
+                            <button>Set spleen label</button> 
+                        </div>
+                        <div id="openDir"></div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-12">
+               <div class= "display-area">
+                   <div class="subtoolbar">
+                    <button>Correct partition</button>
+                    <button>Clear edits</button>
+                   </div>
+                   <div id=display-area-slice>
+                        Select slice: Adjust masks <br>
+                        <img id="slice", src="images/sample_slice.png">
+                   </div>
+                   <div id="display-area-log-bar" class="TODO">
+                        Spaceholder for processing/log reporting
+                   </div>
+               </div>
+            </div>
+            <div class="col-lg-2 col-md-12">
+                <div class= "scrollbar-area">
+                    <div class="subtoolbar">
+                    Search: <input type="text" >
+                    </div>
+                    <div id=scrollbar-area-preview>
+                        CT slices: <br>
+                        <img id=preview, src="images/slice-preview.png">
+                </div>
+            </div>
+
+        </div>
+        <script  src="js/script.js"></script>
+        <!-- React Components <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js crossorigin> -->
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/likebutton.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,249 @@
+/**** Make box width include padding and border ****/
+* {
+    box-sizing: border-box;
+  }
+
+/* General styling for whole html document */
+html {
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+/* Styling of the rows for the three columns */
+/* 3 rows for large screen devices -> 1 row for small screen devices */
+.row {
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* Styling and Spaceholder of toolbar */
+.toolbar {
+  text-align: center;
+  background-color: rgb(20, 20, 20);
+  color: white;
+  font-size: 2em;
+}
+
+/*General button design */
+
+button {
+  padding: 5px; 
+}
+
+/* toolbar image is placeholder */
+#toolbar-spaceholder {
+  background: url(../images/toolbar.png) no-repeat center;
+  background-size: contain;
+  height: 40px;
+  margin: 10px;
+}
+
+/* Styling of left/first column */
+div.utility-area {
+  background-color: lightgrey;
+}
+
+/* Styling of the tools div inside the utility ares */
+/* The utility-area is composed of tool divs */
+div.utility-area  .tools {
+  margin-top: 10px;
+  border-bottom: 1px solid grey;
+  padding: 10px;
+}
+
+div.utility-area input[type="checkbox"] {
+  margin-bottom: 15px;
+}
+
+
+/* Stylings for intensity sliders */
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slider {
+  width: 100%; 
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+.global-threshold-button, .expansion-bounds-button { 
+  text-align: center;
+}
+
+/* Styling for expansion bounds of left/first columns */
+.expansion-bounds div{
+  text-align: center;
+}
+.expansion-bounds input[type="number"] {
+  width: 25%;
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+}
+
+
+/*Styling for labelling buttons */
+div.label-buttons {
+  margin-top: 10px; 
+  display: flex;
+  justify-content: space-evenly;;
+}
+div.label-buttons button {
+  margin-bottom: 10px;
+}
+/* Styling for the elements beneath the toolbar */
+.subtoolbar {
+  margin-top: 0;
+  border-bottom: 1px solid grey;
+  border-top: 1px solid grey;
+  padding: 10px;
+  background-color: white;
+  height: 45px;
+  display: flex;  /* evenly space out buttons/text */
+  justify-content: space-evenly; /* evenly space out buttons/text */
+}
+
+/* Styling of middle column */
+div.display-area {
+  background-color: white;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+}
+
+/* Spaceholder for main view of slices*/
+img {
+  width: 100%;
+}
+
+#display-area-slice {
+  border-bottom: 1px solid grey;
+}
+
+#display-area-slice, #scrollbar-area-preview {
+  padding: 10px; 
+  text-align: center;
+}
+
+/* Styling for processing/log bar */
+#display-area-log-bar {
+  padding: 20 px; 
+  text-align: center;
+  background-color: lightgrey;
+}
+
+/* Right/last column width previews of slices */
+div.scrollbar-area {
+  background-color: lightgrey;
+  border-bottom: 1px solid grey;    
+}
+
+/*Scrollbar set height and add scrollbar */ 
+#scrollbar-area-preview {
+  height: 90vh;
+  overflow: auto;
+}
+
+/*Search bar */
+div.subtoolbar input[type="text"] {
+  width: 60%;
+}
+
+
+.TODO {
+  color: red;
+
+}
+
+/* Settings for large screen devices*/
+@media (min-width: 942px) {
+    .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
+      float: left;
+    }
+    .col-lg-1 {
+      width: 8.33%;
+    }
+    .col-lg-2 {
+      width: 16.66%;
+    }
+    .col-lg-3 {
+      width: 25%;
+    }
+    .col-lg-4 {
+      width: 33.33%;
+    }
+    .col-lg-5 {
+      width: 41.66%;
+    }
+    .col-lg-6 {
+      width: 50%;
+    }
+    .col-lg-7 {
+      width: 58.33%;
+    }
+    .col-lg-8 {
+      width: 66.66%;
+    }
+    .col-lg-9 {
+      width: 74.99%;
+    }
+    .col-lg-10 {
+      width: 83.33%;
+    }
+    .col-lg-11 {
+      width: 91.66%;
+    }
+    .col-lg-12 {
+      width: 100%;
+    }
+  }
+  
+  /* Settings for small screen devices*/
+  @media (min-width: 768px) and (max-width: 941px) {
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+      float: left;
+    }
+    .col-md-1 {
+      width: 8.33%;
+    }
+    .col-md-2 {
+      width: 16.66%;
+    }
+    .col-md-3 {
+      width: 25%;
+    }
+    .col-md-4 {
+      width: 33.33%;
+    }
+    .col-md-5 {
+      width: 41.66%;
+    }
+    .col-md-6 {
+      width: 50%;
+    }
+    .col-md-7 {
+      width: 58.33%;
+    }
+    .col-md-8 {
+      width: 66.66%;
+    }
+    .col-md-9 {
+      width: 74.99%;
+    }
+    .col-md-10 {
+      width: 83.33%;
+    }
+    .col-md-11 {
+      width: 91.66%;
+    }
+    .col-md-12 {
+      width: 100%;
+    }
+  }
+  
