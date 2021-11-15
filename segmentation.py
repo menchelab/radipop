@@ -106,6 +106,8 @@ class Application(Frame):
         self.showMask = True
         self.highlight_img = -1
         self.mask_img = -1
+
+        ## Selected and displayed slice
         self.slice_idx = -1
         self.patient_id = 1
         self.file_dir = os.path.join(os.getcwd(), "assets", "niftynet_raw_images")
@@ -154,6 +156,7 @@ class Application(Frame):
                             text = "Select slice",
                             bg = tk_rgb)
 
+        ## Scale: slider to select the slice, default = 1
         self.myScale = Scale(
                             self.leftFrame, from_ = 1, to = 250,
                             orient = HORIZONTAL,
@@ -173,9 +176,10 @@ class Application(Frame):
         self.buttonDeleteAll = Button(self.leftFrame, text = "clear edits",
                                       command = self.deleteAndReload)
 
+        ## Button: Enables to define or remove the liver label of a mask
         self.buttonLabelLiver = Button(self.leftFrame, text = "set liver label",
                                       command = self.labelLiver)
-
+        ## Button: Enables to define or remove the spleen label of a mask
         self.buttonLabelSpleen = Button(self.leftFrame, text = "set spleen label",
                                       command = self.labelSpleen)
 
@@ -235,7 +239,10 @@ class Application(Frame):
         ## Button: Apply thresholds on all slices
         self.buttonExtendInt = Button(self.leftFrame, text = "set thresholds globally",
                                        command = self.extend_thresholds)
+
+        ## IntVar: Variable for Checkbutton self.questCheck
         self.quest = IntVar()
+        ## Checkbutton: Checkbox for bad slice - Not needed anymore
         self.questCheck = Checkbutton(self.leftFrame, text='Bad slice',
                                       variable=self.quest,
                                       onvalue=1, offvalue=0, command=self.label_quest)
@@ -260,6 +267,7 @@ class Application(Frame):
         self.buttonExtend = Button(self.leftFrame, text = "extend liver/spleen labels",
                                        command = self.extend_labels)
 
+        ## Button: Save the masks, thresholds and questionable slices of a patient
         self.buttonSave = Button(self.leftFrame, text = "save",
                                       command = self.fileSave)
         self.myCanvas.pack(expand=YES, fill=BOTH)
@@ -297,6 +305,9 @@ class Application(Frame):
                 ]
 
     def label_controls(self):
+        """! Specifies GUI elements for labeling
+        @return list of list coressponding to label elements
+        """
         return [
             [self.buttonLabelLiver],
             [self.buttonLabelSpleen],
@@ -306,6 +317,10 @@ class Application(Frame):
         ]
 
     def save_controls(self):
+        """! Access to save button
+        @return list of list with save button
+
+        """
         return [[self.buttonSave]]
 
 
@@ -334,6 +349,9 @@ class Application(Frame):
 
 
     def setSlice(self, event):
+        """! Sets the selected slice by using the slice slider
+        Calls loadSlice() to display the slice
+        """
         self.slice_idx = self.myScale.get()
         self.loadSlice()
 
@@ -375,6 +393,10 @@ class Application(Frame):
             self.show_controls(self.label_controls(), 40)
 
     def labelLiver(self):
+        """! Sets the values of the selected mask
+        Changes button label on click depending on pixel value
+        Displays mask in red or green color by calling displayMask()
+        """
         mymask = self.masks[self.slice_idx]
         if self.pixel_value == 1:
             tempmask = (mymask > 0).astype(np.uint8)
@@ -389,6 +411,10 @@ class Application(Frame):
         self.displayMask()
 
     def labelSpleen(self):
+        """! Sets the values of the selected mask
+        Changes button label on click depending on pixel value
+        Displays mask in blue or green color by calling displayMask()
+        """
         mymask = self.masks[self.slice_idx]
         if self.pixel_value == 2:
             tempmask = (mymask > 0).astype(np.uint8)
@@ -402,7 +428,12 @@ class Application(Frame):
             self.buttonLabelSpleen.configure(text= "Remove spleen label")
         self.displayMask()
 
+    ## Function call on bad slice checkbox - Not needed anymore
     def label_quest(self):
+        """! Marks slice as "questionable" if bad slice checkbox is clicked
+        In case the checkbox is clicked, the quest variable is 1 (bad slice) otherwise 0
+        Also hides the controls (set labels, expansion bounds) on GUI, if checkbox is clicked
+        """
         if self.quest.get() == 1:
             if self.slice_idx not in self.questionable_slices[self.patient_id]:
                 self.questionable_slices[self.patient_id].append(self.slice_idx)
@@ -498,12 +529,20 @@ class Application(Frame):
 
 
     def load_masks(self, patient_id):
+        """! Loads the masks of a patient from assets/masks/patient_id in self.masks
+        @param patient_id
+        """
         file_dir = os.path.join(os.getcwd(), "assets", "masks", str(patient_id))
         print("loading masks from ", file_dir)
         self.masks = {int(file.split(".")[0]): \
                       pickle.load(open(os.path.join(file_dir, file), 'rb')) for file in os.listdir(file_dir) }
 
     def set_threshold_toggles(self):
+        """! Sets patient thresholds for bone, blood vessels and liver sliders
+        Uses predefined values (200, 170, 135) if thresholds are not available
+
+        @return thresholds['slice_idx'] if 'slice_idx' in thresholds.keys(); else None
+        """
         if self.patient_id in self.thresholds.keys():
             thresholds = self.thresholds[self.patient_id]
         else:
@@ -670,6 +709,9 @@ class Application(Frame):
         self.hide_controls(self.label_controls())
 
     def fileSave(self):
+        """! Loops through patient slices and writes the masks to the patient folder in assets/masks
+        Also saves the questionable slices and the thresholds to .json
+        """
         for slice in self.slices:
             print("saving slice", slice, )
             file_dir = os.path.join(os.getcwd(), "assets", "masks", str(self.patient_id))
