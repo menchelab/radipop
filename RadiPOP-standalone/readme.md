@@ -4,10 +4,10 @@
 
 
 ## Features
-- Choose file: Choose a folder containing the png slices. --> Loads them onto screen
+- Choose file: Choose a folder containing the png slices (and optionally .p mask files). --> Load them onto screen
 - Scrollbar: Mouseover will load slice into main view 
-- Hide mask: GET request to flask server: Gets slider values as alert
-- Sliders: Will POST slider values to flask server. Flask server stores slider values. 
+- Sliders: Will POST slider values to flask server. Flask server calculates new masks using RadiPOP Segmenter and returns new mask 
+- Hide mask: Hides mask 
 - Like Button: Demonstration of a React Component
 
 ## Dependencies

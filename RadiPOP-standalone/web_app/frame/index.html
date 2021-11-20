@@ -27,27 +27,27 @@
                         </div>
                     </div>
                     <div class="tools">
-                        Bone Intensity: <span id="bone-intensity-slider-output">50</span>
+                        Bone Intensity: <span id="bone-intensity-slider-output">180</span>
                         <div class="slidecontainer">
                             <button id="bone-intensity-slider-minus">-</button>
-                            <input type="range" min="1" max="100" value="50" class="slider" id="bone-intensity-slider">
+                            <input type="range" min="1" max="300" value="180" class="slider" id="bone-intensity-slider">
                             <button id="bone-intensity-slider-plus">+</button>
                         </div>
-                        Blood vessel intensity: <span id="blood-vessel-intensity-slider-output">50</span>
+                        Blood vessel intensity: <span id="blood-vessel-intensity-slider-output">160</span>
                         <div class="slidecontainer">
                             <button id="blood-vessel-intensity-slider-minus">-</button>
-                            <input type="range" min="1" max="100" value="50" class="slider" id="blood-vessel-intensity-slider">
+                            <input type="range" min="1" max="300" value="160" class="slider" id="blood-vessel-intensity-slider">
                             <button id="blood-vessel-intensity-slider-plus">+</button>
                         </div>
 
-                        Liver Intensity: <span id="liver-intensity-slider-output">50</span>
+                        Liver Intensity: <span id="liver-intensity-slider-output">140</span>
                         <div class="slidecontainer">
                             <button id="liver-intensity-slider-minus">-</button>
-                            <input type="range" min="1" max="100" value="50" class="slider" id="liver-intensity-slider">
+                            <input type="range" min="1" max="300" value="140" class="slider" id="liver-intensity-slider">
                             <button id="liver-intensity-slider-plus">+</button>
                         </div>
-                        <div class="global-threshold-button">
-                            <button>Set thresholds globally</button>
+                        <div class="global-threshold-div">
+                            <button id="global-threshold-button">Set thresholds globally</button>
                         </div>
                     </div>
                     <div class="tools">
@@ -66,7 +66,7 @@
                             <button>Set liver label</button> 
                             <button>Set spleen label</button> 
                         </div>
-                        <div id="openDir"></div>
+                        <div id="like-button"></div>
                     </div>
 
                 </div>
@@ -79,7 +79,11 @@
                    </div>
                    <div id=display-area-slice>
                         Select slice: Adjust masks <br>
-                        <img id="slice", src="images/sample_slice.png">
+                        <div id=main-slice-mask-container, class=slice-mask-container>
+                            <img id="slice", src="images/sample_slice.png">
+                            <img id="mask", class= "mask", src="images/sample_mask.png">
+                        </div>
+                        <!--<canvas id="slice"></canvas> -->
                    </div>
                    <div id="display-area-log-bar" class="TODO">
                         Spaceholder for processing/log reporting
@@ -93,7 +97,11 @@
                     </div>
                     <div id=scrollbar-area-preview>
                         CT slices: <br>
-                        <img id=preview, src="images/slice-preview.png">
+                        <!-- Just a space holder. After the user selected files, this div will be filled with many slice-mask-containers, one per slice -->
+                        <div class=slice-mask-container> 
+                            <img id="slice", src="images/slice-preview.png">
+                            <img class= "mask", src="">
+                        </div>
                 </div>
             </div>
 

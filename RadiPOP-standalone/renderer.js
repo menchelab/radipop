@@ -45,6 +45,13 @@ const startPythonSubprocess = () => {
     console.log("Python script");
     console.log(script)
   }
+  subpy.stdout.on('data', (data) => {
+    let dataStr = `${data}`
+    console.log("Flask", dataStr)
+  });
+  subpy.stderr.on('data', (data) => {
+    console.log(`Flask: ${data}`);
+  });
 };
 
 const killPythonSubprocesses = (main_pid) => {
@@ -120,7 +127,7 @@ const createMainWindow = () => {
   mainWindow.loadFile(path.join(__dirname, "web_app/frame/index.html"));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools({ mode: 'detach' });
 
   // Emitted when the mainWindow is closed.
   mainWindow.on("closed", function () {

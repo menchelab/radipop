@@ -22,7 +22,7 @@
     },
     "files": [
       "renderer.js",
-      "node_modules/**/*", 
+      "node_modules/**/*",
       "web_app/frame/**/*"
     ],
     "extraResources": [

@@ -72,7 +72,7 @@ div.utility-area input[type="checkbox"] {
   transition: opacity .2s;
 }
 
-.global-threshold-button, .expansion-bounds-button { 
+.global-threshold-div, .expansion-bounds-button { 
   text-align: center;
 }
 
@@ -118,8 +118,19 @@ div.display-area {
 }
 
 /* Spaceholder for main view of slices*/
-img {
+canvas,img {
   width: 100%;
+}
+
+div.slice-mask-container {
+  position:relative;
+}
+
+div.slice-mask-container img.mask {
+ position: absolute;
+ top:0px;
+ left:0px;
+ z-index:10;
 }
 
 #display-area-slice {

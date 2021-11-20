@@ -1,58 +1,67 @@
-# NOTE: Explicitly import configuration so that PyInstaller is able to find and bundle it
-import config
-import numpy as np
-import json
-from flask import Flask, jsonify, make_response, render_template, request
+from utility import config
+from utility.radipop_gui import RadiPopGUI
+import numpy as np, json
+from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
-from config import RadiPopGUI
-import os 
-app = Flask(__name__)
+import io, base64, sys, os
 
-#Otherwise No 'Access-Control-Allow-Origin' header is present on the requested resource.  --> Cross Origin Resource Sharing 
+app = Flask(__name__)
 CORS(app)
 
-
-@app.route("/index", methods=["GET"])
+@app.route('/index', methods=['GET'])
 def index():
-    return "<html><body><h1>Just Testing</h1><p>This is the index page of my flask server.</p></body></html>"
-
-'''
-@app.route('/slider/<slider_value>', methods=['GET','POST'])
-def data_get(slider_value):
-    if request.method == 'POST': # POST request
-        RadiPopGUI.slider_bone_intensity= int(request.get_text()) # parse as text
-        print(RadiPopGUI.slider_bone_intensity)  
-        print("test")
-        return 'OK', 200
-    
-    else: # GET request
-        message = { }
-        message["message"]=str(RadiPopGUI.slider_bone_intensity)
-        print(message)
-        #return  jsonify(message)
-        return str(RadiPopGUI.slider_bone_intensity)
-
-'''
-@app.route("/postmethod", methods=["POST"])
-def post_javascript_data():
-    jsdata = request.form["javascript_data"]
-    dictionary=json.loads(jsdata)
-    print(dictionary["slider_id"])
-    if dictionary["slider_id"]=="bone-intensity-slider":
-        RadiPopGUI.slider_bone_intensity=int(dictionary["slider_value"])
-    if dictionary["slider_id"]=="liver-intensity-slider":
-        RadiPopGUI.slider_liver_intensity=int(dictionary["slider_value"])
-    if dictionary["slider_id"]=="blood-vessel-intensity-slider":
-        RadiPopGUI.slider_blood_vessel_intensity=int(dictionary["slider_value"])
-    return 'OK', 200
+    return '<html><body><h1>Just Testing</h1><p>This is the index page of my flask server.</p></body></html>'
 
 
-@app.route("/getmethod", methods=["GET"])
-def get_javascript_data():
-    message = {'slider_value': "slider_value: " + str(RadiPopGUI.slider_bone_intensity)+ ", "+ str(RadiPopGUI.slider_blood_vessel_intensity)+ ", "+  str(RadiPopGUI.slider_liver_intensity)}
-    print("Got")
-    return jsonify(message)
+@app.route('/postPickleGetMask', methods=['POST'])
+def postPickleGetMask():
+    """! Receive Path to Pickle file and return mask as PNG to client"""
+    jsdata = request.form['javascript_data']
+    dictionary = json.loads(jsdata)
+    arr = RadiPopGUI.read_pickle_mask_to_np_label_array(path=(dictionary['path']))
+    img = RadiPopGUI.np_label_array_to_png(arr)
+    rawBytes = io.BytesIO()
+    img.save(rawBytes, 'PNG')
+    rawBytes.seek(0)
+    img_base64 = base64.b64encode(rawBytes.read())
+    return jsonify({'status': str(img_base64)})
 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=4041)
+@app.route('/postPathToSlices', methods=['POST'])
+def postPathToSlices():
+    """! Receive Paths to slices, open slices and save them to array"""
+    jsdata = request.form['javascript_data']
+    data = json.loads(jsdata)
+    #data = eval(data)
+    RadiPopGUI.pathToSlices = []
+    for path in data:
+        RadiPopGUI.pathToSlices.append(path)
+        RadiPopGUI.sliceCache[os.path.basename(path)] = RadiPopGUI.readPNG(path)
+        #print(path,file=sys.stderr)
+
+    return ('OK', 200)
+
+
+@app.route('/updateMask', methods=['POST'])
+def updateMask():
+    """! Receive Path to Pickle file and return mask as PNG to client"""
+    jsdata = request.form['javascript_data']
+    dictionary = json.loads(jsdata)
+    liver = int(dictionary['liver-intensity-slider'])
+    bone = int(dictionary['bone-intensity-slider'])
+    blood = int(dictionary['blood-vessel-intensity-slider'])
+    cachedImage = RadiPopGUI.sliceCache[os.path.basename(dictionary['path'])]
+    arr = RadiPopGUI.update_mask_upon_slider_change(sk_image=cachedImage,
+      bone_intensity=bone,
+      blood_vessel_intensity=blood,
+      liver_intensity=liver)
+    img = RadiPopGUI.np_label_array_to_png(arr)
+    rawBytes = io.BytesIO()
+    img.save(rawBytes, 'PNG')
+    rawBytes.seek(0)
+    img_base64 = base64.b64encode(rawBytes.read())
+    return jsonify({'status': str(img_base64)})
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=4041)
