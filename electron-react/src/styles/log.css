@@ -1,0 +1,6 @@
+div.log {
+  background-color: rgb(245,245,247);
+  border-top: 7px solid white;
+  padding-bottom: 66px;
+  display: flex;
+}

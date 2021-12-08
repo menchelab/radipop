@@ -1,0 +1,8 @@
+{
+  "short_name": "Editor XR",
+  "name": "Radipop Segmentation Editor",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

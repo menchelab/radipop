@@ -1,0 +1,39 @@
+/* Styling of middle column */
+div.display-area {
+  background-color: rgb(245,245,247);
+  border-left: 7px solid white;
+  border-right: 7px solid white;
+  border-bottom: 7px solid white;
+  box-sizing: border-box;
+}
+
+
+/* Right/last column width previews of slices */
+div.scrollbar-area {
+  background-color: rgb(245,245,247);
+  box-sizing: border-box;
+
+}
+
+.img{
+    width: 95%;
+    object-fit: contain;
+    display: block;
+    margin:auto;
+    padding-top: 15px;
+    padding-bottom: 60px;
+}
+
+.Info{
+  display:flex;
+  align-items: center;
+  width: 100%;
+  padding: 5px;
+}
+
+span {
+    display:block;
+    float:left;
+    width: 100%;
+    padding: 6px;
+}
