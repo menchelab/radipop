@@ -1,33 +1,43 @@
 $(document).ready(function () {
   /* Global variables */
-  var FLASK_SERVER="http://localhost:4041"
-  var slider_id= ["bone-intensity-slider","blood-vessel-intensity-slider","liver-intensity-slider"]
-
+  var RadiPOP_states={};
+  RadiPOP_states.FLASK_SERVER="http://localhost:4041"
+  RadiPOP_states.slider_id= ["bone-intensity-slider","blood-vessel-intensity-slider","liver-intensity-slider"]
+  RadiPOP_states.masks = {};
+  RadiPOP_states.slice_files = {};
+  RadiPOP_states.current_slice_idx =0; 
+  RadiPOP_states.LIVER_LABEL=1;
+  RadiPOP_states.SPLEEN_LABEL=2;
+  RadiPOP_states.correct_partition=false; 
+  RadiPOP_states.selected_points=[]; 
 
   /* Event listener for automatically updating sliders */
-  for (let i=0; i<slider_id.length; i++) {
-    var slider = document.getElementById(slider_id[i]); 
-    slider.output = document.getElementById(slider_id[i]+"-output"); 
+  for (let i=0; i<RadiPOP_states.slider_id.length; i++) {
+    var slider = document.getElementById(RadiPOP_states.slider_id[i]); 
+    slider.output = document.getElementById(RadiPOP_states.slider_id[i]+"-output"); 
     slider.addEventListener('input', sliderChange); 
   }
  
   /* Function to update slider values when slider is clicked on */
   function sliderChange(event) {
     event.currentTarget.output.innerHTML = this.value;
-    updateMask();
+    this.step=5;
+    updateMask(target_slice_idx=RadiPOP_states.current_slice_idx);
   }
 
   //Add function to slider button
-  for (let i=0; i<slider_id.length; i++) {
-    document.getElementById(slider_id[i]+"-plus").addEventListener("click", () =>{
-      document.getElementById(slider_id[i]).value++;
-      document.getElementById(slider_id[i]+"-output").innerHTML=document.getElementById(slider_id[i]).value;
-      updateMask();
+  for (let i=0; i<RadiPOP_states.slider_id.length; i++) {
+    document.getElementById(RadiPOP_states.slider_id[i]+"-plus").addEventListener("click", () =>{
+      document.getElementById(RadiPOP_states.slider_id[i]).step=1;
+      document.getElementById(RadiPOP_states.slider_id[i]).value++;
+      document.getElementById(RadiPOP_states.slider_id[i]+"-output").innerHTML=document.getElementById(RadiPOP_states.slider_id[i]).value;
+      updateMask(target_slice_idx=RadiPOP_states.current_slice_idx);
     }) 
-    document.getElementById(slider_id[i]+"-minus").addEventListener("click", () =>{
-      document.getElementById(slider_id[i]).value--;
-      document.getElementById(slider_id[i]+"-output").innerHTML=document.getElementById(slider_id[i]).value;
-      updateMask();
+    document.getElementById(RadiPOP_states.slider_id[i]+"-minus").addEventListener("click", () =>{
+      document.getElementById(RadiPOP_states.slider_id[i]).step=1;
+      document.getElementById(RadiPOP_states.slider_id[i]).value--;
+      document.getElementById(RadiPOP_states.slider_id[i]+"-output").innerHTML=document.getElementById(RadiPOP_states.slider_id[i]).value;
+      updateMask(target_slice_idx=RadiPOP_states.current_slice_idx);
     }) 
   }
 
@@ -60,48 +70,128 @@ $(document).ready(function () {
       }
     }
     //Order files according to their index 
-    slice_files=[].slice.call(slice_files).sort((a, b) => (parseInt(a.name.replace(".png","")) > parseInt(b.name.replace(".png",""))) ? 1 : -1 )
+    RadiPOP_states.slice_files=[].slice.call(slice_files).sort((a, b) => (parseInt(a.name.replace(".png","")) > parseInt(b.name.replace(".png",""))) ? 1 : -1 )
     mask_files=[].slice.call(mask_files).sort((a, b) => (parseInt(a.name.replace(".p","")) > parseInt(b.name.replace(".png",""))) ? 1 : -1 )
     
     //Post slice file paths to flask --> will be loaded and chached 
-    let slice_files_paths  = slice_files.map((item) => item.path);
+    let slice_files_paths  = RadiPOP_states.slice_files.map((item) => item.path);
     postPathToSlices(slice_files_paths);
     
     //Slices will be added to the preview area  
     var output = document.getElementById("scrollbar-area-preview")
     output.innerHTML=""
-    for (let i=0; i<slice_files.length; i++) {
+    for (let i=0; i<RadiPOP_states.slice_files.length; i++) {
       let item= document.createElement("div");
       item.classList.add("slice-mask-container")
       item.id="slice_"+i;
       let subitem1=document.createElement("img");
-      subitem1.src=slice_files[i].path; //Address only valid inside browser URL.createObjectURL(slice_files[i])
+      subitem1.src=RadiPOP_states.slice_files[i].path; //Address only valid inside browser URL.createObjectURL(slice_files[i])
       let subitem2=document.createElement("img");
+      subitem2.id="mask-"+i; 
       subitem2.classList.add("mask")
       if (i<mask_files.length) { //When there are no masks in the input folder don't try to load them 
-        postPickleGetMask(path=mask_files[i].path,target=subitem2) //.path only available in electron browser
+        postPickleGetMask(index=i, path=mask_files[i].path,target=subitem2) //.path only available in electron browser
       } 
+      
       item.appendChild(subitem1)
       item.appendChild(subitem2)
       output.appendChild(item);
-      item.addEventListener("mouseover", function(event) {
+      item.addEventListener("mouseover", function(event) { //Update slices and mask in main view on mouse over 
         document.getElementById("slice").src=subitem1.src; //slice_files[i].path;
         document.getElementById("mask").src=subitem2.src;
+        RadiPOP_states.current_slice_idx=i; 
       });
       //Let last slice be on the main screen 
       document.getElementById("slice").src=subitem1.src;
       document.getElementById("mask").src=subitem2.src
-    
+      RadiPOP_states.current_slice_idx=RadiPOP_states.slice_files.length-1
     };
   }, false);
 
 
-  // Currently just dummy function --> Loads a predefined mask 
+  // Updates Mask for given intensity values
   document.getElementById("global-threshold-button").addEventListener("click", function(event) {
-    let image = document.getElementById("mask");  
-    postPickleGetMask( path="web_app/frame/images/0.p",target=image);
+    for (let i=0; i<RadiPOP_states.slice_files.length; i++) {
+      let current_slice= String(i)
+      updateMask(target_slice_idx=current_slice); 
+    }
   });
 
+  document.getElementById("mask").addEventListener("click", function(event) {
+    var x = event.offsetX/this.width;
+    var y = event.offsetY/this.height;
+
+    if (!RadiPOP_states.correct_partition) {
+      console.log("Highlighing mode");
+      highlightOrgan(x=x,y=y);
+    }
+    else {
+      console.log("Correct partition mode");
+      RadiPOP_states.selected_points.push(x); 
+      RadiPOP_states.selected_points.push(y); 
+      if (RadiPOP_states.selected_points.length/2>1){
+        document.getElementById("correct-partition-button").innerHTML="Commit correction";
+      }
+      drawOnMask(target_slice_idx=RadiPOP_states.current_slice_idx,coordinates=RadiPOP_states.selected_points)
+    }
+  });
+  
+  //Assign event listeners to label buttons 
+  document.getElementById("liver-label-button").addEventListener("click", ()=>{labelButton(label=RadiPOP_states.LIVER_LABEL)});
+  document.getElementById("spleen-label-button").addEventListener("click", ()=>{labelButton(label=RadiPOP_states.SPLEEN_LABEL)});
+
+  function labelButton(label) {
+    if (!RadiPOP_states.correct_partition) {
+      console.log("Button with id was pressed: " + label );
+      labelOrgan(label);
+    }
+    else {
+      alert("Labelling not available in correct partition mode!");
+    }
+  };
+
+  //Assign event listeners to correct parition buttons 
+  document.getElementById("correct-partition-button").addEventListener("click", ()=>{
+    if (!RadiPOP_states.correct_partition){
+      RadiPOP_states.correct_partition=true
+      console.log("Correct Partition mode enabled")
+      document.getElementById("correct-partition-button").innerHTML="End Correct Partition";
+    }
+    else {
+      if (RadiPOP_states.selected_points.length/2>1) {
+        console.log("Commit correction")
+        correctPartition(target_slice_idx=RadiPOP_states.current_slice_idx,coordinates=RadiPOP_states.selected_points)
+      }
+      else {
+        console.log("Correct Partition mode disabled")
+      }
+      document.getElementById("correct-partition-button").innerHTML="Correct Partition";
+      RadiPOP_states.correct_partition=false;
+      RadiPOP_states.selected_points=[];
+      getMask(target_slice_idx=RadiPOP_states.current_slice_idx)
+      
+    }
+  });
+
+  document.getElementById("clear-edits-button").addEventListener("click", ()=>{
+    if (RadiPOP_states.correct_partition) {
+      RadiPOP_states.selected_points=[]; 
+      document.getElementById("correct-partition-button").innerHTML="End Correct Partition";
+      getMask(target_slice_idx=RadiPOP_states.current_slice_idx)
+      console.log("Clear edits button was pressed");
+    }
+    else {
+      alert("Clear edits only available in correct partition mode!");
+    }
+  });
+
+  document.getElementById("extend-label-button").addEventListener("click", ()=>{
+    left=document.getElementById("left_expansion_bound_input").value;
+    right=document.getElementById("right_expansion_bound_input").value;
+    console.log(left);
+    console.log(right);
+    extendThresholds(left,right)
+  }); 
 
   /* 
   ***********************************
@@ -109,42 +199,168 @@ $(document).ready(function () {
   ***********************************
   */
 
-  // Post the path to a mask pickle file and get a transparent PNG file in return 
-  function postPickleGetMask(path, target) {
-    $.post(FLASK_SERVER+"/postPickleGetMask", {
-      javascript_data: JSON.stringify({path: path})
+    //Correct partition  mask 
+    function correctPartition(target_slice_idx,coordinates) {
+      let data={
+        "index": target_slice_idx,
+        "coordinates": coordinates
+      };
+      let index= target_slice_idx
+      let target1= document.getElementById("mask"); //Must be let and NOT var --> otherwise problems with async function
+      let target2= document.getElementById("mask-"+target_slice_idx)
+      $.post(RadiPOP_states.FLASK_SERVER+"/correctPartition", {
+        javascript_data: JSON.stringify(data)
+      })
+      .done(function(data){                     
+        bytestring = data['status']
+        img = bytestring.split('\'')[1]   
+        RadiPOP_states.masks[index]="data:image/png;base64," + img; 
+        if (target_slice_idx==RadiPOP_states.current_slice_idx){
+          target1.src = RadiPOP_states.masks[index];
+        }
+        target2.src = RadiPOP_states.masks[index];
+      }).catch(error_handler)
+    }
+
+   //Draw on mask 
+   function drawOnMask(target_slice_idx,coordinates) {
+    let data={
+      "index": target_slice_idx,
+      "coordinates": coordinates
+    };
+    let index= target_slice_idx
+    let target1= document.getElementById("mask"); //Must be let and NOT var --> otherwise problems with async function
+    let target2= document.getElementById("mask-"+target_slice_idx)
+    $.post(RadiPOP_states.FLASK_SERVER+"/drawOnMask", {
+      javascript_data: JSON.stringify(data)
     })
     .done(function(data){                     
       bytestring = data['status']
       img = bytestring.split('\'')[1]   
-      target.src = "data:image/png;base64," + img; 
+      RadiPOP_states.masks[index]="data:image/png;base64," + img; 
+      if (target_slice_idx==RadiPOP_states.current_slice_idx){
+        target1.src = RadiPOP_states.masks[index];
+      }
+      target2.src = RadiPOP_states.masks[index];
+    }).catch(error_handler)
+  }
+
+   //Label highlighted organ as id
+   function extendThresholds(left,right) {
+    let index= RadiPOP_states.current_slice_idx
+    let target1= document.getElementById("mask"); 
+    $.post(RadiPOP_states.FLASK_SERVER+"/extendThresholds", {
+      javascript_data: JSON.stringify({index: index,left: left, right: right})
+    })
+    .done(function(data){  
+      console.log(data["left_most_idx"])   
+      console.log(data["right_most_idx"])   
+      for (let index=parseInt(data["left_most_idx"]); index<parseInt(data["right_most_idx"])+1; index++) {     
+        getMask(index);
+      }
+    }).catch(error_handler)
+  }
+
+  //Label highlighted organ as id
+  function labelOrgan(label) {
+    let index= RadiPOP_states.current_slice_idx
+    let target1= document.getElementById("mask"); 
+    let target2= document.getElementById("mask-"+index)
+    $.post(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+      javascript_data: JSON.stringify({index: index,label: label})
+    })
+    .done(function(data){                     
+      bytestring = data['status']
+      img = bytestring.split('\'')[1]
+      RadiPOP_states.masks[index]="data:image/png;base64," + img; 
+      if (index==RadiPOP_states.current_slice_idx){
+        target1.src = RadiPOP_states.masks[index];
+      }
+      target2.src = RadiPOP_states.masks[index];
+    }).catch(error_handler)
+  }
+
+  //Highlight organ: Post x and y coordinates to current slice get highligthed mask back 
+  function highlightOrgan(x,y) {
+    let target= document.getElementById("mask"); 
+    path= document.getElementById("slice").src
+    console.log(path);
+    console.log(RadiPOP_states.current_slice_idx);
+    $.post(RadiPOP_states.FLASK_SERVER+"/highlightOrgan", {
+      javascript_data: JSON.stringify({index: RadiPOP_states.current_slice_idx,x: x, y: y})
+    })
+    .done(function(data){                     
+      bytestring = data['status']
+      img = bytestring.split('\'')[1]
+      target.src="data:image/png;base64," + img; 
+    }).catch(error_handler)
+  }
+
+  //Get mask of given index 
+  function getMask(target_slice_idx) {
+    let data={
+      "index": target_slice_idx
+    };
+    let index= target_slice_idx
+    let target1= document.getElementById("mask"); //Must be let and NOT var --> otherwise problems with async function
+    let target2= document.getElementById("mask-"+target_slice_idx)
+    $.post(RadiPOP_states.FLASK_SERVER+"/getMask", {
+      javascript_data: JSON.stringify(data)
+    })
+    .done(function(data){                     
+      bytestring = data['status']
+      img = bytestring.split('\'')[1]   
+      RadiPOP_states.masks[index]="data:image/png;base64," + img; 
+      if (target_slice_idx==RadiPOP_states.current_slice_idx){
+        target1.src = RadiPOP_states.masks[index];
+      }
+      target2.src = RadiPOP_states.masks[index];
+    }).catch(error_handler)
+  }
+
+  // Post the path to a mask pickle file and get a transparent PNG file in return 
+  function postPickleGetMask(index, path, target) {
+    $.post(RadiPOP_states.FLASK_SERVER+"/postPickleGetMask", {
+      javascript_data: JSON.stringify({index: index, path: path})
+    })
+    .done(function(data){                     
+      bytestring = data['status']
+      img = bytestring.split('\'')[1]  
+      RadiPOP_states.masks[index]="data:image/png;base64," + img; 
+      target.src = RadiPOP_states.masks[index]; 
     }).catch(error_handler)
   }
 
   // Post path to slice files to flask --> flask opens the slices and chaches them 
   function postPathToSlices(paths) {
-    $.post(FLASK_SERVER+"/postPathToSlices", {
+    $.post(RadiPOP_states.FLASK_SERVER+"/postPathToSlices", {
       javascript_data: JSON.stringify(paths)
     }).catch(error_handler)
   }
 
   // Update the mask. Function should be called when the intensity sliders change. 
   // RadiPOP segmenter will calculate a new mask --> update mask in main window
-  function updateMask() {
+  function updateMask(target_slice_idx) {
     let data={
       "bone-intensity-slider": document.getElementById("bone-intensity-slider").value,
       "liver-intensity-slider": document.getElementById("liver-intensity-slider").value,
       "blood-vessel-intensity-slider": document.getElementById("blood-vessel-intensity-slider").value,
-      "path": document.getElementById("slice").src
+      "index": target_slice_idx
     };
-    target= document.getElementById("mask");
-    $.post(FLASK_SERVER+"/updateMask", {
+    let index= target_slice_idx
+    let target1= document.getElementById("mask"); //Must be let and NOT var --> otherwise problems with async function
+    let target2= document.getElementById("mask-"+target_slice_idx)
+    $.post(RadiPOP_states.FLASK_SERVER+"/updateMask", {
       javascript_data: JSON.stringify(data)
     })
     .done(function(data){                     
       bytestring = data['status']
       img = bytestring.split('\'')[1]   
-      target.src = "data:image/png;base64," + img; 
+      RadiPOP_states.masks[index]="data:image/png;base64," + img; 
+      if (target_slice_idx==RadiPOP_states.current_slice_idx){
+        target1.src = RadiPOP_states.masks[index];
+      }
+      target2.src = RadiPOP_states.masks[index];
     }).catch(error_handler)
   }
   
@@ -154,6 +370,8 @@ $(document).ready(function () {
     alert("Failed to contact flask server or Flask handling error - It may take a while to start up the server... Try again later.")
   }
 
+  //Expose RadiPOP_states for debugging purposes
+  $.RadiPOP_states=RadiPOP_states
 });
 
 

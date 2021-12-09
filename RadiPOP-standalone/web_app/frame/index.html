@@ -30,20 +30,20 @@
                         Bone Intensity: <span id="bone-intensity-slider-output">180</span>
                         <div class="slidecontainer">
                             <button id="bone-intensity-slider-minus">-</button>
-                            <input type="range" min="1" max="300" value="180" class="slider" id="bone-intensity-slider">
+                            <input type="range" min="1" max="300" value="180" step= 5 class="slider" id="bone-intensity-slider">
                             <button id="bone-intensity-slider-plus">+</button>
                         </div>
                         Blood vessel intensity: <span id="blood-vessel-intensity-slider-output">160</span>
                         <div class="slidecontainer">
                             <button id="blood-vessel-intensity-slider-minus">-</button>
-                            <input type="range" min="1" max="300" value="160" class="slider" id="blood-vessel-intensity-slider">
+                            <input type="range" min="1" max="300" value="160" step= 5 class="slider" id="blood-vessel-intensity-slider">
                             <button id="blood-vessel-intensity-slider-plus">+</button>
                         </div>
 
                         Liver Intensity: <span id="liver-intensity-slider-output">140</span>
                         <div class="slidecontainer">
                             <button id="liver-intensity-slider-minus">-</button>
-                            <input type="range" min="1" max="300" value="140" class="slider" id="liver-intensity-slider">
+                            <input type="range" min="1" max="300" value="140" step= 5 class="slider" id="liver-intensity-slider">
                             <button id="liver-intensity-slider-plus">+</button>
                         </div>
                         <div class="global-threshold-div">
@@ -53,7 +53,7 @@
                     <div class="tools">
                         <div class="expansion-bounds">
                             Expansion bounds: <br>
-                            <div> Left: <input type="number" > Right: <input type="number">  </div>
+                            <div> Left: <input id="left_expansion_bound_input", type="number" > Right: <input id="right_expansion_bound_input", type="number">  </div>
                         </div>  
                         <br>
                         <div class= "expansion-bounds-button" > 
@@ -63,8 +63,8 @@
                     <div class="tools">
                         Label: <br>
                         <div class= "label-buttons TODO" >
-                            <button>Set liver label</button> 
-                            <button>Set spleen label</button> 
+                            <button id="liver-label-button">Set liver label</button> 
+                            <button id="spleen-label-button">Set spleen label</button> 
                         </div>
                         <div id="like-button"></div>
                     </div>
@@ -74,8 +74,8 @@
             <div class="col-lg-7 col-md-12">
                <div class= "display-area">
                    <div class="subtoolbar">
-                    <button>Correct partition</button>
-                    <button>Clear edits</button>
+                    <button id="correct-partition-button">Correct partition</button>
+                    <button id="clear-edits-button">Clear edits</button>
                    </div>
                    <div id=display-area-slice>
                         Select slice: Adjust masks <br>
