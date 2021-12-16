@@ -4,6 +4,7 @@ $(document).ready(function () {
   RadiPOP_states.FLASK_SERVER="http://localhost:4041"
   RadiPOP_states.slider_id= ["bone-intensity-slider","blood-vessel-intensity-slider","liver-intensity-slider"]
   RadiPOP_states.masks = {};
+  RadiPOP_states.outDir="temp"
   RadiPOP_states.slice_files = {};
   RadiPOP_states.current_slice_idx =0; 
   RadiPOP_states.LIVER_LABEL=1;
@@ -72,10 +73,12 @@ $(document).ready(function () {
     //Order files according to their index 
     RadiPOP_states.slice_files=[].slice.call(slice_files).sort((a, b) => (parseInt(a.name.replace(".png","")) > parseInt(b.name.replace(".png",""))) ? 1 : -1 )
     mask_files=[].slice.call(mask_files).sort((a, b) => (parseInt(a.name.replace(".p","")) > parseInt(b.name.replace(".png",""))) ? 1 : -1 )
-    
+    //Set default output directory 
+
+    RadiPOP_states.outDir=slice_files[0].path.substring(0, slice_files[0].path.lastIndexOf("/")+1);
     //Post slice file paths to flask --> will be loaded and chached 
     let slice_files_paths  = RadiPOP_states.slice_files.map((item) => item.path);
-    postPathToSlices(slice_files_paths);
+    initialize(slice_files_paths);
     
     //Slices will be added to the preview area  
     var output = document.getElementById("scrollbar-area-preview")
@@ -193,15 +196,33 @@ $(document).ready(function () {
     extendThresholds(left,right)
   }); 
 
+  document.getElementById("save-button").addEventListener("click", () =>{
+    outDir=RadiPOP_states.outDir; 
+    saveMasks(path=outDir);
+    console.log("Saved files to: "+ outDir);
+  })
   /* 
   ***********************************
   ** Flask requests starting here ***
   ***********************************
   */
 
+    //Save masks 
+    //If path is given as empty string the output dir will be the same directory as the masks 
+    function saveMasks(path,patientID="1") {
+      let data={"path": path, "patientID": patientID};
+      $.post(RadiPOP_states.FLASK_SERVER+"/saveMasks", {
+        javascript_data: JSON.stringify(data)
+      })
+      .done(function(data){                     
+        console.log(data)
+      }).catch(error_handler)
+    }
+
     //Correct partition  mask 
-    function correctPartition(target_slice_idx,coordinates) {
+    function correctPartition(target_slice_idx,coordinates,patientID="1") {
       let data={
+        "patientID": patientID,
         "index": target_slice_idx,
         "coordinates": coordinates
       };
@@ -223,8 +244,9 @@ $(document).ready(function () {
     }
 
    //Draw on mask 
-   function drawOnMask(target_slice_idx,coordinates) {
+   function drawOnMask(target_slice_idx,coordinates,patientID="1") {
     let data={
+      "patientID": patientID,
       "index": target_slice_idx,
       "coordinates": coordinates
     };
@@ -246,11 +268,11 @@ $(document).ready(function () {
   }
 
    //Label highlighted organ as id
-   function extendThresholds(left,right) {
+   function extendThresholds(left,right,patientID="1") {
     let index= RadiPOP_states.current_slice_idx
     let target1= document.getElementById("mask"); 
     $.post(RadiPOP_states.FLASK_SERVER+"/extendThresholds", {
-      javascript_data: JSON.stringify({index: index,left: left, right: right})
+      javascript_data: JSON.stringify({index: index,left: left, right: right,"patientID": patientID})
     })
     .done(function(data){  
       console.log(data["left_most_idx"])   
@@ -262,12 +284,12 @@ $(document).ready(function () {
   }
 
   //Label highlighted organ as id
-  function labelOrgan(label) {
+  function labelOrgan(label,patientID="1") {
     let index= RadiPOP_states.current_slice_idx
     let target1= document.getElementById("mask"); 
     let target2= document.getElementById("mask-"+index)
     $.post(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
-      javascript_data: JSON.stringify({index: index,label: label})
+      javascript_data: JSON.stringify({index: index,label: label,"patientID": patientID})
     })
     .done(function(data){                     
       bytestring = data['status']
@@ -281,13 +303,13 @@ $(document).ready(function () {
   }
 
   //Highlight organ: Post x and y coordinates to current slice get highligthed mask back 
-  function highlightOrgan(x,y) {
+  function highlightOrgan(x,y,patientID="1") {
     let target= document.getElementById("mask"); 
     path= document.getElementById("slice").src
     console.log(path);
     console.log(RadiPOP_states.current_slice_idx);
     $.post(RadiPOP_states.FLASK_SERVER+"/highlightOrgan", {
-      javascript_data: JSON.stringify({index: RadiPOP_states.current_slice_idx,x: x, y: y})
+      javascript_data: JSON.stringify({index: RadiPOP_states.current_slice_idx,x: x, y: y,"patientID": patientID})
     })
     .done(function(data){                     
       bytestring = data['status']
@@ -297,9 +319,10 @@ $(document).ready(function () {
   }
 
   //Get mask of given index 
-  function getMask(target_slice_idx) {
+  function getMask(target_slice_idx,patientID="1") {
     let data={
-      "index": target_slice_idx
+      "index": target_slice_idx,
+      "patientID": patientID
     };
     let index= target_slice_idx
     let target1= document.getElementById("mask"); //Must be let and NOT var --> otherwise problems with async function
@@ -319,9 +342,9 @@ $(document).ready(function () {
   }
 
   // Post the path to a mask pickle file and get a transparent PNG file in return 
-  function postPickleGetMask(index, path, target) {
+  function postPickleGetMask(index, path, target,patientID="1") {
     $.post(RadiPOP_states.FLASK_SERVER+"/postPickleGetMask", {
-      javascript_data: JSON.stringify({index: index, path: path})
+      javascript_data: JSON.stringify({index: index, path: path,"patientID": patientID})
     })
     .done(function(data){                     
       bytestring = data['status']
@@ -332,16 +355,21 @@ $(document).ready(function () {
   }
 
   // Post path to slice files to flask --> flask opens the slices and chaches them 
-  function postPathToSlices(paths) {
-    $.post(RadiPOP_states.FLASK_SERVER+"/postPathToSlices", {
-      javascript_data: JSON.stringify(paths)
+  function initialize(paths,patientID="1") {
+    data={
+      paths: paths,
+      "patientID": patientID
+    }
+    $.post(RadiPOP_states.FLASK_SERVER+"/initialize", {
+      javascript_data: JSON.stringify(data)
     }).catch(error_handler)
   }
 
   // Update the mask. Function should be called when the intensity sliders change. 
   // RadiPOP segmenter will calculate a new mask --> update mask in main window
-  function updateMask(target_slice_idx) {
+  function updateMask(target_slice_idx,patientID="1") {
     let data={
+      "patientID": patientID,
       "bone-intensity-slider": document.getElementById("bone-intensity-slider").value,
       "liver-intensity-slider": document.getElementById("liver-intensity-slider").value,
       "blood-vessel-intensity-slider": document.getElementById("blood-vessel-intensity-slider").value,

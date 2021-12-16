@@ -148,7 +148,7 @@ class RadiPopGUI:
             How far the labels are extended is taken from left and right expansion bounds
         """
         left_most_idx=min(left_extend+1, cur_idx)
-        right_most_idx=min(right_extend+1, len(self.masks) - cur_idx)
+        right_most_idx=min(right_extend+1, len(self.sliceCache) - cur_idx)
 
         #Left of current slice
         for i in range(1, left_most_idx):
@@ -194,3 +194,11 @@ class RadiPopGUI:
         new_mask = label(flat_image)
         new_mask[new_mask>0]+=2
         return new_mask
+
+
+    def save_masks(self,path):
+        for id,mask in self.masks.items(): 
+            print(id,file=sys.stderr) 
+            with open(path+str(id)+".p", 'wb') as file:
+                pickle.dump(mask, file)
+            

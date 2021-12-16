@@ -1,0 +1,28 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\contentsline {chapter}{\numberline {1}Namespace Index}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Packages}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {2}File Index}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}File List}{3}{section.2.1}%
+\contentsline {chapter}{\numberline {3}Namespace Documentation}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}run\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}app Namespace Reference}{5}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Function Documentation}{6}{subsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.1.1}correctPartition()}{6}{subsubsection.3.1.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.1.2}drawOnMask()}{6}{subsubsection.3.1.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.1.3}extendThresholds()}{7}{subsubsection.3.1.1.3}%
+\contentsline {subsubsection}{\numberline {3.1.1.4}getMask()}{7}{subsubsection.3.1.1.4}%
+\contentsline {subsubsection}{\numberline {3.1.1.5}highlightOrgan()}{8}{subsubsection.3.1.1.5}%
+\contentsline {subsubsection}{\numberline {3.1.1.6}initialize()}{8}{subsubsection.3.1.1.6}%
+\contentsline {subsubsection}{\numberline {3.1.1.7}labelOrgan()}{9}{subsubsection.3.1.1.7}%
+\contentsline {subsubsection}{\numberline {3.1.1.8}postPickleGetMask()}{9}{subsubsection.3.1.1.8}%
+\contentsline {subsubsection}{\numberline {3.1.1.9}saveMasks()}{9}{subsubsection.3.1.1.9}%
+\contentsline {subsubsection}{\numberline {3.1.1.10}updateMask()}{10}{subsubsection.3.1.1.10}%
+\contentsline {subsection}{\numberline {3.1.2}Variable Documentation}{10}{subsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.2.1}app}{10}{subsubsection.3.1.2.1}%
+\contentsline {subsubsection}{\numberline {3.1.2.2}FLASK\_PORT}{11}{subsubsection.3.1.2.2}%
+\contentsline {subsubsection}{\numberline {3.1.2.3}FLAST\_HOST}{11}{subsubsection.3.1.2.3}%
+\contentsline {subsubsection}{\numberline {3.1.2.4}host}{11}{subsubsection.3.1.2.4}%
+\contentsline {subsubsection}{\numberline {3.1.2.5}patients}{11}{subsubsection.3.1.2.5}%
+\contentsline {subsubsection}{\numberline {3.1.2.6}port}{11}{subsubsection.3.1.2.6}%
+\contentsline {chapter}{\numberline {4}File Documentation}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Users/lorenz/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Desktop/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Radi\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}POP-\/standalone/web\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}app/run\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}app.py File Reference}{13}{section.4.1}%
+\contentsline {chapter}{Index}{15}{section*.6}%
