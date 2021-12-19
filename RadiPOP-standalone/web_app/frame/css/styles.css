@@ -16,13 +16,6 @@ html {
     margin-top: 5px;
 }
 
-/* Styling and Spaceholder of toolbar */
-.toolbar {
-  text-align: center;
-  background-color: rgb(20, 20, 20);
-  color: white;
-  font-size: 2em;
-}
 
 /*General button design */
 
@@ -30,13 +23,6 @@ button {
   padding: 5px; 
 }
 
-/* toolbar image is placeholder */
-#toolbar-spaceholder {
-  background: url(../images/toolbar.png) no-repeat center;
-  background-size: contain;
-  height: 40px;
-  margin: 10px;
-}
 
 /* Styling of left/first column */
 div.utility-area {

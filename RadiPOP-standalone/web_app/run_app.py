@@ -3,7 +3,7 @@ from utility.radipop_gui import RadiPopGUI
 import numpy as np, json
 from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
-import io, base64, sys, os
+import sys, os
 
 app = Flask(__name__)
 CORS(app)
@@ -36,17 +36,14 @@ def postPickleGetMask():
     arr = RadiPopGUI.read_pickle_mask_to_np_label_array(path)
     patients[patientID].masks[index]=arr
     img = RadiPopGUI.np_label_array_to_png(arr)
-    rawBytes = io.BytesIO()
-    img.save(rawBytes, 'PNG')
-    rawBytes.seek(0)
-    img_base64 = base64.b64encode(rawBytes.read())
+    img_base64=RadiPopGUI.create_image_stream(img)
     return jsonify({'status': str(img_base64)})
 
 
 @app.route('/initialize', methods=['POST'])
 def initialize():
     """! Receive Paths to ordered slices, caches slices
-    @param patientID The ID of the patient
+    @param patientID The ID of the patient. Must be unique!
     @param paths An array with the paths to the slices 
 
     @return 200,OK
@@ -98,17 +95,14 @@ def updateMask():
     patientID=dictionary["patientID"]
 
     cachedImage = patients[patientID].sliceCache[index]
-    arr = RadiPopGUI.update_mask_upon_slider_change(sk_image=cachedImage,
+    arr = RadiPopGUI.update_mask_upon_slider_change(image=cachedImage,
       bone_intensity=bone,
       blood_vessel_intensity=blood,
       liver_intensity=liver)
     patients[patientID].masks[index]=arr
     
     img = RadiPopGUI.np_label_array_to_png(arr)
-    rawBytes = io.BytesIO()
-    img.save(rawBytes, 'PNG')
-    rawBytes.seek(0)
-    img_base64 = base64.b64encode(rawBytes.read())
+    img_base64=RadiPopGUI.create_image_stream(img)
     return jsonify({'status': str(img_base64)})
 
 @app.route('/highlightOrgan', methods=['POST'])
@@ -138,10 +132,7 @@ def highlightOrgan():
     print(str(x)+" "+str(y),file=sys.stderr)
 
     img=patients[patientID].highlightOrgan(slice_idx=index,x=x,y=y)
-    rawBytes = io.BytesIO()
-    img.save(rawBytes, 'PNG')
-    rawBytes.seek(0)
-    img_base64 = base64.b64encode(rawBytes.read())
+    img_base64=RadiPopGUI.create_image_stream(img)
     return jsonify({'status': str(img_base64)})
 
 @app.route('/labelOrgan', methods=['POST'])
@@ -167,10 +158,7 @@ def labelOrgan():
     patientID=dictionary["patientID"]
     arr=patients[patientID].labelMask(slice_idx=index,label=label)
     img = RadiPopGUI.np_label_array_to_png(arr)
-    rawBytes = io.BytesIO()
-    img.save(rawBytes, 'PNG')
-    rawBytes.seek(0)
-    img_base64 = base64.b64encode(rawBytes.read())
+    img_base64=RadiPopGUI.create_image_stream(img)
     return jsonify({'status': str(img_base64)})
 
 @app.route('/extendThresholds', methods=['POST'])
@@ -229,10 +217,7 @@ def getMask():
     patientID=dictionary["patientID"]
 
     img=patients[patientID].np_label_array_to_png(patients[patientID].masks[index])
-    rawBytes = io.BytesIO()
-    img.save(rawBytes, 'PNG')
-    rawBytes.seek(0)
-    img_base64 = base64.b64encode(rawBytes.read())
+    img_base64=RadiPopGUI.create_image_stream(img)
     return jsonify({'status': str(img_base64)})
 
 
@@ -268,10 +253,7 @@ def drawOnMask():
 
     img=patients[patientID].np_label_array_to_png(patients[patientID].masks[index])
     RadiPopGUI.draw_on_image(coordinates=coordinates,img=img)
-    rawBytes = io.BytesIO()
-    img.save(rawBytes, 'PNG')
-    rawBytes.seek(0)
-    img_base64 = base64.b64encode(rawBytes.read())
+    img_base64=RadiPopGUI.create_image_stream(img)
     return jsonify({'status': str(img_base64)})
 
 @app.route('/correctPartition', methods=['POST'])
@@ -310,10 +292,7 @@ def correctPartition():
     patients[patientID].masks[index]=arr
     img=patients[patientID].np_label_array_to_png(arr)
 
-    rawBytes = io.BytesIO()
-    img.save(rawBytes, 'PNG')
-    rawBytes.seek(0)
-    img_base64 = base64.b64encode(rawBytes.read())
+    img_base64=RadiPopGUI.create_image_stream(img)
     return jsonify({'status': str(img_base64)})
 
 @app.route('/saveMasks', methods=['POST'])
