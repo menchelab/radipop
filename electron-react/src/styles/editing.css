@@ -4,55 +4,88 @@ div.utility-area {
 }
 
 div.utility-area  .tools {
-  margin-top: 7px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
   border-bottom: 7px solid white;
-  margin-left: 7px;
+  padding-left: 7px;
+}
 
+div.utility-area  .toolsh {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  padding-bottom: 7px;
+  border-bottom: 7px solid white;
+  padding-left: 7px;
 }
 
 /* Stylings for intensity sliders */
 .slidecontainer {
   width: 90%; /* Width of the outside container */
-  margin-left: 10px;
-  margin-bottom: 10px;
+  margin: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-#intensity-slider-output{
-  padding-left:5px;
+div.utilits-area .test{
+  display: flex;
+  flex: row;
+  padding-left:1px;
 }
+
+.slider-button {
+  background-color: white;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 5px;
+  margin: 5px;
+}
+
 .slider {
-  width: 80%;
-  padding: 10px;
+  width: 100%;
+  height: 4px;
   opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
   transition: opacity .2s;
 }
 
 .button-editing {
-  display: flex;
-  flex-direction: column;
+  box-sizing: border-box;
   border-radius: 30px;
-  padding: 5px 24px;
-  margin: 10px;
   color: black;
+  padding: 2% 4% 2% 4%;
+  margin: 5% 20% 5% 20%;
   background-color: rgb(245,245,247);
   cursor: pointer;
   border: 2px solid black;
   border-width: 1px;
   font-family: "helvetica-light";
-  margin-left: 40px;
 }
 
-.expansion-bounds div{
-  padding-left: 7px;
-  margin-left: 10px;
+.button-editing:hover {
+    background-color: rgb(0,113,227);
+}
+
+.fill-bottom {
+  height: 100vh;
+}
+.expansion-bounds {
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 5px;
+  margin: 5px;
+  justify-content: center;
 }
 
 .expansion-bounds input[type="number"] {
-  width: 16%;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  box-sizing: border-box;
+  align-items: center;
+  width: 50px;
+}
+
+#Up, #Down{
+  padding: 2px 10px 2px 5px;;
+  margin: 2px 10px 2px 5px;
 }

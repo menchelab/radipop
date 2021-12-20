@@ -6,15 +6,16 @@ const url = require("url");
 // Create the native browser window.
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 900,
+    height: 800,
+    minWidth:600,
+    minHeight:600,
     // Set the path of an additional "preload" script that can be used to
     // communicate between node-land and browser-land.
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
   });
-
   // In production, set the initial browser path to the local bundle generated
   // by the Create React App build process.
   // In development, set it to localhost to allow live/hot-reloading.

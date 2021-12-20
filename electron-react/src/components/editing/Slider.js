@@ -1,16 +1,34 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import '../../styles/editing.css';
 import '../../styles/index.css';
 
 function Slider(props) {
-    return (
+  // Slider state variable
+  const [value, setValue] = useState('180');
+  // Update state "value" on slider change
+  const handleSlide = (event) => {
+      setValue(parseInt(event.target.value,10));
+      console.log(event.target.value);
+  }
+  const handleClickPlus = (event) => {
+    if(parseInt(value, 10) < 300)
+      setValue(parseInt(value, 10) + 1);
+  }
+
+  const handleClickMinus = (event) => {
+    if(parseInt(value, 10) > 1)
+      setValue(parseInt(value,10) - 1);
+  }
+
+
+  return (
       <div>
-        {props.label} <span id="intensity-slider-output">180</span>
+     <span id="intensity-slider-output">{props.label} {value}</span>
         <div className="slidecontainer">
-            <button id="slider-minus">-</button>
-            <input type="range" min="1" max="300" defaultValue="180" className="slider" id="sliderx"/>
-            <button id="slider-plus">+</button>
+            <button className="slider-button" onClick={handleClickMinus}>-</button>
+            <input type="range" min="0" max="300" step="5" value={value} className="slider" onChange={handleSlide} id="sliderx"/>
+            <button className="slider-button" onClick={handleClickPlus}>+</button>
         </div>
       </div>
     );

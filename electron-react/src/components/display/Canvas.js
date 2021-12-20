@@ -1,5 +1,5 @@
 import React from 'react';
-import importImg from '../../assets/images/start-placeholder.png';
+import importImg from '../../assets/images/editor_placeholder.png';
 import '../../styles/display.css'
 function Canvas(props){
   return(

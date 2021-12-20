@@ -3,4 +3,5 @@ div.log {
   border-top: 7px solid white;
   padding-bottom: 66px;
   display: flex;
+  flex-grow: 1;
 }

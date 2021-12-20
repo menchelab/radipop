@@ -3,7 +3,7 @@ import '../../styles/toolbar.css';
 
 function SearchBar() {
     return (
-        <input className="searchbar" type="text" placeholder="Search for slices.." />
+        <input className="searchbar" type="text" placeholder="Go to slice.." />
   );
 }
 export default SearchBar;
