@@ -5,6 +5,7 @@ div.display-area {
   border-right: 7px solid white;
   border-bottom: 7px solid white;
   box-sizing: border-box;
+  height: 100vh;
 }
 
 
@@ -12,7 +13,7 @@ div.display-area {
 div.scrollbar-area {
   background-color: rgb(245,245,247);
   box-sizing: border-box;
-
+  height: 100vh;
 }
 
 .img{

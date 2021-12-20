@@ -12,17 +12,21 @@ import '../../styles/index.css';
 class Editing extends React.Component {
   render() {
     return(
-      <div className="utility-area col-lg-3 col-md-3">
+      <div className="col-lg-3 col-md-3 utility-area ">
         <HideMask/>
         <div className="tools">
           <Slider label="Bone Intensity:"/>
           <Slider label="Vessel Intensity:"/>
           <Slider label="Liver Intensity:"/>
-          <GlobalThreshold label="Set thresholds globally"/>
+          <GlobalThreshold label="Set threshold globally"/>
         </div>
-        <Bound/>
-        <SetLabel label="Set Liver Label"/>
-        <SetLabel label="Set Spleen Label"/>
+        <div className="tools">
+          <SetLabel label="Set Liver Label"/>
+          <SetLabel label="Set Spleen Label"/>
+        </div>
+        <div className="tools">
+          <Bound/>
+        </div>
       </div>
   );
   }

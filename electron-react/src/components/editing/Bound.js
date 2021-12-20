@@ -1,17 +1,24 @@
 import React from 'react';
+import ExtendLabel from '../editing/ExtendLabel.js';
 import '../../styles/index.css';
 import '../../styles/editing.css';
 
 function Bound(){
   return(
-    <div className="tools">
+    <div className="tools fill-bottom">
+      Expansion bounds:
       <div className="expansion-bounds">
-        Expansion bounds:
-        <div>
-          Left: <input type="number" /> Right: <input type="number"/>
+          <div className="expansion-bounds">
+            <label htmlFor="Up">Up</label>
+            <input type="number" id="Up"></input>
+          </div>
+          <div className="expansion-bounds">
+            <label htmlFor="Down">Down</label>
+            <input type="number" id="Down"></input>
+          </div>
         </div>
-      </div>
-    </div>
+            <ExtendLabel label='Extend Label'/>
+        </div>
   );
 }
 

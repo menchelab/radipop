@@ -11,7 +11,7 @@ class ToolBar extends React.Component {
   render() {
     return (
       <div className="row toolbar col-lg-12 col-md-12">
-        <div className="tool-col col-lg-3 col-md-3">
+        <div className="brwhite tool-col col-lg-3 col-md-3">
           <Button label="Open" color="rgb(0,113,227)" borderColor="2px solid rgb(0,113,227)"/>
           <Button label="Save"/>
         </div>
@@ -19,7 +19,7 @@ class ToolBar extends React.Component {
           <Button label="Correct partition"/>
           <Button label="Clear edits"/>
         </div>
-        <div className="tool-col col-lg-3 col-md-3">
+        <div className="blwhite tool-col col-lg-3 col-md-3">
           <SearchBar/>
         </div>
       </div>
