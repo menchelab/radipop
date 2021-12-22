@@ -61,13 +61,19 @@ Reveives index to slice/mask + coordinates-\/-\/\texorpdfstring{$>$}{>} returns 
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-mask as transparent PNG as byte stream
+JSON\+: \{mask\+: byte stream\} mask as transparent PNG as byte stream
 \end{DoxyReturn}
 Note\+: The coordinates array will be used to generate a line that cuts/divides the segmented organs.
 
-Example handling of return image stream in js\+: \begin{DoxyVerb}bytestring = data['status']
-img = bytestring.split('\'')[1]  
-target.src ="data:image/png;base64," + img; 
+Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
 \end{DoxyVerb}
  \mbox{\Hypertarget{namespacerun__app_a22b3b9a8813b7910f3c2ed59de6c3537}\label{namespacerun__app_a22b3b9a8813b7910f3c2ed59de6c3537}} 
 \index{run\_app@{run\_app}!drawOnMask@{drawOnMask}}
@@ -89,13 +95,19 @@ Reveives index to slice/mask + x,y coordinates -\/-\/\texorpdfstring{$>$}{>} ret
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-mask as transparent PNG as byte stream
+JSON\+: \{mask\+: byte stream\} mask as transparent PNG as byte stream
 \end{DoxyReturn}
 Note\+: The coordinates array will be used to draw a line on the mask.
 
-Example handling of return image stream in js\+: \begin{DoxyVerb}bytestring = data['status']
-img = bytestring.split('\'')[1]  
-target.src ="data:image/png;base64," + img; 
+Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
 \end{DoxyVerb}
  \mbox{\Hypertarget{namespacerun__app_af5d2f0f57ab0028c38e4c69565b038dd}\label{namespacerun__app_af5d2f0f57ab0028c38e4c69565b038dd}} 
 \index{run\_app@{run\_app}!extendThresholds@{extendThresholds}}
@@ -119,7 +131,7 @@ Reveives index to slice mask + label id -\/-\/\texorpdfstring{$>$}{>} returns hi
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-json data containing left\+\_\+most\+\_\+idx and right\+\_\+most\+\_\+idx
+JSON\+: \{left\+\_\+most\+\_\+idx\+: idx, right\+\_\+most\+\_\+idx\+: idx\}
 \end{DoxyReturn}
 Note\+: The left\+\_\+most\+\_\+idx and right\+\_\+most\+\_\+idx correspond to the indices of the slices up to which the labeling has been extended. After the the function has finished use the function API\textquotesingle{}s function /get\+Mask to update the masks in your GUI. Example in js\+: \begin{DoxyVerb}for (let index=parseInt(data["left_most_idx"]); index<parseInt(data["right_most_idx"])+1; index++) {     
     $.post(FLASK_SERVER+"/getMask", {
@@ -145,11 +157,17 @@ Reveives index to slice/mask -\/-\/\texorpdfstring{$>$}{>} returns mask stored o
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-mask as transparent PNG as byte stream
+JSON\+: \{mask\+: byte stream\} mask as transparent PNG as byte stream
 \end{DoxyReturn}
-Example handling of return image stream in js\+: \begin{DoxyVerb}bytestring = data['status']
-img = bytestring.split('\'')[1]  
-target.src ="data:image/png;base64," + img; 
+Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
 \end{DoxyVerb}
  \mbox{\Hypertarget{namespacerun__app_ab3b2b115c54ccc114102a2e1daccbf60}\label{namespacerun__app_ab3b2b115c54ccc114102a2e1daccbf60}} 
 \index{run\_app@{run\_app}!highlightOrgan@{highlightOrgan}}
@@ -173,11 +191,17 @@ Reveives index of slice + x,y coordinates -\/-\/\texorpdfstring{$>$}{>} returns 
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-mask as transparent PNG as byte stream
+JSON\+: \{mask\+: byte stream\} mask as transparent PNG as byte stream
 \end{DoxyReturn}
-Example handling of return image stream in js\+: \begin{DoxyVerb}bytestring = data['status']
-img = bytestring.split('\'')[1]  
-target.src ="data:image/png;base64," + img; 
+Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
 \end{DoxyVerb}
  \mbox{\Hypertarget{namespacerun__app_a671d75ef168c9d7d956b3305d70c8305}\label{namespacerun__app_a671d75ef168c9d7d956b3305d70c8305}} 
 \index{run\_app@{run\_app}!initialize@{initialize}}
@@ -197,7 +221,7 @@ Receive Paths to ordered slices, caches slices.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-200,OK
+JSON\+: \{message\+: message\}
 \end{DoxyReturn}
 Note\+: Paths to slices !!!\+MUST BE ORDERED!!! 0,1,..,n \mbox{\Hypertarget{namespacerun__app_a276cb2ba65919810402b673036a7ac0f}\label{namespacerun__app_a276cb2ba65919810402b673036a7ac0f}} 
 \index{run\_app@{run\_app}!labelOrgan@{labelOrgan}}
@@ -219,11 +243,17 @@ Reveives index to slice mask + label id -\/-\/\texorpdfstring{$>$}{>} returns hi
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-mask as transparent PNG as byte stream
+JSON\+: \{mask\+: byte stream\} mask as transparent PNG as byte stream
 \end{DoxyReturn}
-Example handling of return image stream in js\+: \begin{DoxyVerb}bytestring = data['status']
-img = bytestring.split('\'')[1]  
-target.src ="data:image/png;base64," + img; 
+Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
 \end{DoxyVerb}
  \mbox{\Hypertarget{namespacerun__app_a1736fbc7633e27d2eb51e195142783a4}\label{namespacerun__app_a1736fbc7633e27d2eb51e195142783a4}} 
 \index{run\_app@{run\_app}!postPickleGetMask@{postPickleGetMask}}
@@ -245,11 +275,17 @@ Receives path to pickle file -\/-\/\texorpdfstring{$>$}{>} returns mask as PNG t
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-mask as transparent PNG as byte stream
+JSON\+: \{mask\+: byte stream\} mask as transparent PNG as byte stream
 \end{DoxyReturn}
-Example handling of return image stream in js\+: \begin{DoxyVerb}bytestring = data['status']
-img = bytestring.split('\'')[1]  
-target.src ="data:image/png;base64," + img; 
+Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
 \end{DoxyVerb}
  \mbox{\Hypertarget{namespacerun__app_a0f3a74e5d4fcfcff61d7c57dfca1317e}\label{namespacerun__app_a0f3a74e5d4fcfcff61d7c57dfca1317e}} 
 \index{run\_app@{run\_app}!saveMasks@{saveMasks}}
@@ -269,7 +305,7 @@ Reveives path, saves all stored masks as pickle files to path -\/-\/\texorpdfstr
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-path/directory to which the pickle files were written ~\newline
+JSON\+: \{outdir\+: path\} path/directory to which the pickle files were written ~\newline
  
 \end{DoxyReturn}
 \mbox{\Hypertarget{namespacerun__app_a397413629ed9cfba6137f89bf17cac27}\label{namespacerun__app_a397413629ed9cfba6137f89bf17cac27}} 
@@ -296,11 +332,17 @@ Receives index of slice + slider values -\/-\/\texorpdfstring{$>$}{>} returns up
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-mask as transparent PNG as byte stream
+JSON\+: \{mask\+: byte stream\} mask as transparent PNG as byte stream
 \end{DoxyReturn}
-Example handling of return image stream in js\+: \begin{DoxyVerb}bytestring = data['status']
-img = bytestring.split('\'')[1]  
-target.src ="data:image/png;base64," + img; 
+Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
 \end{DoxyVerb}
  
 

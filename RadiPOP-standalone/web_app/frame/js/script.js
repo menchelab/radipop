@@ -211,10 +211,13 @@ $(document).ready(function () {
     //If path is given as empty string the output dir will be the same directory as the masks 
     function saveMasks(path,patientID="1") {
       let data={"path": path, "patientID": patientID};
-      $.post(RadiPOP_states.FLASK_SERVER+"/saveMasks", {
-        javascript_data: JSON.stringify(data)
+      fetch(RadiPOP_states.FLASK_SERVER+"/saveMasks", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
       })
-      .done(function(data){                     
+      .then(function(response){ return response.json();})   
+      .then(function(data){                                        
         console.log(data)
       }).catch(error_handler)
     }
@@ -229,11 +232,14 @@ $(document).ready(function () {
       let index= target_slice_idx
       let target1= document.getElementById("mask"); //Must be let and NOT var --> otherwise problems with async function
       let target2= document.getElementById("mask-"+target_slice_idx)
-      $.post(RadiPOP_states.FLASK_SERVER+"/correctPartition", {
-        javascript_data: JSON.stringify(data)
+      fetch(RadiPOP_states.FLASK_SERVER+"/correctPartition", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
       })
-      .done(function(data){                     
-        bytestring = data['status']
+      .then(function(response){ return response.json();})   
+      .then(function(data){                      
+      bytestring = data["mask"];
         img = bytestring.split('\'')[1]   
         RadiPOP_states.masks[index]="data:image/png;base64," + img; 
         if (target_slice_idx==RadiPOP_states.current_slice_idx){
@@ -253,12 +259,15 @@ $(document).ready(function () {
     let index= target_slice_idx
     let target1= document.getElementById("mask"); //Must be let and NOT var --> otherwise problems with async function
     let target2= document.getElementById("mask-"+target_slice_idx)
-    $.post(RadiPOP_states.FLASK_SERVER+"/drawOnMask", {
-      javascript_data: JSON.stringify(data)
+    fetch(RadiPOP_states.FLASK_SERVER+"/drawOnMask", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
     })
-    .done(function(data){                     
-      bytestring = data['status']
-      img = bytestring.split('\'')[1]   
+    .then(function(response){ return response.json();})   
+    .then(function(data){                      
+      bytestring = data["mask"];
+      img = bytestring.split('\'')[1];
       RadiPOP_states.masks[index]="data:image/png;base64," + img; 
       if (target_slice_idx==RadiPOP_states.current_slice_idx){
         target1.src = RadiPOP_states.masks[index];
@@ -269,12 +278,15 @@ $(document).ready(function () {
 
    //Label highlighted organ as id
    function extendThresholds(left,right,patientID="1") {
-    let index= RadiPOP_states.current_slice_idx
-    let target1= document.getElementById("mask"); 
-    $.post(RadiPOP_states.FLASK_SERVER+"/extendThresholds", {
-      javascript_data: JSON.stringify({index: index,left: left, right: right,"patientID": patientID})
+    let index= RadiPOP_states.current_slice_idx;
+    let data ={index: index,left: left, right: right,"patientID": patientID};
+    fetch(RadiPOP_states.FLASK_SERVER+"/extendThresholds", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
     })
-    .done(function(data){  
+    .then(function(response){ return response.json();})   
+    .then(function(data){           
       console.log(data["left_most_idx"])   
       console.log(data["right_most_idx"])   
       for (let index=parseInt(data["left_most_idx"]); index<parseInt(data["right_most_idx"])+1; index++) {     
@@ -285,14 +297,18 @@ $(document).ready(function () {
 
   //Label highlighted organ as id
   function labelOrgan(label,patientID="1") {
-    let index= RadiPOP_states.current_slice_idx
+    let index= RadiPOP_states.current_slice_idx;
+    let data = {index: index,label: label,"patientID": patientID};
     let target1= document.getElementById("mask"); 
-    let target2= document.getElementById("mask-"+index)
-    $.post(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
-      javascript_data: JSON.stringify({index: index,label: label,"patientID": patientID})
+    let target2= document.getElementById("mask-"+index);
+    fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
     })
-    .done(function(data){                     
-      bytestring = data['status']
+    .then(function(response){ return response.json();})   
+    .then(function(data){                      
+      bytestring = data["mask"];
       img = bytestring.split('\'')[1]
       RadiPOP_states.masks[index]="data:image/png;base64," + img; 
       if (index==RadiPOP_states.current_slice_idx){
@@ -305,15 +321,19 @@ $(document).ready(function () {
   //Highlight organ: Post x and y coordinates to current slice get highligthed mask back 
   function highlightOrgan(x,y,patientID="1") {
     let target= document.getElementById("mask"); 
+    let data = {index: RadiPOP_states.current_slice_idx,x: x, y: y,"patientID": patientID};
     path= document.getElementById("slice").src
     console.log(path);
     console.log(RadiPOP_states.current_slice_idx);
-    $.post(RadiPOP_states.FLASK_SERVER+"/highlightOrgan", {
-      javascript_data: JSON.stringify({index: RadiPOP_states.current_slice_idx,x: x, y: y,"patientID": patientID})
+    fetch(RadiPOP_states.FLASK_SERVER+"/highlightOrgan", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
     })
-    .done(function(data){                     
-      bytestring = data['status']
-      img = bytestring.split('\'')[1]
+    .then(function(response){ return response.json();})   
+    .then(function(data){                      
+      bytestring = data["mask"];
+      img = bytestring.split('\'')[1];
       target.src="data:image/png;base64," + img; 
     }).catch(error_handler)
   }
@@ -327,12 +347,15 @@ $(document).ready(function () {
     let index= target_slice_idx
     let target1= document.getElementById("mask"); //Must be let and NOT var --> otherwise problems with async function
     let target2= document.getElementById("mask-"+target_slice_idx)
-    $.post(RadiPOP_states.FLASK_SERVER+"/getMask", {
-      javascript_data: JSON.stringify(data)
+    fetch(RadiPOP_states.FLASK_SERVER+"/getMask", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
     })
-    .done(function(data){                     
-      bytestring = data['status']
-      img = bytestring.split('\'')[1]   
+    .then(function(response){ return response.json();})   
+    .then(function(data){                      
+      bytestring = data["mask"];
+      img = bytestring.split('\'')[1];
       RadiPOP_states.masks[index]="data:image/png;base64," + img; 
       if (target_slice_idx==RadiPOP_states.current_slice_idx){
         target1.src = RadiPOP_states.masks[index];
@@ -343,12 +366,16 @@ $(document).ready(function () {
 
   // Post the path to a mask pickle file and get a transparent PNG file in return 
   function postPickleGetMask(index, path, target,patientID="1") {
-    $.post(RadiPOP_states.FLASK_SERVER+"/postPickleGetMask", {
-      javascript_data: JSON.stringify({index: index, path: path,"patientID": patientID})
+    let data = {index: index, path: path,"patientID": patientID};
+    fetch(RadiPOP_states.FLASK_SERVER+"/postPickleGetMask", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
     })
-    .done(function(data){                     
-      bytestring = data['status']
-      img = bytestring.split('\'')[1]  
+    .then(function(response){ return response.json();  })   
+    .then(function(data){     
+      bytestring = data["mask"];
+      img = bytestring.split('\'')[1];
       RadiPOP_states.masks[index]="data:image/png;base64," + img; 
       target.src = RadiPOP_states.masks[index]; 
     }).catch(error_handler)
@@ -356,13 +383,18 @@ $(document).ready(function () {
 
   // Post path to slice files to flask --> flask opens the slices and chaches them 
   function initialize(paths,patientID="1") {
-    data={
+    let data={
       paths: paths,
       "patientID": patientID
-    }
-    $.post(RadiPOP_states.FLASK_SERVER+"/initialize", {
-      javascript_data: JSON.stringify(data)
-    }).catch(error_handler)
+    };
+    fetch(RadiPOP_states.FLASK_SERVER+"/initialize", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function(response){ return response.json();  })   
+    .then(function(data){ console.log(data["message"]); })
+    .catch(error_handler)
   }
 
   // Update the mask. Function should be called when the intensity sliders change. 
@@ -375,15 +407,17 @@ $(document).ready(function () {
       "blood-vessel-intensity-slider": document.getElementById("blood-vessel-intensity-slider").value,
       "index": target_slice_idx
     };
-    let index= target_slice_idx
+    let index= target_slice_idx;
     let target1= document.getElementById("mask"); //Must be let and NOT var --> otherwise problems with async function
-    let target2= document.getElementById("mask-"+target_slice_idx)
-    $.post(RadiPOP_states.FLASK_SERVER+"/updateMask", {
-      javascript_data: JSON.stringify(data)
-    })
-    .done(function(data){                     
-      bytestring = data['status']
-      img = bytestring.split('\'')[1]   
+    let target2= document.getElementById("mask-"+target_slice_idx);
+    fetch(RadiPOP_states.FLASK_SERVER+"/updateMask", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function(response){ return response.json();})   
+    .then(function(data){ 
+      bytestring = data["mask"];
+      img = bytestring.split('\'')[1]; 
       RadiPOP_states.masks[index]="data:image/png;base64," + img; 
       if (target_slice_idx==RadiPOP_states.current_slice_idx){
         target1.src = RadiPOP_states.masks[index];
@@ -395,7 +429,7 @@ $(document).ready(function () {
   //Function is raised when requests to Flask server fail for any reason 
   function error_handler(){
     console.log("Failed to contact flask server or Flask handling error");
-    alert("Failed to contact flask server or Flask handling error - It may take a while to start up the server... Try again later.")
+    alert("Failed to contact flask server or Flask handling error - It may take a while to start up the server... Try again later.");
   }
 
   //Expose RadiPOP_states for debugging purposes

@@ -11,34 +11,6 @@ CORS(app)
 FLASK_PORT=4041
 FLAST_HOST='0.0.0.0'
 
-@app.route('/postPickleGetMask', methods=['POST'])
-def postPickleGetMask():
-    """! Receives path to pickle file --> returns mask as PNG to client
-    @param patientID The ID of the patient
-    @param index The index of the slice the mask refers to
-    @param path The path to the mask file 
-
-    @return mask as transparent PNG as byte stream 
-
-    Example handling of return image stream in js: 
-
-        bytestring = data['status']
-        img = bytestring.split('\'')[1]  
-        target.src ="data:image/png;base64," + img; 
-    
-    """
-    jsdata = request.form['javascript_data']
-    dictionary = json.loads(jsdata)
-    path=dictionary['path']
-    index=int(dictionary["index"])
-    patientID=dictionary["patientID"]
-
-    arr = RadiPopGUI.read_pickle_mask_to_np_label_array(path)
-    patients[patientID].masks[index]=arr
-    img = RadiPopGUI.np_label_array_to_png(arr)
-    img_base64=RadiPopGUI.create_image_stream(img)
-    return jsonify({'status': str(img_base64)})
-
 
 @app.route('/initialize', methods=['POST'])
 def initialize():
@@ -46,13 +18,11 @@ def initialize():
     @param patientID The ID of the patient. Must be unique!
     @param paths An array with the paths to the slices 
 
-    @return 200,OK
+    @return JSON: {message: message}
 
     Note: Paths to slices !!!MUST BE ORDERED!!! 0,1,..,n 
     """
-
-    jsdata = request.form['javascript_data']
-    dictionary = json.loads(jsdata)
+    dictionary = request.get_json()
     paths=dictionary["paths"]
     patientID=dictionary["patientID"]
 
@@ -66,7 +36,45 @@ def initialize():
         patients[patientID].sliceCache[i] = RadiPopGUI.readPNG(path)
         #patients[patientID].masks[i] = None
 
-    return ('OK', 200)
+    return jsonify({"message": "Succesfully initiallized patient with id: " +str(patientID)})
+
+
+
+@app.route('/postPickleGetMask', methods=['POST'])
+def postPickleGetMask():
+    """! Receives path to pickle file --> returns mask as PNG to client
+    @param patientID The ID of the patient
+    @param index The index of the slice the mask refers to
+    @param path The path to the mask file 
+
+    @return JSON: {mask: byte stream} mask as transparent PNG as byte stream 
+
+    Example handling of return image stream in js: 
+
+        fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
+        .then(function(response){ return response.json();})   
+        .then(function(data){                      
+        bytestring = data["mask"];
+        img = bytestring.split('\'')[1]
+    
+    """
+    dictionary = request.get_json()
+    path=dictionary['path']
+    index=int(dictionary["index"])
+    patientID=dictionary["patientID"]
+
+    arr = RadiPopGUI.read_pickle_mask_to_np_label_array(path)
+    patients[patientID].masks[index]=arr
+    img = RadiPopGUI.np_label_array_to_png(arr)
+    img_base64=RadiPopGUI.create_image_stream(img)
+    return jsonify({"mask": str(img_base64)})
+
+
+
 
 
 @app.route('/updateMask', methods=['POST'])
@@ -78,16 +86,21 @@ def updateMask():
     @param bone-intensity-slider Slider value for bone intesity 
     @param blood-vessel-intensity-slider Slider value for blood-vessel intesity 
 
-    @return mask as transparent PNG as byte stream 
+    @return JSON: {mask: byte stream} mask as transparent PNG as byte stream 
 
     Example handling of return image stream in js: 
 
-        bytestring = data['status']
-        img = bytestring.split('\'')[1]  
-        target.src ="data:image/png;base64," + img; 
+        fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
+        .then(function(response){ return response.json();})   
+        .then(function(data){                      
+        bytestring = data["mask"];
+        img = bytestring.split('\'')[1]
     """
-    jsdata = request.form['javascript_data']
-    dictionary = json.loads(jsdata)
+    dictionary = request.get_json()
     liver = int(dictionary['liver-intensity-slider'])
     bone = int(dictionary['bone-intensity-slider'])
     blood = int(dictionary['blood-vessel-intensity-slider'])
@@ -103,7 +116,7 @@ def updateMask():
     
     img = RadiPopGUI.np_label_array_to_png(arr)
     img_base64=RadiPopGUI.create_image_stream(img)
-    return jsonify({'status': str(img_base64)})
+    return jsonify({"mask": str(img_base64)})
 
 @app.route('/highlightOrgan', methods=['POST'])
 def highlightOrgan():
@@ -113,16 +126,21 @@ def highlightOrgan():
     @param x relative x coordinates (0<=x<=1)
     @param y relative y coordinates (0<=y<=1)
 
-    @return mask as transparent PNG as byte stream 
+    @return JSON: {mask: byte stream} mask as transparent PNG as byte stream 
 
     Example handling of return image stream in js: 
 
-        bytestring = data['status']
-        img = bytestring.split('\'')[1]  
-        target.src ="data:image/png;base64," + img; 
+        fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
+        .then(function(response){ return response.json();})   
+        .then(function(data){                      
+        bytestring = data["mask"];
+        img = bytestring.split('\'')[1]
     """
-    jsdata = request.form['javascript_data']
-    dictionary = json.loads(jsdata)
+    dictionary = request.get_json()
     index=int(dictionary['index'])
     patientID=dictionary["patientID"]
     scale_x, scale_y=patients[patientID].slice_dim()
@@ -133,7 +151,7 @@ def highlightOrgan():
 
     img=patients[patientID].highlightOrgan(slice_idx=index,x=x,y=y)
     img_base64=RadiPopGUI.create_image_stream(img)
-    return jsonify({'status': str(img_base64)})
+    return jsonify({'mask': str(img_base64)})
 
 @app.route('/labelOrgan', methods=['POST'])
 def labelOrgan():
@@ -142,24 +160,30 @@ def labelOrgan():
     @param index The index of the slice for which to mask should be updated 
     @param label Label of organ (1 for liver, 2 for spleen, 0 nothing, >2 other organ)
 
-    @return mask as transparent PNG as byte stream 
+    @return JSON: {mask: byte stream} mask as transparent PNG as byte stream 
 
     Example handling of return image stream in js: 
 
-        bytestring = data['status']
-        img = bytestring.split('\'')[1]  
-        target.src ="data:image/png;base64," + img; 
+        fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
+        .then(function(response){ return response.json();})   
+        .then(function(data){                      
+        bytestring = data["mask"];
+        img = bytestring.split('\'')[1]
     
     """
-    jsdata = request.form['javascript_data']
-    dictionary = json.loads(jsdata)
+    dictionary = request.get_json()
+    print(dictionary,file=sys.stderr)
     index=int(dictionary['index'])
     label=int(dictionary["label"])
     patientID=dictionary["patientID"]
     arr=patients[patientID].labelMask(slice_idx=index,label=label)
     img = RadiPopGUI.np_label_array_to_png(arr)
     img_base64=RadiPopGUI.create_image_stream(img)
-    return jsonify({'status': str(img_base64)})
+    return jsonify({'mask': str(img_base64)})
 
 @app.route('/extendThresholds', methods=['POST'])
 def extendThresholds():
@@ -169,7 +193,7 @@ def extendThresholds():
     @param left Extend labeling up to index-label
     @param right Extend labeling up to index+label
 
-    @returns json data containing left_most_idx and right_most_idx 
+    @returns JSON: {left_most_idx: idx, right_most_idx: idx} 
 
     Note: The left_most_idx and right_most_idx correspond to 
     the indices of the slices up to which the labeling has been 
@@ -184,8 +208,7 @@ def extendThresholds():
     
     """
 
-    jsdata = request.form['javascript_data']
-    dictionary = json.loads(jsdata)
+    dictionary = request.get_json()
     index=int(dictionary['index'])
     left=int(dictionary["left"])
     right=int(dictionary["right"])
@@ -202,23 +225,28 @@ def getMask():
     @param patientID The ID of the patient
     @param index The index of the slice for which to mask should be updated 
 
-    @return mask as transparent PNG as byte stream 
+    @return JSON: {mask: byte stream} mask as transparent PNG as byte stream 
 
     Example handling of return image stream in js: 
 
-        bytestring = data['status']
-        img = bytestring.split('\'')[1]  
-        target.src ="data:image/png;base64," + img; 
+        fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
+        .then(function(response){ return response.json();})   
+        .then(function(data){                      
+        bytestring = data["mask"];
+        img = bytestring.split('\'')[1]
     
     """
-    jsdata = request.form['javascript_data']
-    dictionary = json.loads(jsdata)
+    dictionary = request.get_json()
     index=int(dictionary['index'])
     patientID=dictionary["patientID"]
 
     img=patients[patientID].np_label_array_to_png(patients[patientID].masks[index])
     img_base64=RadiPopGUI.create_image_stream(img)
-    return jsonify({'status': str(img_base64)})
+    return jsonify({'mask': str(img_base64)})
 
 
 @app.route('/drawOnMask', methods=['POST'])
@@ -228,18 +256,23 @@ def drawOnMask():
     @param index The index of the slice for which to mask should be updated 
     @param coordinates array of coordinates of the form [x0,y0,x1,y1,...,xn,yn]
 
-    @return mask as transparent PNG as byte stream 
+    @return JSON: {mask: byte stream} mask as transparent PNG as byte stream 
 
     Note: The coordinates array will be used to draw a line on the mask. 
 
     Example handling of return image stream in js: 
 
-        bytestring = data['status']
-        img = bytestring.split('\'')[1]  
-        target.src ="data:image/png;base64," + img; 
+        fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
+        .then(function(response){ return response.json();})   
+        .then(function(data){                      
+        bytestring = data["mask"];
+        img = bytestring.split('\'')[1]
     """
-    jsdata = request.form['javascript_data']
-    dictionary = json.loads(jsdata)
+    dictionary = request.get_json()
     index=int(dictionary['index'])
     coordinates=dictionary["coordinates"]
     patientID=dictionary["patientID"]
@@ -254,7 +287,7 @@ def drawOnMask():
     img=patients[patientID].np_label_array_to_png(patients[patientID].masks[index])
     RadiPopGUI.draw_on_image(coordinates=coordinates,img=img)
     img_base64=RadiPopGUI.create_image_stream(img)
-    return jsonify({'status': str(img_base64)})
+    return jsonify({'mask': str(img_base64)})
 
 @app.route('/correctPartition', methods=['POST'])
 def correctPartition():
@@ -263,18 +296,23 @@ def correctPartition():
     @param index The index of the slice for which to mask should be updated 
     @param coordinates array of coordinates of the form [x0,y0,x1,y1,...,xn,yn]
 
-    @return mask as transparent PNG as byte stream 
+    @return JSON: {mask: byte stream} mask as transparent PNG as byte stream 
 
     Note: The coordinates array will be used to generate a line that cuts/divides the segmented organs.
 
     Example handling of return image stream in js: 
 
-        bytestring = data['status']
-        img = bytestring.split('\'')[1]  
-        target.src ="data:image/png;base64," + img; 
+        fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
+        .then(function(response){ return response.json();})   
+        .then(function(data){                      
+        bytestring = data["mask"];
+        img = bytestring.split('\'')[1]
     """
-    jsdata = request.form['javascript_data']
-    dictionary = json.loads(jsdata)
+    dictionary = request.get_json()
     index=int(dictionary['index'])
     coordinates=dictionary["coordinates"]
     patientID=dictionary["patientID"]
@@ -293,7 +331,7 @@ def correctPartition():
     img=patients[patientID].np_label_array_to_png(arr)
 
     img_base64=RadiPopGUI.create_image_stream(img)
-    return jsonify({'status': str(img_base64)})
+    return jsonify({'mask': str(img_base64)})
 
 @app.route('/saveMasks', methods=['POST'])
 def saveMasks():
@@ -301,10 +339,9 @@ def saveMasks():
     @param patientID The ID of the patient
     @param index The index of the slice for which to mask should be updated 
 
-    @return path/directory to which the pickle files were written  
+    @return JSON: {outdir: path}  path/directory to which the pickle files were written  
     """
-    jsdata = request.form['javascript_data']
-    dictionary = json.loads(jsdata)
+    dictionary = request.get_json()
     outPath=dictionary['path']
     patientID=dictionary["patientID"]
     print(outPath,file=sys.stderr)

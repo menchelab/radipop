@@ -143,11 +143,17 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mask as transparent PNG as byte stream</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>JSON: {mask: byte stream} mask as transparent PNG as byte stream</dd></dl>
 <p>Note: The coordinates array will be used to generate a line that cuts/divides the segmented organs.</p>
-<p >Example handling of return image stream in js: </p><pre class="fragment">bytestring = data['status']
-img = bytestring.split('\'')[1]  
-target.src ="data:image/png;base64," + img; 
+<p >Example handling of return image stream in js: </p><pre class="fragment">fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
 </pre> 
 </div>
 </div>
@@ -175,11 +181,17 @@ target.src ="data:image/png;base64," + img;
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mask as transparent PNG as byte stream</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>JSON: {mask: byte stream} mask as transparent PNG as byte stream</dd></dl>
 <p>Note: The coordinates array will be used to draw a line on the mask.</p>
-<p >Example handling of return image stream in js: </p><pre class="fragment">bytestring = data['status']
-img = bytestring.split('\'')[1]  
-target.src ="data:image/png;base64," + img; 
+<p >Example handling of return image stream in js: </p><pre class="fragment">fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
 </pre> 
 </div>
 </div>
@@ -208,7 +220,7 @@ target.src ="data:image/png;base64," + img;
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>json data containing left_most_idx and right_most_idx</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>JSON: {left_most_idx: idx, right_most_idx: idx}</dd></dl>
 <p>Note: The left_most_idx and right_most_idx correspond to the indices of the slices up to which the labeling has been extended. After the the function has finished use the function API's function /getMask to update the masks in your GUI. Example in js: </p><pre class="fragment">for (let index=parseInt(data["left_most_idx"]); index&lt;parseInt(data["right_most_idx"])+1; index++) {     
     $.post(FLASK_SERVER+"/getMask", {
         javascript_data: JSON.stringify({patienID: id, index: idx})
@@ -240,10 +252,16 @@ target.src ="data:image/png;base64," + img;
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mask as transparent PNG as byte stream</dd></dl>
-<p>Example handling of return image stream in js: </p><pre class="fragment">bytestring = data['status']
-img = bytestring.split('\'')[1]  
-target.src ="data:image/png;base64," + img; 
+<dl class="section return"><dt>Returns</dt><dd>JSON: {mask: byte stream} mask as transparent PNG as byte stream</dd></dl>
+<p>Example handling of return image stream in js: </p><pre class="fragment">fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
 </pre> 
 </div>
 </div>
@@ -272,10 +290,16 @@ target.src ="data:image/png;base64," + img;
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mask as transparent PNG as byte stream</dd></dl>
-<p>Example handling of return image stream in js: </p><pre class="fragment">bytestring = data['status']
-img = bytestring.split('\'')[1]  
-target.src ="data:image/png;base64," + img; 
+<dl class="section return"><dt>Returns</dt><dd>JSON: {mask: byte stream} mask as transparent PNG as byte stream</dd></dl>
+<p>Example handling of return image stream in js: </p><pre class="fragment">fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
 </pre> 
 </div>
 </div>
@@ -302,7 +326,7 @@ target.src ="data:image/png;base64," + img;
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>200,OK</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>JSON: {message: message}</dd></dl>
 <p>Note: Paths to slices !!!MUST BE ORDERED!!! 0,1,..,n </p>
 
 </div>
@@ -331,10 +355,16 @@ target.src ="data:image/png;base64," + img;
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mask as transparent PNG as byte stream</dd></dl>
-<p>Example handling of return image stream in js: </p><pre class="fragment">bytestring = data['status']
-img = bytestring.split('\'')[1]  
-target.src ="data:image/png;base64," + img; 
+<dl class="section return"><dt>Returns</dt><dd>JSON: {mask: byte stream} mask as transparent PNG as byte stream</dd></dl>
+<p>Example handling of return image stream in js: </p><pre class="fragment">fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
 </pre> 
 </div>
 </div>
@@ -362,10 +392,16 @@ target.src ="data:image/png;base64," + img;
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mask as transparent PNG as byte stream</dd></dl>
-<p>Example handling of return image stream in js: </p><pre class="fragment">bytestring = data['status']
-img = bytestring.split('\'')[1]  
-target.src ="data:image/png;base64," + img; 
+<dl class="section return"><dt>Returns</dt><dd>JSON: {mask: byte stream} mask as transparent PNG as byte stream</dd></dl>
+<p>Example handling of return image stream in js: </p><pre class="fragment">fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
 </pre> 
 </div>
 </div>
@@ -392,7 +428,7 @@ target.src ="data:image/png;base64," + img;
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>path/directory to which the pickle files were written <br  />
+<dl class="section return"><dt>Returns</dt><dd>JSON: {outdir: path} path/directory to which the pickle files were written <br  />
  </dd></dl>
 
 </div>
@@ -423,10 +459,16 @@ target.src ="data:image/png;base64," + img;
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mask as transparent PNG as byte stream</dd></dl>
-<p>Example handling of return image stream in js: </p><pre class="fragment">bytestring = data['status']
-img = bytestring.split('\'')[1]  
-target.src ="data:image/png;base64," + img; 
+<dl class="section return"><dt>Returns</dt><dd>JSON: {mask: byte stream} mask as transparent PNG as byte stream</dd></dl>
+<p>Example handling of return image stream in js: </p><pre class="fragment">fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
 </pre> 
 </div>
 </div>
