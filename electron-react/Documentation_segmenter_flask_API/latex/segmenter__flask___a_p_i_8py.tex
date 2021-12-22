@@ -1,0 +1,45 @@
+\hypertarget{segmenter__flask___a_p_i_8py}{}\doxysection{/\+Users/lorenz/\+Desktop/temp/radipop/\+Radi\+POP-\/standalone/web\+\_\+app/segmenter\+\_\+flask\+\_\+\+API.py File Reference}
+\label{segmenter__flask___a_p_i_8py}\index{/Users/lorenz/Desktop/temp/radipop/RadiPOP-\/standalone/web\_app/segmenter\_flask\_API.py@{/Users/lorenz/Desktop/temp/radipop/RadiPOP-\/standalone/web\_app/segmenter\_flask\_API.py}}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacesegmenter__flask___a_p_i}{segmenter\+\_\+flask\+\_\+\+API}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a87eb1f0c3f92490595980a5fa2d5231a}{correct\+Partition}} ()
+\begin{DoxyCompactList}\small\item\em Reveives index to slice/mask + coordinates-\/-\/\texorpdfstring{$>$}{>} returns partion corrected mask as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a2ea3e26521cdcd63a5ec21e6a4dcb0e6}{draw\+On\+Mask}} ()
+\begin{DoxyCompactList}\small\item\em Reveives index to slice/mask + x,y coordinates -\/-\/\texorpdfstring{$>$}{>} returns drawn on mask as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_ad69191df26c67045429fe3b6654a84ff}{extend\+Thresholds}} ()
+\begin{DoxyCompactList}\small\item\em Reveives index to slice mask + label id -\/-\/\texorpdfstring{$>$}{>} returns highlighted mask as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a863cdb180347d6f9df75d65d2177a21d}{get\+Mask}} ()
+\begin{DoxyCompactList}\small\item\em Reveives index to slice/mask -\/-\/\texorpdfstring{$>$}{>} returns mask stored on flask server as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a0006a4c42fd99e22d35951538773ebe1}{highlight\+Organ}} ()
+\begin{DoxyCompactList}\small\item\em Reveives index of slice + x,y coordinates -\/-\/\texorpdfstring{$>$}{>} returns highlighted mask as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_ab65dca150eed5dc1acea909ec05e32ff}{initialize}} ()
+\begin{DoxyCompactList}\small\item\em Receive Paths to ordered slices, caches slices. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a12420f8d23105637cf31e672ff0be50d}{label\+Organ}} ()
+\begin{DoxyCompactList}\small\item\em Reveives index to slice mask + label id -\/-\/\texorpdfstring{$>$}{>} returns highlighted mask as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a11ad2719228192cff4727e61aab43fb5}{post\+Pickle\+Get\+Mask}} ()
+\begin{DoxyCompactList}\small\item\em Receives path to pickle file -\/-\/\texorpdfstring{$>$}{>} returns mask as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a1c6ecae23f9e433d8fc1de7448fc29b9}{save\+Masks}} ()
+\begin{DoxyCompactList}\small\item\em Reveives path, saves all stored masks as pickle files to path -\/-\/\texorpdfstring{$>$}{>} returns output path. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_acb7150b7f1f5d3c763b845cbaaed3f47}{update\+Mask}} ()
+\begin{DoxyCompactList}\small\item\em Receives index of slice + slider values -\/-\/\texorpdfstring{$>$}{>} returns updated mask as PNG to client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesegmenter__flask___a_p_i_afe63fea7be31b0200b496d08bc6b517d}{app}} = Flask(\+\_\+\+\_\+name\+\_\+\+\_\+)
+\item 
+int \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a4cd10e2374b9aa7ea8f2257f38c46832}{FLASK\+\_\+\+PORT}} = 4041
+\item 
+string \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a8351ace7b9efb5281c356be0ff739d2d}{FLAST\+\_\+\+HOST}} = \textquotesingle{}0.\+0.\+0.\+0\textquotesingle{}
+\item 
+\mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a832ddc04754e8a43d4f3c6165b1294a7}{host}}
+\item 
+dictionary \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a65db06fedda325a1c6119e2e8ef4a558}{patients}} = \{\}
+\begin{DoxyCompactList}\small\item\em Dictionary which will hold for each patient\+ID a Radi\+Pop\+GUI object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesegmenter__flask___a_p_i_af8fb0f45ee0195c7422a49e6a8d72369}{port}}
+\end{DoxyCompactItemize}

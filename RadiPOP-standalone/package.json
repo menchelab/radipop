@@ -8,7 +8,7 @@
     "start": "electron .",
     "package": "node package_python.js && npm run -s package-electron && npm run -s package-cleanup",
     "package-electron": "electron-builder",
-    "package-cleanup": "rm -rf build && rm -rf run_app.spec && rm -rf dist-python"
+    "package-cleanup": "rm -rf build && rm -rf segmenter_flask_API.spec && rm -rf dist-python"
   },
   "build": {
     "appId": "com.electron-flask.my-app",

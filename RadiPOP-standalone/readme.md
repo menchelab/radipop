@@ -40,7 +40,7 @@ Install node modules (inside the package root directory):
 
 **Alternatively: Run the app through your web browser**
 
-1. Start Flask server manually: `python web_app/run_app.py`
+1. Start Flask server manually: `python web_app/segmenter_flask_API.py`
 2. Open in browser:  `web_app/frame/index.html`
 
 ## Packaging 

@@ -1,0 +1,389 @@
+\hypertarget{namespacesegmenter__flask___a_p_i}{}\doxysection{segmenter\+\_\+flask\+\_\+\+API Namespace Reference}
+\label{namespacesegmenter__flask___a_p_i}\index{segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a87eb1f0c3f92490595980a5fa2d5231a}{correct\+Partition}} ()
+\begin{DoxyCompactList}\small\item\em Reveives index to slice/mask + coordinates-\/-\/\texorpdfstring{$>$}{>} returns partion corrected mask as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a2ea3e26521cdcd63a5ec21e6a4dcb0e6}{draw\+On\+Mask}} ()
+\begin{DoxyCompactList}\small\item\em Reveives index to slice/mask + x,y coordinates -\/-\/\texorpdfstring{$>$}{>} returns drawn on mask as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_ad69191df26c67045429fe3b6654a84ff}{extend\+Thresholds}} ()
+\begin{DoxyCompactList}\small\item\em Reveives index to slice mask + label id -\/-\/\texorpdfstring{$>$}{>} returns highlighted mask as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a863cdb180347d6f9df75d65d2177a21d}{get\+Mask}} ()
+\begin{DoxyCompactList}\small\item\em Reveives index to slice/mask -\/-\/\texorpdfstring{$>$}{>} returns mask stored on flask server as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a0006a4c42fd99e22d35951538773ebe1}{highlight\+Organ}} ()
+\begin{DoxyCompactList}\small\item\em Reveives index of slice + x,y coordinates -\/-\/\texorpdfstring{$>$}{>} returns highlighted mask as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_ab65dca150eed5dc1acea909ec05e32ff}{initialize}} ()
+\begin{DoxyCompactList}\small\item\em Receive Paths to ordered slices, caches slices. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a12420f8d23105637cf31e672ff0be50d}{label\+Organ}} ()
+\begin{DoxyCompactList}\small\item\em Reveives index to slice mask + label id -\/-\/\texorpdfstring{$>$}{>} returns highlighted mask as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a11ad2719228192cff4727e61aab43fb5}{post\+Pickle\+Get\+Mask}} ()
+\begin{DoxyCompactList}\small\item\em Receives path to pickle file -\/-\/\texorpdfstring{$>$}{>} returns mask as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a1c6ecae23f9e433d8fc1de7448fc29b9}{save\+Masks}} ()
+\begin{DoxyCompactList}\small\item\em Reveives path, saves all stored masks as pickle files to path -\/-\/\texorpdfstring{$>$}{>} returns output path. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_acb7150b7f1f5d3c763b845cbaaed3f47}{update\+Mask}} ()
+\begin{DoxyCompactList}\small\item\em Receives index of slice + slider values -\/-\/\texorpdfstring{$>$}{>} returns updated mask as PNG to client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesegmenter__flask___a_p_i_afe63fea7be31b0200b496d08bc6b517d}{app}} = Flask(\+\_\+\+\_\+name\+\_\+\+\_\+)
+\item 
+int \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a4cd10e2374b9aa7ea8f2257f38c46832}{FLASK\+\_\+\+PORT}} = 4041
+\item 
+string \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a8351ace7b9efb5281c356be0ff739d2d}{FLAST\+\_\+\+HOST}} = \textquotesingle{}0.\+0.\+0.\+0\textquotesingle{}
+\item 
+\mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a832ddc04754e8a43d4f3c6165b1294a7}{host}}
+\item 
+dictionary \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a65db06fedda325a1c6119e2e8ef4a558}{patients}} = \{\}
+\begin{DoxyCompactList}\small\item\em Dictionary which will hold for each patient\+ID a Radi\+Pop\+GUI object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacesegmenter__flask___a_p_i_af8fb0f45ee0195c7422a49e6a8d72369}{port}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a87eb1f0c3f92490595980a5fa2d5231a}\label{namespacesegmenter__flask___a_p_i_a87eb1f0c3f92490595980a5fa2d5231a}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!correctPartition@{correctPartition}}
+\index{correctPartition@{correctPartition}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{correctPartition()}{correctPartition()}}
+{\footnotesize\ttfamily def segmenter\+\_\+flask\+\_\+\+API.\+correct\+Partition (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reveives index to slice/mask + coordinates-\/-\/\texorpdfstring{$>$}{>} returns partion corrected mask as PNG to client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em patient\+ID} & The ID of the patient \\
+\hline
+{\em index} & The index of the slice for which to mask should be updated \\
+\hline
+{\em coordinates} & array of coordinates of the form \mbox{[}x0,y0,x1,y1,...,xn,yn\mbox{]}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON\+: \{mask\+: byte stream\} mask as transparent PNG as byte stream
+\end{DoxyReturn}
+Note\+: The coordinates array will be used to generate a line that cuts/divides the segmented organs.
+
+Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
+\end{DoxyVerb}
+ \mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a2ea3e26521cdcd63a5ec21e6a4dcb0e6}\label{namespacesegmenter__flask___a_p_i_a2ea3e26521cdcd63a5ec21e6a4dcb0e6}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!drawOnMask@{drawOnMask}}
+\index{drawOnMask@{drawOnMask}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{drawOnMask()}{drawOnMask()}}
+{\footnotesize\ttfamily def segmenter\+\_\+flask\+\_\+\+API.\+draw\+On\+Mask (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reveives index to slice/mask + x,y coordinates -\/-\/\texorpdfstring{$>$}{>} returns drawn on mask as PNG to client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em patient\+ID} & The ID of the patient \\
+\hline
+{\em index} & The index of the slice for which to mask should be updated \\
+\hline
+{\em coordinates} & array of coordinates of the form \mbox{[}x0,y0,x1,y1,...,xn,yn\mbox{]}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON\+: \{mask\+: byte stream\} mask as transparent PNG as byte stream
+\end{DoxyReturn}
+Note\+: The coordinates array will be used to draw a line on the mask.
+
+Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
+\end{DoxyVerb}
+ \mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_ad69191df26c67045429fe3b6654a84ff}\label{namespacesegmenter__flask___a_p_i_ad69191df26c67045429fe3b6654a84ff}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!extendThresholds@{extendThresholds}}
+\index{extendThresholds@{extendThresholds}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{extendThresholds()}{extendThresholds()}}
+{\footnotesize\ttfamily def segmenter\+\_\+flask\+\_\+\+API.\+extend\+Thresholds (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reveives index to slice mask + label id -\/-\/\texorpdfstring{$>$}{>} returns highlighted mask as PNG to client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em patient\+ID} & The ID of the patient \\
+\hline
+{\em index} & The index of the slice for which to mask should be updated \\
+\hline
+{\em left} & Extend labeling up to index-\/label \\
+\hline
+{\em right} & Extend labeling up to index+label\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON\+: \{left\+\_\+most\+\_\+idx\+: idx, right\+\_\+most\+\_\+idx\+: idx\}
+\end{DoxyReturn}
+Note\+: The left\+\_\+most\+\_\+idx and right\+\_\+most\+\_\+idx correspond to the indices of the slices up to which the labeling has been extended. After the the function has finished use the function API\textquotesingle{}s function /get\+Mask to update the masks in your GUI. Example in js\+: \begin{DoxyVerb}for (let index=parseInt(data["left_most_idx"]); index<parseInt(data["right_most_idx"])+1; index++) {     
+    $.post(FLASK_SERVER+"/getMask", {
+        javascript_data: JSON.stringify({patienID: id, index: idx})
+    })
+}
+\end{DoxyVerb}
+ \mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a863cdb180347d6f9df75d65d2177a21d}\label{namespacesegmenter__flask___a_p_i_a863cdb180347d6f9df75d65d2177a21d}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!getMask@{getMask}}
+\index{getMask@{getMask}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{getMask()}{getMask()}}
+{\footnotesize\ttfamily def segmenter\+\_\+flask\+\_\+\+API.\+get\+Mask (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reveives index to slice/mask -\/-\/\texorpdfstring{$>$}{>} returns mask stored on flask server as PNG to client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em patient\+ID} & The ID of the patient \\
+\hline
+{\em index} & The index of the slice for which to mask should be updated\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON\+: \{mask\+: byte stream\} mask as transparent PNG as byte stream
+\end{DoxyReturn}
+Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
+\end{DoxyVerb}
+ \mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a0006a4c42fd99e22d35951538773ebe1}\label{namespacesegmenter__flask___a_p_i_a0006a4c42fd99e22d35951538773ebe1}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!highlightOrgan@{highlightOrgan}}
+\index{highlightOrgan@{highlightOrgan}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{highlightOrgan()}{highlightOrgan()}}
+{\footnotesize\ttfamily def segmenter\+\_\+flask\+\_\+\+API.\+highlight\+Organ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reveives index of slice + x,y coordinates -\/-\/\texorpdfstring{$>$}{>} returns highlighted mask as PNG to client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em patient\+ID} & The ID of the patient \\
+\hline
+{\em index} & The index of the slice for which to mask should be updated \\
+\hline
+{\em x} & relative x coordinates (0\texorpdfstring{$<$}{<}=x\texorpdfstring{$<$}{<}=1) \\
+\hline
+{\em y} & relative y coordinates (0\texorpdfstring{$<$}{<}=y\texorpdfstring{$<$}{<}=1)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON\+: \{mask\+: byte stream\} mask as transparent PNG as byte stream
+\end{DoxyReturn}
+Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
+\end{DoxyVerb}
+ \mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_ab65dca150eed5dc1acea909ec05e32ff}\label{namespacesegmenter__flask___a_p_i_ab65dca150eed5dc1acea909ec05e32ff}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!initialize@{initialize}}
+\index{initialize@{initialize}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{initialize()}{initialize()}}
+{\footnotesize\ttfamily def segmenter\+\_\+flask\+\_\+\+API.\+initialize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Receive Paths to ordered slices, caches slices. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em patient\+ID} & The ID of the patient. Must be unique! \\
+\hline
+{\em paths} & An array with the paths to the slices\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON\+: \{message\+: message\}
+\end{DoxyReturn}
+Note\+: Paths to slices !!!\+MUST BE ORDERED!!! 0,1,..,n \mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a12420f8d23105637cf31e672ff0be50d}\label{namespacesegmenter__flask___a_p_i_a12420f8d23105637cf31e672ff0be50d}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!labelOrgan@{labelOrgan}}
+\index{labelOrgan@{labelOrgan}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{labelOrgan()}{labelOrgan()}}
+{\footnotesize\ttfamily def segmenter\+\_\+flask\+\_\+\+API.\+label\+Organ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reveives index to slice mask + label id -\/-\/\texorpdfstring{$>$}{>} returns highlighted mask as PNG to client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em patient\+ID} & The ID of the patient \\
+\hline
+{\em index} & The index of the slice for which to mask should be updated \\
+\hline
+{\em label} & Label of organ (1 for liver, 2 for spleen, 0 nothing, \texorpdfstring{$>$}{>}2 other organ)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON\+: \{mask\+: byte stream\} mask as transparent PNG as byte stream
+\end{DoxyReturn}
+Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
+\end{DoxyVerb}
+ \mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a11ad2719228192cff4727e61aab43fb5}\label{namespacesegmenter__flask___a_p_i_a11ad2719228192cff4727e61aab43fb5}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!postPickleGetMask@{postPickleGetMask}}
+\index{postPickleGetMask@{postPickleGetMask}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{postPickleGetMask()}{postPickleGetMask()}}
+{\footnotesize\ttfamily def segmenter\+\_\+flask\+\_\+\+API.\+post\+Pickle\+Get\+Mask (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Receives path to pickle file -\/-\/\texorpdfstring{$>$}{>} returns mask as PNG to client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em patient\+ID} & The ID of the patient \\
+\hline
+{\em index} & The index of the slice the mask refers to \\
+\hline
+{\em path} & The path to the mask file\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON\+: \{mask\+: byte stream\} mask as transparent PNG as byte stream
+\end{DoxyReturn}
+Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
+\end{DoxyVerb}
+ \mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a1c6ecae23f9e433d8fc1de7448fc29b9}\label{namespacesegmenter__flask___a_p_i_a1c6ecae23f9e433d8fc1de7448fc29b9}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!saveMasks@{saveMasks}}
+\index{saveMasks@{saveMasks}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{saveMasks()}{saveMasks()}}
+{\footnotesize\ttfamily def segmenter\+\_\+flask\+\_\+\+API.\+save\+Masks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reveives path, saves all stored masks as pickle files to path -\/-\/\texorpdfstring{$>$}{>} returns output path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em patient\+ID} & The ID of the patient \\
+\hline
+{\em index} & The index of the slice for which to mask should be updated\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON\+: \{outdir\+: path\} path/directory to which the pickle files were written ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_acb7150b7f1f5d3c763b845cbaaed3f47}\label{namespacesegmenter__flask___a_p_i_acb7150b7f1f5d3c763b845cbaaed3f47}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!updateMask@{updateMask}}
+\index{updateMask@{updateMask}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{updateMask()}{updateMask()}}
+{\footnotesize\ttfamily def segmenter\+\_\+flask\+\_\+\+API.\+update\+Mask (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Receives index of slice + slider values -\/-\/\texorpdfstring{$>$}{>} returns updated mask as PNG to client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em patient\+ID} & The ID of the patient \\
+\hline
+{\em index} & The index of the slice for which to mask should be updated \\
+\hline
+{\em liver-\/intensity-\/slider} & Slider value for liver intesity \\
+\hline
+{\em bone-\/intensity-\/slider} & Slider value for bone intesity \\
+\hline
+{\em blood-\/vessel-\/intensity-\/slider} & Slider value for blood-\/vessel intesity\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON\+: \{mask\+: byte stream\} mask as transparent PNG as byte stream
+\end{DoxyReturn}
+Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_states.FLASK_SERVER+"/labelOrgan", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+})
+.then(function(response){ return response.json();})   
+.then(function(data){                      
+bytestring = data["mask"];
+img = bytestring.split('\'')[1]
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_afe63fea7be31b0200b496d08bc6b517d}\label{namespacesegmenter__flask___a_p_i_afe63fea7be31b0200b496d08bc6b517d}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!app@{app}}
+\index{app@{app}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{app}{app}}
+{\footnotesize\ttfamily app = Flask(\+\_\+\+\_\+name\+\_\+\+\_\+)}
+
+\mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a4cd10e2374b9aa7ea8f2257f38c46832}\label{namespacesegmenter__flask___a_p_i_a4cd10e2374b9aa7ea8f2257f38c46832}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!FLASK\_PORT@{FLASK\_PORT}}
+\index{FLASK\_PORT@{FLASK\_PORT}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{FLASK\_PORT}{FLASK\_PORT}}
+{\footnotesize\ttfamily int FLASK\+\_\+\+PORT = 4041}
+
+\mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a8351ace7b9efb5281c356be0ff739d2d}\label{namespacesegmenter__flask___a_p_i_a8351ace7b9efb5281c356be0ff739d2d}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!FLAST\_HOST@{FLAST\_HOST}}
+\index{FLAST\_HOST@{FLAST\_HOST}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{FLAST\_HOST}{FLAST\_HOST}}
+{\footnotesize\ttfamily FLAST\+\_\+\+HOST = \textquotesingle{}0.\+0.\+0.\+0\textquotesingle{}}
+
+\mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a832ddc04754e8a43d4f3c6165b1294a7}\label{namespacesegmenter__flask___a_p_i_a832ddc04754e8a43d4f3c6165b1294a7}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!host@{host}}
+\index{host@{host}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{host}{host}}
+{\footnotesize\ttfamily host}
+
+\mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a65db06fedda325a1c6119e2e8ef4a558}\label{namespacesegmenter__flask___a_p_i_a65db06fedda325a1c6119e2e8ef4a558}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!patients@{patients}}
+\index{patients@{patients}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{patients}{patients}}
+{\footnotesize\ttfamily dictionary patients = \{\}}
+
+
+
+Dictionary which will hold for each patient\+ID a Radi\+Pop\+GUI object. 
+
+Patients are added by the API\textquotesingle{}s /initialize function \mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_af8fb0f45ee0195c7422a49e6a8d72369}\label{namespacesegmenter__flask___a_p_i_af8fb0f45ee0195c7422a49e6a8d72369}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!port@{port}}
+\index{port@{port}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{port}{port}}
+{\footnotesize\ttfamily port}
+

@@ -1,0 +1,124 @@
+\hypertarget{namespacesegmentation__utils}{}\doxysection{segmentation\+\_\+utils Namespace Reference}
+\label{namespacesegmentation__utils}\index{segmentation\_utils@{segmentation\_utils}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespacesegmentation__utils_a3f166f5192f0523cdd239a0446ce07c9}{add\+\_\+sobel\+\_\+edges}} (mask, img)
+\begin{DoxyCompactList}\small\item\em Smooth edges Steps\+: \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmentation__utils_a2a4c7b64bcddd9f663d917dfe7306995}{draw\+\_\+region\+\_\+outlines}} (mask)
+\begin{DoxyCompactList}\small\item\em Color the mask light green. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmentation__utils_a11c6725dbf51ae1bf88c9a267cdbcda0}{guess\+\_\+bounds}} (regions\+\_\+map, reference\+\_\+map)
+\begin{DoxyCompactList}\small\item\em Guess the bounds/labels of the region based on reference region Guess the bounds/labels of the region based on reference region (generally neighboring slice). \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmentation__utils_a3b23a787abb0f1b408fc5cb0eb2d69aa}{partition\+\_\+at\+\_\+threshold}} (img, thresh, square\+\_\+size, min\+\_\+size, title=None, show\+\_\+plot=True)
+\begin{DoxyCompactList}\small\item\em After some smoothing, calculate new mask for img Steps\+: \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmentation__utils_a272d79f96a54b40b689cba7c0491ff9e}{save\+\_\+partition}} (mask, path)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacesegmentation__utils_a3f166f5192f0523cdd239a0446ce07c9}\label{namespacesegmentation__utils_a3f166f5192f0523cdd239a0446ce07c9}} 
+\index{segmentation\_utils@{segmentation\_utils}!add\_sobel\_edges@{add\_sobel\_edges}}
+\index{add\_sobel\_edges@{add\_sobel\_edges}!segmentation\_utils@{segmentation\_utils}}
+\doxysubsubsection{\texorpdfstring{add\_sobel\_edges()}{add\_sobel\_edges()}}
+{\footnotesize\ttfamily def segmentation\+\_\+utils.\+add\+\_\+sobel\+\_\+edges (\begin{DoxyParamCaption}\item[{}]{mask,  }\item[{}]{img }\end{DoxyParamCaption})}
+
+
+
+Smooth edges Steps\+: 
+
+
+\begin{DoxyItemize}
+\item Edge filter image using the Canny algorithm.
+\item euclidean distance transform
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em mask} & mask corresponding to image \\
+\hline
+{\em img} & image corresponding to mask\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mask with smoothed edges 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacesegmentation__utils_a2a4c7b64bcddd9f663d917dfe7306995}\label{namespacesegmentation__utils_a2a4c7b64bcddd9f663d917dfe7306995}} 
+\index{segmentation\_utils@{segmentation\_utils}!draw\_region\_outlines@{draw\_region\_outlines}}
+\index{draw\_region\_outlines@{draw\_region\_outlines}!segmentation\_utils@{segmentation\_utils}}
+\doxysubsubsection{\texorpdfstring{draw\_region\_outlines()}{draw\_region\_outlines()}}
+{\footnotesize\ttfamily def segmentation\+\_\+utils.\+draw\+\_\+region\+\_\+outlines (\begin{DoxyParamCaption}\item[{}]{mask }\end{DoxyParamCaption})}
+
+
+
+Color the mask light green. 
+
+Color the edges of the mask darker green. 
+\begin{DoxyParams}{Parameters}
+{\em mask} & mask for which to color the outlines\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mask with colored outlines 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacesegmentation__utils_a11c6725dbf51ae1bf88c9a267cdbcda0}\label{namespacesegmentation__utils_a11c6725dbf51ae1bf88c9a267cdbcda0}} 
+\index{segmentation\_utils@{segmentation\_utils}!guess\_bounds@{guess\_bounds}}
+\index{guess\_bounds@{guess\_bounds}!segmentation\_utils@{segmentation\_utils}}
+\doxysubsubsection{\texorpdfstring{guess\_bounds()}{guess\_bounds()}}
+{\footnotesize\ttfamily def segmentation\+\_\+utils.\+guess\+\_\+bounds (\begin{DoxyParamCaption}\item[{}]{regions\+\_\+map,  }\item[{}]{reference\+\_\+map }\end{DoxyParamCaption})}
+
+
+
+Guess the bounds/labels of the region based on reference region Guess the bounds/labels of the region based on reference region (generally neighboring slice). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em regions\+\_\+map} & mask to guess labels for \\
+\hline
+{\em reference\+\_\+map} & reference mask (already labelled)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mask (labelled) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacesegmentation__utils_a3b23a787abb0f1b408fc5cb0eb2d69aa}\label{namespacesegmentation__utils_a3b23a787abb0f1b408fc5cb0eb2d69aa}} 
+\index{segmentation\_utils@{segmentation\_utils}!partition\_at\_threshold@{partition\_at\_threshold}}
+\index{partition\_at\_threshold@{partition\_at\_threshold}!segmentation\_utils@{segmentation\_utils}}
+\doxysubsubsection{\texorpdfstring{partition\_at\_threshold()}{partition\_at\_threshold()}}
+{\footnotesize\ttfamily def segmentation\+\_\+utils.\+partition\+\_\+at\+\_\+threshold (\begin{DoxyParamCaption}\item[{}]{img,  }\item[{}]{thresh,  }\item[{}]{square\+\_\+size,  }\item[{}]{min\+\_\+size,  }\item[{}]{title = {\ttfamily None},  }\item[{}]{show\+\_\+plot = {\ttfamily True} }\end{DoxyParamCaption})}
+
+
+
+After some smoothing, calculate new mask for img Steps\+: 
+
+
+\begin{DoxyItemize}
+\item gaussian filter,
+\item remove small objects,
+\item greyscale morphological closing,
+\item euclidean distance transform
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em img} & type numpy.\+ndarray \\
+\hline
+{\em thres} & Threshold value \\
+\hline
+{\em min\+\_\+size} & Minimum size of an organ in the mask \\
+\hline
+{\em squaresize} & For greyscale morphological closing \\
+\hline
+{\em title} & Title of plot \\
+\hline
+{\em show\+\_\+plot} & Show plot True/\+False\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+New binary mask (same size as img) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacesegmentation__utils_a272d79f96a54b40b689cba7c0491ff9e}\label{namespacesegmentation__utils_a272d79f96a54b40b689cba7c0491ff9e}} 
+\index{segmentation\_utils@{segmentation\_utils}!save\_partition@{save\_partition}}
+\index{save\_partition@{save\_partition}!segmentation\_utils@{segmentation\_utils}}
+\doxysubsubsection{\texorpdfstring{save\_partition()}{save\_partition()}}
+{\footnotesize\ttfamily def segmentation\+\_\+utils.\+save\+\_\+partition (\begin{DoxyParamCaption}\item[{}]{mask,  }\item[{}]{path }\end{DoxyParamCaption})}
+

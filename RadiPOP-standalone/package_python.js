@@ -1,5 +1,5 @@
 const path = require("path");
-// pyinstaller -w --onefile --distpath dist-python web_app/run_app.py 
+// pyinstaller -w --onefile --distpath dist-python web_app/segmenter_flask_API.py 
 const spawn = require("child_process").spawn,
   ls = spawn(
     "pyinstaller",
@@ -7,7 +7,7 @@ const spawn = require("child_process").spawn,
       "-w",
       "--onefile",
       "--distpath dist-python",
-      "web_app/run_app.py",
+      "web_app/segmenter_flask_API.py",
     ],
     {
       shell: true,
