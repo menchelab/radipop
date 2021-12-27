@@ -7,8 +7,7 @@ import '../../styles/index.css';
 
 
 
-class ToolBar extends React.Component {
-  render() {
+function ToolBar(props) {
     return (
       <div className="row toolbar col-lg-12 col-md-12">
         <div className="brwhite tool-col col-lg-3 col-md-3">
@@ -24,7 +23,6 @@ class ToolBar extends React.Component {
         </div>
       </div>
     );
-  }
-}
+ }
 
 export default ToolBar;
