@@ -9,7 +9,6 @@ function Slider(props) {
   // Update state "value" on slider change
   const handleSlide = (event) => {
       setValue(parseInt(event.target.value,10));
-      console.log(event.target.value);
   }
   const handleClickPlus = (event) => {
     if(parseInt(value, 10) < 300)

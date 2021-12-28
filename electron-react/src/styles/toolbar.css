@@ -44,14 +44,18 @@
   white-space: nowrap;
 
 }
+
+/* Toolbar Button change background color to blue on hover */
 .button-10:hover {
     background-color: rgb(0,113,227);
 }
 
+/* Hide the input button for Open button */
 input[type="file"] {
     display: none;
 }
 
+/* Style for the Open Button */
 .input-10{
   box-sizing: border-box;
   border-radius: 8px;

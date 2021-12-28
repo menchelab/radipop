@@ -6,15 +6,14 @@ import '../../styles/index.css';
 
 
 
-class Display extends React.Component {
-  render() {
+function Display(props) {
     return(
+      // Passing props to MainDisplay and Sidebar to display state info of App.js
       <div>
-        <MainDisplay/>
-        <Sidebar/>
+        <MainDisplay selectedFile={props.selectedFile} editingImage={props.editingImage}/>
+        <Sidebar sidebarFile={props.selectedFile.slices} setEditingImage={props.setEditingImage}/>
       </div>
     );
-  }
 }
 
 export default Display;

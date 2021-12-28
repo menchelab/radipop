@@ -7,16 +7,14 @@ import Log from '../../components/log/LogInfo.js';
 
 
 
-class MainDisplay extends React.Component {
-  render() {
+function MainDisplay(props) {
     return(
       <div className="col-lg-6 col-md-6 display-area">
-        <Info/>
-        <Canvas/>
+        <Info selectedFile={props.selectedFile.slices}/>
+        <Canvas editingImage={props.editingImage}/>
         <Log/>
       </div>
   );
-  }
 }
 
 export default MainDisplay;
