@@ -6,8 +6,8 @@ const url = require("url");
 // Create the native browser window.
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 800,
+    width: 1400,
+    height: 900,
     minWidth:600,
     minHeight:600,
     // Set the path of an additional "preload" script that can be used to

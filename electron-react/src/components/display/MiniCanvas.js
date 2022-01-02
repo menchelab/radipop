@@ -1,21 +1,27 @@
 import React from 'react';
 import '../../styles/display.css';
 import '../../styles/index.css';
-
+import preview from '../../assets/images/preview_placeholder.png';
 
 
 
 function MiniCanvas(props) {
-  const clickImage = (event) => {
-    props.setEditingImage(event.currentTarget.src);
-    props.setHighlightIndex(event.currentTarget.src);
+  const clickImage = () => {
+   props.setRadiPOPstates({
+     files: props.RadiPOPstates.files,
+     slice_mask_container: props.RadiPOPstates.slice_mask_container,
+     currentSliceIndex: parseInt(props.index)
+    })
   }
-    return(
-       <img 
-       src={props.p}
-       alt="Slices"
-       className={`img${props.highlightIndex === props.p ? 'selected' : ''}`}
-       onClick={clickImage}/>
+  return(
+    <div className="slice-mask-container" onClick={clickImage} >
+      <img 
+        src={props.RadiPOPstates.files.length?props.slice_mask_container[0]:preview}
+        alt="Slices"
+        className={`img${props.RadiPOPstates.currentSliceIndex === props.index ? 'selected' : ''}`}
+      />
+      <img className="mask" src={props.slice_mask_container[1]} alt="mask"/>
+    </div>
   );
 }
 

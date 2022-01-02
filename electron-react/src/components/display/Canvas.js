@@ -1,9 +1,13 @@
 import React from 'react';
 import '../../styles/display.css'
+
 function Canvas(props){
 
   return(
-     <img className="img" src={props.editingImage} alt="CT slice for editing"/>
+     <div className="slice-mask-container">
+      <img className="img" src={props.RadiPOPstates.slice_mask_container[props.RadiPOPstates.currentSliceIndex][0]} alt="CT slice for editing"/>
+      <img className="mask" src={props.RadiPOPstates.slice_mask_container[props.RadiPOPstates.currentSliceIndex][1]} alt="mask"/>
+    </div>
   );
 }
 

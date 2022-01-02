@@ -1,5 +1,3 @@
-
-
 {
   "name": "radi-react",
   "version": "0.1.0",
@@ -15,25 +13,26 @@
     "react-scripts": "^4.0.3",
     "web-vitals": "^1.0.1"
   },
-
   "build": {
-   "appId": "com.electron.myapp",
-   "productName": "My Electron App",
-   "files": ["build/**/*", "node_modules/**/*"],
-   "directories": {
-     "buildResources": "public"
-   },
-   "mac": {
-     "target": "dmg"
-   },
-   "win": {
-     "target": "nsis"
-   },
-   "linux": {
-     "target": "deb"
-   }
+    "appId": "com.electron.myapp",
+    "productName": "My Electron App",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "public"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "deb"
+    }
   },
-
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

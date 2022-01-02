@@ -10,8 +10,8 @@ import Log from '../../components/log/LogInfo.js';
 function MainDisplay(props) {
     return(
       <div className="col-lg-6 col-md-6 display-area">
-        <Info selectedFile={props.selectedFile.slices}/>
-        <Canvas editingImage={props.editingImage}/>
+        <Info RadiPOPstates={props.RadiPOPstates}/>
+        <Canvas RadiPOPstates={props.RadiPOPstates}/>
         <Log/>
       </div>
   );
