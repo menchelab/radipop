@@ -72,7 +72,7 @@ $(document).ready(function () {
     }
     //Order files according to their index 
     RadiPOP_states.slice_files=[].slice.call(slice_files).sort((a, b) => (parseInt(a.name.replace(".png","")) > parseInt(b.name.replace(".png",""))) ? 1 : -1 )
-    mask_files=[].slice.call(mask_files).sort((a, b) => (parseInt(a.name.replace(".p","")) > parseInt(b.name.replace(".png",""))) ? 1 : -1 )
+    mask_files=[].slice.call(mask_files).sort((a, b) => (parseInt(a.name.replace(".p","")) > parseInt(b.name.replace(".p",""))) ? 1 : -1 )
     //Set default output directory 
 
     RadiPOP_states.outDir=slice_files[0].path.substring(0, slice_files[0].path.lastIndexOf("/")+1);
