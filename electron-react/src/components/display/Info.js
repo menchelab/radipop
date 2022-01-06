@@ -5,7 +5,7 @@ function Info(props){
   return(
     <div className="Info">
       <span> Patient X </span>
-      <span> Slice: {props.RadiPOPstates.currentSliceIndex} </span>
+      <span> Slice: {props.RadiPOPstates.currentSliceIndex + 1} </span>
       <span> Number of slices: {props.RadiPOPstates.files.length} </span>
     </div>
   );
