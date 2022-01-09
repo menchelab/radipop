@@ -9,11 +9,10 @@ import '../../styles/index.css';
 
 
 
-class Editing extends React.Component {
-  render() {
+function Editing(props) {
     return(
       <div className="col-lg-3 col-md-3 utility-area ">
-        <HideMask/>
+        <HideMask RadiPOPstates={props.RadiPOPstates} setRadiPOPstates={p=>{props.setRadiPOPstates(p)}}/>
         <div className="tools">
           <Slider label="Bone Intensity:"/>
           <Slider label="Vessel Intensity:"/>
@@ -30,6 +29,5 @@ class Editing extends React.Component {
       </div>
   );
   }
-}
 
 export default Editing;

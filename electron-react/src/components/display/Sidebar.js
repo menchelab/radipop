@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import MiniCanvas from '../display/MiniCanvas.js';
 
 import '../../styles/display.css';
@@ -15,6 +15,7 @@ function Sidebar(props){
         return <MiniCanvas
           index={index}
           key={index}
+          searchRef={props.searchRef}
           slice_mask_container={smc}
           RadiPOPstates={props.RadiPOPstates}
           setRadiPOPstates={p=>{props.setRadiPOPstates(p)}}

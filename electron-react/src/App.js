@@ -13,6 +13,8 @@ function App() {
     files: [],
     slice_mask_container: [[slice_place_holder,""]],
     currentSliceIndex: 0,
+    patient: "None",
+    showMask: '',
     });
 
 
@@ -21,7 +23,7 @@ function App() {
     <div>
       <ToolBar RadiPOPstates={RadiPOPstates} setRadiPOPstates={p=>{setRadiPOPstates(p)}}/>
       <div className="row">
-        <Editing />
+        <Editing RadiPOPstates={RadiPOPstates} setRadiPOPstates={p=>{setRadiPOPstates(p)}}/>
         {RadiPOPstates && <Display RadiPOPstates={RadiPOPstates} setRadiPOPstates={p=>{setRadiPOPstates(p)}} />}
       </div>
     </div>

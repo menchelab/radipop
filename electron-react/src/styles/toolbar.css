@@ -88,3 +88,10 @@ input[type="file"] {
   font-family: Helvetica-LightOblique;
   width: 60%;
 }
+
+/* Search Icon: Jumps to selected slice */
+.search {
+box-sizing: border-box;
+height: 30px;
+margin: 10px 0px 10px 0px;
+}
