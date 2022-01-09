@@ -13,8 +13,8 @@ div.display-area {
 div.scrollbar-area {
   background-color: rgb(245,245,247);
   box-sizing: border-box;
-  height: 100vh;
-  overflow: auto;
+  height: 90vh;
+  overflow-y: auto;
 }
 
 /* Styling of the sidebar and main display images */

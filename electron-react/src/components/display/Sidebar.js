@@ -8,7 +8,7 @@ import '../../styles/index.css';
 
 function Sidebar(props){
     return(
-      <div className="scrollbar-area col-lg-3 col-md-3">
+      <div className="col-lg-3 col-md-3">
         <span style={{textAlign: "center"}}>Slice Preview</span>
         <div className="scrollbar-area col-lg-12 col-md-12">
         {props.RadiPOPstates.slice_mask_container.map((smc,index) => {
