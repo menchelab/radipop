@@ -7,7 +7,7 @@ function SearchBar(props) {
 
    const executeScroll = (props) => {
     // Here we want to scroll to the current selected slice
-    //element = document.getElementById("{props.RadiPoPstates.currentSliceIndex}")
+    //element = document.getElementById()
     //element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
  }
     return (

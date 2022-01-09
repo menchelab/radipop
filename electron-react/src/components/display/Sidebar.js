@@ -15,7 +15,6 @@ function Sidebar(props){
         return <MiniCanvas
           index={index}
           key={index}
-          searchRef={props.searchRef}
           slice_mask_container={smc}
           RadiPOPstates={props.RadiPOPstates}
           setRadiPOPstates={p=>{props.setRadiPOPstates(p)}}

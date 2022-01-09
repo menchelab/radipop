@@ -5,7 +5,6 @@ function HideMask(props) {
   // Set state hide mask on checkbox click
   const handleChange = () => {
     props.setRadiPOPstates({files: props.RadiPOPstates.files, slice_mask_container: props.RadiPOPstates.slice_mask_container, currentSliceIndex:props.RadiPOPstates.currentSliceIndex, patient:"?", showMask: !props.RadiPOPstates.showMask});
-    console.log(props.RadiPOPstates.showMask)
 }
 
     return (
