@@ -1,10 +1,14 @@
 import React from 'react';
 import '../../styles/log.css';
 
-function Log(){
+function Log(props){
+  const status = props.RadiPOPstates.status;
+  const listItems = status.map((status) =>
+  <li>{status}</li>
+).reverse();
   return(
     <div className="log">
-    Here will be the log information
+      <ul> {listItems} </ul>
     </div>
 
   );

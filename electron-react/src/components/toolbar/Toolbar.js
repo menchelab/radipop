@@ -81,14 +81,13 @@ function ToolBar(props) {
     }
 
     // Update state with loaded files
-    props.setRadiPOPstates({files: slice_files, slice_mask_container: smc, currentSliceIndex:0, patient:"?", showMask:true});
+    const loginfo = props.RadiPOPstates.status.concat("You succesfully laoded the .png files in EditorXR!");
+    props.setRadiPOPstates({files: slice_files, slice_mask_container: smc, currentSliceIndex:0, patient:"?", showMask:true, status: loginfo});
 
 
   }
   useEffect(() => {
-  // Update the document title using the browser API
-  props.setRadiPOPstates({files: props.RadiPOPstates.files, slice_mask_container: props.RadiPOPstates.slice_mask_container, currentSliceIndex:0, patient:"?", showMask:true});
-
+  props.setRadiPOPstates({files: props.RadiPOPstates.files, slice_mask_container: props.RadiPOPstates.slice_mask_container, currentSliceIndex:0, patient:"?", showMask:true, status: props.RadiPOPstates.status});
 },[]);
     return (
       <div className="row toolbar col-lg-12 col-md-12">

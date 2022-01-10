@@ -4,4 +4,5 @@ div.log {
   padding-bottom: 66px;
   display: flex;
   flex-grow: 1;
+  overflow-y:auto;
 }
