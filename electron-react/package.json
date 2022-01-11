@@ -15,16 +15,18 @@
   },
   "build": {
     "appId": "com.electron.myapp",
-    "productName": "My Electron App",
+    "productName": "EditorXR",
     "files": [
       "build/**/*",
-      "node_modules/**/*"
+      "node_modules/**/*",
+      "./public/**/*"
     ],
     "directories": {
       "buildResources": "public"
     },
     "mac": {
-      "target": "dmg"
+      "target": "dmg",
+      "icon": "./public/icons/mac/icon.icns"
     },
     "win": {
       "target": "nsis"

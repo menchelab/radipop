@@ -10,6 +10,7 @@ function createWindow() {
     height: 900,
     minWidth:600,
     minHeight:600,
+    icon: __dirname + '/favicon.ico',
     // Set the path of an additional "preload" script that can be used to
     // communicate between node-land and browser-land.
     webPreferences: {
