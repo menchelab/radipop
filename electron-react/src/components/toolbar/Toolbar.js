@@ -70,7 +70,6 @@ function ToolBar(props) {
     for(let i=0; i<slice_files.length; i++){
       smc.push([URL.createObjectURL(slice_files[i]),""])
     }
-
     let slice_files_paths  = slice_files.map((item) => item.path);
     initialize(slice_files_paths, "1");
 
