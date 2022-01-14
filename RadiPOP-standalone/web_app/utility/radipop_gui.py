@@ -2,6 +2,7 @@ from PIL import Image,ImageDraw
 import numpy as np
 import pickle
 #import imageio
+import pydicom
 from skimage.measure import label
 from . import segmentation_utils
 import sys, io, base64
@@ -287,3 +288,29 @@ class RadiPopGUI:
         rawBytes.seek(0)
         img_base64 = base64.b64encode(rawBytes.read())
         return img_base64
+
+    
+    @staticmethod
+    def clip_dcm(dcm_file,clip_low=850,clip_high=1250):
+        """!Read dicom image (.dcm), clips it and returns it as a grey scale PNG
+        
+        @param dcm_file Path to .dcm file
+        @param clip_low lowest pixel value
+        @param clip_high highest pixel value
+        
+        @return tuple(L (grey scale) Pillow Image, slice index)
+        
+        """
+        dataset=pydicom.dcmread(dcm_file)
+        temp=dataset.pixel_array.copy()
+        temp[temp<clip_low]=clip_low
+        temp[temp>clip_high]=clip_high
+        temp= temp-clip_low
+        temp= temp/temp.max()*255
+        temp=temp.astype(np.uint8)
+        img = Image.fromarray(temp)
+        return img, int(dataset.InstanceNumber)
+
+    @staticmethod
+    def writePillow2PNG(img,outfile):
+        img.save(outfile)

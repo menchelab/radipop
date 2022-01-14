@@ -15,7 +15,13 @@
             <div class="col-lg-3 col-md-12">
                 <div class="utility-area">
                     <div class="subtoolbar TODO">
-                        <input type="file" id="filepicker" name="fileList" webkitdirectory/> <button id="save-button">Save</button> 
+                        <input type="button" id="open-button" value="Open" onclick="document.getElementById('filepicker').click();" />
+                        <input type="file" id="filepicker" style="display:none;" name="fileList" webkitdirectory/> 
+
+                        <input type="button" id="dcm2PNG-button" value="dcm2PNG" onclick="document.getElementById('dcmfile-picker').click();" />
+                        <input type="file" id="dcmfile-picker" name="dcm2PNG" style="display:none;" webkitdirectory/> 
+
+                        <button id="save-button">Save</button> 
                     </div>
                     <div class="tools">
                         <div>
@@ -63,7 +69,7 @@
                             <button id="liver-label-button">Set liver label</button> 
                             <button id="spleen-label-button">Set spleen label</button> 
                         </div>
-                        <div id="like-button"></div>
+                        
                     </div>
 
                 </div>
@@ -107,7 +113,6 @@
         <!-- React Components <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js crossorigin> -->
         <script src="js/react.development.js"></script>
         <script src="js/react-dom.development.js"></script>
-        <script src="js/likebutton.js"></script>
     </body>
 
 </html>

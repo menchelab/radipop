@@ -1,3 +1,4 @@
+from tkinter import RADIOBUTTON
 from utility import config
 from utility.radipop_gui import RadiPopGUI
 import numpy as np, json
@@ -349,6 +350,24 @@ def saveMasks():
     data ={"outdir": outPath}
     return jsonify(data)
 
+
+@app.route('/dcm2png', methods=['POST'])
+def dcm2png():
+    """! Receive Paths to dcm files, converts them to PNG
+    @param paths An array with the paths to the slices 
+
+    @return JSON: {message: message}
+
+    """
+    dictionary = request.get_json()
+    paths=dictionary["paths"]
+
+    for path in paths:
+        img,index = RadiPopGUI.clip_dcm(dcm_file=path,clip_low=850,clip_high=1250)
+        outfile=os.path.dirname(path)+"/"+str(index)+".png"
+        RadiPopGUI.writePillow2PNG(img=img,outfile=outfile)
+
+    return jsonify({"message": "Succesfully converted dicom files. Output written to: " +os.path.dirname(paths[0])})
 if __name__ == '__main__':
 
     ## Dictionary which will hold for each patientID a RadiPopGUI object.

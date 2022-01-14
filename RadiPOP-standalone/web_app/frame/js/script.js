@@ -52,8 +52,17 @@ $(document).ready(function () {
     }
   });
 
-
-
+ // Convert dcm images to PNG 
+ document.getElementById("dcmfile-picker").addEventListener("change", function(event) {
+  let files = event.target.files;
+  dcm_files=[];
+  for (let i=0; i<files.length; i++) {
+    if (files[i].name.endsWith(".dcm")) {
+      dcm_files.push(files[i].path)
+    }
+  }
+  dcm2png(paths=dcm_files);
+ });
 
   // Load image files into Preview sidebar 
   document.getElementById("filepicker").addEventListener("change", function(event) {
@@ -388,6 +397,21 @@ $(document).ready(function () {
       "patientID": patientID
     };
     fetch(RadiPOP_states.FLASK_SERVER+"/initialize", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function(response){ return response.json();  })   
+    .then(function(data){ console.log(data["message"]); })
+    .catch(error_handler)
+  }
+
+   // Post path to slice files to flask --> flask opens the slices and chaches them 
+   function dcm2png(paths) {
+    let data={
+      paths: paths,
+    };
+    fetch(RadiPOP_states.FLASK_SERVER+"/dcm2png", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)

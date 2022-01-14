@@ -5,3 +5,4 @@ numpy~=1.21.3
 pillow~=8.4.0
 scikit-image~=0.18.3
 tornado~=6.1
+pydicom~=2.2
