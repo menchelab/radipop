@@ -1,4 +1,10 @@
 #
+zOld/
+zSampleData/
+*lock*
+
+
+#
 data/
 Test*/
 out*/
