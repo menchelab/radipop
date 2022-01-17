@@ -15,7 +15,7 @@ function App() {
     currentSliceIndex: 0,
     patient: "None",
     showMask: '',
-    status: ["Log: Here you will find important informations about the App status and possible errors"],
+    status: ["Log: Here you will find important information about the App status and possible errors"],
     });
 
 

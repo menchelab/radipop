@@ -80,7 +80,7 @@ function ToolBar(props) {
     }
 
     // Update state with loaded files
-    const loginfo = props.RadiPOPstates.status.concat("You succesfully laoded the .png files in EditorXR!");
+    const loginfo = props.RadiPOPstates.status.concat("You succesfully loaded the .png files in EditorXR!");
     props.setRadiPOPstates({files: slice_files, slice_mask_container: smc, currentSliceIndex:0, patient:"?", showMask:true, status: loginfo});
 
 
