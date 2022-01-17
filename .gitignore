@@ -2,6 +2,7 @@
 zOld/
 zSampleData/
 *lock*
+*.lock
 
 
 #
