@@ -1,7 +1,6 @@
 # RadiPOP: Electron-Flask-React-Components
 
-[**Features**](#Features)
-
+[**Features**](#Features)  
 [**Installation**](#Installation)
 
 
