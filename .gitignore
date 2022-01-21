@@ -3,7 +3,8 @@ zOld/
 zSampleData/
 *lock*
 *.lock
-
+*/*.lock
+electron-react/node_modules/
 
 #
 data/
