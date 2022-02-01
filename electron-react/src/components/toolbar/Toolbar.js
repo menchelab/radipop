@@ -58,7 +58,7 @@ function ToolBar(props) {
           return
       }
     }
-    // Check if files are user selected files to loaded
+    // Check if user selected new files -> return if user clicked "cancel"
     if(event.target.files.length === 0){
       return
     }
