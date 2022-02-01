@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/editing.css';
 
 function HideMask(props) {
-
+  const loaded_files = (props.RadiPOPstates.files.length === 0)
   // Set state hide mask on checkbox click
   const handleChange = () => {
     let logInfo = "";
@@ -17,7 +17,7 @@ function HideMask(props) {
 
     return (
       <div className="toolsh">
-        <input type="checkbox" id="hide-mask-checkbox" onChange={handleChange} name="hide-mask-checkbox" />
+        <input type="checkbox" disabled={loaded_files} checked={!props.RadiPOPstates.showMask} id="hide-mask-checkbox" onChange={handleChange} name="hide-mask-checkbox" />
         <label style={{paddingLeft: "5px"}} htmlFor="hide-mask-checkbox">Show mask</label>
       </div>
     );

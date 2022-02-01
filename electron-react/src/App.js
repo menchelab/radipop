@@ -14,7 +14,7 @@ function App() {
     slice_mask_container: [[slice_place_holder,""]],
     currentSliceIndex: 0,
     patient: "None",
-    showMask: '',
+    showMask: true,
     status: ["Log: Here you will find important information about the App status and possible errors"],
     });
 
