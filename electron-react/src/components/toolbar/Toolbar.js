@@ -51,6 +51,17 @@ function ToolBar(props) {
     let slice_url=[] // array for slice URL -> display
     // Set State: all loaded files unordered
 
+    // Check if directory only contains .png and .p files and a .DS_Store file
+    for (let i=0; i<event.target.files.length; i++) {
+      if ((!event.target.files[i].name.endsWith(".png")) && (!event.target.files[i].name.endsWith(".p")) && (!event.target.files[i].name.endsWith(".DS_Store"))){
+          alert("Directory should only contain .png and .p files")
+          return
+      }
+    }
+    // Check if files are user selected files to loaded
+    if(event.target.files.length === 0){
+      return
+    }
     props.setRadiPOPstates({files: event.target.files});
     // Split .p and .png files
     for (let i=0; i<event.target.files.length; i++) {
