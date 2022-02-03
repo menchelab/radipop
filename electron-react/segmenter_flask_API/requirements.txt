@@ -1,0 +1,8 @@
+Flask~=2.0
+PyInstaller~=4.4
+Flask-Cors~=3.0.10
+numpy~=1.21.3
+pillow~=8.4.0
+scikit-image~=0.18.3
+tornado~=6.1
+pydicom~=2.2
