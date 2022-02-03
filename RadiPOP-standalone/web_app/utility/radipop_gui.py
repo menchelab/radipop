@@ -311,6 +311,25 @@ class RadiPopGUI:
         img = Image.fromarray(temp)
         return img, int(dataset.InstanceNumber)
 
+    def extract_metadata_from_dcm(dcm_file):
+        """!Read dicom image (.dcm) and extract metadata
+        Extracted metadata IDs: "PatientID","PatientBirthDate","PatientName",
+        "PatientAge","PatientSex","PatientName","SliceThickness","StudyID","ContentDate"
+        @param dcm_file Path to .dcm file
+        
+        @return dictionary with metadata information 
+        """
+
+        dataset=pydicom.dcmread(dcm_file)
+        metadataIDs=["PatientID","PatientBirthDate","PatientName","PatientAge","PatientSex","PatientName","SliceThickness","StudyID","ContentDate"]
+        metadata={}
+        for ID in metadataIDs:
+            try:
+                metadata[ID]=str(dataset[ID].value)
+            except:
+                metadata[ID]="NA"
+        return metadata
+
     @staticmethod
     def writePillow2PNG(img,outfile):
         img.save(outfile)

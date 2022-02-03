@@ -74,6 +74,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a87eb1f0c3f92490595980a5fa2d5231a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesegmenter__flask___a_p_i.html#a87eb1f0c3f92490595980a5fa2d5231a">correctPartition</a> ()</td></tr>
 <tr class="memdesc:a87eb1f0c3f92490595980a5fa2d5231a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reveives index to slice/mask + coordinates--&gt; returns partion corrected mask as PNG to client.  <a href="namespacesegmenter__flask___a_p_i.html#a87eb1f0c3f92490595980a5fa2d5231a">More...</a><br /></td></tr>
 <tr class="separator:a87eb1f0c3f92490595980a5fa2d5231a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1085fa447800af4e234c6b8c91013574"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesegmenter__flask___a_p_i.html#a1085fa447800af4e234c6b8c91013574">dcm2png</a> ()</td></tr>
+<tr class="memdesc:a1085fa447800af4e234c6b8c91013574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive Paths to dcm files, converts them to PNG.  <a href="namespacesegmenter__flask___a_p_i.html#a1085fa447800af4e234c6b8c91013574">More...</a><br /></td></tr>
+<tr class="separator:a1085fa447800af4e234c6b8c91013574"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ea3e26521cdcd63a5ec21e6a4dcb0e6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesegmenter__flask___a_p_i.html#a2ea3e26521cdcd63a5ec21e6a4dcb0e6">drawOnMask</a> ()</td></tr>
 <tr class="memdesc:a2ea3e26521cdcd63a5ec21e6a4dcb0e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reveives index to slice/mask + x,y coordinates --&gt; returns drawn on mask as PNG to client.  <a href="namespacesegmenter__flask___a_p_i.html#a2ea3e26521cdcd63a5ec21e6a4dcb0e6">More...</a><br /></td></tr>
 <tr class="separator:a2ea3e26521cdcd63a5ec21e6a4dcb0e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,6 +158,35 @@ Variables</h2></td></tr>
 bytestring = data["mask"];
 img = bytestring.split('\'')[1]
 </pre> 
+</div>
+</div>
+<a id="a1085fa447800af4e234c6b8c91013574" name="a1085fa447800af4e234c6b8c91013574"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1085fa447800af4e234c6b8c91013574">&#9670;&nbsp;</a></span>dcm2png()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def segmenter_flask_API.dcm2png </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Receive Paths to dcm files, converts them to PNG. </p>
+<p >Included metadata IDs: "PatientID","PatientBirthDate","PatientName", "PatientAge","PatientSex","PatientName","SliceThickness","StudyID","ContentDate"</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">paths</td><td>An array with the paths to the slices </td></tr>
+    <tr><td class="paramname">low_clip</td><td>lowest pixel value </td></tr>
+    <tr><td class="paramname">high_clip</td><td>highest pixel value</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>JSON: {message: message, metadata: dictionary} </dd></dl>
+
 </div>
 </div>
 <a id="a2ea3e26521cdcd63a5ec21e6a4dcb0e6" name="a2ea3e26521cdcd63a5ec21e6a4dcb0e6"></a>

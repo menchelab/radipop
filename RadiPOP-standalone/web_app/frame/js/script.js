@@ -402,7 +402,7 @@ $(document).ready(function () {
       body: JSON.stringify(data)
     })
     .then(function(response){ return response.json();  })   
-    .then(function(data){ console.log(data["message"]); })
+    .then(function(data){console.log(data["message"]);})
     .catch(error_handler)
   }
 
@@ -410,6 +410,8 @@ $(document).ready(function () {
    function dcm2png(paths) {
     let data={
       paths: paths,
+      low_clip: 850, 
+      high_clip: 1250
     };
     fetch(RadiPOP_states.FLASK_SERVER+"/dcm2png", {
       method: 'POST',
@@ -417,7 +419,10 @@ $(document).ready(function () {
       body: JSON.stringify(data)
     })
     .then(function(response){ return response.json();  })   
-    .then(function(data){ console.log(data["message"]); })
+    .then(function(data){ 
+      console.log(data["message"]);
+      console.log(data["metadata"]);
+     })
     .catch(error_handler)
   }
 

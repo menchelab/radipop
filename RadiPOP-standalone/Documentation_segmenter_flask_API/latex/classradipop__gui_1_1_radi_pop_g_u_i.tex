@@ -12,6 +12,8 @@ def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_ac0e1e095cde9f9d310a56
 \begin{DoxyCompactList}\small\item\em Class constructor\+: \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a728aa4344f60e4de421242f6e6b764d7}{extend\+\_\+labels}} (self, cur\+\_\+idx, left\+\_\+extend, right\+\_\+extend)
 \begin{DoxyCompactList}\small\item\em Extend labels from current slice to neighbouring slices. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a8f3db4cef37739a39aedc152877db4b6}{extract\+\_\+metadata\+\_\+from\+\_\+dcm}} (dcm\+\_\+file)
+\begin{DoxyCompactList}\small\item\em Read dicom image (.dcm) and extract metadata Extracted metadata IDs\+: \char`\"{}\+Patient\+ID\char`\"{},\char`\"{}\+Patient\+Birth\+Date\char`\"{},\char`\"{}\+Patient\+Name\char`\"{}, \char`\"{}\+Patient\+Age\char`\"{},\char`\"{}\+Patient\+Sex\char`\"{},\char`\"{}\+Patient\+Name\char`\"{},\char`\"{}\+Slice\+Thickness\char`\"{},\char`\"{}\+Study\+ID\char`\"{},\char`\"{}\+Content\+Date\char`\"{}. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_aee81e13e3a4638bca4f4978fc0adb38d}{highlight\+Organ}} (self, slice\+\_\+idx, x, y)
 \begin{DoxyCompactList}\small\item\em Highlights regions of the mask (organs) that were clicked on by user. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a066d71ebb89be6f8fbf3e215dfdc1137}{label\+Mask}} (self, slice\+\_\+idx, label)
@@ -23,6 +25,8 @@ def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a3a5a4585f92db1073eb31
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a147d5ba0eb23541114cb2acdc7fb3220}{clip\+\_\+dcm}} (dcm\+\_\+file, clip\+\_\+low=850, clip\+\_\+high=1250)
+\begin{DoxyCompactList}\small\item\em Read dicom image (.dcm), clips it and returns it as a grey scale PNG. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a8379d31e0d49ff2ac08066a19c146dfa}{correct\+\_\+partition}} (image)
 \begin{DoxyCompactList}\small\item\em Convert PNG mask to 1 channelled label mask. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a5eae9b430db0450d54cce4330c66f444}{create\+\_\+image\+\_\+stream}} (img)
@@ -38,7 +42,9 @@ def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a2ae7353aca4249409fb7c
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_aaa1348bd420934664ea7e1fbf4615dc0}{read\+PNG}} (path)
 \begin{DoxyCompactList}\small\item\em Reads an image (e.\+g. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a968f7c7123bde50de4af82417478d88d}{update\+\_\+mask\+\_\+upon\+\_\+slider\+\_\+change}} (image, bone\+\_\+intensity, blood\+\_\+vessel\+\_\+intensity, liver\+\_\+intensity)
-\begin{DoxyCompactList}\small\item\em Sets threshold for liver intensity. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Sets threshold for liver intensity. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a3fbe8af8b50cb244caead784d3c7deea}{write\+Pillow2\+PNG}} (img, outfile)
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -100,7 +106,23 @@ Note\+:
 \end{DoxyItemize}
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a8379d31e0d49ff2ac08066a19c146dfa}\label{classradipop__gui_1_1_radi_pop_g_u_i_a8379d31e0d49ff2ac08066a19c146dfa}} 
+\mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a147d5ba0eb23541114cb2acdc7fb3220}\label{classradipop__gui_1_1_radi_pop_g_u_i_a147d5ba0eb23541114cb2acdc7fb3220}} 
+\index{RadiPopGUI@{RadiPopGUI}!clip\_dcm@{clip\_dcm}}
+\index{clip\_dcm@{clip\_dcm}!RadiPopGUI@{RadiPopGUI}}
+\doxysubsubsection{\texorpdfstring{clip\_dcm()}{clip\_dcm()}}
+{\footnotesize\ttfamily def clip\+\_\+dcm (\begin{DoxyParamCaption}\item[{}]{dcm\+\_\+file,  }\item[{}]{clip\+\_\+low = {\ttfamily 850},  }\item[{}]{clip\+\_\+high = {\ttfamily 1250} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Read dicom image (.dcm), clips it and returns it as a grey scale PNG. 
+
+\begin{DoxyVerb}    @param dcm_file Path to .dcm file
+    @param clip_low lowest pixel value
+    @param clip_high highest pixel value
+
+    @return tuple(L (grey scale) Pillow Image, slice index)
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a8379d31e0d49ff2ac08066a19c146dfa}\label{classradipop__gui_1_1_radi_pop_g_u_i_a8379d31e0d49ff2ac08066a19c146dfa}} 
 \index{RadiPopGUI@{RadiPopGUI}!correct\_partition@{correct\_partition}}
 \index{correct\_partition@{correct\_partition}!RadiPopGUI@{RadiPopGUI}}
 \doxysubsubsection{\texorpdfstring{correct\_partition()}{correct\_partition()}}
@@ -177,7 +199,25 @@ Extend labels from current slice to neighbouring slices.
 \begin{DoxyReturn}{Returns}
 (left\+\_\+most\+\_\+idx,right\+\_\+most\+\_\+idx) The index of the outermost slices to which the labeling was extended
 \end{DoxyReturn}
-Extends labels left and right from current slice How far the labels are extended is taken from left and right expansion bounds \mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a6b5c6eb7faf2611bbbe56b1383e6a84b}\label{classradipop__gui_1_1_radi_pop_g_u_i_a6b5c6eb7faf2611bbbe56b1383e6a84b}} 
+Extends labels left and right from current slice How far the labels are extended is taken from left and right expansion bounds \mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a8f3db4cef37739a39aedc152877db4b6}\label{classradipop__gui_1_1_radi_pop_g_u_i_a8f3db4cef37739a39aedc152877db4b6}} 
+\index{RadiPopGUI@{RadiPopGUI}!extract\_metadata\_from\_dcm@{extract\_metadata\_from\_dcm}}
+\index{extract\_metadata\_from\_dcm@{extract\_metadata\_from\_dcm}!RadiPopGUI@{RadiPopGUI}}
+\doxysubsubsection{\texorpdfstring{extract\_metadata\_from\_dcm()}{extract\_metadata\_from\_dcm()}}
+{\footnotesize\ttfamily def extract\+\_\+metadata\+\_\+from\+\_\+dcm (\begin{DoxyParamCaption}\item[{}]{dcm\+\_\+file }\end{DoxyParamCaption})}
+
+
+
+Read dicom image (.dcm) and extract metadata Extracted metadata IDs\+: \char`\"{}\+Patient\+ID\char`\"{},\char`\"{}\+Patient\+Birth\+Date\char`\"{},\char`\"{}\+Patient\+Name\char`\"{}, \char`\"{}\+Patient\+Age\char`\"{},\char`\"{}\+Patient\+Sex\char`\"{},\char`\"{}\+Patient\+Name\char`\"{},\char`\"{}\+Slice\+Thickness\char`\"{},\char`\"{}\+Study\+ID\char`\"{},\char`\"{}\+Content\+Date\char`\"{}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dcm\+\_\+file} & Path to .dcm file\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+dictionary with metadata information 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a6b5c6eb7faf2611bbbe56b1383e6a84b}\label{classradipop__gui_1_1_radi_pop_g_u_i_a6b5c6eb7faf2611bbbe56b1383e6a84b}} 
 \index{RadiPopGUI@{RadiPopGUI}!find\_organs@{find\_organs}}
 \index{find\_organs@{find\_organs}!RadiPopGUI@{RadiPopGUI}}
 \doxysubsubsection{\texorpdfstring{find\_organs()}{find\_organs()}}
@@ -366,7 +406,13 @@ Steps\+:
 \begin{DoxyItemize}
 \item Sets thresholds for current slice
 \item Runs self.\+find\+\_\+organs on current slice with new thresholds 
-\end{DoxyItemize}
+\end{DoxyItemize}\mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a3fbe8af8b50cb244caead784d3c7deea}\label{classradipop__gui_1_1_radi_pop_g_u_i_a3fbe8af8b50cb244caead784d3c7deea}} 
+\index{RadiPopGUI@{RadiPopGUI}!writePillow2PNG@{writePillow2PNG}}
+\index{writePillow2PNG@{writePillow2PNG}!RadiPopGUI@{RadiPopGUI}}
+\doxysubsubsection{\texorpdfstring{writePillow2PNG()}{writePillow2PNG()}}
+{\footnotesize\ttfamily def write\+Pillow2\+PNG (\begin{DoxyParamCaption}\item[{}]{img,  }\item[{}]{outfile }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
 
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a47338509f293071942e5829fe22ea4b6}\label{classradipop__gui_1_1_radi_pop_g_u_i_a47338509f293071942e5829fe22ea4b6}} 
@@ -464,4 +510,4 @@ Regions in mask with this label value are considered spleen.
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/lorenz/\+Desktop/temp/radipop/\+Radi\+POP-\/standalone/web\+\_\+app/utility/\mbox{\hyperlink{radipop__gui_8py}{radipop\+\_\+gui.\+py}}\end{DoxyCompactItemize}
+/\+Users/lorenz/\+Desktop/temp4/radipop/\+Radi\+POP-\/standalone/web\+\_\+app/utility/\mbox{\hyperlink{radipop__gui_8py}{radipop\+\_\+gui.\+py}}\end{DoxyCompactItemize}
