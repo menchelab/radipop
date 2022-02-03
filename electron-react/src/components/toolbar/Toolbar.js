@@ -100,9 +100,10 @@ function ToolBar(props) {
     props.setRadiPOPstates({files: slice_files, slice_mask_container: smc, currentSliceIndex:0, patient: directory_name, showMask:false, status: loginfo});
 
   }
+  /*
   useEffect(() => {
   props.setRadiPOPstates({files: props.RadiPOPstates.files, slice_mask_container: props.RadiPOPstates.slice_mask_container, currentSliceIndex:0, patient:"?", showMask:true, status: props.RadiPOPstates.status});
-  },[]);
+  },[]); */
 
   const [CorrectParitionButtonLabel, setCorrectParitionButtonLabel] = useState("Correct Partition");
 
