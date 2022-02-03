@@ -15,7 +15,7 @@ function HideMask(props) {
     props.setRadiPOPstates({files: props.RadiPOPstates.files,
       slice_mask_container: props.RadiPOPstates.slice_mask_container,
       currentSliceIndex:props.RadiPOPstates.currentSliceIndex,
-      patient: props.RadiPOPstates.showMask.patient,
+      patient: props.RadiPOPstates.patient,
       showMask: !props.RadiPOPstates.showMask, status: props.RadiPOPstates.status});
 }
 

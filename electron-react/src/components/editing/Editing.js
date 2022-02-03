@@ -120,7 +120,7 @@ function Editing(props) {
       props.setRadiPOPstates({files: props.RadiPOPstates.files,
                               slice_mask_container: update,
                               currentSliceIndex:props.RadiPOPstates.currentSliceIndex,
-                              patient: props.RadiPOPstates.showMask.patient,
+                              patient: props.RadiPOPstates.patient,
                               showMask: props.RadiPOPstates.files.length>0,
                               status: props.RadiPOPstates.status});
     }, [newMask]);
