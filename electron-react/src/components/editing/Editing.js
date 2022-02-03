@@ -109,8 +109,8 @@ function Editing(props) {
           <GlobalThreshold label="Set threshold globally"/>
         </div>
         <div className="tools">
-          <SetLabel label="Set Liver Label"/>
-          <SetLabel label="Set Spleen Label"/>
+          <SetLabel labelID={window.RP_vars.LIVER_LABEL} label="Set Liver Label" RadiPOPstates={props.RadiPOPstates} />
+          <SetLabel labelID={window.RP_vars.SPLEEN_LABEL} label="Set Spleen Label" RadiPOPstates={props.RadiPOPstates} />
         </div>
         <div className="tools">
           <Bound/>

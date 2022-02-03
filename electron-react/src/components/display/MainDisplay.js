@@ -11,7 +11,7 @@ function MainDisplay(props) {
     return(
       <div className="col-lg-6 col-md-6 display-area">
         <Info key="Info" RadiPOPstates={props.RadiPOPstates}/>
-        <Canvas key="Canvas" RadiPOPstates={props.RadiPOPstates}/>
+        <Canvas key="Canvas" RadiPOPstates={props.RadiPOPstates} setRadiPOPstates={p=>{props.setRadiPOPstates(p)}}/>
         <Log key="Log" RadiPOPstates={props.RadiPOPstates}/>
       </div>
   );

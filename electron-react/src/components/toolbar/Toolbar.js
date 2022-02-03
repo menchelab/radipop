@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useState} from 'react';
 import SearchBar from '../toolbar/Searchbar.js';
 import Button from '../toolbar/Button.js';
 import Input from '../toolbar/Input.js';
@@ -99,22 +99,91 @@ function ToolBar(props) {
   }
   useEffect(() => {
   props.setRadiPOPstates({files: props.RadiPOPstates.files, slice_mask_container: props.RadiPOPstates.slice_mask_container, currentSliceIndex:0, patient:"?", showMask:true, status: props.RadiPOPstates.status});
-},[]);
-    return (
-      <div className="row toolbar col-lg-12 col-md-12">
-        <div className="brwhite tool-col col-lg-3 col-md-3">
-          <Input  key="OpenButton" label="Open" myChange={changeHandler} />
-          <Button key="SaveButton" label="Save"/>
-        </div>
-        <div className="tool-col col-lg-6 col-md-6">
-          <Button key="CorrectPartitionButton" label="Correct partition"/>
-          <Button key="ClearEditsButton" label="Clear edits"/>
-        </div>
-        <div className="blwhite tool-col col-lg-3 col-md-3">
-          <SearchBar RadiPOPstates={props.RadiPOPstates}/>
-        </div>
-      </div>
-    );
+  },[]);
+
+  const [CorrectParitionButtonLabel, setCorrectParitionButtonLabel] = useState("Correct Partition");
+
+  const resetMask = ( patientID="1") => {
+    let data={
+      "patientID": patientID,
+      "index": props.RadiPOPstates.currentSliceIndex
+    };
+    fetch("http://localhost:4041"+"/getMask", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function(response){ return response.json();})
+    .then(function(data) {
+      let bytestring = data["mask"];
+      let img = bytestring.split('\'')[1];
+      img= "data:image/png;base64," +img;
+      window.RP_vars.setNewMask(img);
+      console.log("reset")
+    })
+  }
+
+  const correctPartition = (patientID="1") => {
+    let data={
+      "patientID": patientID,
+      "coordinates": window.RP_vars.selectedPoints,
+      "index": props.RadiPOPstates.currentSliceIndex
+    };
+    fetch("http://localhost:4041"+"/correctPartition", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function(response){ return response.json();})
+    .then(function(data) {
+      let bytestring = data["mask"];
+      let img = bytestring.split('\'')[1];
+      img= "data:image/png;base64," +img;
+      window.RP_vars.setNewMask(img);
+    })
+  }
+
+  const handleCorrectPartition = (event) => {
+    window.RP_vars.highlightMode= !window.RP_vars.highlightMode; 
+    if (window.RP_vars.highlightMode){
+      setCorrectParitionButtonLabel("Correct Partition")
+      window.RP_vars.selectedPoints=[];
+      resetMask(); 
+    }
+    else {
+      setCorrectParitionButtonLabel("Exit correction mode");
+    }
+  }
+  const handleCommitCorrections = (event) => {
+    if (window.RP_vars.selectedPoints.length>2){
+      console.log("Commited changes")
+      correctPartition();
+      setCorrectParitionButtonLabel("Correct Partition");
+      window.RP_vars.highlightMode=true; 
+      window.RP_vars.selectedPoints=[];
+    }
+  }
+
+  const handleClearEdits = (event) =>{
+    window.RP_vars.selectedPoints=[];
+    resetMask(); 
+  }
+
+
+return (
+  <div className="row toolbar col-lg-12 col-md-12">
+    <div className="brwhite tool-col col-lg-3 col-md-3">
+      <Input  key="OpenButton" label="Open" myChange={changeHandler} />
+      <Button key="SaveButton" label="Save"/>
+    </div>
+    <div className="tool-col col-lg-6 col-md-6">
+      <Button key="CorrectPartitionButton" label={CorrectParitionButtonLabel} myClick={handleCorrectPartition} />
+      <Button key="CommitCorrectionsButton" label="Commit corrections" myClick={handleCommitCorrections} />
+      <Button key="ClearEditsButton" label="Clear edits" myClick={handleClearEdits}/>
+    </div>
+    <div className="blwhite tool-col col-lg-3 col-md-3">
+      <SearchBar RadiPOPstates={props.RadiPOPstates}/>
+    </div>
+  </div>
+  );
  }
 
 export default ToolBar;
