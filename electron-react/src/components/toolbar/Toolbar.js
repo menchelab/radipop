@@ -100,14 +100,7 @@ function ToolBar(props) {
     props.setRadiPOPstates({files: slice_files, slice_mask_container: smc, currentSliceIndex:0, patient: directory_name, showMask:false, status: loginfo});
 
   }
-  /*useEffect(() => {
-  props.setRadiPOPstates({files: props.RadiPOPstates.files,
-                          slice_mask_container: props.RadiPOPstates.slice_mask_container,
-                          currentSliceIndex:0,
-                          patient:"?",
-                          showMask:true,
-                          status: props.RadiPOPstates.status});
-},[]);*/
+
     return (
       <div className="row toolbar col-lg-12 col-md-12">
         <div className="brwhite tool-col col-lg-3 col-md-3">
