@@ -26,7 +26,7 @@ function MiniCanvas(props) {
         alt="Slices"
         className={`img${props.RadiPOPstates.currentSliceIndex === props.index ? 'selected' : ''}`}
       />
-    {props.RadiPOPstates.showMask === false && <img className="mask" src={props.slice_mask_container[1]} alt="mask"/>}
+    {props.RadiPOPstates.showMask && <img className="mask" src={props.slice_mask_container[1]} alt="mask"/>}
     </div>
   );
 }

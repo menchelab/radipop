@@ -14,7 +14,7 @@ function App() {
     slice_mask_container: [[slice_place_holder,""]],
     currentSliceIndex: 0,
     patient: "None",
-    showMask: true,
+    showMask: false,
     status: ["Log: Here you will find important information about the App status and possible errors"],
     });
 
@@ -22,9 +22,9 @@ function App() {
   return(
     // Passing state to Toolbar and Display
     <div>
-      <ToolBar RadiPOPstates={RadiPOPstates} setRadiPOPstates={p=>{setRadiPOPstates(p)}}/>
+      <ToolBar key="Toolbar" RadiPOPstates={RadiPOPstates} setRadiPOPstates={p=>{setRadiPOPstates(p)}}/>
       <div className="row">
-        <Editing RadiPOPstates={RadiPOPstates} setRadiPOPstates={p=>{setRadiPOPstates(p)}}/>
+        <Editing key="Editing" RadiPOPstates={RadiPOPstates} setRadiPOPstates={p=>{setRadiPOPstates(p)}}/>
         {RadiPOPstates && <Display RadiPOPstates={RadiPOPstates} setRadiPOPstates={p=>{setRadiPOPstates(p)}} />}
       </div>
     </div>

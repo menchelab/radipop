@@ -3,11 +3,11 @@ import '../../styles/log.css';
 
 function Log(props){
   const status = props.RadiPOPstates.status;
-  const listItems = status.map((status) =>
-  <li>{status}</li>
+  const listItems = status.map((status,i) =>
+  <li key={"LogInfo"+String(i)}>  {status}</li>
 ).reverse();
   return(
-    <div className="log">
+    <div key="LogInfo" className="log">
       <ul> {listItems} </ul>
     </div>
 

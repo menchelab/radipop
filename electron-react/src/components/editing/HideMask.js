@@ -12,12 +12,16 @@ function HideMask(props) {
     if(props.RadiPOPstates.showMask === false){
        logInfo = props.RadiPOPstates.status.concat("Masks are hidden");
     }
-    props.setRadiPOPstates({files: props.RadiPOPstates.files, slice_mask_container: props.RadiPOPstates.slice_mask_container, currentSliceIndex:props.RadiPOPstates.currentSliceIndex, patient:"?", showMask: !props.RadiPOPstates.showMask, status: logInfo});
+    props.setRadiPOPstates({files: props.RadiPOPstates.files, 
+      slice_mask_container: props.RadiPOPstates.slice_mask_container, 
+      currentSliceIndex:props.RadiPOPstates.currentSliceIndex, 
+      patient: props.RadiPOPstates.showMask.patient,
+      showMask: !props.RadiPOPstates.showMask, status: logInfo});
 }
 
     return (
       <div className="toolsh">
-        <input type="checkbox" disabled={loaded_files} checked={!props.RadiPOPstates.showMask} id="hide-mask-checkbox" onChange={handleChange} name="hide-mask-checkbox" />
+        <input type="checkbox" disabled={loaded_files} checked={props.RadiPOPstates.showMask} id="hide-mask-checkbox" onChange={handleChange} name="hide-mask-checkbox" />
         <label style={{paddingLeft: "5px"}} htmlFor="hide-mask-checkbox">Show mask</label>
       </div>
     );

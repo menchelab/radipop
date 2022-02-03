@@ -94,14 +94,14 @@ function Editing(props) {
       props.setRadiPOPstates({files: props.RadiPOPstates.files,
                               slice_mask_container: update,
                               currentSliceIndex:props.RadiPOPstates.currentSliceIndex,
-                              patient:"?",
-                              showMask: props.RadiPOPstates.showMask,
+                              patient: props.RadiPOPstates.showMask.patient,
+                              showMask: props.RadiPOPstates.files.length>0,
                               status: props.RadiPOPstates.status});
     }, [newMask]);
 
     return(
       <div className="col-lg-3 col-md-3 utility-area ">
-        <HideMask RadiPOPstates={props.RadiPOPstates} setRadiPOPstates={p=>{props.setRadiPOPstates(p)}}/>
+        <HideMask key="HideMaskBox" RadiPOPstates={props.RadiPOPstates} setRadiPOPstates={p=>{props.setRadiPOPstates(p)}}/>
         <div className="tools">
           <Slider id="bone" label="Bone Intensity:" value={sliderValue.bone} handleSlide={handleSlide} handleClickPlus={handleClickPlus} handleClickMinus={handleClickMinus} />
           <Slider id="vessel" label="Vessel Intensity:" value={sliderValue.vessel} handleSlide={handleSlide} handleClickPlus={handleClickPlus} handleClickMinus={handleClickMinus} />

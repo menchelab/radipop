@@ -10,8 +10,8 @@ function Display(props) {
     return(
       // Passing props to MainDisplay and Sidebar to display state info of App.js
       <div>
-        <MainDisplay RadiPOPstates={props.RadiPOPstates}/>
-        <Sidebar RadiPOPstates={props.RadiPOPstates} setRadiPOPstates={p=>{props.setRadiPOPstates(p)}}/>
+        <MainDisplay key="MainDisplay" RadiPOPstates={props.RadiPOPstates}/>
+        <Sidebar key="SideBar" RadiPOPstates={props.RadiPOPstates} setRadiPOPstates={p=>{props.setRadiPOPstates(p)}}/>
       </div>
     );
 }
