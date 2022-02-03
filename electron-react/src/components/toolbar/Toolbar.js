@@ -50,8 +50,7 @@ function ToolBar(props) {
     let slice_files=[] // array to store .png slices
     let slice_url=[] // array for slice URL -> display
     // Set State: all loaded files unordered
-    let directory_name = event.target.files[0].webkitRelativePath
-    directory_name = directory_name.substr(0, directory_name.indexOf('/'));
+
     // Check if directory only contains .png and .p files and a .DS_Store file
     for (let i=0; i<event.target.files.length; i++) {
       if ((!event.target.files[i].name.endsWith(".png")) && (!event.target.files[i].name.endsWith(".p"))
@@ -64,6 +63,10 @@ function ToolBar(props) {
     if(event.target.files.length === 0){
       return
     }
+    // Get selected directory/patient name
+    let directory_name = event.target.files[0].webkitRelativePath
+    directory_name = directory_name.substr(0, directory_name.indexOf('/'));
+
     props.setRadiPOPstates({files: event.target.files});
     // Split .p and .png files
     for (let i=0; i<event.target.files.length; i++) {
@@ -97,14 +100,14 @@ function ToolBar(props) {
     props.setRadiPOPstates({files: slice_files, slice_mask_container: smc, currentSliceIndex:0, patient: directory_name, showMask:false, status: loginfo});
 
   }
-  useEffect(() => {
+  /*useEffect(() => {
   props.setRadiPOPstates({files: props.RadiPOPstates.files,
                           slice_mask_container: props.RadiPOPstates.slice_mask_container,
                           currentSliceIndex:0,
                           patient:"?",
                           showMask:true,
                           status: props.RadiPOPstates.status});
-},[]);
+},[]);*/
     return (
       <div className="row toolbar col-lg-12 col-md-12">
         <div className="brwhite tool-col col-lg-3 col-md-3">
