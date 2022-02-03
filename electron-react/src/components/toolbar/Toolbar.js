@@ -53,7 +53,7 @@ function ToolBar(props) {
 
     // Check if directory only contains .png and .p files and a .DS_Store file
     for (let i=0; i<event.target.files.length; i++) {
-      if ((!event.target.files[i].name.endsWith(".png")) && (!event.target.files[i].name.endsWith(".p")) 
+      if ((!event.target.files[i].name.endsWith(".png")) && (!event.target.files[i].name.endsWith(".p"))
       && (!event.target.files[i].name.endsWith(".dcm")) && (!event.target.files[i].name.endsWith(".DS_Store"))){
           alert("Directory should only contain .png and .p files")
           return
@@ -95,10 +95,14 @@ function ToolBar(props) {
     const loginfo = props.RadiPOPstates.status.concat("You succesfully loaded the .png files in EditorXR!");
     props.setRadiPOPstates({files: slice_files, slice_mask_container: smc, currentSliceIndex:0, patient:"?", showMask:false, status: loginfo});
 
-
   }
   useEffect(() => {
-  props.setRadiPOPstates({files: props.RadiPOPstates.files, slice_mask_container: props.RadiPOPstates.slice_mask_container, currentSliceIndex:0, patient:"?", showMask:true, status: props.RadiPOPstates.status});
+  props.setRadiPOPstates({files: props.RadiPOPstates.files,
+                          slice_mask_container: props.RadiPOPstates.slice_mask_container,
+                          currentSliceIndex:0,
+                          patient:"?",
+                          showMask:true,
+                          status: props.RadiPOPstates.status});
 },[]);
     return (
       <div className="row toolbar col-lg-12 col-md-12">

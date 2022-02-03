@@ -3,7 +3,7 @@ import ExtendLabel from '../editing/ExtendLabel.js';
 import '../../styles/index.css';
 import '../../styles/editing.css';
 
-function Bound(){
+function Bound(props){
   return(
     <div className="tools fill-bottom">
       Expansion bounds:
@@ -17,7 +17,7 @@ function Bound(){
             <input type="number" id="Down"></input>
           </div>
         </div>
-            <ExtendLabel label='Extend Label'/>
+            <ExtendLabel label='Extend Label' disableApp={props.disableApp}/>
         </div>
   );
 }

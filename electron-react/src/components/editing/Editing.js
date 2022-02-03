@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import HideMask from '../editing/HideMask.js';
 import Slider from '../editing/Slider.js'
 import GlobalThreshold from '../editing/GlobalThreshold.js';
@@ -16,7 +16,9 @@ function Editing(props) {
       vessel: '180',
       liver: '100',
     });
-    const [newMask, setNewMask] = useState('');
+    const [newMask, setNewMask] = useState({mask:'', index:props.RadiPOPstates.currentSliceIndex});
+    const [checkGlobalUpdate, setGlobalUpdate] = useState(false) //State to check if all Thresholds are set
+    const [disableApp, setDisableApp] = useState(false) //State to disable App functions during computations
 
     // Update state "value" on slider change
     const handleSlide = (event) => {
@@ -55,9 +57,27 @@ function Editing(props) {
       }
     }
 
+    // Set the Threshold globally
+    function setThesholdGlobally(){
+      if(disableApp===true){
+        alert("EditorXR computes the new masks. Please wait for the notification in the Log");
+        return
+      }
+      // Check if user loaded files if not -> return
+      if(props.RadiPOPstates.files.length === 0){
+        return
+      }
+      setDisableApp(true); //Disable buttons/sliders during computation
+      for (let i=0; i<props.RadiPOPstates.slice_mask_container.length; i++) {
+        let current_slice = String(i);
+        updateMask(current_slice, sliderValue, true);
+      }
+    }
+
     // Update the mask. Function should be called when the intensity sliders change.
     // RadiPOP segmenter will calculate a new mask --> update mask in main window
-    const updateMask = (target_slice_idx, value, patientID="1") => {
+    const updateMask = (target_slice_idx, value, global, patientID="1") => {
+
       let data={
         "patientID": patientID,
         "bone-intensity-slider": value.bone,
@@ -74,7 +94,11 @@ function Editing(props) {
         let bytestring = data["mask"];
         let img = bytestring.split('\'')[1];
         img= "data:image/png;base64," +img;
-        setNewMask(img);
+        setNewMask({mask: img, index: target_slice_idx});
+        if (global === true && +target_slice_idx === props.RadiPOPstates.slice_mask_container.length-1){
+           const loginfo = props.RadiPOPstates.status.concat("EditorXR updated all masks");
+           setGlobalUpdate(!checkGlobalUpdate);
+        }
       }).catch(error_handler)
     }
 
@@ -84,13 +108,15 @@ function Editing(props) {
       //alert("Failed to contact flask server or Flask handling error - It may take a while to start up the server... Try again later.");
     }
 
+    // Updates Mask on slider change
     useEffect(() => {
-      updateMask(props.RadiPOPstates.currentSliceIndex, sliderValue);
+      updateMask(props.RadiPOPstates.currentSliceIndex, sliderValue, false);
     },[sliderValue]);
 
+    // Render new mask after computation
     useEffect(() => {
       let update = props.RadiPOPstates.slice_mask_container;
-      update[props.RadiPOPstates.currentSliceIndex][1] = newMask;
+      update[newMask.index][1] = newMask.mask;
       props.setRadiPOPstates({files: props.RadiPOPstates.files,
                               slice_mask_container: update,
                               currentSliceIndex:props.RadiPOPstates.currentSliceIndex,
@@ -99,21 +125,60 @@ function Editing(props) {
                               status: props.RadiPOPstates.status});
     }, [newMask]);
 
+
+    const firstUpdate = useRef(true); // Avoid Log print on first render
+    // Update Log after computing all new masks
+    useEffect(() => {
+      if (firstUpdate.current) {
+        firstUpdate.current = false;
+          return;
+      }
+      const loginfo = props.RadiPOPstates.status.concat("EditorXR updated all masks");
+      props.setRadiPOPstates({files: props.RadiPOPstates.files,
+        slice_mask_container: props.RadiPOPstates.slice_mask_container,
+        currentSliceIndex:props.RadiPOPstates.currentSliceIndex,
+        patient:props.RadiPOPstates.patient,
+        showMask:props.RadiPOPstates.showMask,
+        status: loginfo});
+    setDisableApp(false); // After computation allow user to buttons/sliders
+  },[checkGlobalUpdate]);
+
     return(
       <div className="col-lg-3 col-md-3 utility-area ">
-        <HideMask key="HideMaskBox" RadiPOPstates={props.RadiPOPstates} setRadiPOPstates={p=>{props.setRadiPOPstates(p)}}/>
+        <HideMask key="HideMaskBox" RadiPOPstates={props.RadiPOPstates} setRadiPOPstates={p=>{props.setRadiPOPstates(p)}} disableApp={disableApp}/>
         <div className="tools">
-          <Slider id="bone" label="Bone Intensity:" value={sliderValue.bone} handleSlide={handleSlide} handleClickPlus={handleClickPlus} handleClickMinus={handleClickMinus} />
-          <Slider id="vessel" label="Vessel Intensity:" value={sliderValue.vessel} handleSlide={handleSlide} handleClickPlus={handleClickPlus} handleClickMinus={handleClickMinus} />
-          <Slider id="liver" label="Liver Intensity:" value={sliderValue.liver} handleSlide={handleSlide} handleClickPlus={handleClickPlus} handleClickMinus={handleClickMinus}/>
-          <GlobalThreshold label="Set threshold globally"/>
+          <Slider id="bone"
+                  label="Bone Intensity:"
+                  value={sliderValue.bone}
+                  disableApp={disableApp}
+                  handleSlide={handleSlide}
+                  handleClickPlus={handleClickPlus}
+                  handleClickMinus={handleClickMinus} />
+          <Slider id="vessel"
+                  label="Vessel Intensity:"
+                  value={sliderValue.vessel}
+                  disableApp={disableApp}
+                  handleSlide={handleSlide}
+                  handleClickPlus={handleClickPlus}
+                  handleClickMinus={handleClickMinus} />
+          <Slider id="liver"
+                  label="Liver Intensity:"
+                  value={sliderValue.liver}
+                  disableApp={disableApp}
+                  handleSlide={handleSlide}
+                  handleClickPlus={handleClickPlus}
+                  handleClickMinus={handleClickMinus}/>
+          <GlobalThreshold label="Set threshold globally"
+                          setThesholdGlobally={setThesholdGlobally}
+                          setRadiPOPstates={p=>{props.setRadiPOPstates(p)}}
+                          disableApp={disableApp}/>
         </div>
         <div className="tools">
           <SetLabel label="Set Liver Label"/>
           <SetLabel label="Set Spleen Label"/>
         </div>
         <div className="tools">
-          <Bound/>
+          <Bound disableApp={disableApp}/>
         </div>
       </div>
   );
