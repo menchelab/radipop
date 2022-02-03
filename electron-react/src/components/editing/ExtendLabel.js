@@ -5,7 +5,7 @@ import '../../styles/index.css';
 
 function ExtendLabel(props){
   return(
-      <button className="button-editing">
+      <button disabled={props.disableApp} className="button-editing">
         {props.label}
       </button>
   );

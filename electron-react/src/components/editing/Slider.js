@@ -9,9 +9,21 @@ function Slider(props) {
       <div>
      <span id="intensity-slider-output">{props.label} {props.value}</span>
         <div className="slidecontainer">
-            <button id={props.id}className="slider-button" onClick={props.handleClickMinus}>-</button>
-            <input id={props.id} type="range" min="0" max="300" step="5" value={props.value} className="slider" onChange={props.handleSlide}/>
-            <button id={props.id} className="slider-button" onClick={props.handleClickPlus}>+</button>
+            <button disabled={props.disableApp}
+                    id={props.id}
+                    className="slider-button"
+                    onClick={props.handleClickMinus}>-</button>
+            <input disabled={props.disableApp}
+                   id={props.id}
+                   type="range"
+                   min="0" max="300" step="5"
+                   value={props.value}
+                   className="slider"
+                   onChange={props.handleSlide}/>
+            <button disabled={props.disableApp}
+                    id={props.id}
+                    className="slider-button"
+                    onClick={props.handleClickPlus}>+</button>
         </div>
       </div>
     );
