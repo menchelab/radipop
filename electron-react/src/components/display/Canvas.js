@@ -4,18 +4,13 @@ import '../../styles/display.css'
 function Canvas(props){
 
   const handleClick = (event) => {
-    console.log("Canvas was clicked.")
     let rel_x = event.nativeEvent.offsetX/event.target.width;
     let rel_y = event.nativeEvent.offsetY/event.target.height;
-    console.log(rel_x);
-    console.log(rel_y);
     if (window.RP_vars.highlightMode){
-      console.log("Higlighting Mode")
-      highlightOrgan(rel_x,rel_y); 
+      highlightOrgan(rel_x,rel_y);
     }
     else {
-      console.log("Correct partition mode");
-      window.RP_vars.selectedPoints.push(rel_x); 
+      window.RP_vars.selectedPoints.push(rel_x);
       window.RP_vars.selectedPoints.push(rel_y);
       drawOnMask(window.RP_vars.selectedPoints);
     }
@@ -42,7 +37,7 @@ function Canvas(props){
     })
   }
 
-   //Draw on mask 
+   //Draw on mask
    const drawOnMask = (coordinates,patientID="1") => {
     let data={
       "patientID": patientID,
@@ -54,23 +49,23 @@ function Canvas(props){
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify(data)
     })
-    .then(function(response){ return response.json();})   
-    .then(function(data){                      
+    .then(function(response){ return response.json();})
+    .then(function(data){
       let bytestring = data["mask"];
       let img = bytestring.split('\'')[1];
-      img="data:image/png;base64," + img; 
+      img="data:image/png;base64," + img;
       window.RP_vars.setNewMask(img);
     })
   }
- 
+
 
   return(
      <div className="slice-mask-container" >
       <img className="img" src={props.RadiPOPstates.slice_mask_container[props.RadiPOPstates.currentSliceIndex][0]}  alt="CT slice for editing"/>
-      {props.RadiPOPstates.showMask  && 
-        <img className="mask" 
-        src={props.RadiPOPstates.slice_mask_container[props.RadiPOPstates.currentSliceIndex][1]} 
-        onClick={handleClick} alt="mask"/> 
+      {props.RadiPOPstates.showMask  &&
+        <img className="mask"
+        src={props.RadiPOPstates.slice_mask_container[props.RadiPOPstates.currentSliceIndex][1]}
+        onClick={handleClick} alt="mask"/>
       }
     </div>
   );

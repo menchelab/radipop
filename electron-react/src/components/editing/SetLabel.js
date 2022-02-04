@@ -4,9 +4,7 @@ import '../../styles/index.css';
 
 
 function SetLabel(props){
-
   const handleClick = (event) =>{
-    console.log(props.labelID);
     labelOrgan(props.labelID)
   }
 

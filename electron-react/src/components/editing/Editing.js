@@ -16,6 +16,12 @@ function Editing(props) {
       vessel: '180',
       liver: '100',
     });
+
+    const[expansionBounds, setExpansionBounds]=useState({
+      up: 0,
+      down: 0
+    });
+
     const [newMask, setNewMask] = useState({mask:'', index:props.RadiPOPstates.currentSliceIndex});
     const [checkGlobalUpdate, setGlobalUpdate] = useState(false) //State to check if all Thresholds are set
     const [disableApp, setDisableApp] = useState(false) //State to disable App functions during computations
@@ -72,6 +78,19 @@ function Editing(props) {
         let current_slice = String(i);
         updateMask(current_slice, sliderValue, true);
       }
+    }
+
+    const getBounds = (event) => {
+      if(event.target.id === 'Up'){
+        setExpansionBounds({up: event.target.value, down: expansionBounds.down})
+      }
+      if(event.target.id === 'Down'){
+        setExpansionBounds({up: expansionBounds.up, down: event.target.value})
+      }
+    }
+
+    function extendLabelClick(){
+      extendThresholds(expansionBounds.up, expansionBounds.down)
     }
 
     // Update the mask. Function should be called when the intensity sliders change.
@@ -143,6 +162,47 @@ function Editing(props) {
     setDisableApp(false); // After computation allow user to buttons/sliders
   },[checkGlobalUpdate]);
 
+  function extendThresholds(left,right,patientID="1") {
+    console.log("LEFT", left);
+    console.log("RIGHT", right);
+    let current= props.RadiPOPstates.currentSliceIndex;
+    let data ={index: current,left: left, right: right,"patientID": patientID};
+    fetch("http://localhost:4041"+"/extendThresholds", {
+     method: 'POST',
+     headers: { 'Content-Type': 'application/json'},
+     body: JSON.stringify(data)
+    })
+    .then(function(response){ return response.json();})
+    .then(function(data){
+     console.log("DATA", data)
+     console.log("RIFHT MOST", data["right_most_idx"])
+     for (let index=parseInt(data["left_most_idx"]); index<parseInt(data["right_most_idx"])+1; index++) {
+       console.log("INDEX", index);
+       getMask(index);
+     }
+}).catch(error_handler)
+}
+
+  //Get mask of given index
+  function getMask(target_slice_idx,patientID="1") {
+    let data={
+      "index": target_slice_idx,
+      "patientID": patientID
+    };
+    fetch("http://localhost:4041"+"/getMask", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    })
+    .then(function(response){ return response.json();})
+    .then(function(data){
+      let bytestring = data["mask"];
+      let img = bytestring.split('\'')[1];
+      img= "data:image/png;base64," +img;
+      setNewMask({mask: img, index: target_slice_idx});
+    }).catch(error_handler)
+  }
+
     return(
       <div className="col-lg-3 col-md-3 utility-area ">
         <HideMask key="HideMaskBox" RadiPOPstates={props.RadiPOPstates} setRadiPOPstates={p=>{props.setRadiPOPstates(p)}} disableApp={disableApp}/>
@@ -178,7 +238,7 @@ function Editing(props) {
           <SetLabel labelID={window.RP_vars.SPLEEN_LABEL} label="Set Spleen Label" RadiPOPstates={props.RadiPOPstates} />
         </div>
         <div className="tools">
-          <Bound disableApp={disableApp}/>
+          <Bound disableApp={disableApp} extendLabelClick={extendLabelClick} getBounds={getBounds}/>
         </div>
       </div>
   );
