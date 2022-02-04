@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import '../../styles/display.css'
 
 function Canvas(props){
@@ -24,7 +24,7 @@ function Canvas(props){
       "y": rel_y,
       "index": props.RadiPOPstates.currentSliceIndex
     };
-    fetch("http://localhost:4041"+"/highlightOrgan", {
+    fetch(window.RP_vars.FLASK_SERVER+"/highlightOrgan", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -44,7 +44,7 @@ function Canvas(props){
       "index": props.RadiPOPstates.currentSliceIndex,
       "coordinates": coordinates
     };
-    fetch("http://localhost:4041"+"/drawOnMask", {
+    fetch(window.RP_vars.FLASK_SERVER+"/drawOnMask", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify(data)

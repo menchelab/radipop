@@ -14,7 +14,7 @@ function SetLabel(props){
       "label": label,
       "index": props.RadiPOPstates.currentSliceIndex
     };
-    fetch("http://localhost:4041"+"/labelOrgan", {
+    fetch(window.RP_vars.FLASK_SERVER+"/labelOrgan", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)

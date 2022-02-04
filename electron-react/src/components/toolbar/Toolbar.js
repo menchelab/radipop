@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from 'react';
+import React, {useState} from 'react';
 import SearchBar from '../toolbar/Searchbar.js';
 import Button from '../toolbar/Button.js';
 import Input from '../toolbar/Input.js';
@@ -10,7 +10,7 @@ function initialize(paths,patientID="1") {
     paths: paths,
     "patientID": patientID
   };
-  fetch("http://localhost:4041"+"/initialize", {
+  fetch(window.RP_vars.FLASK_SERVER+"/initialize", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
@@ -28,7 +28,7 @@ function error_handler(){
 // Post the path to a mask pickle file and get a transparent PNG file in return
 function postPickleGetMask (smc, index, path,patientID="1")  {
   let data = {index: index, path: path,"patientID": patientID};
-  fetch("http://localhost:4041"+"/postPickleGetMask", {
+  fetch(window.RP_vars.FLASK_SERVER+"/postPickleGetMask", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'},
     body: JSON.stringify(data)
@@ -48,7 +48,6 @@ function ToolBar(props) {
   const changeHandler = (event) => {
     let mask_files=[] // array to store .p files
     let slice_files=[] // array to store .png slices
-    let slice_url=[] // array for slice URL -> display
     // Set State: all loaded files unordered
 
     // Check if directory only contains .png and .p files and a .DS_Store file
@@ -112,7 +111,7 @@ function ToolBar(props) {
       "patientID": patientID,
       "index": props.RadiPOPstates.currentSliceIndex
     };
-    fetch("http://localhost:4041"+"/getMask", {
+    fetch(window.RP_vars.FLASK_SERVER+"/getMask", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -132,7 +131,7 @@ function ToolBar(props) {
       "coordinates": window.RP_vars.selectedPoints,
       "index": props.RadiPOPstates.currentSliceIndex
     };
-    fetch("http://localhost:4041"+"/correctPartition", {
+    fetch(window.RP_vars.FLASK_SERVER+"/correctPartition", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -178,12 +177,12 @@ return (
       <Input  key="OpenButton" label="Open" myChange={changeHandler} />
       <Button key="SaveButton" label="Save"/>
     </div>
-    <div className="tool-col col-lg-6 col-md-6">
+    <div className="tool-col col-lg-7 col-md-7">
       <Button key="CorrectPartitionButton" label={CorrectParitionButtonLabel} myClick={handleCorrectPartition} />
       <Button key="CommitCorrectionsButton" label="Commit corrections" myClick={handleCommitCorrections} />
       <Button key="ClearEditsButton" label="Clear edits" myClick={handleClearEdits}/>
     </div>
-    <div className="blwhite tool-col col-lg-3 col-md-3">
+    <div className="blwhite tool-col col-lg-2 col-md-2">
       <SearchBar RadiPOPstates={props.RadiPOPstates}/>
     </div>
   </div>

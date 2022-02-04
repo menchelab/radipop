@@ -104,7 +104,7 @@ function Editing(props) {
         "blood-vessel-intensity-slider": value.vessel,
         "index": target_slice_idx
       };
-      fetch("http://localhost:4041"+"/updateMask", {
+      fetch(window.RP_vars.FLASK_SERVER+"/updateMask", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -130,6 +130,7 @@ function Editing(props) {
     // Updates Mask on slider change
     useEffect(() => {
       updateMask(props.RadiPOPstates.currentSliceIndex, sliderValue, false);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     },[sliderValue]);
 
     // Render new mask after computation
@@ -142,6 +143,7 @@ function Editing(props) {
                               patient: props.RadiPOPstates.patient,
                               showMask: props.RadiPOPstates.files.length>0,
                               status: props.RadiPOPstates.status});
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newMask]);
 
 
@@ -160,6 +162,7 @@ function Editing(props) {
         showMask:props.RadiPOPstates.showMask,
         status: loginfo});
     setDisableApp(false); // After computation allow user to buttons/sliders
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[checkGlobalUpdate]);
 
   function extendLabels(left,right,patientID="1") {
@@ -167,7 +170,7 @@ function Editing(props) {
     console.log("RIGHT", right);
     let current= props.RadiPOPstates.currentSliceIndex;
     let data ={index: current,left: left, right: right,"patientID": patientID};
-    fetch("http://localhost:4041"+"/extendLabels", {
+    fetch(window.RP_vars.FLASK_SERVER+"/extendLabels", {
      method: 'POST',
      headers: { 'Content-Type': 'application/json'},
      body: JSON.stringify(data)
@@ -189,7 +192,7 @@ function Editing(props) {
       "index": target_slice_idx,
       "patientID": patientID
     };
-    fetch("http://localhost:4041"+"/getMask", {
+    fetch(window.RP_vars.FLASK_SERVER+"/getMask", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify(data)

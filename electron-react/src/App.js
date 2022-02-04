@@ -11,7 +11,7 @@ window.RP_vars.highlightMode=true;
 window.RP_vars.selectedPoints= [];
 window.RP_vars.LIVER_LABEL=1;
 window.RP_vars.SPLEEN_LABEL=2;
-
+window.RP_vars.FLASK_SERVER="http://localhost:4041";
 
 
 function App() {
@@ -38,6 +38,7 @@ function App() {
                             patient: RadiPOPstates.patient,
                             showMask: RadiPOPstates.files.length>0,
                             status: RadiPOPstates.status});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newMask]);
 
   return(
