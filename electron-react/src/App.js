@@ -6,9 +6,9 @@ import Editing from './components/editing/Editing.js';
 import Display from './components/display/Display.js';
 import slice_place_holder from './assets/images/editor_placeholder.png';
 
-window.RP_vars={}; 
-window.RP_vars.highlightMode=true; 
-window.RP_vars.selectedPoints= []; 
+window.RP_vars={};
+window.RP_vars.highlightMode=true;
+window.RP_vars.selectedPoints= [];
 window.RP_vars.LIVER_LABEL=1;
 window.RP_vars.SPLEEN_LABEL=2;
 
@@ -35,7 +35,7 @@ function App() {
     setRadiPOPstates({files: RadiPOPstates.files,
                             slice_mask_container: update,
                             currentSliceIndex:RadiPOPstates.currentSliceIndex,
-                            patient: RadiPOPstates.showMask.patient,
+                            patient: RadiPOPstates.patient,
                             showMask: RadiPOPstates.files.length>0,
                             status: RadiPOPstates.status});
   }, [newMask]);

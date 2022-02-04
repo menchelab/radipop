@@ -13,7 +13,7 @@ function MiniCanvas(props) {
      files: props.RadiPOPstates.files,
      slice_mask_container: props.RadiPOPstates.slice_mask_container,
      currentSliceIndex: parseInt(props.index),
-     patient: "?",
+     patient: props.RadiPOPstates.patient,
      showMask: props.RadiPOPstates.showMask,
      status: props.RadiPOPstates.status,
     })
