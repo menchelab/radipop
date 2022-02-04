@@ -90,7 +90,7 @@ function Editing(props) {
     }
 
     function extendLabelClick(){
-      extendThresholds(expansionBounds.up, expansionBounds.down)
+      extendLabels(expansionBounds.up, expansionBounds.down)
     }
 
     // Update the mask. Function should be called when the intensity sliders change.
@@ -162,12 +162,12 @@ function Editing(props) {
     setDisableApp(false); // After computation allow user to buttons/sliders
   },[checkGlobalUpdate]);
 
-  function extendThresholds(left,right,patientID="1") {
+  function extendLabels(left,right,patientID="1") {
     console.log("LEFT", left);
     console.log("RIGHT", right);
     let current= props.RadiPOPstates.currentSliceIndex;
     let data ={index: current,left: left, right: right,"patientID": patientID};
-    fetch("http://localhost:4041"+"/extendThresholds", {
+    fetch("http://localhost:4041"+"/extendLabels", {
      method: 'POST',
      headers: { 'Content-Type': 'application/json'},
      body: JSON.stringify(data)

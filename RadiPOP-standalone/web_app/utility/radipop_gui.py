@@ -204,19 +204,19 @@ class RadiPopGUI:
         Extends labels left and right from current slice
         How far the labels are extended is taken from left and right expansion bounds
         """
-        left_most_idx=min(left_extend+1, cur_idx)
-        right_most_idx=min(right_extend+1, len(self.sliceCache) - cur_idx)
+        down= cur_idx if (cur_idx-left_extend<0) else left_extend
+        up= len(self.sliceCache)-cur_idx-1 if (cur_idx+right_extend>=len(self.sliceCache)) else right_extend
 
         #Left of current slice
-        for i in range(1, left_most_idx):
-            self.masks[cur_idx - i] = segmentation_utils.guess_bounds(self.masks[cur_idx - i], self.masks[cur_idx-i+1])
+        for i in range(0, down):
+            self.masks[cur_idx - i-1] = segmentation_utils.guess_bounds(self.masks[cur_idx - i-1], self.masks[cur_idx-i])
         
         #Right of current slice 
-        for i in range(1, right_most_idx):
-            self.masks[cur_idx + i] = segmentation_utils.guess_bounds(self.masks[cur_idx + i], self.masks[cur_idx+i-1])
+        for i in range(0, up):
+            self.masks[cur_idx + i+1] = segmentation_utils.guess_bounds(self.masks[cur_idx + i+1], self.masks[cur_idx+i])
 
-        left_most_idx=cur_idx-left_most_idx+1
-        right_most_idx=cur_idx+right_most_idx-1
+        left_most_idx=cur_idx-down
+        right_most_idx=cur_idx+up
 
 
         return (left_most_idx,right_most_idx)

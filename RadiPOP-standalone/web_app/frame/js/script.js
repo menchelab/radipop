@@ -202,7 +202,7 @@ $(document).ready(function () {
     right=document.getElementById("right_expansion_bound_input").value;
     console.log(left);
     console.log(right);
-    extendThresholds(left,right)
+    extendLabels(left,right)
   }); 
 
   document.getElementById("save-button").addEventListener("click", () =>{
@@ -286,10 +286,10 @@ $(document).ready(function () {
   }
 
    //Label highlighted organ as id
-   function extendThresholds(left,right,patientID="1") {
+   function extendLabels(left,right,patientID="1") {
     let index= RadiPOP_states.current_slice_idx;
     let data ={index: index,left: left, right: right,"patientID": patientID};
-    fetch(RadiPOP_states.FLASK_SERVER+"/extendThresholds", {
+    fetch(RadiPOP_states.FLASK_SERVER+"/extendLabels", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify(data)

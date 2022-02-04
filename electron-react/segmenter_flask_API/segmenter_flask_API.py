@@ -186,13 +186,13 @@ def labelOrgan():
     img_base64=RadiPopGUI.create_image_stream(img)
     return jsonify({'mask': str(img_base64)})
 
-@app.route('/extendThresholds', methods=['POST'])
-def extendThresholds():
+@app.route('/extendLabels', methods=['POST'])
+def extendLabels():
     """! Reveives index to slice mask + label id --> returns highlighted mask as PNG to client 
     @param patientID The ID of the patient
     @param index The index of the slice for which to mask should be updated 
-    @param left Extend labeling up to index-label
-    @param right Extend labeling up to index+label
+    @param left Extend labeling up to index-left
+    @param right Extend labeling up to index+right
 
     @returns JSON: {left_most_idx: idx, right_most_idx: idx} 
 
