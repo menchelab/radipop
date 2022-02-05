@@ -96,10 +96,10 @@ function Editing(props) {
 
     // Update the mask. Function should be called when the intensity sliders change.
     // RadiPOP segmenter will calculate a new mask --> update mask in main window
-    const updateMask = (target_slice_idx, value, global, patientID="1") => {
+    const updateMask = (target_slice_idx, value, global) => {
 
       let data={
-        "patientID": patientID,
+        "patientID": props.RadiPOPstates.patient,
         "bone-intensity-slider": value.bone,
         "liver-intensity-slider": value.liver,
         "blood-vessel-intensity-slider": value.vessel,
@@ -168,11 +168,11 @@ function Editing(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[checkGlobalUpdate]);
 
-  function extendLabels(left,right,patientID="1") {
+  function extendLabels(left,right) {
     console.log("LEFT", left);
     console.log("RIGHT", right);
     let current= props.RadiPOPstates.currentSliceIndex;
-    let data ={index: current,left: left, right: right,"patientID": patientID};
+    let data ={index: current,left: left, right: right,"patientID": props.RadiPOPstates.patient};
     fetch(window.RP_vars.FLASK_SERVER+"/extendLabels", {
      method: 'POST',
      headers: { 'Content-Type': 'application/json'},
@@ -190,10 +190,10 @@ function Editing(props) {
 }
 
   //Get mask of given index
-  function getMask(target_slice_idx,patientID="1") {
+  function getMask(target_slice_idx) {
     let data={
       "index": target_slice_idx,
-      "patientID": patientID
+      "patientID": props.RadiPOPstates.patient
     };
     fetch(window.RP_vars.FLASK_SERVER+"/getMask", {
       method: 'POST',

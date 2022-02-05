@@ -17,9 +17,9 @@ function Canvas(props){
 
   }
 
-  const highlightOrgan = (rel_x, rel_y, patientID="1") => {
+  const highlightOrgan = (rel_x, rel_y) => {
     let data={
-      "patientID": patientID,
+      "patientID": props.RadiPOPstates.patient,
       "x": rel_x,
       "y": rel_y,
       "index": props.RadiPOPstates.currentSliceIndex
@@ -38,9 +38,9 @@ function Canvas(props){
   }
 
    //Draw on mask
-   const drawOnMask = (coordinates,patientID="1") => {
+   const drawOnMask = (coordinates) => {
     let data={
-      "patientID": patientID,
+      "patientID": props.RadiPOPstates.patient,
       "index": props.RadiPOPstates.currentSliceIndex,
       "coordinates": coordinates
     };

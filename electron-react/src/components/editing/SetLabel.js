@@ -8,9 +8,9 @@ function SetLabel(props){
     labelOrgan(props.labelID)
   }
 
-  const labelOrgan = (label, patientID="1") => {
+  const labelOrgan = (label) => {
     let data={
-      "patientID": patientID,
+      "patientID": props.RadiPOPstates.patient,
       "label": label,
       "index": props.RadiPOPstates.currentSliceIndex
     };

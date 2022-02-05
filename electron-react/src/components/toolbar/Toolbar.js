@@ -5,7 +5,7 @@ import Input from '../toolbar/Input.js';
 import '../../styles/toolbar.css';
 import '../../styles/index.css';
 
-function initialize(paths,patientID="1") {
+function initialize(paths,patientID) {
   let data={
     paths: paths,
     "patientID": patientID
@@ -29,8 +29,11 @@ function error_handler(){
 }
 
 // Post the path to a mask pickle file and get a transparent PNG file in return
-function postPickleGetMask (smc, index, path,patientID="1")  {
-  let data = {index: index, path: path,"patientID": patientID};
+function postPickleGetMask (smc, index, path, patientID)  {
+  let data = {
+    index: index, 
+    path: path,
+    "patientID": patientID};
   fetch(window.RP_vars.FLASK_SERVER+"/postPickleGetMask", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'},
@@ -89,12 +92,12 @@ function ToolBar(props) {
       smc.push([URL.createObjectURL(slice_files[i]),""])
     }
     let slice_files_paths  = slice_files.map((item) => item.path);
-    initialize(slice_files_paths, "1");
+    initialize(slice_files_paths, directory_name);
 
 
     let mask_files_paths  = mask_files.map((item) => item.path);
     for(let i=0; i<mask_files_paths.length; i++){
-      postPickleGetMask(smc,i, mask_files_paths[i], "1");
+      postPickleGetMask(smc,i, mask_files_paths[i], directory_name);
     }
 
     // Update state with loaded files
@@ -109,9 +112,9 @@ function ToolBar(props) {
 
   const [CorrectParitionButtonLabel, setCorrectParitionButtonLabel] = useState("Correct Partition");
 
-  const resetMask = ( patientID="1") => {
+  const resetMask = () => {
     let data={
-      "patientID": patientID,
+      "patientID": props.RadiPOPstates.patient,
       "index": props.RadiPOPstates.currentSliceIndex
     };
     fetch(window.RP_vars.FLASK_SERVER+"/getMask", {
@@ -128,9 +131,9 @@ function ToolBar(props) {
     })
   }
 
-  const correctPartition = (patientID="1") => {
+  const correctPartition = () => {
     let data={
-      "patientID": patientID,
+      "patientID": props.RadiPOPstates.patient,
       "coordinates": window.RP_vars.selectedPoints,
       "index": props.RadiPOPstates.currentSliceIndex
     };
@@ -180,7 +183,7 @@ function ToolBar(props) {
     console.log(outpath);
 
     let data={
-      "patientID": "1",
+      "patientID": props.RadiPOPstates.patient,
       "path": outpath
     };
     fetch(window.RP_vars.FLASK_SERVER+"/saveMasks", {
