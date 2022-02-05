@@ -174,11 +174,31 @@ function ToolBar(props) {
   }
 
 
+  const saveHandler = (event) => {
+    console.log("Save files")
+    let outpath=props.RadiPOPstates.files[0].path.substring(0, props.RadiPOPstates.files[0].path.lastIndexOf("/")+1);
+    console.log(outpath);
+
+    let data={
+      "patientID": "1",
+      "path": outpath
+    };
+    fetch(window.RP_vars.FLASK_SERVER+"/saveMasks", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function(response){ return response.json();})
+    .then(function(data) {
+      console.log(data)
+    })
+  }
+
+
 return (
   <div className="row toolbar col-lg-12 col-md-12">
     <div className="brwhite tool-col col-lg-3 col-md-3">
       <Input  key="OpenButton" label="Open" myChange={changeHandler} />
-      <Button key="SaveButton" label="Save"/>
+      <Button key="SaveButton" label="Save" myClick={saveHandler}/>
     </div>
     <div className="tool-col col-lg-7 col-md-7">
       <Button key="CorrectPartitionButton" label={CorrectParitionButtonLabel} myClick={handleCorrectPartition} />
