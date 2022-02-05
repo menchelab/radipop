@@ -65,6 +65,7 @@ function Editing(props) {
 
     // Set the Threshold globally
     function setThesholdGlobally(){
+      console.log("Triggered setThresholdGlobally")
       if(disableApp===true){
         alert("EditorXR computes the new masks. Please wait for the notification in the Log");
         return
@@ -129,7 +130,9 @@ function Editing(props) {
 
     // Updates Mask on slider change
     useEffect(() => {
-      updateMask(props.RadiPOPstates.currentSliceIndex, sliderValue, false);
+      if (window.RP_vars.flask_intialized){
+        updateMask(props.RadiPOPstates.currentSliceIndex, sliderValue, false);
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },[sliderValue]);
 

@@ -16,7 +16,10 @@ function initialize(paths,patientID="1") {
     body: JSON.stringify(data)
   })
   .then(function(response){ return response.json();  })
-  .then(function(data){ console.log(data["message"]); })
+  .then(function(data){ 
+    console.log(data["message"]); 
+    window.RP_vars.flask_intialized=true; 
+  })
   .catch(error_handler)
 }
 //Function is raised when requests to Flask server fail for any reason
