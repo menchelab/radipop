@@ -12,6 +12,8 @@ window.RP_vars.selectedPoints= [];
 window.RP_vars.LIVER_LABEL=1;
 window.RP_vars.SPLEEN_LABEL=2;
 window.RP_vars.FLASK_SERVER="http://localhost:4041";
+window.RP_vars.low_clip=850; 
+window.RP_vars.high_clip=1250; 
 
 
 function App() {

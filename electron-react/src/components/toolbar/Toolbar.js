@@ -51,35 +51,41 @@ function postPickleGetMask (smc, index, path, patientID)  {
 
 function ToolBar(props) {
   // Handler for Input Open Button -> load files
-  const changeHandler = (event) => {
+  const openHandler = (event) => {
+    let files = event.target.files; 
+
+    // Check if directory only contains .png and .p files and a .DS_Store file
+    for (let i=0; i<files.length; i++) {
+      if ((!files[i].path.endsWith(".png")) && (!files[i].path.endsWith(".p"))
+      && (!files[i].path.endsWith(".dcm")) && (!files[i].path.endsWith(".DS_Store"))){
+          alert("Directory should only contain .png and .p files")
+          return
+      }
+        }
+    initializeWithFiles(files);
+  }
+  const initializeWithFiles =(files) =>{
     let mask_files=[] // array to store .p files
     let slice_files=[] // array to store .png slices
     // Set State: all loaded files unordered
 
-    // Check if directory only contains .png and .p files and a .DS_Store file
-    for (let i=0; i<event.target.files.length; i++) {
-      if ((!event.target.files[i].name.endsWith(".png")) && (!event.target.files[i].name.endsWith(".p"))
-      && (!event.target.files[i].name.endsWith(".dcm")) && (!event.target.files[i].name.endsWith(".DS_Store"))){
-          alert("Directory should only contain .png and .p files")
-          return
-      }
-    }
+
     // Check if user selected new files -> return if user clicked "cancel"
-    if(event.target.files.length === 0){
+    if(files.length === 0){
       return
     }
     // Get selected directory/patient name
-    let directory_name = event.target.files[0].webkitRelativePath
+    let directory_name = files[0].webkitRelativePath
     directory_name = directory_name.substr(0, directory_name.indexOf('/'));
 
-    props.setRadiPOPstates({files: event.target.files});
+    props.setRadiPOPstates({files: files});
     // Split .p and .png files
-    for (let i=0; i<event.target.files.length; i++) {
-      if (event.target.files[i].name.endsWith(".png")) {
-        slice_files.push(event.target.files[i]);
+    for (let i=0; i<files.length; i++) {
+      if (files[i].name.endsWith(".png")) {
+        slice_files.push(files[i]);
       }
-      if (event.target.files[i].name.endsWith(".p")) {
-        mask_files.push(event.target.files[i]);
+      if (files[i].name.endsWith(".p")) {
+        mask_files.push(files[i]);
       }
    }
     // Order slices and masks
@@ -196,11 +202,44 @@ function ToolBar(props) {
     })
   }
 
+  const dcm2png = (event) => {
+    // Check if user selected new files -> return if user clicked "cancel"
+    let files= event.target.files;
+    if(files.length === 0){
+      return
+    }
+    let dcm_files=[];
+    let png_files=[];
+    let path = files[0].path.substring(0, files[0].path.lastIndexOf("/")+1);
+    for (let i=0; i<files.length; i++) {
+      if (files[i].name.endsWith(".dcm")) {
+        dcm_files.push(files[i].path);
+        png_files.push(path+String(i)+".png");
+      }
+    }
+    console.log(png_files);
+    let data={
+      low_clip: window.RP_vars.low_clip, 
+      high_clip: window.RP_vars.high_clip,
+      "paths": dcm_files
+    };
+    fetch(window.RP_vars.FLASK_SERVER+"/dcm2png", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function(response){ return response.json();})
+    .then(function(data) {
+      console.log(data["message"]);
+      console.log(data["metadata"]);
+      /*initializeWithFiles(png_files); */
+    })
+  }
 
 return (
   <div className="row toolbar col-lg-12 col-md-12">
     <div className="brwhite tool-col col-lg-3 col-md-3">
-      <Input  key="OpenButton" label="Open" myChange={changeHandler} />
+      <Input  key="OpenButton" label="Open" myChange={openHandler} />
+      <Input  key="dcm2png" label="dcm2png" myChange={dcm2png} />
       <Button key="SaveButton" label="Save" myClick={saveHandler}/>
     </div>
     <div className="tool-col col-lg-7 col-md-7">
