@@ -18,7 +18,7 @@ function initialize(paths,patientID="1") {
   .then(function(response){ return response.json();  })
   .then(function(data){ 
     console.log(data["message"]); 
-    window.RP_vars.flask_intialized=true; 
+    window.RP_vars.setflaskIntialized(true); 
   })
   .catch(error_handler)
 }

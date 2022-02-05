@@ -116,7 +116,7 @@ function Editing(props) {
         img= "data:image/png;base64," +img;
         setNewMask({mask: img, index: target_slice_idx});
         if (global === true && +target_slice_idx === props.RadiPOPstates.slice_mask_container.length-1){
-           const loginfo = props.RadiPOPstates.status.concat("EditorXR updated all masks");
+           /*const loginfo = props.RadiPOPstates.status.concat("EditorXR updated all masks"); */
            setGlobalUpdate(!checkGlobalUpdate);
         }
       }).catch(error_handler)
@@ -130,7 +130,7 @@ function Editing(props) {
 
     // Updates Mask on slider change
     useEffect(() => {
-      if (window.RP_vars.flask_intialized){
+      if (window.RP_vars.flaskIntialized){
         updateMask(props.RadiPOPstates.currentSliceIndex, sliderValue, false);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps

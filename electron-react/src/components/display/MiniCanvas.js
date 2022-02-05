@@ -19,14 +19,17 @@ function MiniCanvas(props) {
     })
   }
 
+  
   return(
     <div className="slice-mask-container" onClick={clickImage} >
+       {window.RP_vars.flaskIntialized && <div className="bottom-right"> {props.index+1} </div>}
       <img
         src={props.RadiPOPstates.files.length?props.slice_mask_container[0]:preview}
         alt="Slices"
         className={`img${props.RadiPOPstates.currentSliceIndex === props.index ? 'selected' : ''}`}
       />
-    {props.RadiPOPstates.showMask && <img className="mask" src={props.slice_mask_container[1]} alt="mask"/>}
+    {props.RadiPOPstates.showMask && props.slice_mask_container[1]!=="" && <img className="mask" src={props.slice_mask_container[1]} alt="mask" />}
+    {}
     </div>
   );
 }

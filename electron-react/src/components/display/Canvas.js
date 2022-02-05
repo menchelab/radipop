@@ -62,7 +62,7 @@ function Canvas(props){
   return(
      <div className="slice-mask-container" >
       <img className="img" src={props.RadiPOPstates.slice_mask_container[props.RadiPOPstates.currentSliceIndex][0]}  alt="CT slice for editing"/>
-      {props.RadiPOPstates.showMask  &&
+      {props.RadiPOPstates.showMask  && props.RadiPOPstates.slice_mask_container[props.RadiPOPstates.currentSliceIndex][1]!=="" &&
         <img className="mask"
         src={props.RadiPOPstates.slice_mask_container[props.RadiPOPstates.currentSliceIndex][1]}
         onClick={handleClick} alt="mask"/>

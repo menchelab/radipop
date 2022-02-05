@@ -14,7 +14,7 @@ function Sidebar(props){
         {props.RadiPOPstates.slice_mask_container.map((smc,index) => {
         return <MiniCanvas
           index={index}
-          key={index}
+          key={"sidebar_minicanvas"+index}
           slice_mask_container={smc}
           RadiPOPstates={props.RadiPOPstates}
           setRadiPOPstates={p=>{props.setRadiPOPstates(p)}}

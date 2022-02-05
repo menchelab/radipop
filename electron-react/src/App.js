@@ -12,7 +12,6 @@ window.RP_vars.selectedPoints= [];
 window.RP_vars.LIVER_LABEL=1;
 window.RP_vars.SPLEEN_LABEL=2;
 window.RP_vars.FLASK_SERVER="http://localhost:4041";
-window.RP_vars.flask_intialized=false; 
 
 
 function App() {
@@ -29,6 +28,9 @@ function App() {
   const [newMask, setNewMask] = useState("")
   window.RP_vars.newMask=newMask
   window.RP_vars.setNewMask=p=>{setNewMask(p)}
+  const [flaskIntialized, setflaskIntialized] = useState(false)
+  window.RP_vars.flaskIntialized=flaskIntialized
+  window.RP_vars.setflaskIntialized=p=>{setflaskIntialized(p)}
 
   useEffect(() => {
     let update = RadiPOPstates.slice_mask_container;
