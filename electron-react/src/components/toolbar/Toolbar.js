@@ -5,7 +5,7 @@ import Input from '../toolbar/Input.js';
 import '../../styles/toolbar.css';
 import '../../styles/index.css';
 
-function initialize(paths,patientID) {
+function initialize(paths,smc, mask_files, patientID) {
   let data={
     paths: paths,
     "patientID": patientID
@@ -17,8 +17,12 @@ function initialize(paths,patientID) {
   })
   .then(function(response){ return response.json();  })
   .then(function(data){ 
-    console.log(data["message"]); 
-    window.RP_vars.setflaskIntialized(true); 
+    console.log(data["message"]);  
+    let mask_files_paths  = mask_files.map((item) => item.path);
+    for(let i=0; i<mask_files_paths.length; i++){
+      postPickleGetMask(smc,i, mask_files_paths[i], patientID);
+    }
+    window.RP_vars.setflaskIntialized(true);
   })
   .catch(error_handler)
 }
@@ -52,33 +56,24 @@ function postPickleGetMask (smc, index, path, patientID)  {
 function ToolBar(props) {
   // Handler for Input Open Button -> load files
   const openHandler = (event) => {
-    let files = event.target.files; 
-
-    // Check if directory only contains .png and .p files and a .DS_Store file
-    for (let i=0; i<files.length; i++) {
-      if ((!files[i].path.endsWith(".png")) && (!files[i].path.endsWith(".p"))
-      && (!files[i].path.endsWith(".dcm")) && (!files[i].path.endsWith(".DS_Store"))){
-          alert("Directory should only contain .png and .p files")
-          return
+    let target_files= []
+    // Filter out only .png or .p files that start with a number (0-99999...)
+    for (let i=0; i<event.target.files.length; i++) {
+      if (event.target.files[i].name.match(/^(0|[1-9][0-9]*)\.(png|p)$/g)){
+          target_files.push(event.target.files[i])
       }
-        }
-    initializeWithFiles(files);
+    }
+
+    // Check if user selected new files -> return if user clicked "cancel"
+    if(target_files.length > 0){
+      initializeWithFiles(target_files);
+    }
   }
   const initializeWithFiles =(files) =>{
     let mask_files=[] // array to store .p files
     let slice_files=[] // array to store .png slices
     // Set State: all loaded files unordered
-
-
-    // Check if user selected new files -> return if user clicked "cancel"
-    if(files.length === 0){
-      return
-    }
-    // Get selected directory/patient name
-    let directory_name = files[0].webkitRelativePath
-    directory_name = directory_name.substr(0, directory_name.indexOf('/'));
-
-    props.setRadiPOPstates({files: files});
+    
     // Split .p and .png files
     for (let i=0; i<files.length; i++) {
       if (files[i].name.endsWith(".png")) {
@@ -88,6 +83,18 @@ function ToolBar(props) {
         mask_files.push(files[i]);
       }
    }
+
+   if(slice_files.length === 0){
+    alert("No slice files (.png) were found.")
+    return 
+   }
+
+    // Get selected directory/patient name
+    let directory_name = files[0].webkitRelativePath
+    directory_name = directory_name.substr(0, directory_name.indexOf('/'));
+
+    props.setRadiPOPstates({files: files});
+
     // Order slices and masks
     slice_files=[].slice.call(slice_files).sort((a, b) => (parseInt(a.name.replace(".png","")) > parseInt(b.name.replace(".png",""))) ? 1 : -1 )
     mask_files=[].slice.call(mask_files).sort((a, b) => (parseInt(a.name.replace(".p","")) > parseInt(b.name.replace(".p",""))) ? 1 : -1 )
@@ -98,13 +105,9 @@ function ToolBar(props) {
       smc.push([URL.createObjectURL(slice_files[i]),""])
     }
     let slice_files_paths  = slice_files.map((item) => item.path);
-    initialize(slice_files_paths, directory_name);
+    initialize(slice_files_paths, smc, mask_files, directory_name);
 
 
-    let mask_files_paths  = mask_files.map((item) => item.path);
-    for(let i=0; i<mask_files_paths.length; i++){
-      postPickleGetMask(smc,i, mask_files_paths[i], directory_name);
-    }
 
     // Update state with loaded files
     const loginfo = props.RadiPOPstates.status.concat("You succesfully loaded the .png files in EditorXR!");
@@ -185,7 +188,9 @@ function ToolBar(props) {
 
   const saveHandler = (event) => {
     console.log("Save files")
-    let outpath=props.RadiPOPstates.files[0].path.substring(0, props.RadiPOPstates.files[0].path.lastIndexOf("/")+1);
+    //Deciding whether output path is in unix or windows style --> delimiter
+    let delimiter = (props.RadiPOPstates.files[0].path.charAt(0)==="/")?"/":"\\";
+    let outpath=props.RadiPOPstates.files[0].path.substring(0, props.RadiPOPstates.files[0].path.lastIndexOf(delimiter)+1);
     console.log(outpath);
 
     let data={
@@ -205,19 +210,17 @@ function ToolBar(props) {
   const dcm2png = (event) => {
     // Check if user selected new files -> return if user clicked "cancel"
     let files= event.target.files;
-    if(files.length === 0){
-      return
-    }
     let dcm_files=[];
-    let png_files=[];
-    let path = files[0].path.substring(0, files[0].path.lastIndexOf("/")+1);
+
     for (let i=0; i<files.length; i++) {
       if (files[i].name.endsWith(".dcm")) {
         dcm_files.push(files[i].path);
-        png_files.push(path+String(i)+".png");
       }
     }
-    console.log(png_files);
+    if(dcm_files.length === 0){
+      return
+    }
+
     let data={
       low_clip: window.RP_vars.low_clip, 
       high_clip: window.RP_vars.high_clip,
