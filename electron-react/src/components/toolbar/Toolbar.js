@@ -213,7 +213,8 @@ function ToolBar(props) {
     let dcm_files=[];
 
     for (let i=0; i<files.length; i++) {
-      if (files[i].name.endsWith(".dcm")) {
+      //dcm filename must not start with . or _ --> issue especially on windows
+      if (files[i].name.match(/^(?!(\.|_)).*\.dcm/g)) {
         dcm_files.push(files[i].path);
       }
     }
