@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect, useRef, createRef} from 'react';
 import './styles/App.css';
 import './styles/index.css';
 import ToolBar from './components/toolbar/Toolbar.js';
@@ -12,8 +12,8 @@ window.RP_vars.selectedPoints= [];
 window.RP_vars.LIVER_LABEL=1;
 window.RP_vars.SPLEEN_LABEL=2;
 window.RP_vars.FLASK_SERVER="http://localhost:4041";
-window.RP_vars.low_clip=850; 
-window.RP_vars.high_clip=1250; 
+window.RP_vars.low_clip=850;
+window.RP_vars.high_clip=1250;
 
 
 function App() {
@@ -34,6 +34,14 @@ function App() {
   window.RP_vars.flaskIntialized=flaskIntialized
   window.RP_vars.setflaskIntialized=p=>{setflaskIntialized(p)}
 
+  // React ref to store array of refs
+  const scrollRefs = useRef([]);
+  if(RadiPOPstates.files.length>0){
+     scrollRefs.current = [...Array(RadiPOPstates.files.length).keys()].map(
+       (_, i) => scrollRefs.current[i] ?? createRef()
+     );
+  };
+
   useEffect(() => {
     let update = RadiPOPstates.slice_mask_container;
     update[RadiPOPstates.currentSliceIndex][1] = newMask;
@@ -49,10 +57,10 @@ function App() {
   return(
     // Passing state to Toolbar and Display
     <div>
-      <ToolBar key="Toolbar" RadiPOPstates={RadiPOPstates} setRadiPOPstates={p=>{setRadiPOPstates(p)}}/>
+      <ToolBar key="Toolbar" RadiPOPstates={RadiPOPstates} setRadiPOPstates={p=>{setRadiPOPstates(p)}} scrollRefs={scrollRefs}/>
       <div className="row">
         <Editing key="Editing" RadiPOPstates={RadiPOPstates} setRadiPOPstates={p=>{setRadiPOPstates(p)}}/>
-        {RadiPOPstates && <Display RadiPOPstates={RadiPOPstates} setRadiPOPstates={p=>{setRadiPOPstates(p)}} />}
+        {RadiPOPstates && <Display RadiPOPstates={RadiPOPstates} setRadiPOPstates={p=>{setRadiPOPstates(p)}} scrollRefs={scrollRefs}/>}
       </div>
     </div>
  );

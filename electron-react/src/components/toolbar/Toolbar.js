@@ -16,8 +16,8 @@ function initialize(paths,smc, mask_files, patientID) {
     body: JSON.stringify(data)
   })
   .then(function(response){ return response.json();  })
-  .then(function(data){ 
-    console.log(data["message"]);  
+  .then(function(data){
+    console.log(data["message"]);
     let mask_files_paths  = mask_files.map((item) => item.path);
     for(let i=0; i<mask_files_paths.length; i++){
       postPickleGetMask(smc,i, mask_files_paths[i], patientID);
@@ -35,7 +35,7 @@ function error_handler(){
 // Post the path to a mask pickle file and get a transparent PNG file in return
 function postPickleGetMask (smc, index, path, patientID)  {
   let data = {
-    index: index, 
+    index: index,
     path: path,
     "patientID": patientID};
   fetch(window.RP_vars.FLASK_SERVER+"/postPickleGetMask", {
@@ -73,7 +73,7 @@ function ToolBar(props) {
     let mask_files=[] // array to store .p files
     let slice_files=[] // array to store .png slices
     // Set State: all loaded files unordered
-    
+
     // Split .p and .png files
     for (let i=0; i<files.length; i++) {
       if (files[i].name.endsWith(".png")) {
@@ -86,7 +86,7 @@ function ToolBar(props) {
 
    if(slice_files.length === 0){
     alert("No slice files (.png) were found.")
-    return 
+    return
    }
 
     // Get selected directory/patient name
@@ -160,11 +160,11 @@ function ToolBar(props) {
   }
 
   const handleCorrectPartition = (event) => {
-    window.RP_vars.highlightMode= !window.RP_vars.highlightMode; 
+    window.RP_vars.highlightMode= !window.RP_vars.highlightMode;
     if (window.RP_vars.highlightMode){
       setCorrectParitionButtonLabel("Correct Partition")
       window.RP_vars.selectedPoints=[];
-      resetMask(); 
+      resetMask();
     }
     else {
       setCorrectParitionButtonLabel("Exit correction mode");
@@ -175,14 +175,14 @@ function ToolBar(props) {
       console.log("Commited changes")
       correctPartition();
       setCorrectParitionButtonLabel("Correct Partition");
-      window.RP_vars.highlightMode=true; 
+      window.RP_vars.highlightMode=true;
       window.RP_vars.selectedPoints=[];
     }
   }
 
   const handleClearEdits = (event) =>{
     window.RP_vars.selectedPoints=[];
-    resetMask(); 
+    resetMask();
   }
 
 
@@ -223,7 +223,7 @@ function ToolBar(props) {
     }
 
     let data={
-      low_clip: window.RP_vars.low_clip, 
+      low_clip: window.RP_vars.low_clip,
       high_clip: window.RP_vars.high_clip,
       "paths": dcm_files
     };
@@ -252,7 +252,7 @@ return (
       <Button key="ClearEditsButton" label="Clear edits" myClick={handleClearEdits}/>
     </div>
     <div className="blwhite tool-col col-lg-2 col-md-2">
-      <SearchBar RadiPOPstates={props.RadiPOPstates}/>
+      <SearchBar RadiPOPstates={props.RadiPOPstates} scrollRefs={props.scrollRefs}/>
     </div>
   </div>
   );

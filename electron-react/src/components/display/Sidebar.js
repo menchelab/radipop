@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {createRef} from 'react';
 import MiniCanvas from '../display/MiniCanvas.js';
 
 import '../../styles/display.css';
@@ -7,6 +7,10 @@ import '../../styles/index.css';
 
 
 function Sidebar(props){
+     props.scrollRefs.current = [...Array(props.RadiPOPstates.files.length).keys()].map(
+       (_, i) => props.scrollRefs.current[i] ?? createRef()
+     );
+
     return(
       <div className="heading col-lg-2 col-md-2">
         <span style={{textAlign: "center"}}>Slice Preview</span>
@@ -14,6 +18,7 @@ function Sidebar(props){
         {props.RadiPOPstates.slice_mask_container.map((smc,index) => {
         return <MiniCanvas
           index={index}
+          test={props.scrollRefs.current[index]}
           key={"sidebar_minicanvas"+index}
           slice_mask_container={smc}
           RadiPOPstates={props.RadiPOPstates}
