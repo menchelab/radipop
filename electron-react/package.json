@@ -4,6 +4,8 @@
   "homepage": "./",
   "main": "./public/electron.js",
   "private": true,
+  "author": "NA",
+  "description": "TODO",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -30,10 +32,12 @@
       "icon": "./public/icons/mac/icon.icns"
     },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "./public/icons/win/icon.png"
     },
     "linux": {
-      "target": "deb"
+      "target": "deb",
+      "icon": "./public/icons/mac/icon.icns"
     },
     "extraResources": [
       {
@@ -52,10 +56,11 @@
     "eject": "react-scripts eject",
     "package:python": "node package_python.js",
     "electron:start": "concurrently -k \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electronmon .\"",
-    "electron:package:mac": "yarn package:python && yarn build && electron-builder -m -c.extraMetadata.main=build/electron.js && yarn package-cleanup" ,
-    "electron:package:win": "yarn package:python && yarn build && electron-builder -w -c.extraMetadata.main=build/electron.js && yarn package-cleanup",
+    "electron:package:mac": "yarn package:python && yarn build && electron-builder -m -c.extraMetadata.main=build/electron.js && yarn package-cleanup",
+    "electron:package:win": "yarn package:python && yarn build && electron-builder -w -c.extraMetadata.main=build/electron.js && yarn package-cleanup-win",
     "electron:package:linux": "yarn package:python && yarn build && electron-builder -l -c.extraMetadata.main=build/electron.js& & yarn package-cleanup",
-    "package-cleanup": "rm -rf build && rm -rf segmenter_flask_API.spec && rm -rf dist-python"
+    "package-cleanup": "rm -rf build && rm -rf segmenter_flask_API.spec && rm -rf dist-python",
+    "package-cleanup-win": "rd /s /q  build && del segmenter_flask_API.spec && rd /s /q dist-python"
   },
   "eslintConfig": {
     "extends": [
