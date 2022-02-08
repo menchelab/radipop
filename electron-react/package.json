@@ -37,7 +37,7 @@
     },
     "extraResources": [
       {
-        "from": "dist-python/",
+        "from": "dist-python/segmenter_flask_API/",
         "to": "app/dist-python",
         "filter": [
           "**/*"

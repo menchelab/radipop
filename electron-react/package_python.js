@@ -6,7 +6,7 @@ const spawn = require("child_process").spawn,
     [
       "-w",
       "--collect-submodules=pydicom", //OR --hiddenimport=pydicom.encoders.gdcm --hiddenimport=pydicom.encoders.pylibjpeg
-      "--onefile",
+      //"--onefile",
       "--distpath dist-python",
       "segmenter_flask_API/segmenter_flask_API.py",
     ],
