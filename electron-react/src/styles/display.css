@@ -73,9 +73,16 @@ img.mask {
   z-index:10;
  }
 
+ div.canvas img.image {
+   display: block;
+   height: 65vh;
+  }
+
 div.canvas img.canvasmask {
+  display: block;
   position: absolute;
-  height: 70vh;
+  height: 65vh;
+  z-index: 1;
  }
 
  div.bottom-right {
