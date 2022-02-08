@@ -8,7 +8,9 @@ div.display-area {
   height: 100vh;
 }
 
-
+* {
+  box-sizing: border-box;
+}
 /* Right/last column width previews of slices */
 div.scrollbar-area {
   background-color: rgb(245,245,247);
@@ -64,6 +66,7 @@ div.canvas {
   height: 70vh;
   display: flex;
   justify-content: center;
+  overflow:hidden;
 }
 
 img.mask {
@@ -74,14 +77,18 @@ img.mask {
  }
 
  div.canvas img.image {
-   display: block;
-   height: 65vh;
+  display: block;
+  width:auto;
+  max-width: 100%;
+  height: 70vh;
   }
 
 div.canvas img.canvasmask {
   display: block;
   position: absolute;
-  height: 65vh;
+  width:auto;
+  max-width: 100%;
+  height: 70vh;
   z-index: 1;
  }
 
