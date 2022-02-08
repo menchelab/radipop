@@ -2,6 +2,88 @@
 const { app, BrowserWindow, protocol } = require("electron");
 const path = require("path");
 const url = require("url");
+let subpy = null;
+
+
+const PY_DIST_FOLDER = "../../app/dist-python"; // python distributable folder
+const PY_SRC_FOLDER = "../segmenter_flask_API"; // path to the python source
+const PY_MODULE = "segmenter_flask_API.py"; // the name of the main module
+//Check if packaged python segmenter exists
+const pythonBuildExists = () => {
+  return require("fs").existsSync(path.join(__dirname, PY_DIST_FOLDER));
+};
+
+//Get path to python script or python executable if available 
+const getPythonScriptPath = () => {
+  console.log(__dirname);
+  if (!pythonBuildExists() || !app.isPackaged) {
+    console.log(path.join(__dirname, PY_SRC_FOLDER, PY_MODULE))
+    return path.join(__dirname, PY_SRC_FOLDER, PY_MODULE);
+  }
+  if (process.platform === "win32") {
+    return path.join(
+      __dirname,
+      PY_DIST_FOLDER,
+      PY_MODULE.slice(0, -3) + ".exe"
+    );
+  }
+  return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE.slice(0, -3));
+};
+
+const startPythonSubprocess = () => {
+  let script = getPythonScriptPath();
+  if (pythonBuildExists() && app.isPackaged) {
+    subpy = require("child_process").execFile(script, []);
+    console.log("Python executable");
+    console.log(script)
+  } else {
+    subpy = require("child_process").spawn("python", [script]);
+    console.log("Python script");
+    console.log(script)
+  }
+  subpy.stdout.on('data', (data) => {
+    let dataStr = `${data}`
+    console.log("Flask", dataStr)
+  });
+  subpy.stderr.on('data', (data) => {
+    console.log(`Flask: ${data}`);
+  });
+};
+
+const killPythonSubprocesses = (main_pid) => {
+  const python_script_name = path.basename(getPythonScriptPath());
+  let cleanup_completed = false;
+  const psTree = require("ps-tree");
+  psTree(main_pid, function (err, children) {
+    let python_pids = children
+      .filter(function (el) {
+        return el.COMMAND == python_script_name;
+      })
+      .map(function (p) {
+        return p.PID;
+      });
+    
+    //Fix for MacOS --> flask server won't shutdown 
+    if (process.platform == "darwin") {
+      console.log("killPythonSubprocesses")
+      console.log(subpy.pid)
+      process.kill(subpy.pid);
+    }
+    // kill all the spawned python processes
+    python_pids.forEach(function (pid) {
+      process.kill(pid);
+      console.log(pid)
+    });
+    subpy = null;
+    cleanup_completed = true;
+  });
+  return new Promise(function (resolve, reject) {
+    (function waitForSubProcessCleanup() {
+      if (cleanup_completed) return resolve();
+      setTimeout(waitForSubProcessCleanup, 30);
+    })();
+  });
+};
 
 // Create the native browser window.
 function createWindow() {
@@ -54,6 +136,7 @@ function setupLocalFilesNormalizerProxy() {
 // is ready to create the browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  startPythonSubprocess();
   createWindow();
   setupLocalFilesNormalizerProxy();
 
@@ -66,13 +149,12 @@ app.whenReady().then(() => {
   });
 });
 
-// Quit when all windows are closed, except on macOS.
-// There, it's common for applications and their menu bar to stay active until
-// the user quits  explicitly with Cmd + Q.
+// Quit when all windows are closed
 app.on("window-all-closed", function () {
-  if (process.platform !== "darwin") {
+  let main_process_pid = process.pid;
+  killPythonSubprocesses(main_process_pid).then(() => {
     app.quit();
-  }
+  });
 });
 
 // If your app has no need to navigate or only needs to navigate to known pages,

@@ -41,13 +41,12 @@ corepack enable
 
 **Start app**
 - Activate conda environment (or make sure that python packages are available): `conda activate radipop`
-- Start Flask sever: `python segmenter_flask_API/segmenter_flask_API.py`
 - Open App: `npm run electron:start`
 
 
 ## Packaging
 **Package the app for the host platform**
-
+npm run electron:package:mac
 
 
 ## Useful information

@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "ps-tree": "^1.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "^4.0.3",
@@ -33,17 +34,28 @@
     },
     "linux": {
       "target": "deb"
-    }
+    },
+    "extraResources": [
+      {
+        "from": "dist-python/",
+        "to": "app/dist-python",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "package:python": "node package_python.js",
     "electron:start": "concurrently -k \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electronmon .\"",
-    "electron:package:mac": "yarn build && electron-builder -m -c.extraMetadata.main=build/electron.js",
-    "electron:package:win": "yarn build && electron-builder -w -c.extraMetadata.main=build/electron.js",
-    "electron:package:linux": "yarn build && electron-builder -l -c.extraMetadata.main=build/electron.js"
+    "electron:package:mac": "yarn package:python && yarn build && electron-builder -m -c.extraMetadata.main=build/electron.js && yarn package-cleanup" ,
+    "electron:package:win": "yarn package:python && yarn build && electron-builder -w -c.extraMetadata.main=build/electron.js && yarn package-cleanup",
+    "electron:package:linux": "yarn package:python && yarn build && electron-builder -l -c.extraMetadata.main=build/electron.js& & yarn package-cleanup",
+    "package-cleanup": "rm -rf build && rm -rf segmenter_flask_API.spec && rm -rf dist-python"
   },
   "eslintConfig": {
     "extends": [
