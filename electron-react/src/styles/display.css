@@ -76,14 +76,14 @@ img.mask {
   z-index:10;
  }
 
- div.canvas img.image {
+ div.canvas img.image { /* object-fit: contain; mouse pointer issues */
   display: block;
   width:auto;
   max-width: 100%;
   height: 70vh;
   }
 
-div.canvas img.canvasmask {
+div.canvas img.canvasmask { /* object-fit: contain; */
   display: block;
   position: absolute;
   width:auto;
@@ -97,4 +97,9 @@ div.canvas img.canvasmask {
    position: absolute;
    bottom: 4px;
    right: 8px;
+ }
+
+ .undraggable {
+  -webkit-user-drag: none;
+
  }

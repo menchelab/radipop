@@ -27,9 +27,9 @@ function MiniCanvas(props) {
         src={props.RadiPOPstates.files.length?props.slice_mask_container[0]:preview}
         alt="Slices"
         ref={props.test}
-        className={`img${props.RadiPOPstates.currentSliceIndex === props.index ? 'selected' : ''}`}
+        className={`img${props.RadiPOPstates.currentSliceIndex === props.index ? 'selected' : ''} undraggable`}
       />
-    {props.RadiPOPstates.showMask && props.slice_mask_container[1]!=="" && <img className="mask" src={props.slice_mask_container[1]} alt="mask" />}
+    {props.RadiPOPstates.showMask && props.slice_mask_container[1]!=="" && <img className="mask undraggable" src={props.slice_mask_container[1]} alt="mask" />}
     {}
     </div>
   );
