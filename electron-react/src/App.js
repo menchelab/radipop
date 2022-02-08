@@ -36,11 +36,6 @@ function App() {
 
   // React ref to store array of refs
   const scrollRefs = useRef([]);
-  if(RadiPOPstates.files.length>0){
-     scrollRefs.current = [...Array(RadiPOPstates.files.length).keys()].map(
-       (_, i) => scrollRefs.current[i] ?? createRef()
-     );
-  };
 
   useEffect(() => {
     let update = RadiPOPstates.slice_mask_container;

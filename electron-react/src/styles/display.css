@@ -19,11 +19,12 @@ div.scrollbar-area {
 
 /* Styling of the sidebar and main display images */
 .img, .mask{
-    width: 100%;
-    object-fit: contain;
-    display: block;
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  max-width: 100%;
+  display: block;
 }
-
 /* Slice, Patient and Number of slices above the MainDisplay area*/
 .Info{
   display:flex;
@@ -57,12 +58,26 @@ div.slice-mask-container {
   margin:10px;
 }
 
-div.slice-mask-container img.mask {
+div.canvas {
+  position: relative;
+  margin: 10px;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+}
+
+img.mask {
   position: absolute;
   top:0px;
   left:0px;
   z-index:10;
  }
+
+div.canvas img.canvasmask {
+  position: absolute;
+  height: 70vh;
+ }
+
  div.bottom-right {
    color: white;
    position: absolute;
