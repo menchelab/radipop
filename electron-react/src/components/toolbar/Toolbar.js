@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import SearchBar from '../toolbar/Searchbar.js';
 import Button from '../toolbar/Button.js';
 import Input from '../toolbar/Input.js';
+import DialogModal from '../toolbar/DialogModal.js';
 import '../../styles/toolbar.css';
 import '../../styles/index.css';
 
@@ -45,8 +46,8 @@ function postPickleGetMask (smc, index, path, patientID)  {
   })
   .then(function(response){ return response.json();  })
   .then(function(data){
-    let bytestring = data["mask"];
-    let img = bytestring.split('\'')[1];
+    let byhandleDicomClipsring = data["mask"];
+    let img = byhandleDicomClipsring.split('\'')[1];
     img= "data:image/png;base64," +img;
     smc[index][1]= img;
   }).catch(error_handler)
@@ -120,6 +121,12 @@ function ToolBar(props) {
   },[]); */
 
   const [CorrectParitionButtonLabel, setCorrectParitionButtonLabel] = useState("Correct Partition");
+  const [state, setState] = useState({
+          low_clip: 650,
+          high_clip: 1250,
+          showDialog: false,
+          files: [],
+      });
 
   const resetMask = () => {
     let data={
@@ -132,8 +139,8 @@ function ToolBar(props) {
       body: JSON.stringify(data)
     }).then(function(response){ return response.json();})
     .then(function(data) {
-      let bytestring = data["mask"];
-      let img = bytestring.split('\'')[1];
+      let byhandleDicomClipsring = data["mask"];
+      let img = byhandleDicomClipsring.split('\'')[1];
       img= "data:image/png;base64," +img;
       window.RP_vars.setNewMask(img);
       console.log("reset")
@@ -152,8 +159,8 @@ function ToolBar(props) {
       body: JSON.stringify(data)
     }).then(function(response){ return response.json();})
     .then(function(data) {
-      let bytestring = data["mask"];
-      let img = bytestring.split('\'')[1];
+      let byhandleDicomClipsring = data["mask"];
+      let img = byhandleDicomClipsring.split('\'')[1];
       img= "data:image/png;base64," +img;
       window.RP_vars.setNewMask(img);
     })
@@ -185,13 +192,19 @@ function ToolBar(props) {
     resetMask();
   }
 
+  const dialog = (event) => {
+    setState({ showDialog: !state.showDialog, low_clip: state.low_clip, high_clip: state.high_clip, files: event.target.files});
+    console.log("DIALOG", state.low_clip);
+  }
+
+  const handleDicomClips = () => {
+    dcm2png(state.files);
+  }
 
   const saveHandler = (event) => {
-    console.log("Save files")
     //Deciding whether output path is in unix or windows style --> delimiter
     let delimiter = (props.RadiPOPstates.files[0].path.charAt(0)==="/")?"/":"\\";
     let outpath=props.RadiPOPstates.files[0].path.substring(0, props.RadiPOPstates.files[0].path.lastIndexOf(delimiter)+1);
-    console.log(outpath);
 
     let data={
       "patientID": props.RadiPOPstates.patient,
@@ -203,15 +216,14 @@ function ToolBar(props) {
       body: JSON.stringify(data)
     }).then(function(response){ return response.json();})
     .then(function(data) {
-      console.log(data)
     })
   }
 
-  const dcm2png = (event) => {
+  const dcm2png = () => {
     // Check if user selected new files -> return if user clicked "cancel"
-    let files= event.target.files;
+    console.log("EVENT FILES", state.files);
+    let files= state.files;
     let dcm_files=[];
-
     for (let i=0; i<files.length; i++) {
       //dcm filename must not start with . or _ --> issue especially on windows
       if (files[i].name.match(/^(?!(\.|_)).*\.dcm/g)) {
@@ -223,10 +235,11 @@ function ToolBar(props) {
     }
 
     let data={
-      low_clip: window.RP_vars.low_clip,
-      high_clip: window.RP_vars.high_clip,
+      low_clip: +state.low_clip,
+      high_clip: +state.high_clip,
       "paths": dcm_files
     };
+    console.log("dcm2png");
     fetch(window.RP_vars.FLASK_SERVER+"/dcm2png", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -239,11 +252,27 @@ function ToolBar(props) {
     })
   }
 
+
+  function _onChange(e) {
+    e.preventDefault();
+    if(e.target.id === 'low_clip'){
+      setState({ showDialog: state.showDialog, low_clip: e.target.value, high_clip: state.high_clip, files: state.files});
+    }
+    else if(e.target.id === 'high_clip') {
+      setState({ showDialog: state.showDialog, low_clip: state.low_clip, high_clip: e.target.value, files: state.files});
+    }
+ }
+
+function _onSubmit(e) {
+    e.preventDefault();
+    setState({showDialog: false, low_clip: state.low_clip, high_clip: state.high_clip, files: state.files});
+}
+
 return (
   <div className="row toolbar col-lg-12 col-md-12">
     <div className="brwhite tool-col col-lg-3 col-md-3">
       <Input  key="OpenButton" label="Open" myChange={openHandler} />
-      <Input  key="dcm2png" label="dcm2png" myChange={dcm2png} />
+      <Input  key="dcm2png" label="dcm2png" myChange={dialog} />
       <Button key="SaveButton" label="Save" myClick={saveHandler}/>
     </div>
     <div className="tool-col col-lg-7 col-md-7">
@@ -254,6 +283,19 @@ return (
     <div className="blwhite tool-col col-lg-2 col-md-2">
       <SearchBar RadiPOPstates={props.RadiPOPstates} scrollRefs={props.scrollRefs}/>
     </div>
+    {/* Show Modal - Renders Outside React Hierarchy Tree via Portal Pattern */}
+    {state.showDialog === true ? (
+        <DialogModal>
+            <div className="dialog-wrapper">
+                <h1>Set clips for dicom conversion</h1>
+                <form onSubmit={_onSubmit}>
+                    <input type="text" id="low_clip" value={state.low_clip} onChange={_onChange} />
+                    <input type="text" id="high_clip" value={state.high_clip} onChange={_onChange} />
+                    <button onClick={handleDicomClips} type="submit">Set clips</button>
+                </form>
+            </div>
+        </DialogModal>
+    ) : null}
   </div>
   );
  }

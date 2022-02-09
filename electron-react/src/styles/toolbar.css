@@ -107,3 +107,29 @@ box-sizing: border-box;
 height: 30px;
 margin: 10px 0px 10px 0px;
 }
+
+#dialog-root {
+    position: absolute;
+    left: 30%;
+    top: 20%;
+    height: 50%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: grey;
+    box-shadow: 0px 10px 10px -5px black;
+
+    .dialog-wrapper {
+        position: relative;
+        height: 30%;
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: black 2px solid;
+        border-radius: 5px;
+        animation: slideInDown 600ms ease-in-out;
+    }
+}

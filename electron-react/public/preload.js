@@ -6,7 +6,6 @@ const { webFrame } = require('electron')
   webFrame.setZoomFactor(1.2);
   // disable zooming +/-
   window.onkeydown = function(evt) {
-    console.log(evt)
     if ((evt.code === "BracketRight" && webFrame.getZoomFactor() > 1.4) || (evt.code === "Slash" && webFrame.getZoomFactor() < 0.8)){
       evt.preventDefault()
     }
