@@ -4,7 +4,6 @@ const path = require("path");
 const url = require("url");
 let subpy = null;
 
-
 const PY_DIST_FOLDER = "../../app/dist-python"; // python distributable folder
 const PY_SRC_FOLDER = "../segmenter_flask_API"; // path to the python source
 const PY_MODULE = "segmenter_flask_API.py"; // the name of the main module
@@ -13,7 +12,7 @@ const pythonBuildExists = () => {
   return require("fs").existsSync(path.join(__dirname, PY_DIST_FOLDER));
 };
 
-//Get path to python script or python executable if available 
+//Get path to python script or python executable if available
 const getPythonScriptPath = () => {
   console.log(__dirname);
   if (!pythonBuildExists() || !app.isPackaged) {
@@ -62,8 +61,8 @@ const killPythonSubprocesses = (main_pid) => {
       .map(function (p) {
         return p.PID;
       });
-    
-    //Fix for MacOS --> flask server won't shutdown 
+
+    //Fix for MacOS --> flask server won't shutdown
     if (process.platform == "darwin") {
       console.log("killPythonSubprocesses")
       console.log(subpy.pid)
@@ -96,6 +95,9 @@ function createWindow() {
     // Set the path of an additional "preload" script that can be used to
     // communicate between node-land and browser-land.
     webPreferences: {
+      nodeIntegration: false, // is default value after Electron v5
+      contextIsolation: true, // protect against prototype pollution
+      enableRemoteModule: false, // turn off remote
       preload: path.join(__dirname, "preload.js"),
     },
   });

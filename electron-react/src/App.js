@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, createRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import './styles/App.css';
 import './styles/index.css';
 import ToolBar from './components/toolbar/Toolbar.js';
@@ -60,5 +60,4 @@ function App() {
     </div>
  );
 }
-
 export default App;
