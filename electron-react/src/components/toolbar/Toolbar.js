@@ -292,11 +292,11 @@ return (
     {state.showDialog === true ? (
         <DialogModal>
             <div className="dialog-wrapper">
-                <h1>Set clips for dicom conversion</h1>
+                <h3>Set clipping values for dicom conversion</h3>
                 <form onSubmit={_onSubmit}>
-                    <input type="text" id="low_clip" value={state.low_clip} onChange={_onChange} />
-                    <input type="text" id="high_clip" value={state.high_clip} onChange={_onChange} />
-                    <button onClick={handleDicomClips} type="submit">Set clips</button>
+                    LOW: <input type="text" id="low_clip" value={state.low_clip} onChange={_onChange} /> {" "}
+                    HIGH: <input type="text" id="high_clip" value={state.high_clip} onChange={_onChange} />{" "}
+                    <button onClick={handleDicomClips} type="submit">Set</button> 
                 </form>
             </div>
         </DialogModal>

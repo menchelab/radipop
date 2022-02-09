@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { createPortal } from "react-dom";
-
+import '../../styles/DialogModal.css';
 class DialogModal extends Component {
     constructor() {
         super();
