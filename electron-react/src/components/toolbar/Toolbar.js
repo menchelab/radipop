@@ -46,8 +46,8 @@ function postPickleGetMask (smc, index, path, patientID)  {
   })
   .then(function(response){ return response.json();  })
   .then(function(data){
-    let byhandleDicomClipsring = data["mask"];
-    let img = byhandleDicomClipsring.split('\'')[1];
+    let bytestring = data["mask"];
+    let img = bytestring.split('\'')[1];
     img= "data:image/png;base64," +img;
     smc[index][1]= img;
   }).catch(error_handler)
@@ -57,6 +57,7 @@ function postPickleGetMask (smc, index, path, patientID)  {
 function ToolBar(props) {
   // Handler for Input Open Button -> load files
   const openHandler = (event) => {
+    console.log("open handler")
     let target_files= []
     // Filter out only .png or .p files that start with a number (0-99999...)
     for (let i=0; i<event.target.files.length; i++) {
@@ -69,6 +70,8 @@ function ToolBar(props) {
     if(target_files.length > 0){
       initializeWithFiles(target_files);
     }
+    //In order to be able to call dcm2png again on same dir --> event must change 
+    event.target.value=""; 
   }
   const initializeWithFiles =(files) =>{
     let mask_files=[] // array to store .p files
@@ -122,8 +125,8 @@ function ToolBar(props) {
 
   const [CorrectParitionButtonLabel, setCorrectParitionButtonLabel] = useState("Correct Partition");
   const [state, setState] = useState({
-          low_clip: 650,
-          high_clip: 1250,
+          low_clip: window.RP_vars.low_clip,
+          high_clip: window.RP_vars.high_clip,
           showDialog: false,
           files: [],
       });
@@ -139,8 +142,8 @@ function ToolBar(props) {
       body: JSON.stringify(data)
     }).then(function(response){ return response.json();})
     .then(function(data) {
-      let byhandleDicomClipsring = data["mask"];
-      let img = byhandleDicomClipsring.split('\'')[1];
+      let bytestring = data["mask"];
+      let img = bytestring.split('\'')[1];
       img= "data:image/png;base64," +img;
       window.RP_vars.setNewMask(img);
       console.log("reset")
@@ -159,8 +162,8 @@ function ToolBar(props) {
       body: JSON.stringify(data)
     }).then(function(response){ return response.json();})
     .then(function(data) {
-      let byhandleDicomClipsring = data["mask"];
-      let img = byhandleDicomClipsring.split('\'')[1];
+      let bytestring = data["mask"];
+      let img = bytestring.split('\'')[1];
       img= "data:image/png;base64," +img;
       window.RP_vars.setNewMask(img);
     })
@@ -192,9 +195,22 @@ function ToolBar(props) {
     resetMask();
   }
 
-  const dialog = (event) => {
-    setState({ showDialog: !state.showDialog, low_clip: state.low_clip, high_clip: state.high_clip, files: event.target.files});
-    console.log("DIALOG", state.low_clip);
+  const dcm2pngDialog = (event) => {
+    console.log("dcm2png button was clicked")
+    let files= event.target.files;
+    let dcm_files=[];
+    for (let i=0; i<files.length; i++) {
+      //dcm filename must not start with . or _ --> issue especially on windows
+      if (files[i].name.match(/^(?!(\.|_)).*\.dcm/g)) {
+        dcm_files.push(files[i].path);
+      }
+    }
+    if(dcm_files.length === 0){
+      return
+    }
+    setState({ showDialog: !state.showDialog, low_clip: state.low_clip, high_clip: state.high_clip, files: dcm_files});
+    //In order to be able to call dcm2png again on same dir --> event must change 
+    event.target.value=""; 
   }
 
   const handleDicomClips = () => {
@@ -216,23 +232,12 @@ function ToolBar(props) {
       body: JSON.stringify(data)
     }).then(function(response){ return response.json();})
     .then(function(data) {
+      console.log(data); //TODO write to logbar 
     })
   }
 
-  const dcm2png = () => {
+  const dcm2png = (dcm_files) => {
     // Check if user selected new files -> return if user clicked "cancel"
-    console.log("EVENT FILES", state.files);
-    let files= state.files;
-    let dcm_files=[];
-    for (let i=0; i<files.length; i++) {
-      //dcm filename must not start with . or _ --> issue especially on windows
-      if (files[i].name.match(/^(?!(\.|_)).*\.dcm/g)) {
-        dcm_files.push(files[i].path);
-      }
-    }
-    if(dcm_files.length === 0){
-      return
-    }
 
     let data={
       low_clip: +state.low_clip,
@@ -272,7 +277,7 @@ return (
   <div className="row toolbar col-lg-12 col-md-12">
     <div className="brwhite tool-col col-lg-3 col-md-3">
       <Input  key="OpenButton" label="Open" myChange={openHandler} />
-      <Input  key="dcm2png" label="dcm2png" myChange={dialog} />
+      <Input  key="dcm2png" label="dcm2png" myChange={dcm2pngDialog} />
       <Button key="SaveButton" label="Save" myClick={saveHandler}/>
     </div>
     <div className="tool-col col-lg-7 col-md-7">
