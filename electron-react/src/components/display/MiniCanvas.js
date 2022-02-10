@@ -19,7 +19,6 @@ function MiniCanvas(props) {
     })
   }
 
-
   return(
     <div className="slice-mask-container" onClick={clickImage} >
        {props.RP.flaskIntialized && <div className="bottom-right"> {props.index+1} </div>}

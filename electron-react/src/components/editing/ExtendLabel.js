@@ -5,7 +5,9 @@ import '../../styles/index.css';
 
 function ExtendLabel(props){
   return(
-      <button disabled={props.disableApp} onClick={props.extendLabelClick} className="button-editing">
+      <button disabled={props.RP.disableApp}
+              onClick={props.extendLabelClick}
+              className={`button-editing${props.RP.disableApp === true ? "dis" : ""} `}>
         {props.label}
       </button>
   );

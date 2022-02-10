@@ -5,9 +5,6 @@ import ToolBar from './components/toolbar/Toolbar.js';
 import Editing from './components/editing/Editing.js';
 import Display from './components/display/Display.js';
 import slice_place_holder from './assets/images/editor_placeholder.png';
-window.RP_vars={};
-
-
 
 function App() {
   // States for loaded Files: files-> .png + .p unordered, masks-> .p ordered, slices-> .png ordered
@@ -30,8 +27,8 @@ function App() {
     patient: "None",
     showMask: false
     });
-  
-  RP.RadiPOPstates=RadiPOPstates; 
+
+  RP.RadiPOPstates=RadiPOPstates;
   RP.setRadiPOPstates=setRadiPOPstates;
   const [newMask, setNewMask] = useState("")
   RP.newMask=newMask
@@ -42,10 +39,13 @@ function App() {
   const [logInfo, setlogInfo] = useState(["Log: Here you will find important information about the App status and possible errors"])
   RP.logInfo=logInfo;
   RP.setlogInfo=setlogInfo;
+  const [disableApp, setDisableApp] = useState(false)
+  RP.disableApp=disableApp;
+  RP.setDisableApp=setDisableApp;
 
   // React ref to store array of refs
   const scrollRefs = useRef([]);
-  RP.scrollRefs=scrollRefs; 
+  RP.scrollRefs=scrollRefs;
   useEffect(() => {
     let update = RP.RadiPOPstates.slice_mask_container;
     update[RP.RadiPOPstates.currentSliceIndex][1] = newMask;

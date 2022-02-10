@@ -20,6 +20,10 @@ function Canvas(props){
   }
 
   const highlightOrgan = (rel_x, rel_y) => {
+    if(props.RP.disableApp===true){
+      alert("Please wait...")
+      return;
+    }
     let data={
       "patientID": props.RP.RadiPOPstates.patient,
       "x": rel_x,
@@ -65,7 +69,7 @@ function Canvas(props){
      <div className="canvas" >
       <img className="image undraggable" src={props.RP.RadiPOPstates.slice_mask_container[props.RP.RadiPOPstates.currentSliceIndex][0]}  alt="CT slice for editing"/>
       {props.RP.RadiPOPstates.showMask  && props.RP.RadiPOPstates.slice_mask_container[props.RP.RadiPOPstates.currentSliceIndex][1]!=="" &&
-        <img className="canvasmask undraggable"
+        <img className="canvasmask undraggable" disabled={props.RP.disableApp}
         src={props.RP.RadiPOPstates.slice_mask_container[props.RP.RadiPOPstates.currentSliceIndex][1]}
         onClick={handleClick} alt="mask"/>
       }

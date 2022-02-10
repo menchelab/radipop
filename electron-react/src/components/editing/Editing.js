@@ -25,7 +25,6 @@ function Editing(props) {
 
     const [newMask, setNewMask] = useState({mask:'', index:props.RP.RadiPOPstates.currentSliceIndex});
     const [checkGlobalUpdate, setGlobalUpdate] = useState(false) //State to check if all Thresholds are set
-    const [disableApp, setDisableApp] = useState(false) //State to disable App functions during computations
 
     // Update state "value" on slider change
     const handleSlide = (event) => {
@@ -67,15 +66,11 @@ function Editing(props) {
     // Set the Threshold globally
     function setThesholdGlobally(){
       console.log("Triggered setThresholdGlobally")
-      if(disableApp===true){
-        alert("EditorXR computes the new masks. Please wait for the notification in the Log");
-        return
-      }
       // Check if user loaded files if not -> return
       if(props.RP.RadiPOPstates.files.length === 0){
         return
       }
-      setDisableApp(true); //Disable buttons/sliders during computation
+      props.RP.setDisableApp(true); //Disable buttons/sliders during computation
       for (let i=0; i<props.RP.RadiPOPstates.slice_mask_container.length; i++) {
         let current_slice = String(i);
         updateMask(current_slice, sliderValue, true);
@@ -165,13 +160,12 @@ function Editing(props) {
         patient:props.RP.RadiPOPstates.patient,
         showMask:props.RP.RadiPOPstates.showMask
       });
-    setDisableApp(false); // After computation allow user to buttons/sliders
+    props.RP.setDisableApp(false); // After computation allow user to buttons/sliders
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[checkGlobalUpdate]);
 
   function extendLabels(left,right) {
-    console.log("LEFT", left);
-    console.log("RIGHT", right);
+    props.RP.setDisableApp(true);
     let current= props.RP.RadiPOPstates.currentSliceIndex;
     let data ={index: current,left: left, right: right,"patientID": props.RP.RadiPOPstates.patient};
     fetch(props.RP.FLASK_SERVER+"/extendLabels", {
@@ -181,11 +175,13 @@ function Editing(props) {
     })
     .then(function(response){ return response.json();})
     .then(function(data){
-     console.log("DATA", data)
-     console.log("RIFHT MOST", data["right_most_idx"])
      for (let index=parseInt(data["left_most_idx"]); index<parseInt(data["right_most_idx"])+1; index++) {
-       console.log("INDEX", index);
        getMask(index);
+       if(index === parseInt(data["right_most_idx"])){
+         const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message="EditorXR extended liver/spleen labels"/>);
+         props.RP.setlogInfo(logInfo);
+         props.RP.setDisableApp(false);
+       }
      }
 }).catch(error_handler)
 }
@@ -212,40 +208,39 @@ function Editing(props) {
 
     return(
       <div className="col-lg-3 col-md-3 utility-area ">
-        <HideMask key="HideMaskBox" RP={props.RP}  disableApp={disableApp}/>
+        <HideMask key="HideMaskBox" RP={props.RP}/>
         <div className="tools">
           <Slider id="bone"
+                  RP={props.RP}
                   label="Bone Intensity:"
                   value={sliderValue.bone}
-                  disableApp={disableApp}
                   handleSlide={handleSlide}
                   handleClickPlus={handleClickPlus}
                   handleClickMinus={handleClickMinus} />
           <Slider id="vessel"
+                  RP={props.RP}
                   label="Vessel Intensity:"
                   value={sliderValue.vessel}
-                  disableApp={disableApp}
                   handleSlide={handleSlide}
                   handleClickPlus={handleClickPlus}
                   handleClickMinus={handleClickMinus} />
           <Slider id="liver"
+                  RP={props.RP}
                   label="Liver Intensity:"
                   value={sliderValue.liver}
-                  disableApp={disableApp}
                   handleSlide={handleSlide}
                   handleClickPlus={handleClickPlus}
                   handleClickMinus={handleClickMinus}/>
           <GlobalThreshold label="Set threshold globally"
                           setThesholdGlobally={setThesholdGlobally}
-                          RP={props.RP}
-                          disableApp={disableApp}/>
+                          RP={props.RP}/>
         </div>
         <div className="tools">
           <SetLabel labelID={props.RP.LIVER_LABEL} label="Set Liver Label" RP={props.RP} />
           <SetLabel labelID={props.RP.SPLEEN_LABEL} label="Set Spleen Label" RP={props.RP} />
         </div>
         <div className="tools">
-          <Bound disableApp={disableApp} extendLabelClick={extendLabelClick} getBounds={getBounds}/>
+          <Bound RP={props.RP} extendLabelClick={extendLabelClick} getBounds={getBounds}/>
         </div>
       </div>
   );

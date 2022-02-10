@@ -9,18 +9,18 @@ function Slider(props) {
       <div>
      <span id="intensity-slider-output">{props.label} {props.value}</span>
         <div className="slidecontainer">
-            <button disabled={props.disableApp}
+            <button disabled={props.RP.disableApp}
                     id={props.id}
                     className="slider-button"
                     onClick={props.handleClickMinus}>-</button>
-            <input disabled={props.disableApp}
+            <input disabled={props.RP.disableApp}
                    id={props.id}
                    type="range"
                    min="0" max="300" step="5"
                    value={props.value}
                    className="slider"
                    onChange={props.handleSlide}/>
-            <button disabled={props.disableApp}
+            <button disabled={props.RP.disableApp}
                     id={props.id}
                     className="slider-button"
                     onClick={props.handleClickPlus}>+</button>

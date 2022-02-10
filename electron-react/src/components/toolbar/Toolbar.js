@@ -37,10 +37,10 @@ function ToolBar(props) {
   function error_handler(){
     const logInfo = props.RP.logInfo.concat(<LogMessage type="error" message="Failed to contact flask server or Flask handling error"/>);
     props.RP.setlogInfo(logInfo);
-    
+
     //alert("Failed to contact flask server or Flask handling error - It may take a while to start up the server... Try again later.");
   }
-  
+
   // Post the path to a mask pickle file and get a transparent PNG file in return
   const postPickleGetMask = (smc, index, path, patientID) => {
     let data = {
@@ -80,8 +80,8 @@ function ToolBar(props) {
       const logInfo = props.RP.logInfo.concat(<LogMessage type="error" message="No slice files (.png) were found."/>);
       props.RP.setlogInfo(logInfo);
     }
-    //In order to be able to call dcm2png again on same dir --> event must change 
-    event.target.value=""; 
+    //In order to be able to call dcm2png again on same dir --> event must change
+    event.target.value="";
   }
   const initializeWithFiles =(files) =>{
     let mask_files=[] // array to store .p files
@@ -210,6 +210,7 @@ function ToolBar(props) {
   }
 
   const dcm2pngDialog = (event) => {
+    props.RP.setDisableApp(true);
     console.log("dcm2png button was clicked")
     let files= event.target.files;
     let dcm_files=[];
@@ -223,8 +224,8 @@ function ToolBar(props) {
       return
     }
     setState({ showDialog: !state.showDialog, low_clip: state.low_clip, high_clip: state.high_clip, files: dcm_files});
-    //In order to be able to call dcm2png again on same dir --> event must change 
-    event.target.value=""; 
+    //In order to be able to call dcm2png again on same dir --> event must change
+    event.target.value="";
   }
 
   const handleDicomClips = () => {
@@ -246,7 +247,7 @@ function ToolBar(props) {
       body: JSON.stringify(data)
     }).then(function(response){ return response.json();})
     .then(function(data) {
-      console.log(data); //TODO write to logbar 
+      console.log(data); //TODO write to logbar
     }).catch(error_handler)
   }
 
@@ -269,6 +270,7 @@ function ToolBar(props) {
       console.log(data["metadata"]);
       const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message={data["message"]}/>);
       props.RP.setlogInfo(logInfo);
+      props.RP.setDisableApp(false);
       /*initializeWithFiles(png_files); */
     }).catch(error_handler)
   }
@@ -292,14 +294,14 @@ function _onSubmit(e) {
 return (
   <div className="row toolbar col-lg-12 col-md-12">
     <div className="brwhite tool-col col-lg-3 col-md-3">
-      <Input  key="OpenButton" label="Open" myChange={openHandler} />
-      <Input  key="dcm2png" label="dcm2png" myChange={dcm2pngDialog} />
-      <Button key="SaveButton" label="Save" myClick={saveHandler}/>
+      <Input RP={props.RP} key="OpenButton" label="Open" myChange={openHandler} />
+      <Input  RP={props.RP} key="dcm2png" label="dcm2png" myChange={dcm2pngDialog} />
+      <Button RP={props.RP} key="SaveButton" label="Save" myClick={saveHandler}/>
     </div>
     <div className="tool-col col-lg-7 col-md-7">
-      <Button key="CorrectPartitionButton" label={CorrectParitionButtonLabel} myClick={handleCorrectPartition} />
-      <Button key="CommitCorrectionsButton" label="Commit corrections" myClick={handleCommitCorrections} />
-      <Button key="ClearEditsButton" label="Clear edits" myClick={handleClearEdits}/>
+      <Button RP={props.RP} key="CorrectPartitionButton" label={CorrectParitionButtonLabel} myClick={handleCorrectPartition} />
+      <Button RP={props.RP} key="CommitCorrectionsButton" label="Commit corrections" myClick={handleCommitCorrections} />
+      <Button RP={props.RP} key="ClearEditsButton" label="Clear edits" myClick={handleClearEdits}/>
     </div>
     <div className="blwhite tool-col col-lg-2 col-md-2">
       <SearchBar RP={props.RP} scrollRefs={props.RP.scrollRefs}/>
@@ -312,7 +314,7 @@ return (
                 <form onSubmit={_onSubmit}>
                     LOW: <input type="text" id="low_clip" value={state.low_clip} onChange={_onChange} /> {" "}
                     HIGH: <input type="text" id="high_clip" value={state.high_clip} onChange={_onChange} />{" "}
-                    <button onClick={handleDicomClips} type="submit">Set</button> 
+                    <button onClick={handleDicomClips} type="submit">Set</button>
                 </form>
             </div>
         </DialogModal>

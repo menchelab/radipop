@@ -17,7 +17,7 @@ function Bound(props){
             <input onChange={props.getBounds} type="number" id="Down"></input>
           </div>
         </div>
-            <ExtendLabel label='Extend Label' disableApp={props.disableApp} extendLabelClick={props.extendLabelClick}/>
+            <ExtendLabel label='Extend Label' RP={props.RP} extendLabelClick={props.extendLabelClick}/>
         </div>
   );
 }

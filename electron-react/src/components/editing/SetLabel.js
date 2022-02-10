@@ -27,7 +27,9 @@ function SetLabel(props){
     })
   }
   return(
-      <button onClick={handleClick} className="button-editing">
+      <button disabled={props.RP.disableApp}
+              onClick={handleClick}
+              className={`button-editing${props.RP.disableApp === true ? "dis" : ""} `}>
         {props.label}
       </button>
   );

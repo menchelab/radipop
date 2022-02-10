@@ -65,6 +65,18 @@ div.utilits-area .test{
   font-family: "helvetica-light";
 }
 
+.button-editingdis {
+  box-sizing: border-box;
+  border-radius: 30px;
+  color: black;
+  padding: 2% 4% 2% 4%;
+  margin: 5% 20% 5% 20%;
+  background-color: rgb(245,245,247);
+  border: 2px solid black;
+  border-width: 1px;
+  font-family: "helvetica-light";
+}
+
 .button-editing:hover {
     background-color: rgb(0,113,227);
 }

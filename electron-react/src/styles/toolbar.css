@@ -56,6 +56,25 @@
     background-color: rgb(0,113,227);
 }
 
+.button-10dis {
+  box-sizing: border-box;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 1% 5% 1% 5%;
+  color: black;
+  background-color: lightgrey;
+  border: 2px solid white;
+  border-width: 1px;
+  font-family: Helvetica-LightOblique;
+  min-width: 25%;
+  max-width: 100%;
+  text-align: center;
+  display: block;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  font-size: 80%;
+}
+
 /* Hide the input button for Open button */
 input[type="file"] {
     display: none;
@@ -75,6 +94,28 @@ input[type="file"] {
   font-family: Helvetica-LightOblique;
   background-color: rgb(0,113,227);
   border-color: rgb(0,113,227);
+  min-width: 20%;
+  max-width: 100%;
+  text-align: center;
+  display: block;
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 80%;
+}
+
+.input-10dis{
+  box-sizing: border-box;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 1% 5% 1% 5%;
+  color: black;
+  background-color: black;
+  border: 2px solid white;
+  border-width: 1px;
+  font-family: Helvetica-LightOblique;
+  background-color: lightgrey;
+  border-color: white;
   min-width: 20%;
   max-width: 100%;
   text-align: center;
@@ -119,6 +160,7 @@ margin: 10px 0px 10px 0px;
     justify-content: center;
     background: grey;
     box-shadow: 0px 10px 10px -5px black;
+    z-index: 20;
 
     .dialog-wrapper {
         position: relative;
