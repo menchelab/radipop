@@ -4,6 +4,7 @@ import Slider from '../editing/Slider.js'
 import GlobalThreshold from '../editing/GlobalThreshold.js';
 import Bound from '../editing/Bound.js';
 import SetLabel from '../editing/SetLabel.js';
+import LogMessage from '../log/LogMessage.js';
 import '../../styles/editing.css';
 import '../../styles/index.css';
 
@@ -116,7 +117,6 @@ function Editing(props) {
         img= "data:image/png;base64," +img;
         setNewMask({mask: img, index: target_slice_idx});
         if (global === true && +target_slice_idx === props.RadiPOPstates.slice_mask_container.length-1){
-           /*const loginfo = props.RadiPOPstates.status.concat("EditorXR updated all masks"); */
            setGlobalUpdate(!checkGlobalUpdate);
         }
       }).catch(error_handler)
@@ -144,8 +144,8 @@ function Editing(props) {
                               slice_mask_container: update,
                               currentSliceIndex:props.RadiPOPstates.currentSliceIndex,
                               patient: props.RadiPOPstates.patient,
-                              showMask: props.RadiPOPstates.files.length>0,
-                              status: props.RadiPOPstates.status});
+                              showMask: props.RadiPOPstates.files.length>0
+                            });
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newMask]);
 
@@ -157,13 +157,14 @@ function Editing(props) {
         firstUpdate.current = false;
           return;
       }
-      const loginfo = props.RadiPOPstates.status.concat("EditorXR updated all masks");
+      const logInfo = window.RP_vars.logInfo.concat(<LogMessage type="success" message="EditorXR updated all masks"/>);
+      window.RP_vars.setlogInfo(logInfo);
       props.setRadiPOPstates({files: props.RadiPOPstates.files,
         slice_mask_container: props.RadiPOPstates.slice_mask_container,
         currentSliceIndex:props.RadiPOPstates.currentSliceIndex,
         patient:props.RadiPOPstates.patient,
-        showMask:props.RadiPOPstates.showMask,
-        status: loginfo});
+        showMask:props.RadiPOPstates.showMask
+      });
     setDisableApp(false); // After computation allow user to buttons/sliders
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[checkGlobalUpdate]);

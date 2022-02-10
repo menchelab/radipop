@@ -5,7 +5,6 @@ import ToolBar from './components/toolbar/Toolbar.js';
 import Editing from './components/editing/Editing.js';
 import Display from './components/display/Display.js';
 import slice_place_holder from './assets/images/editor_placeholder.png';
-
 window.RP_vars={};
 window.RP_vars.highlightMode=true;
 window.RP_vars.selectedPoints= [];
@@ -15,7 +14,6 @@ window.RP_vars.FLASK_SERVER="http://localhost:4041";
 window.RP_vars.low_clip=850;
 window.RP_vars.high_clip=1250;
 
-
 function App() {
   // States for loaded Files: files-> .png + .p unordered, masks-> .p ordered, slices-> .png ordered
   const [RadiPOPstates, setRadiPOPstates] = useState({
@@ -23,8 +21,7 @@ function App() {
     slice_mask_container: [[slice_place_holder,""]],
     currentSliceIndex: 0,
     patient: "None",
-    showMask: false,
-    status: ["Log: Here you will find important information about the App status and possible errors"],
+    showMask: false
     });
 
   const [newMask, setNewMask] = useState("")
@@ -33,6 +30,9 @@ function App() {
   const [flaskIntialized, setflaskIntialized] = useState(false)
   window.RP_vars.flaskIntialized=flaskIntialized
   window.RP_vars.setflaskIntialized=p=>{setflaskIntialized(p)}
+  const [logInfo, setlogInfo] = useState(["Log: Here you will find important information about the App status and possible errors"])
+  window.RP_vars.logInfo=logInfo;
+  window.RP_vars.setlogInfo=setlogInfo;
 
   // React ref to store array of refs
   const scrollRefs = useRef([]);

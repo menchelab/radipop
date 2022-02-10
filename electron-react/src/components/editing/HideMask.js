@@ -1,22 +1,26 @@
 import React from 'react';
 import '../../styles/editing.css';
+import LogMessage from '../log/LogMessage';
 
 function HideMask(props) {
   const loaded_files = (props.RadiPOPstates.files.length === 0)
   // Set state hide mask on checkbox click
   const handleChange = () => {
-    /*let logInfo = "";
-    if (props.RadiPOPstates.showMask === true){
-       logInfo = props.RadiPOPstates.status.concat("Masks are visible");
+    let logInfo = "";
+    if (!props.RadiPOPstates.showMask){ //Not because state is set afterwards
+       logInfo = window.RP_vars.logInfo.concat(<LogMessage type="warning" message="Masks are visible"/>);
     }
-    if(props.RadiPOPstates.showMask === false){
-       logInfo = props.RadiPOPstates.status.concat("Masks are hidden");
-    }*/
+    else{
+       logInfo = window.RP_vars.logInfo.concat(<LogMessage type="warning" message="Masks are hidden"/>);
+       
+    }
+    window.RP_vars.setlogInfo(logInfo);
     props.setRadiPOPstates({files: props.RadiPOPstates.files,
       slice_mask_container: props.RadiPOPstates.slice_mask_container,
       currentSliceIndex:props.RadiPOPstates.currentSliceIndex,
       patient: props.RadiPOPstates.patient,
-      showMask: !props.RadiPOPstates.showMask, status: props.RadiPOPstates.status});
+      showMask: !props.RadiPOPstates.showMask
+    });
 }
 
     return (

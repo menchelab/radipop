@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="19px" viewBox="0 0 18 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Success</title>
+    <g id="Editing" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop" transform="translate(-269.000000, -698.000000)">
+            <g id="Group" transform="translate(269.196051, 698.970381)">
+                <circle id="Oval" fill="#28C840" cx="8.79689704" cy="8.79689704" r="8.79689704"></circle>
+                <line x1="5.37588152" y1="9.28561354" x2="8.30818054" y2="11.2404795" id="Line-4" stroke="#F7F7F7" stroke-width="1.5" fill="#D8D8D8" stroke-linecap="square"></line>
+                <line x1="11.2404795" y1="6.35331453" x2="8.30818054" y2="11.2404795" id="Line-4" stroke="#F7F7F7" stroke-width="1.5" fill="#D8D8D8" stroke-linecap="square"></line>
+            </g>
+        </g>
+    </g>
+</svg>

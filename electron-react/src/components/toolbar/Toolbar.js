@@ -3,6 +3,7 @@ import SearchBar from '../toolbar/Searchbar.js';
 import Button from '../toolbar/Button.js';
 import Input from '../toolbar/Input.js';
 import DialogModal from '../toolbar/DialogModal.js';
+import LogMessage from '../log/LogMessage.js';
 import '../../styles/toolbar.css';
 import '../../styles/index.css';
 
@@ -70,6 +71,10 @@ function ToolBar(props) {
     if(target_files.length > 0){
       initializeWithFiles(target_files);
     }
+    else {
+      const logInfo = window.RP_vars.logInfo.concat(<LogMessage type="error" message="No slice files (.png) were found."/>);
+      window.RP_vars.setlogInfo(logInfo);
+    }
     //In order to be able to call dcm2png again on same dir --> event must change 
     event.target.value=""; 
   }
@@ -89,7 +94,8 @@ function ToolBar(props) {
    }
 
    if(slice_files.length === 0){
-    alert("No slice files (.png) were found.")
+    const logInfo = window.RP_vars.logInfo.concat(<LogMessage type="error" message="No slice files (.png) were found."/>);
+    window.RP_vars.setlogInfo(logInfo);
     return
    }
 
@@ -114,8 +120,9 @@ function ToolBar(props) {
 
 
     // Update state with loaded files
-    const loginfo = props.RadiPOPstates.status.concat("You succesfully loaded the .png files in EditorXR!");
-    props.setRadiPOPstates({files: slice_files, slice_mask_container: smc, currentSliceIndex:0, patient: directory_name, showMask:false, status: loginfo});
+    const logInfo = window.RP_vars.logInfo.concat(<LogMessage type="success" message="You succesfully loaded the .png files in EditorXR!"/>);
+    window.RP_vars.setlogInfo(logInfo);
+    props.setRadiPOPstates({files: slice_files, slice_mask_container: smc, currentSliceIndex:0, patient: directory_name, showMask:false});
 
   }
   /*

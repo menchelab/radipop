@@ -1,8 +1,21 @@
 div.log {
   background-color: rgb(245,245,247);
   border-top: 7px solid white;
-  padding-bottom: 66px;
-  display: flex;
-  flex-grow: 1;
+  padding-bottom: 20px;
+  height: 20vh;
   overflow-y:auto;
+}
+
+div.log ul {
+  list-style-type: none;
+  padding: 20px;
+}
+
+div.LogMessage {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-bottom: 5px;
+  white-space: pre-wrap;
+
 }
