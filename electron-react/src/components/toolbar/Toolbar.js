@@ -210,7 +210,7 @@ function ToolBar(props) {
   }
 
   const dcm2pngDialog = (event) => {
-    props.RP.setDisableApp(true);
+    
     console.log("dcm2png button was clicked")
     let files= event.target.files;
     let dcm_files=[];
@@ -223,6 +223,7 @@ function ToolBar(props) {
     if(dcm_files.length === 0){
       return
     }
+    props.RP.setDisableApp(true);
     setState({ showDialog: !state.showDialog, low_clip: state.low_clip, high_clip: state.high_clip, files: dcm_files});
     //In order to be able to call dcm2png again on same dir --> event must change
     event.target.value="";
