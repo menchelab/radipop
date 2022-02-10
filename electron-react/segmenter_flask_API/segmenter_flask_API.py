@@ -37,7 +37,7 @@ def initialize():
         patients[patientID].sliceCache[i] = RadiPopGUI.readPNG(path)
         #patients[patientID].masks[i] = None
 
-    return jsonify({"message": "Succesfully initiallized patient with id: " +str(patientID)})
+    return jsonify({"message": "/initialize: Succesfully initiallized patient with id: " +str(patientID)})
 
 
 
@@ -72,7 +72,10 @@ def postPickleGetMask():
     patients[patientID].masks[index]=arr
     img = RadiPopGUI.np_label_array_to_png(arr)
     img_base64=RadiPopGUI.create_image_stream(img)
-    return jsonify({"mask": str(img_base64)})
+    data={"mask": str(img_base64)}
+    data["message"]="/postPickleGetMask: Converted pickle file of slice "+str(index)+" to mask."
+
+    return jsonify(data)
 
 
 
@@ -117,7 +120,9 @@ def updateMask():
     
     img = RadiPopGUI.np_label_array_to_png(arr)
     img_base64=RadiPopGUI.create_image_stream(img)
-    return jsonify({"mask": str(img_base64)})
+    data={"mask": str(img_base64)}
+    data["message"]="/updateMask: Updated mask of slice "+str(index)
+    return jsonify(data)
 
 @app.route('/highlightOrgan', methods=['POST'])
 def highlightOrgan():
@@ -152,7 +157,10 @@ def highlightOrgan():
 
     img=patients[patientID].highlightOrgan(slice_idx=index,x=x,y=y)
     img_base64=RadiPopGUI.create_image_stream(img)
-    return jsonify({'mask': str(img_base64)})
+
+    data={"mask": str(img_base64)}
+    data["message"]="/highlightOrgan: Highligted organ on slice " +str(index)
+    return jsonify(data)
 
 @app.route('/labelOrgan', methods=['POST'])
 def labelOrgan():
@@ -184,7 +192,10 @@ def labelOrgan():
     arr=patients[patientID].labelMask(slice_idx=index,label=label)
     img = RadiPopGUI.np_label_array_to_png(arr)
     img_base64=RadiPopGUI.create_image_stream(img)
-    return jsonify({'mask': str(img_base64)})
+
+    data={"mask": str(img_base64)}
+    data["message"]="/labelOrgan: Labelled organ on slice " +str(index)
+    return jsonify(data)
 
 @app.route('/extendLabels', methods=['POST'])
 def extendLabels():
@@ -218,6 +229,7 @@ def extendLabels():
     data={}
     data["left_most_idx"]=left_most_idx
     data["right_most_idx"]=right_most_idx
+    data["message"]="/extendLabels: Extended labels for slices " + str(left_most_idx) + " to " + str(right_most_idx)
     return jsonify(data)
 
 @app.route('/getMask', methods=['POST'])
@@ -247,7 +259,9 @@ def getMask():
 
     img=patients[patientID].np_label_array_to_png(patients[patientID].masks[index])
     img_base64=RadiPopGUI.create_image_stream(img)
-    return jsonify({'mask': str(img_base64)})
+    data={"mask": str(img_base64)}
+    data["message"]="/getMask: Got mask for slice " +str(index)
+    return jsonify(data)
 
 
 @app.route('/drawOnMask', methods=['POST'])
@@ -288,7 +302,9 @@ def drawOnMask():
     img=patients[patientID].np_label_array_to_png(patients[patientID].masks[index])
     RadiPopGUI.draw_on_image(coordinates=coordinates,img=img)
     img_base64=RadiPopGUI.create_image_stream(img)
-    return jsonify({'mask': str(img_base64)})
+    data={"mask": str(img_base64)}
+    data["message"]="/drawOnMask: Lines drawn on mask of slice " +str(index)
+    return jsonify(data)
 
 @app.route('/correctPartition', methods=['POST'])
 def correctPartition():
@@ -332,7 +348,9 @@ def correctPartition():
     img=patients[patientID].np_label_array_to_png(arr)
 
     img_base64=RadiPopGUI.create_image_stream(img)
-    return jsonify({'mask': str(img_base64)})
+    data={"mask": str(img_base64)}
+    data["message"]="/correctPartition: Corrections for mask of slice " +str(index) + " were accepted."
+    return jsonify(data)
 
 @app.route('/saveMasks', methods=['POST'])
 def saveMasks():
@@ -348,6 +366,7 @@ def saveMasks():
     print(outPath,file=sys.stderr)
     patients[patientID].save_masks(path=outPath)
     data ={"outdir": outPath}
+    data["message"]="/saveMasks: Saved mask files. Output written to: " + outPath
     return jsonify(data)
 
 
@@ -375,7 +394,7 @@ def dcm2png():
         RadiPopGUI.writePillow2PNG(img=img,outfile=outfile)
 
     data={}
-    data["message"]="Succesfully converted dicom files. Output written to: " +os.path.dirname(paths[0])
+    data["message"]="/dcm2png: Converted dicom files. Output written to: " +os.path.dirname(paths[0])
     data["metadata"]= RadiPopGUI.extract_metadata_from_dcm(dcm_file=paths[0])
     return jsonify(data)
 if __name__ == '__main__':
