@@ -3,23 +3,23 @@ import '../../styles/editing.css';
 import LogMessage from '../log/LogMessage';
 
 function HideMask(props) {
-  const loaded_files = (props.RadiPOPstates.files.length === 0)
+  const loaded_files = (props.RP.RadiPOPstates.files.length === 0)
   // Set state hide mask on checkbox click
   const handleChange = () => {
     let logInfo = "";
-    if (!props.RadiPOPstates.showMask){ //Not because state is set afterwards
-       logInfo = window.RP_vars.logInfo.concat(<LogMessage type="warning" message="Masks are visible"/>);
+    if (!props.RP.RadiPOPstates.showMask){ //Not because state is set afterwards
+       logInfo = props.RP.logInfo.concat(<LogMessage type="warning" message="Masks are visible"/>);
     }
     else{
-       logInfo = window.RP_vars.logInfo.concat(<LogMessage type="warning" message="Masks are hidden"/>);
+       logInfo = props.RP.logInfo.concat(<LogMessage type="warning" message="Masks are hidden"/>);
        
     }
-    window.RP_vars.setlogInfo(logInfo);
-    props.setRadiPOPstates({files: props.RadiPOPstates.files,
-      slice_mask_container: props.RadiPOPstates.slice_mask_container,
-      currentSliceIndex:props.RadiPOPstates.currentSliceIndex,
-      patient: props.RadiPOPstates.patient,
-      showMask: !props.RadiPOPstates.showMask
+    props.RP.setlogInfo(logInfo);
+    props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files,
+      slice_mask_container: props.RP.RadiPOPstates.slice_mask_container,
+      currentSliceIndex:props.RP.RadiPOPstates.currentSliceIndex,
+      patient: props.RP.RadiPOPstates.patient,
+      showMask: !props.RP.RadiPOPstates.showMask
     });
 }
 
@@ -27,7 +27,7 @@ function HideMask(props) {
       <div className="toolsh">
         <input type="checkbox"
                disabled={loaded_files}
-               checked={props.RadiPOPstates.showMask}
+               checked={props.RP.RadiPOPstates.showMask}
                id="hide-mask-checkbox"
                onChange={handleChange}
                name="hide-mask-checkbox" />

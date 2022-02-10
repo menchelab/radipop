@@ -10,9 +10,9 @@ import Log from '../../components/log/LogInfo.js';
 function MainDisplay(props) {
     return(
       <div className="col-lg-7 col-md-7 display-area">
-        <Info key="Info" RadiPOPstates={props.RadiPOPstates}/>
-        <Canvas key="Canvas" RadiPOPstates={props.RadiPOPstates} setRadiPOPstates={p=>{props.setRadiPOPstates(p)}}/>
-        <Log key="Log" RadiPOPstates={props.RadiPOPstates}/>
+        <Info key="Info" RP={props.RP}/>
+        <Canvas key="Canvas" RP={props.RP}/>
+        <Log key="Log" RP={props.RP}/>
       </div>
   );
 }

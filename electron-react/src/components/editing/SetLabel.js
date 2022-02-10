@@ -10,11 +10,11 @@ function SetLabel(props){
 
   const labelOrgan = (label) => {
     let data={
-      "patientID": props.RadiPOPstates.patient,
+      "patientID": props.RP.RadiPOPstates.patient,
       "label": label,
-      "index": props.RadiPOPstates.currentSliceIndex
+      "index": props.RP.RadiPOPstates.currentSliceIndex
     };
-    fetch(window.RP_vars.FLASK_SERVER+"/labelOrgan", {
+    fetch(props.RP.FLASK_SERVER+"/labelOrgan", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -23,7 +23,7 @@ function SetLabel(props){
       let bytestring = data["mask"];
       let img = bytestring.split('\'')[1];
       img= "data:image/png;base64," +img;
-      window.RP_vars.setNewMask(img);
+      props.RP.setNewMask(img);
     })
   }
   return(

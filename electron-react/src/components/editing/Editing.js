@@ -23,7 +23,7 @@ function Editing(props) {
       down: 0
     });
 
-    const [newMask, setNewMask] = useState({mask:'', index:props.RadiPOPstates.currentSliceIndex});
+    const [newMask, setNewMask] = useState({mask:'', index:props.RP.RadiPOPstates.currentSliceIndex});
     const [checkGlobalUpdate, setGlobalUpdate] = useState(false) //State to check if all Thresholds are set
     const [disableApp, setDisableApp] = useState(false) //State to disable App functions during computations
 
@@ -72,11 +72,11 @@ function Editing(props) {
         return
       }
       // Check if user loaded files if not -> return
-      if(props.RadiPOPstates.files.length === 0){
+      if(props.RP.RadiPOPstates.files.length === 0){
         return
       }
       setDisableApp(true); //Disable buttons/sliders during computation
-      for (let i=0; i<props.RadiPOPstates.slice_mask_container.length; i++) {
+      for (let i=0; i<props.RP.RadiPOPstates.slice_mask_container.length; i++) {
         let current_slice = String(i);
         updateMask(current_slice, sliderValue, true);
       }
@@ -100,13 +100,13 @@ function Editing(props) {
     const updateMask = (target_slice_idx, value, global) => {
 
       let data={
-        "patientID": props.RadiPOPstates.patient,
+        "patientID": props.RP.RadiPOPstates.patient,
         "bone-intensity-slider": value.bone,
         "liver-intensity-slider": value.liver,
         "blood-vessel-intensity-slider": value.vessel,
         "index": target_slice_idx
       };
-      fetch(window.RP_vars.FLASK_SERVER+"/updateMask", {
+      fetch(props.RP.FLASK_SERVER+"/updateMask", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -116,7 +116,7 @@ function Editing(props) {
         let img = bytestring.split('\'')[1];
         img= "data:image/png;base64," +img;
         setNewMask({mask: img, index: target_slice_idx});
-        if (global === true && +target_slice_idx === props.RadiPOPstates.slice_mask_container.length-1){
+        if (global === true && +target_slice_idx === props.RP.RadiPOPstates.slice_mask_container.length-1){
            setGlobalUpdate(!checkGlobalUpdate);
         }
       }).catch(error_handler)
@@ -130,21 +130,21 @@ function Editing(props) {
 
     // Updates Mask on slider change
     useEffect(() => {
-      if (window.RP_vars.flaskIntialized){
-        updateMask(props.RadiPOPstates.currentSliceIndex, sliderValue, false);
+      if (props.RP.flaskIntialized){
+        updateMask(props.RP.RadiPOPstates.currentSliceIndex, sliderValue, false);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },[sliderValue]);
 
     // Render new mask after computation
     useEffect(() => {
-      let update = props.RadiPOPstates.slice_mask_container;
+      let update = props.RP.RadiPOPstates.slice_mask_container;
       update[newMask.index][1] = newMask.mask;
-      props.setRadiPOPstates({files: props.RadiPOPstates.files,
+      props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files,
                               slice_mask_container: update,
-                              currentSliceIndex:props.RadiPOPstates.currentSliceIndex,
-                              patient: props.RadiPOPstates.patient,
-                              showMask: props.RadiPOPstates.files.length>0
+                              currentSliceIndex:props.RP.RadiPOPstates.currentSliceIndex,
+                              patient: props.RP.RadiPOPstates.patient,
+                              showMask: props.RP.RadiPOPstates.files.length>0
                             });
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newMask]);
@@ -157,13 +157,13 @@ function Editing(props) {
         firstUpdate.current = false;
           return;
       }
-      const logInfo = window.RP_vars.logInfo.concat(<LogMessage type="success" message="EditorXR updated all masks"/>);
-      window.RP_vars.setlogInfo(logInfo);
-      props.setRadiPOPstates({files: props.RadiPOPstates.files,
-        slice_mask_container: props.RadiPOPstates.slice_mask_container,
-        currentSliceIndex:props.RadiPOPstates.currentSliceIndex,
-        patient:props.RadiPOPstates.patient,
-        showMask:props.RadiPOPstates.showMask
+      const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message="EditorXR updated all masks"/>);
+      props.RP.setlogInfo(logInfo);
+      props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files,
+        slice_mask_container: props.RP.RadiPOPstates.slice_mask_container,
+        currentSliceIndex:props.RP.RadiPOPstates.currentSliceIndex,
+        patient:props.RP.RadiPOPstates.patient,
+        showMask:props.RP.RadiPOPstates.showMask
       });
     setDisableApp(false); // After computation allow user to buttons/sliders
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -172,9 +172,9 @@ function Editing(props) {
   function extendLabels(left,right) {
     console.log("LEFT", left);
     console.log("RIGHT", right);
-    let current= props.RadiPOPstates.currentSliceIndex;
-    let data ={index: current,left: left, right: right,"patientID": props.RadiPOPstates.patient};
-    fetch(window.RP_vars.FLASK_SERVER+"/extendLabels", {
+    let current= props.RP.RadiPOPstates.currentSliceIndex;
+    let data ={index: current,left: left, right: right,"patientID": props.RP.RadiPOPstates.patient};
+    fetch(props.RP.FLASK_SERVER+"/extendLabels", {
      method: 'POST',
      headers: { 'Content-Type': 'application/json'},
      body: JSON.stringify(data)
@@ -194,9 +194,9 @@ function Editing(props) {
   function getMask(target_slice_idx) {
     let data={
       "index": target_slice_idx,
-      "patientID": props.RadiPOPstates.patient
+      "patientID": props.RP.RadiPOPstates.patient
     };
-    fetch(window.RP_vars.FLASK_SERVER+"/getMask", {
+    fetch(props.RP.FLASK_SERVER+"/getMask", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify(data)
@@ -212,7 +212,7 @@ function Editing(props) {
 
     return(
       <div className="col-lg-3 col-md-3 utility-area ">
-        <HideMask key="HideMaskBox" RadiPOPstates={props.RadiPOPstates} setRadiPOPstates={p=>{props.setRadiPOPstates(p)}} disableApp={disableApp}/>
+        <HideMask key="HideMaskBox" RP={props.RP}  disableApp={disableApp}/>
         <div className="tools">
           <Slider id="bone"
                   label="Bone Intensity:"
@@ -237,12 +237,12 @@ function Editing(props) {
                   handleClickMinus={handleClickMinus}/>
           <GlobalThreshold label="Set threshold globally"
                           setThesholdGlobally={setThesholdGlobally}
-                          setRadiPOPstates={p=>{props.setRadiPOPstates(p)}}
+                          RP={props.RP}
                           disableApp={disableApp}/>
         </div>
         <div className="tools">
-          <SetLabel labelID={window.RP_vars.LIVER_LABEL} label="Set Liver Label" RadiPOPstates={props.RadiPOPstates} />
-          <SetLabel labelID={window.RP_vars.SPLEEN_LABEL} label="Set Spleen Label" RadiPOPstates={props.RadiPOPstates} />
+          <SetLabel labelID={props.RP.LIVER_LABEL} label="Set Liver Label" RP={props.RP} />
+          <SetLabel labelID={props.RP.SPLEEN_LABEL} label="Set Spleen Label" RP={props.RP} />
         </div>
         <div className="tools">
           <Bound disableApp={disableApp} extendLabelClick={extendLabelClick} getBounds={getBounds}/>

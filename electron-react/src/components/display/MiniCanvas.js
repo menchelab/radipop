@@ -9,27 +9,27 @@ function MiniCanvas(props) {
 
 
   const clickImage = () => {
-   props.setRadiPOPstates({
-     files: props.RadiPOPstates.files,
-     slice_mask_container: props.RadiPOPstates.slice_mask_container,
+   props.RP.setRadiPOPstates({
+     files: props.RP.RadiPOPstates.files,
+     slice_mask_container: props.RP.RadiPOPstates.slice_mask_container,
      currentSliceIndex: parseInt(props.index),
-     patient: props.RadiPOPstates.patient,
-     showMask: props.RadiPOPstates.showMask,
-     status: props.RadiPOPstates.status
+     patient: props.RP.RadiPOPstates.patient,
+     showMask: props.RP.RadiPOPstates.showMask,
+     status: props.RP.RadiPOPstates.status
     })
   }
 
 
   return(
     <div className="slice-mask-container" onClick={clickImage} >
-       {window.RP_vars.flaskIntialized && <div className="bottom-right"> {props.index+1} </div>}
+       {props.RP.flaskIntialized && <div className="bottom-right"> {props.index+1} </div>}
       <img
-        src={props.RadiPOPstates.files.length?props.slice_mask_container[0]:preview}
+        src={props.RP.RadiPOPstates.files.length?props.slice_mask_container[0]:preview}
         alt="Slices"
         ref={props.test}
-        className={`img${props.RadiPOPstates.currentSliceIndex === props.index ? 'selected' : ''} undraggable`}
+        className={`img${props.RP.RadiPOPstates.currentSliceIndex === props.index ? 'selected' : ''} undraggable`}
       />
-    {props.RadiPOPstates.showMask && props.slice_mask_container[1]!=="" && <img className="mask undraggable" src={props.slice_mask_container[1]} alt="mask" />}
+    {props.RP.RadiPOPstates.showMask && props.slice_mask_container[1]!=="" && <img className="mask undraggable" src={props.slice_mask_container[1]} alt="mask" />}
     {}
     </div>
   );

@@ -7,57 +7,60 @@ import LogMessage from '../log/LogMessage.js';
 import '../../styles/toolbar.css';
 import '../../styles/index.css';
 
-function initialize(paths,smc, mask_files, patientID) {
-  let data={
-    paths: paths,
-    "patientID": patientID
-  };
-  fetch(window.RP_vars.FLASK_SERVER+"/initialize", {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  })
-  .then(function(response){ return response.json();  })
-  .then(function(data){
-    console.log(data["message"]);
-    let mask_files_paths  = mask_files.map((item) => item.path);
-    for(let i=0; i<mask_files_paths.length; i++){
-      postPickleGetMask(smc,i, mask_files_paths[i], patientID);
-    }
-    window.RP_vars.setflaskIntialized(true);
-  })
-  .catch(error_handler)
-}
-//Function is raised when requests to Flask server fail for any reason
-function error_handler(){
-  const logInfo = window.RP_vars.logInfo.concat(<LogMessage type="error" message="Failed to contact flask server or Flask handling error"/>);
-  window.RP_vars.setlogInfo(logInfo);
-  
-  //alert("Failed to contact flask server or Flask handling error - It may take a while to start up the server... Try again later.");
-}
 
-// Post the path to a mask pickle file and get a transparent PNG file in return
-function postPickleGetMask (smc, index, path, patientID)  {
-  let data = {
-    index: index,
-    path: path,
-    "patientID": patientID};
-  fetch(window.RP_vars.FLASK_SERVER+"/postPickleGetMask", {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify(data)
-  })
-  .then(function(response){ return response.json();  })
-  .then(function(data){
-    let bytestring = data["mask"];
-    let img = bytestring.split('\'')[1];
-    img= "data:image/png;base64," +img;
-    smc[index][1]= img;
-  }).catch(error_handler)
-}
 
 
 function ToolBar(props) {
+
+  const initialize =(paths,smc, mask_files, patientID) => {
+    let data={
+      paths: paths,
+      "patientID": patientID
+    };
+    fetch(props.RP.FLASK_SERVER+"/initialize", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function(response){ return response.json();  })
+    .then(function(data){
+      console.log(data["message"]);
+      let mask_files_paths  = mask_files.map((item) => item.path);
+      for(let i=0; i<mask_files_paths.length; i++){
+        postPickleGetMask(smc,i, mask_files_paths[i], patientID);
+      }
+      props.RP.setflaskIntialized(true);
+    })
+    .catch(error_handler)
+  }
+  //Function is raised when requests to Flask server fail for any reason
+  function error_handler(){
+    const logInfo = props.RP.logInfo.concat(<LogMessage type="error" message="Failed to contact flask server or Flask handling error"/>);
+    props.RP.setlogInfo(logInfo);
+    
+    //alert("Failed to contact flask server or Flask handling error - It may take a while to start up the server... Try again later.");
+  }
+  
+  // Post the path to a mask pickle file and get a transparent PNG file in return
+  const postPickleGetMask = (smc, index, path, patientID) => {
+    let data = {
+      index: index,
+      path: path,
+      "patientID": patientID};
+    fetch(props.RP.FLASK_SERVER+"/postPickleGetMask", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    })
+    .then(function(response){ return response.json();  })
+    .then(function(data){
+      let bytestring = data["mask"];
+      let img = bytestring.split('\'')[1];
+      img= "data:image/png;base64," +img;
+      smc[index][1]= img;
+    }).catch(error_handler)
+  }
+
   // Handler for Input Open Button -> load files
   const openHandler = (event) => {
     console.log("open handler")
@@ -74,8 +77,8 @@ function ToolBar(props) {
       initializeWithFiles(target_files);
     }
     else {
-      const logInfo = window.RP_vars.logInfo.concat(<LogMessage type="error" message="No slice files (.png) were found."/>);
-      window.RP_vars.setlogInfo(logInfo);
+      const logInfo = props.RP.logInfo.concat(<LogMessage type="error" message="No slice files (.png) were found."/>);
+      props.RP.setlogInfo(logInfo);
     }
     //In order to be able to call dcm2png again on same dir --> event must change 
     event.target.value=""; 
@@ -96,8 +99,8 @@ function ToolBar(props) {
    }
 
    if(slice_files.length === 0){
-    const logInfo = window.RP_vars.logInfo.concat(<LogMessage type="error" message="No slice files (.png) were found."/>);
-    window.RP_vars.setlogInfo(logInfo);
+    const logInfo = props.RP.logInfo.concat(<LogMessage type="error" message="No slice files (.png) were found."/>);
+    props.RP.setlogInfo(logInfo);
     return
    }
 
@@ -105,7 +108,7 @@ function ToolBar(props) {
     let directory_name = files[0].webkitRelativePath
     directory_name = directory_name.substr(0, directory_name.indexOf('/'));
 
-    props.setRadiPOPstates({files: files});
+    props.RP.setRadiPOPstates({files: files});
 
     // Order slices and masks
     slice_files=[].slice.call(slice_files).sort((a, b) => (parseInt(a.name.replace(".png","")) > parseInt(b.name.replace(".png",""))) ? 1 : -1 )
@@ -122,30 +125,30 @@ function ToolBar(props) {
 
 
     // Update state with loaded files
-    const logInfo = window.RP_vars.logInfo.concat(<LogMessage type="success" message="You succesfully loaded the .png files in EditorXR!"/>);
-    window.RP_vars.setlogInfo(logInfo);
-    props.setRadiPOPstates({files: slice_files, slice_mask_container: smc, currentSliceIndex:0, patient: directory_name, showMask:false});
+    const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message="You succesfully loaded the .png files in EditorXR!"/>);
+    props.RP.setlogInfo(logInfo);
+    props.RP.setRadiPOPstates({files: slice_files, slice_mask_container: smc, currentSliceIndex:0, patient: directory_name, showMask:false});
 
   }
   /*
   useEffect(() => {
-  props.setRadiPOPstates({files: props.RadiPOPstates.files, slice_mask_container: props.RadiPOPstates.slice_mask_container, currentSliceIndex:0, patient:"?", showMask:true, status: props.RadiPOPstates.status});
+  props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files, slice_mask_container: props.RP.RadiPOPstates.slice_mask_container, currentSliceIndex:0, patient:"?", showMask:true, status: props.RP.RadiPOPstates.status});
   },[]); */
 
   const [CorrectParitionButtonLabel, setCorrectParitionButtonLabel] = useState("Correct Partition");
   const [state, setState] = useState({
-          low_clip: window.RP_vars.low_clip,
-          high_clip: window.RP_vars.high_clip,
+          low_clip: props.RP.low_clip,
+          high_clip: props.RP.high_clip,
           showDialog: false,
           files: [],
       });
 
   const resetMask = () => {
     let data={
-      "patientID": props.RadiPOPstates.patient,
-      "index": props.RadiPOPstates.currentSliceIndex
+      "patientID": props.RP.RadiPOPstates.patient,
+      "index": props.RP.RadiPOPstates.currentSliceIndex
     };
-    fetch(window.RP_vars.FLASK_SERVER+"/getMask", {
+    fetch(props.RP.FLASK_SERVER+"/getMask", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -154,18 +157,18 @@ function ToolBar(props) {
       let bytestring = data["mask"];
       let img = bytestring.split('\'')[1];
       img= "data:image/png;base64," +img;
-      window.RP_vars.setNewMask(img);
+      props.RP.setNewMask(img);
       console.log("reset")
     }).catch(error_handler)
   }
 
   const correctPartition = () => {
     let data={
-      "patientID": props.RadiPOPstates.patient,
-      "coordinates": window.RP_vars.selectedPoints,
-      "index": props.RadiPOPstates.currentSliceIndex
+      "patientID": props.RP.RadiPOPstates.patient,
+      "coordinates": props.RP.selectedPoints,
+      "index": props.RP.RadiPOPstates.currentSliceIndex
     };
-    fetch(window.RP_vars.FLASK_SERVER+"/correctPartition", {
+    fetch(props.RP.FLASK_SERVER+"/correctPartition", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -174,15 +177,17 @@ function ToolBar(props) {
       let bytestring = data["mask"];
       let img = bytestring.split('\'')[1];
       img= "data:image/png;base64," +img;
-      window.RP_vars.setNewMask(img);
+      props.RP.setNewMask(img);
     }).catch(error_handler)
   }
 
   const handleCorrectPartition = (event) => {
-    window.RP_vars.highlightMode= !window.RP_vars.highlightMode;
-    if (window.RP_vars.highlightMode){
+    const highlight= !props.RP.highlightMode;
+    props.RP.sethighlightMode(highlight);
+    console.log(highlight);
+    if (highlight){
       setCorrectParitionButtonLabel("Correct Partition")
-      window.RP_vars.selectedPoints=[];
+      props.RP.setselectedPoints([]);
       resetMask();
     }
     else {
@@ -190,17 +195,17 @@ function ToolBar(props) {
     }
   }
   const handleCommitCorrections = (event) => {
-    if (window.RP_vars.selectedPoints.length>2){
+    if (props.RP.selectedPoints.length>2){
       console.log("Commited changes")
       correctPartition();
       setCorrectParitionButtonLabel("Correct Partition");
-      window.RP_vars.highlightMode=true;
-      window.RP_vars.selectedPoints=[];
+      props.RP.sethighlightMode(true);
+      props.RP.setselectedPoints([]);
     }
   }
 
   const handleClearEdits = (event) =>{
-    window.RP_vars.selectedPoints=[];
+    props.RP.setselectedPoints([]);
     resetMask();
   }
 
@@ -228,14 +233,14 @@ function ToolBar(props) {
 
   const saveHandler = (event) => {
     //Deciding whether output path is in unix or windows style --> delimiter
-    let delimiter = (props.RadiPOPstates.files[0].path.charAt(0)==="/")?"/":"\\";
-    let outpath=props.RadiPOPstates.files[0].path.substring(0, props.RadiPOPstates.files[0].path.lastIndexOf(delimiter)+1);
+    let delimiter = (props.RP.RadiPOPstates.files[0].path.charAt(0)==="/")?"/":"\\";
+    let outpath=props.RP.RadiPOPstates.files[0].path.substring(0, props.RP.RadiPOPstates.files[0].path.lastIndexOf(delimiter)+1);
 
     let data={
-      "patientID": props.RadiPOPstates.patient,
+      "patientID": props.RP.RadiPOPstates.patient,
       "path": outpath
     };
-    fetch(window.RP_vars.FLASK_SERVER+"/saveMasks", {
+    fetch(props.RP.FLASK_SERVER+"/saveMasks", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -254,7 +259,7 @@ function ToolBar(props) {
       "paths": dcm_files
     };
     console.log("dcm2png");
-    fetch(window.RP_vars.FLASK_SERVER+"/dcm2png", {
+    fetch(props.RP.FLASK_SERVER+"/dcm2png", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -262,8 +267,8 @@ function ToolBar(props) {
     .then(function(data) {
       console.log(data["message"]);
       console.log(data["metadata"]);
-      const logInfo = window.RP_vars.logInfo.concat(<LogMessage type="success" message={data["message"]}/>);
-      window.RP_vars.setlogInfo(logInfo);
+      const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message={data["message"]}/>);
+      props.RP.setlogInfo(logInfo);
       /*initializeWithFiles(png_files); */
     }).catch(error_handler)
   }
@@ -297,7 +302,7 @@ return (
       <Button key="ClearEditsButton" label="Clear edits" myClick={handleClearEdits}/>
     </div>
     <div className="blwhite tool-col col-lg-2 col-md-2">
-      <SearchBar RadiPOPstates={props.RadiPOPstates} scrollRefs={props.scrollRefs}/>
+      <SearchBar RP={props.RP} scrollRefs={props.RP.scrollRefs}/>
     </div>
     {/* Show Modal - Renders Outside React Hierarchy Tree via Portal Pattern */}
     {state.showDialog === true ? (

@@ -4,9 +4,9 @@ function Info(props){
 
   return(
     <div className="Info">
-      <span> Patient: {props.RadiPOPstates.patient} </span>
-      <span> Slice: {props.RadiPOPstates.currentSliceIndex + 1} </span>
-      <span> Number of slices: {props.RadiPOPstates.files.length} </span>
+      <span> Patient: {props.RP.RadiPOPstates.patient} </span>
+      <span> Slice: {props.RP.RadiPOPstates.currentSliceIndex + 1} </span>
+      <span> Number of slices: {props.RP.RadiPOPstates.files.length} </span>
     </div>
   );
 }
@@ -14,5 +14,5 @@ function Info(props){
 export default Info;
 
 
-// <span> Slice: {props.RadiPOPstates.currentSliceIndex} </span>
-// <span> Number of slices: {props.RadiPOPstates.files.length} </span>
+// <span> Slice: {props.RP.RadiPOPstates.currentSliceIndex} </span>
+// <span> Number of slices: {props.RP.RadiPOPstates.files.length} </span>
