@@ -30,7 +30,9 @@ function initialize(paths,smc, mask_files, patientID) {
 }
 //Function is raised when requests to Flask server fail for any reason
 function error_handler(){
-  console.log("Failed to contact flask server or Flask handling error");
+  const logInfo = window.RP_vars.logInfo.concat(<LogMessage type="error" message="Failed to contact flask server or Flask handling error"/>);
+  window.RP_vars.setlogInfo(logInfo);
+  
   //alert("Failed to contact flask server or Flask handling error - It may take a while to start up the server... Try again later.");
 }
 
@@ -154,7 +156,7 @@ function ToolBar(props) {
       img= "data:image/png;base64," +img;
       window.RP_vars.setNewMask(img);
       console.log("reset")
-    })
+    }).catch(error_handler)
   }
 
   const correctPartition = () => {
@@ -173,7 +175,7 @@ function ToolBar(props) {
       let img = bytestring.split('\'')[1];
       img= "data:image/png;base64," +img;
       window.RP_vars.setNewMask(img);
-    })
+    }).catch(error_handler)
   }
 
   const handleCorrectPartition = (event) => {
@@ -240,7 +242,7 @@ function ToolBar(props) {
     }).then(function(response){ return response.json();})
     .then(function(data) {
       console.log(data); //TODO write to logbar 
-    })
+    }).catch(error_handler)
   }
 
   const dcm2png = (dcm_files) => {
@@ -260,8 +262,10 @@ function ToolBar(props) {
     .then(function(data) {
       console.log(data["message"]);
       console.log(data["metadata"]);
+      const logInfo = window.RP_vars.logInfo.concat(<LogMessage type="success" message={data["message"]}/>);
+      window.RP_vars.setlogInfo(logInfo);
       /*initializeWithFiles(png_files); */
-    })
+    }).catch(error_handler)
   }
 
 

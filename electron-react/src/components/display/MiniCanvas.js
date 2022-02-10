@@ -15,7 +15,7 @@ function MiniCanvas(props) {
      currentSliceIndex: parseInt(props.index),
      patient: props.RadiPOPstates.patient,
      showMask: props.RadiPOPstates.showMask,
-     status: props.RadiPOPstates.status,
+     status: props.RadiPOPstates.status
     })
   }
 
