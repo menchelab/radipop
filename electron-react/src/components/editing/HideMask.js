@@ -12,7 +12,7 @@ function HideMask(props) {
     }
     else{
        logInfo = props.RP.logInfo.concat(<LogMessage type="warning" message="Masks are hidden"/>);
-       
+
     }
     props.RP.setlogInfo(logInfo);
     props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files,
@@ -26,7 +26,7 @@ function HideMask(props) {
     return (
       <div className="toolsh">
         <input type="checkbox"
-               disabled={loaded_files}
+               disabled={loaded_files || props.RP.disableApp}
                checked={props.RP.RadiPOPstates.showMask}
                id="hide-mask-checkbox"
                onChange={handleChange}
