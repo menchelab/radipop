@@ -178,6 +178,8 @@ function ToolBar(props) {
       let img = bytestring.split('\'')[1];
       img= "data:image/png;base64," +img;
       props.RP.setNewMask(img);
+      const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message={"Corrections for mask of slice " + String(props.RP.RadiPOPstates.currentSliceIndex+1) +" were accepted"}/>);
+      props.RP.setlogInfo(logInfo);
     }).catch(error_handler)
   }
 
@@ -221,6 +223,8 @@ function ToolBar(props) {
       }
     }
     if(dcm_files.length === 0){
+      const logInfo = props.RP.logInfo.concat(<LogMessage type="error" message="No .dcm files were found in the selected directory."/>);
+      props.RP.setlogInfo(logInfo);
       return
     }
     props.RP.setDisableApp(true);
@@ -248,12 +252,16 @@ function ToolBar(props) {
       body: JSON.stringify(data)
     }).then(function(response){ return response.json();})
     .then(function(data) {
-      console.log(data); //TODO write to logbar
+      let logInfo = props.RP.logInfo.concat(<LogMessage type="success" message={data["message"]}/>);
+      props.RP.setlogInfo(logInfo);
+
     }).catch(error_handler)
   }
 
   const dcm2png = (dcm_files) => {
     // Check if user selected new files -> return if user clicked "cancel"
+    let logInfo = props.RP.logInfo.concat(<LogMessage type="warning" message={"Converting " + String(dcm_files.length) + " .dcm files to png..."}/>);
+    props.RP.setlogInfo(logInfo);
 
     let data={
       low_clip: +state.low_clip,
@@ -269,7 +277,7 @@ function ToolBar(props) {
     .then(function(data) {
       console.log(data["message"]);
       console.log(data["metadata"]);
-      const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message={data["message"]}/>);
+      logInfo = logInfo.concat(<LogMessage type="success" message={data["message"]}/>);
       props.RP.setlogInfo(logInfo);
       props.RP.setDisableApp(false);
       /*initializeWithFiles(png_files); */

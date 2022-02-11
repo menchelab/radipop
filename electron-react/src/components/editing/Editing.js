@@ -70,6 +70,8 @@ function Editing(props) {
       if(props.RP.RadiPOPstates.files.length === 0){
         return
       }
+      const logInfo = props.RP.logInfo.concat(<LogMessage type="warning" message={"Setting threshold for " + String(props.RP.RadiPOPstates.files.length) +" slices..."}/>);
+      props.RP.setlogInfo(logInfo);
       props.RP.setDisableApp(true); //Disable buttons/sliders during computation
       for (let i=0; i<props.RP.RadiPOPstates.slice_mask_container.length; i++) {
         let current_slice = String(i);
