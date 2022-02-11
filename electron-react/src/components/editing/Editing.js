@@ -125,6 +125,8 @@ function Editing(props) {
         setNewMask({mask: img, index: target_slice_idx});
         if (global === true && +target_slice_idx === props.RP.RadiPOPstates.slice_mask_container.length-1){
            setGlobalUpdate(!checkGlobalUpdate);
+           const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message="EditorXR updated all masks"/>);
+           props.RP.setlogInfo(logInfo);
         }
       }).catch(error_handler)
     }
@@ -164,8 +166,6 @@ function Editing(props) {
         firstUpdate.current = false;
           return;
       }
-      const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message="EditorXR updated all masks"/>);
-      props.RP.setlogInfo(logInfo);
       props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files,
         slice_mask_container: props.RP.RadiPOPstates.slice_mask_container,
         currentSliceIndex:props.RP.RadiPOPstates.currentSliceIndex,
