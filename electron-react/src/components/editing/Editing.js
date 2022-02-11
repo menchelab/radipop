@@ -133,6 +133,9 @@ function Editing(props) {
 
     //Function is raised when requests to Flask server fail for any reason
     const error_handler = () => {
+      props.RP.setDisableApp(false);
+      const logInfo = props.RP.logInfo.concat(<LogMessage type="error" message="Failed to contact flask server or Flask handling error"/>);
+      props.RP.setlogInfo(logInfo);
       console.log("Failed to contact flask server or Flask handling error");
       //alert("Failed to contact flask server or Flask handling error - It may take a while to start up the server... Try again later.");
     }

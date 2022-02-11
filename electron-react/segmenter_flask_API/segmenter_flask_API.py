@@ -149,7 +149,7 @@ def highlightOrgan():
     dictionary = request.get_json()
     index=int(dictionary['index'])
     patientID=dictionary["patientID"]
-    scale_x, scale_y=patients[patientID].slice_dim()
+    scale_x, scale_y=patients[patientID].slice_dim(index)
     x= int(scale_x*float(dictionary["x"]))-1
     y= int(scale_y*float(dictionary["y"]))-1
     
@@ -292,7 +292,7 @@ def drawOnMask():
     coordinates=dictionary["coordinates"]
     patientID=dictionary["patientID"]
 
-    scale_x, scale_y=patients[patientID].slice_dim()
+    scale_x, scale_y=patients[patientID].slice_dim(index)
     for i,cor in enumerate(coordinates):
         if i%2==0:
             coordinates[i]=cor*scale_x
@@ -334,7 +334,7 @@ def correctPartition():
     coordinates=dictionary["coordinates"]
     patientID=dictionary["patientID"]
 
-    scale_x, scale_y=patients[patientID].slice_dim()
+    scale_x, scale_y=patients[patientID].slice_dim(index)
     for i,cor in enumerate(coordinates):
         if i%2==0:
             coordinates[i]=cor*scale_x
@@ -388,11 +388,18 @@ def dcm2png():
     low_clip=dictionary["low_clip"]
     high_clip=dictionary["high_clip"]
 
+    slices=[]
+    indices=[]
     for path in paths:
         img,index = RadiPopGUI.clip_dcm(dcm_file=path,clip_low=low_clip,clip_high=high_clip)
-        outfile=os.path.dirname(path)+"/"+str(index)+".png"
-        RadiPopGUI.writePillow2PNG(img=img,outfile=outfile)
-
+        slices.append(img)
+        indices.append(index)
+    
+    for i,j in enumerate(np.argsort(indices)): 
+        #print(indices[j],file=sys.stderr)
+        outfile=os.path.dirname(path)+"/"+str(i)+".png"
+        RadiPopGUI.writePillow2PNG(img=slices[j],outfile=outfile)
+        
     data={}
     data["message"]="/dcm2png: Converted dicom files. Output written to: " +os.path.dirname(paths[0])
     data["metadata"]= RadiPopGUI.extract_metadata_from_dcm(dcm_file=paths[0])

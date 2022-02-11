@@ -185,12 +185,11 @@ class RadiPopGUI:
             self.masks[slice_idx][self.masks[slice_idx]==self.selected_pixel_value_of_label_mask]=label
         return self.masks[slice_idx]
     
-    def slice_dim(self):
+    def slice_dim(self, index):
         """! Returns dimensions of slice images (x,y)
         @return (x,y) Dimensions of slices 
         """
-        firstItem=next(iter(self.sliceCache.values()))
-        return firstItem.shape[1],firstItem.shape[0]
+        return self.sliceCache[index].shape[1],self.sliceCache[index].shape[0]
     
     
     def extend_labels(self,cur_idx,left_extend,right_extend):
