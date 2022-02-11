@@ -20,7 +20,7 @@ function Editing(props) {
 
     const[expansionBounds, setExpansionBounds]=useState({
       up: 0,
-      down: 0
+      down: 0,
     });
 
     const [newMask, setNewMask] = useState({mask:'', index:props.RP.RadiPOPstates.currentSliceIndex});
@@ -89,6 +89,16 @@ function Editing(props) {
     }
 
     function extendLabelClick(){
+      if(props.RP.RadiPOPstates.files.length === 0){
+        return
+      }
+
+      if(expansionBounds.up === '' || expansionBounds.down === '') {
+        const logInfo = props.RP.logInfo.concat(<LogMessage type="error" message={"Please set expansion bounds"}/>);
+        props.RP.setlogInfo(logInfo);
+        return;
+    }
+
       extendLabels(expansionBounds.up, expansionBounds.down)
     }
 
@@ -167,6 +177,8 @@ function Editing(props) {
   },[checkGlobalUpdate]);
 
   function extendLabels(left,right) {
+    const logInfo = props.RP.logInfo.concat(<LogMessage type="warning" message={"Extending labels.."}/>);
+    props.RP.setlogInfo(logInfo);
     props.RP.setDisableApp(true);
     let current= props.RP.RadiPOPstates.currentSliceIndex;
     let data ={index: current,left: left, right: right,"patientID": props.RP.RadiPOPstates.patient};
@@ -180,7 +192,7 @@ function Editing(props) {
      for (let index=parseInt(data["left_most_idx"]); index<parseInt(data["right_most_idx"])+1; index++) {
        getMask(index);
        if(index === parseInt(data["right_most_idx"])){
-         const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message="EditorXR extended liver/spleen labels"/>);
+         const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message={"EditorXR extended liver/spleen labels on slices " + String(data["left_most_idx"] + 1) + " - " + String(data["right_most_idx"] + 1)}/>);
          props.RP.setlogInfo(logInfo);
          props.RP.setDisableApp(false);
        }

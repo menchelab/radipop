@@ -5,6 +5,9 @@ import '../../styles/index.css';
 
 function SetLabel(props){
   const handleClick = (event) =>{
+    if(props.RP.RadiPOPstates.files.length === 0){
+      return
+    }
     labelOrgan(props.labelID)
   }
 

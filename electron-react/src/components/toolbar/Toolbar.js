@@ -184,6 +184,9 @@ function ToolBar(props) {
   }
 
   const handleCorrectPartition = (event) => {
+    if(props.RP.RadiPOPstates.files.length === 0){
+      return
+    }
     const highlight= !props.RP.highlightMode;
     props.RP.sethighlightMode(highlight);
     console.log(highlight);
@@ -197,6 +200,9 @@ function ToolBar(props) {
     }
   }
   const handleCommitCorrections = (event) => {
+    if(props.RP.RadiPOPstates.files.length === 0){
+      return
+    }
     if (props.RP.selectedPoints.length>2){
       console.log("Commited changes")
       correctPartition();
@@ -207,12 +213,15 @@ function ToolBar(props) {
   }
 
   const handleClearEdits = (event) =>{
+    if(props.RP.RadiPOPstates.files.length === 0){
+      return
+    }
     props.RP.setselectedPoints([]);
     resetMask();
   }
 
   const dcm2pngDialog = (event) => {
-    
+
     console.log("dcm2png button was clicked")
     let files= event.target.files;
     let dcm_files=[];
@@ -238,6 +247,9 @@ function ToolBar(props) {
   }
 
   const saveHandler = (event) => {
+    if(props.RP.RadiPOPstates.files.length === 0){
+      return
+    }
     //Deciding whether output path is in unix or windows style --> delimiter
     let delimiter = (props.RP.RadiPOPstates.files[0].path.charAt(0)==="/")?"/":"\\";
     let outpath=props.RP.RadiPOPstates.files[0].path.substring(0, props.RP.RadiPOPstates.files[0].path.lastIndexOf(delimiter)+1);
