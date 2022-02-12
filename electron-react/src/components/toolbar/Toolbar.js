@@ -37,6 +37,7 @@ function ToolBar(props) {
   function error_handler(){
     const logInfo = props.RP.logInfo.concat(<LogMessage type="error" message="Failed to contact flask server or Flask handling error"/>);
     props.RP.setlogInfo(logInfo);
+    props.RP.setDisableApp(false);
 
     //alert("Failed to contact flask server or Flask handling error - It may take a while to start up the server... Try again later.");
   }
