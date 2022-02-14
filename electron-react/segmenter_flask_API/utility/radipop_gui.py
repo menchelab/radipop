@@ -310,6 +310,7 @@ class RadiPopGUI:
         img = Image.fromarray(temp)
         return img, int(dataset.InstanceNumber)
 
+    @staticmethod
     def extract_metadata_from_dcm(dcm_file):
         """!Read dicom image (.dcm) and extract metadata
         Extracted metadata IDs: "PatientID","PatientBirthDate","PatientName",

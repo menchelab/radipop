@@ -5,9 +5,11 @@
 \item 
 def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a87eb1f0c3f92490595980a5fa2d5231a}{correct\+Partition}} ()
 \begin{DoxyCompactList}\small\item\em Reveives index to slice/mask + coordinates-\/-\/\texorpdfstring{$>$}{>} returns partion corrected mask as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a1085fa447800af4e234c6b8c91013574}{dcm2png}} ()
+\begin{DoxyCompactList}\small\item\em Receive Paths to dcm files, converts them to PNG. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a2ea3e26521cdcd63a5ec21e6a4dcb0e6}{draw\+On\+Mask}} ()
 \begin{DoxyCompactList}\small\item\em Reveives index to slice/mask + x,y coordinates -\/-\/\texorpdfstring{$>$}{>} returns drawn on mask as PNG to client. \end{DoxyCompactList}\item 
-def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_ad69191df26c67045429fe3b6654a84ff}{extend\+Thresholds}} ()
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_ab78dfd12fd33aa268d51178dd6d5baac}{extend\+Labels}} ()
 \begin{DoxyCompactList}\small\item\em Reveives index to slice mask + label id -\/-\/\texorpdfstring{$>$}{>} returns highlighted mask as PNG to client. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a863cdb180347d6f9df75d65d2177a21d}{get\+Mask}} ()
 \begin{DoxyCompactList}\small\item\em Reveives index to slice/mask -\/-\/\texorpdfstring{$>$}{>} returns mask stored on flask server as PNG to client. \end{DoxyCompactList}\item 
@@ -75,7 +77,31 @@ Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_s
 bytestring = data["mask"];
 img = bytestring.split('\'')[1]
 \end{DoxyVerb}
- \mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a2ea3e26521cdcd63a5ec21e6a4dcb0e6}\label{namespacesegmenter__flask___a_p_i_a2ea3e26521cdcd63a5ec21e6a4dcb0e6}} 
+ \mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a1085fa447800af4e234c6b8c91013574}\label{namespacesegmenter__flask___a_p_i_a1085fa447800af4e234c6b8c91013574}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!dcm2png@{dcm2png}}
+\index{dcm2png@{dcm2png}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{dcm2png()}{dcm2png()}}
+{\footnotesize\ttfamily def segmenter\+\_\+flask\+\_\+\+API.\+dcm2png (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Receive Paths to dcm files, converts them to PNG. 
+
+Included metadata IDs\+: \char`\"{}\+Patient\+ID\char`\"{},\char`\"{}\+Patient\+Birth\+Date\char`\"{},\char`\"{}\+Patient\+Name\char`\"{}, \char`\"{}\+Patient\+Age\char`\"{},\char`\"{}\+Patient\+Sex\char`\"{},\char`\"{}\+Patient\+Name\char`\"{},\char`\"{}\+Slice\+Thickness\char`\"{},\char`\"{}\+Study\+ID\char`\"{},\char`\"{}\+Content\+Date\char`\"{}
+
+
+\begin{DoxyParams}{Parameters}
+{\em paths} & An array with the paths to the slices \\
+\hline
+{\em low\+\_\+clip} & lowest pixel value (Recommended\+:850) \\
+\hline
+{\em high\+\_\+clip} & highest pixel value (Recommended\+: 1250)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON\+: \{message\+: message, metadata\+: dictionary\} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a2ea3e26521cdcd63a5ec21e6a4dcb0e6}\label{namespacesegmenter__flask___a_p_i_a2ea3e26521cdcd63a5ec21e6a4dcb0e6}} 
 \index{segmenter\_flask\_API@{segmenter\_flask\_API}!drawOnMask@{drawOnMask}}
 \index{drawOnMask@{drawOnMask}!segmenter\_flask\_API@{segmenter\_flask\_API}}
 \doxysubsubsection{\texorpdfstring{drawOnMask()}{drawOnMask()}}
@@ -109,11 +135,11 @@ Example handling of return image stream in js\+: \begin{DoxyVerb}fetch(RadiPOP_s
 bytestring = data["mask"];
 img = bytestring.split('\'')[1]
 \end{DoxyVerb}
- \mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_ad69191df26c67045429fe3b6654a84ff}\label{namespacesegmenter__flask___a_p_i_ad69191df26c67045429fe3b6654a84ff}} 
-\index{segmenter\_flask\_API@{segmenter\_flask\_API}!extendThresholds@{extendThresholds}}
-\index{extendThresholds@{extendThresholds}!segmenter\_flask\_API@{segmenter\_flask\_API}}
-\doxysubsubsection{\texorpdfstring{extendThresholds()}{extendThresholds()}}
-{\footnotesize\ttfamily def segmenter\+\_\+flask\+\_\+\+API.\+extend\+Thresholds (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+ \mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_ab78dfd12fd33aa268d51178dd6d5baac}\label{namespacesegmenter__flask___a_p_i_ab78dfd12fd33aa268d51178dd6d5baac}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!extendLabels@{extendLabels}}
+\index{extendLabels@{extendLabels}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{extendLabels()}{extendLabels()}}
+{\footnotesize\ttfamily def segmenter\+\_\+flask\+\_\+\+API.\+extend\+Labels (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -125,9 +151,9 @@ Reveives index to slice mask + label id -\/-\/\texorpdfstring{$>$}{>} returns hi
 \hline
 {\em index} & The index of the slice for which to mask should be updated \\
 \hline
-{\em left} & Extend labeling up to index-\/label \\
+{\em left} & Extend labeling up to index-\/left \\
 \hline
-{\em right} & Extend labeling up to index+label\\
+{\em right} & Extend labeling up to index+right\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

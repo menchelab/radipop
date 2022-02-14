@@ -74,12 +74,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a87eb1f0c3f92490595980a5fa2d5231a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesegmenter__flask___a_p_i.html#a87eb1f0c3f92490595980a5fa2d5231a">correctPartition</a> ()</td></tr>
 <tr class="memdesc:a87eb1f0c3f92490595980a5fa2d5231a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reveives index to slice/mask + coordinates--&gt; returns partion corrected mask as PNG to client.  <a href="namespacesegmenter__flask___a_p_i.html#a87eb1f0c3f92490595980a5fa2d5231a">More...</a><br /></td></tr>
 <tr class="separator:a87eb1f0c3f92490595980a5fa2d5231a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1085fa447800af4e234c6b8c91013574"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesegmenter__flask___a_p_i.html#a1085fa447800af4e234c6b8c91013574">dcm2png</a> ()</td></tr>
+<tr class="memdesc:a1085fa447800af4e234c6b8c91013574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive Paths to dcm files, converts them to PNG.  <a href="namespacesegmenter__flask___a_p_i.html#a1085fa447800af4e234c6b8c91013574">More...</a><br /></td></tr>
+<tr class="separator:a1085fa447800af4e234c6b8c91013574"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ea3e26521cdcd63a5ec21e6a4dcb0e6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesegmenter__flask___a_p_i.html#a2ea3e26521cdcd63a5ec21e6a4dcb0e6">drawOnMask</a> ()</td></tr>
 <tr class="memdesc:a2ea3e26521cdcd63a5ec21e6a4dcb0e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reveives index to slice/mask + x,y coordinates --&gt; returns drawn on mask as PNG to client.  <a href="namespacesegmenter__flask___a_p_i.html#a2ea3e26521cdcd63a5ec21e6a4dcb0e6">More...</a><br /></td></tr>
 <tr class="separator:a2ea3e26521cdcd63a5ec21e6a4dcb0e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad69191df26c67045429fe3b6654a84ff"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesegmenter__flask___a_p_i.html#ad69191df26c67045429fe3b6654a84ff">extendThresholds</a> ()</td></tr>
-<tr class="memdesc:ad69191df26c67045429fe3b6654a84ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reveives index to slice mask + label id --&gt; returns highlighted mask as PNG to client.  <a href="namespacesegmenter__flask___a_p_i.html#ad69191df26c67045429fe3b6654a84ff">More...</a><br /></td></tr>
-<tr class="separator:ad69191df26c67045429fe3b6654a84ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab78dfd12fd33aa268d51178dd6d5baac"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesegmenter__flask___a_p_i.html#ab78dfd12fd33aa268d51178dd6d5baac">extendLabels</a> ()</td></tr>
+<tr class="memdesc:ab78dfd12fd33aa268d51178dd6d5baac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reveives index to slice mask + label id --&gt; returns highlighted mask as PNG to client.  <a href="namespacesegmenter__flask___a_p_i.html#ab78dfd12fd33aa268d51178dd6d5baac">More...</a><br /></td></tr>
+<tr class="separator:ab78dfd12fd33aa268d51178dd6d5baac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a863cdb180347d6f9df75d65d2177a21d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesegmenter__flask___a_p_i.html#a863cdb180347d6f9df75d65d2177a21d">getMask</a> ()</td></tr>
 <tr class="memdesc:a863cdb180347d6f9df75d65d2177a21d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reveives index to slice/mask --&gt; returns mask stored on flask server as PNG to client.  <a href="namespacesegmenter__flask___a_p_i.html#a863cdb180347d6f9df75d65d2177a21d">More...</a><br /></td></tr>
 <tr class="separator:a863cdb180347d6f9df75d65d2177a21d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,6 +160,35 @@ img = bytestring.split('\'')[1]
 </pre> 
 </div>
 </div>
+<a id="a1085fa447800af4e234c6b8c91013574" name="a1085fa447800af4e234c6b8c91013574"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1085fa447800af4e234c6b8c91013574">&#9670;&nbsp;</a></span>dcm2png()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def segmenter_flask_API.dcm2png </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Receive Paths to dcm files, converts them to PNG. </p>
+<p >Included metadata IDs: "PatientID","PatientBirthDate","PatientName", "PatientAge","PatientSex","PatientName","SliceThickness","StudyID","ContentDate"</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">paths</td><td>An array with the paths to the slices </td></tr>
+    <tr><td class="paramname">low_clip</td><td>lowest pixel value (Recommended:850) </td></tr>
+    <tr><td class="paramname">high_clip</td><td>highest pixel value (Recommended: 1250)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>JSON: {message: message, metadata: dictionary} </dd></dl>
+
+</div>
+</div>
 <a id="a2ea3e26521cdcd63a5ec21e6a4dcb0e6" name="a2ea3e26521cdcd63a5ec21e6a4dcb0e6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ea3e26521cdcd63a5ec21e6a4dcb0e6">&#9670;&nbsp;</a></span>drawOnMask()</h2>
 
@@ -195,14 +227,14 @@ img = bytestring.split('\'')[1]
 </pre> 
 </div>
 </div>
-<a id="ad69191df26c67045429fe3b6654a84ff" name="ad69191df26c67045429fe3b6654a84ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad69191df26c67045429fe3b6654a84ff">&#9670;&nbsp;</a></span>extendThresholds()</h2>
+<a id="ab78dfd12fd33aa268d51178dd6d5baac" name="ab78dfd12fd33aa268d51178dd6d5baac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab78dfd12fd33aa268d51178dd6d5baac">&#9670;&nbsp;</a></span>extendLabels()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def segmenter_flask_API.extendThresholds </td>
+          <td class="memname">def segmenter_flask_API.extendLabels </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -215,8 +247,8 @@ img = bytestring.split('\'')[1]
   <table class="params">
     <tr><td class="paramname">patientID</td><td>The ID of the patient </td></tr>
     <tr><td class="paramname">index</td><td>The index of the slice for which to mask should be updated </td></tr>
-    <tr><td class="paramname">left</td><td>Extend labeling up to index-label </td></tr>
-    <tr><td class="paramname">right</td><td>Extend labeling up to index+label</td></tr>
+    <tr><td class="paramname">left</td><td>Extend labeling up to index-left </td></tr>
+    <tr><td class="paramname">right</td><td>Extend labeling up to index+right</td></tr>
   </table>
   </dd>
 </dl>

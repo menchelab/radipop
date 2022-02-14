@@ -1,5 +1,5 @@
-\hypertarget{segmenter__flask___a_p_i_8py}{}\doxysection{/\+Users/lorenz/\+Desktop/temp/radipop/\+Radi\+POP-\/standalone/web\+\_\+app/segmenter\+\_\+flask\+\_\+\+API.py File Reference}
-\label{segmenter__flask___a_p_i_8py}\index{/Users/lorenz/Desktop/temp/radipop/RadiPOP-\/standalone/web\_app/segmenter\_flask\_API.py@{/Users/lorenz/Desktop/temp/radipop/RadiPOP-\/standalone/web\_app/segmenter\_flask\_API.py}}
+\hypertarget{segmenter__flask___a_p_i_8py}{}\doxysection{/\+Users/lorenz/\+Desktop/temp/radipop/electron-\/react/segmenter\+\_\+flask\+\_\+\+API/segmenter\+\_\+flask\+\_\+\+API.py File Reference}
+\label{segmenter__flask___a_p_i_8py}\index{/Users/lorenz/Desktop/temp/radipop/electron-\/react/segmenter\_flask\_API/segmenter\_flask\_API.py@{/Users/lorenz/Desktop/temp/radipop/electron-\/react/segmenter\_flask\_API/segmenter\_flask\_API.py}}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -10,9 +10,11 @@ namespace \mbox{\hyperlink{namespacesegmenter__flask___a_p_i}{segmenter\+\_\+fla
 \item 
 def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a87eb1f0c3f92490595980a5fa2d5231a}{correct\+Partition}} ()
 \begin{DoxyCompactList}\small\item\em Reveives index to slice/mask + coordinates-\/-\/\texorpdfstring{$>$}{>} returns partion corrected mask as PNG to client. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a1085fa447800af4e234c6b8c91013574}{dcm2png}} ()
+\begin{DoxyCompactList}\small\item\em Receive Paths to dcm files, converts them to PNG. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a2ea3e26521cdcd63a5ec21e6a4dcb0e6}{draw\+On\+Mask}} ()
 \begin{DoxyCompactList}\small\item\em Reveives index to slice/mask + x,y coordinates -\/-\/\texorpdfstring{$>$}{>} returns drawn on mask as PNG to client. \end{DoxyCompactList}\item 
-def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_ad69191df26c67045429fe3b6654a84ff}{extend\+Thresholds}} ()
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_ab78dfd12fd33aa268d51178dd6d5baac}{extend\+Labels}} ()
 \begin{DoxyCompactList}\small\item\em Reveives index to slice mask + label id -\/-\/\texorpdfstring{$>$}{>} returns highlighted mask as PNG to client. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a863cdb180347d6f9df75d65d2177a21d}{get\+Mask}} ()
 \begin{DoxyCompactList}\small\item\em Reveives index to slice/mask -\/-\/\texorpdfstring{$>$}{>} returns mask stored on flask server as PNG to client. \end{DoxyCompactList}\item 

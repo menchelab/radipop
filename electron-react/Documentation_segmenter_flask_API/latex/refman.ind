@@ -1,13 +1,13 @@
 \begin{theindex}
 
-  \item {/Users/lorenz/Desktop/temp/radipop/RadiPOP-\/standalone/web\_app/segmenter\_flask\_API.py}, 
-		\hyperpage{33}
-  \item {/Users/lorenz/Desktop/temp/radipop/RadiPOP-\/standalone/web\_app/utility/config.py}, 
-		\hyperpage{34}
-  \item {/Users/lorenz/Desktop/temp/radipop/RadiPOP-\/standalone/web\_app/utility/radipop\_gui.py}, 
-		\hyperpage{34}
-  \item {/Users/lorenz/Desktop/temp/radipop/RadiPOP-\/standalone/web\_app/utility/segmentation\_utils.py}, 
-		\hyperpage{34}
+  \item {/Users/lorenz/Desktop/temp/radipop/electron-\/react/segmenter\_flask\_API/segmenter\_flask\_API.py}, 
+		\hyperpage{35}
+  \item {/Users/lorenz/Desktop/temp/radipop/electron-\/react/segmenter\_flask\_API/utility/config.py}, 
+		\hyperpage{36}
+  \item {/Users/lorenz/Desktop/temp/radipop/electron-\/react/segmenter\_flask\_API/utility/radipop\_gui.py}, 
+		\hyperpage{36}
+  \item {/Users/lorenz/Desktop/temp/radipop/electron-\/react/segmenter\_flask\_API/utility/segmentation\_utils.py}, 
+		\hyperpage{36}
   \item {\_\_init\_\_}
     \subitem {RadiPopGUI}, \hyperpage{24}
 
@@ -25,9 +25,11 @@
 
   \indexspace
 
+  \item {clip\_dcm}
+    \subitem {RadiPopGUI}, \hyperpage{24}
   \item {config}, \hyperpage{9}
   \item {correct\_partition}
-    \subitem {RadiPopGUI}, \hyperpage{24}
+    \subitem {RadiPopGUI}, \hyperpage{25}
   \item {correctPartition}
     \subitem {segmenter\_flask\_API}, \hyperpage{13}
   \item {create\_image\_stream}
@@ -35,9 +37,11 @@
 
   \indexspace
 
+  \item {dcm2png}
+    \subitem {segmenter\_flask\_API}, \hyperpage{13}
   \item {DEBUG}
     \subitem {DevelopmentConfig}, \hyperpage{22}
-    \subitem {TestingConfig}, \hyperpage{32}
+    \subitem {TestingConfig}, \hyperpage{33}
   \item {DevelopmentConfig}, \hyperpage{21}
     \subitem {DEBUG}, \hyperpage{22}
   \item {draw\_on\_image}
@@ -45,43 +49,45 @@
   \item {draw\_region\_outlines}
     \subitem {segmentation\_utils}, \hyperpage{10}
   \item {drawOnMask}
-    \subitem {segmenter\_flask\_API}, \hyperpage{13}
+    \subitem {segmenter\_flask\_API}, \hyperpage{14}
 
   \indexspace
 
   \item {extend\_labels}
-    \subitem {RadiPopGUI}, \hyperpage{25}
-  \item {extendThresholds}
+    \subitem {RadiPopGUI}, \hyperpage{26}
+  \item {extendLabels}
     \subitem {segmenter\_flask\_API}, \hyperpage{14}
+  \item {extract\_metadata\_from\_dcm}
+    \subitem {RadiPopGUI}, \hyperpage{26}
 
   \indexspace
 
   \item {find\_organs}
     \subitem {RadiPopGUI}, \hyperpage{26}
   \item {FLASK\_PORT}
-    \subitem {segmenter\_flask\_API}, \hyperpage{18}
+    \subitem {segmenter\_flask\_API}, \hyperpage{19}
   \item {FLAST\_HOST}
-    \subitem {segmenter\_flask\_API}, \hyperpage{18}
+    \subitem {segmenter\_flask\_API}, \hyperpage{19}
 
   \indexspace
 
   \item {getMask}
-    \subitem {segmenter\_flask\_API}, \hyperpage{14}
+    \subitem {segmenter\_flask\_API}, \hyperpage{15}
   \item {guess\_bounds}
     \subitem {segmentation\_utils}, \hyperpage{10}
 
   \indexspace
 
   \item {highlightOrgan}
-    \subitem {RadiPopGUI}, \hyperpage{26}
+    \subitem {RadiPopGUI}, \hyperpage{27}
     \subitem {segmenter\_flask\_API}, \hyperpage{15}
   \item {host}
-    \subitem {segmenter\_flask\_API}, \hyperpage{18}
+    \subitem {segmenter\_flask\_API}, \hyperpage{19}
 
   \indexspace
 
   \item {initialize}
-    \subitem {segmenter\_flask\_API}, \hyperpage{15}
+    \subitem {segmenter\_flask\_API}, \hyperpage{16}
 
   \indexspace
 
@@ -90,36 +96,36 @@
   \item {labelOrgan}
     \subitem {segmenter\_flask\_API}, \hyperpage{16}
   \item {last\_clicked\_x}
-    \subitem {RadiPopGUI}, \hyperpage{30}
+    \subitem {RadiPopGUI}, \hyperpage{31}
   \item {last\_clicked\_y}
-    \subitem {RadiPopGUI}, \hyperpage{30}
+    \subitem {RadiPopGUI}, \hyperpage{32}
   \item {LIVER\_LABEL}
-    \subitem {RadiPopGUI}, \hyperpage{30}
+    \subitem {RadiPopGUI}, \hyperpage{32}
 
   \indexspace
 
   \item {masks}
-    \subitem {RadiPopGUI}, \hyperpage{30}
+    \subitem {RadiPopGUI}, \hyperpage{32}
 
   \indexspace
 
   \item {np\_label\_array\_to\_png}
-    \subitem {RadiPopGUI}, \hyperpage{27}
+    \subitem {RadiPopGUI}, \hyperpage{28}
 
   \indexspace
 
   \item {partition\_at\_threshold}
     \subitem {segmentation\_utils}, \hyperpage{11}
   \item {pathToSlices}
-    \subitem {RadiPopGUI}, \hyperpage{30}
+    \subitem {RadiPopGUI}, \hyperpage{32}
   \item {patient\_id}
-    \subitem {RadiPopGUI}, \hyperpage{31}
+    \subitem {RadiPopGUI}, \hyperpage{32}
   \item {patients}
     \subitem {segmenter\_flask\_API}, \hyperpage{19}
   \item {port}
     \subitem {segmenter\_flask\_API}, \hyperpage{19}
   \item {postPickleGetMask}
-    \subitem {segmenter\_flask\_API}, \hyperpage{16}
+    \subitem {segmenter\_flask\_API}, \hyperpage{17}
   \item {ProductionConfig}, \hyperpage{22}
 
   \indexspace
@@ -127,37 +133,40 @@
   \item {radipop\_gui}, \hyperpage{9}
   \item {RadiPopGUI}, \hyperpage{22}
     \subitem {\_\_init\_\_}, \hyperpage{24}
-    \subitem {correct\_partition}, \hyperpage{24}
+    \subitem {clip\_dcm}, \hyperpage{24}
+    \subitem {correct\_partition}, \hyperpage{25}
     \subitem {create\_image\_stream}, \hyperpage{25}
     \subitem {draw\_on\_image}, \hyperpage{25}
-    \subitem {extend\_labels}, \hyperpage{25}
+    \subitem {extend\_labels}, \hyperpage{26}
+    \subitem {extract\_metadata\_from\_dcm}, \hyperpage{26}
     \subitem {find\_organs}, \hyperpage{26}
-    \subitem {highlightOrgan}, \hyperpage{26}
+    \subitem {highlightOrgan}, \hyperpage{27}
     \subitem {labelMask}, \hyperpage{27}
-    \subitem {last\_clicked\_x}, \hyperpage{30}
-    \subitem {last\_clicked\_y}, \hyperpage{30}
-    \subitem {LIVER\_LABEL}, \hyperpage{30}
-    \subitem {masks}, \hyperpage{30}
-    \subitem {np\_label\_array\_to\_png}, \hyperpage{27}
-    \subitem {pathToSlices}, \hyperpage{30}
-    \subitem {patient\_id}, \hyperpage{31}
+    \subitem {last\_clicked\_x}, \hyperpage{31}
+    \subitem {last\_clicked\_y}, \hyperpage{32}
+    \subitem {LIVER\_LABEL}, \hyperpage{32}
+    \subitem {masks}, \hyperpage{32}
+    \subitem {np\_label\_array\_to\_png}, \hyperpage{28}
+    \subitem {pathToSlices}, \hyperpage{32}
+    \subitem {patient\_id}, \hyperpage{32}
     \subitem {read\_pickle\_mask\_to\_np\_label\_array}, \hyperpage{28}
-    \subitem {readPNG}, \hyperpage{28}
-    \subitem {save\_masks}, \hyperpage{29}
-    \subitem {selected\_pixel\_value\_of\_label\_mask}, \hyperpage{31}
-    \subitem {slice\_dim}, \hyperpage{29}
-    \subitem {sliceCache}, \hyperpage{31}
-    \subitem {SPLEEN\_LABEL}, \hyperpage{31}
-    \subitem {update\_mask\_upon\_slider\_change}, \hyperpage{29}
+    \subitem {readPNG}, \hyperpage{30}
+    \subitem {save\_masks}, \hyperpage{30}
+    \subitem {selected\_pixel\_value\_of\_label\_mask}, \hyperpage{32}
+    \subitem {slice\_dim}, \hyperpage{30}
+    \subitem {sliceCache}, \hyperpage{33}
+    \subitem {SPLEEN\_LABEL}, \hyperpage{33}
+    \subitem {update\_mask\_upon\_slider\_change}, \hyperpage{31}
+    \subitem {writePillow2PNG}, \hyperpage{31}
   \item {read\_pickle\_mask\_to\_np\_label\_array}
     \subitem {RadiPopGUI}, \hyperpage{28}
   \item {readPNG}
-    \subitem {RadiPopGUI}, \hyperpage{28}
+    \subitem {RadiPopGUI}, \hyperpage{30}
 
   \indexspace
 
   \item {save\_masks}
-    \subitem {RadiPopGUI}, \hyperpage{29}
+    \subitem {RadiPopGUI}, \hyperpage{30}
   \item {save\_partition}
     \subitem {segmentation\_utils}, \hyperpage{12}
   \item {saveMasks}
@@ -173,39 +182,45 @@
   \item {segmenter\_flask\_API}, \hyperpage{12}
     \subitem {app}, \hyperpage{18}
     \subitem {correctPartition}, \hyperpage{13}
-    \subitem {drawOnMask}, \hyperpage{13}
-    \subitem {extendThresholds}, \hyperpage{14}
-    \subitem {FLASK\_PORT}, \hyperpage{18}
-    \subitem {FLAST\_HOST}, \hyperpage{18}
-    \subitem {getMask}, \hyperpage{14}
+    \subitem {dcm2png}, \hyperpage{13}
+    \subitem {drawOnMask}, \hyperpage{14}
+    \subitem {extendLabels}, \hyperpage{14}
+    \subitem {FLASK\_PORT}, \hyperpage{19}
+    \subitem {FLAST\_HOST}, \hyperpage{19}
+    \subitem {getMask}, \hyperpage{15}
     \subitem {highlightOrgan}, \hyperpage{15}
-    \subitem {host}, \hyperpage{18}
-    \subitem {initialize}, \hyperpage{15}
+    \subitem {host}, \hyperpage{19}
+    \subitem {initialize}, \hyperpage{16}
     \subitem {labelOrgan}, \hyperpage{16}
     \subitem {patients}, \hyperpage{19}
     \subitem {port}, \hyperpage{19}
-    \subitem {postPickleGetMask}, \hyperpage{16}
+    \subitem {postPickleGetMask}, \hyperpage{17}
     \subitem {saveMasks}, \hyperpage{17}
-    \subitem {updateMask}, \hyperpage{17}
+    \subitem {updateMask}, \hyperpage{18}
   \item {selected\_pixel\_value\_of\_label\_mask}
-    \subitem {RadiPopGUI}, \hyperpage{31}
+    \subitem {RadiPopGUI}, \hyperpage{32}
   \item {slice\_dim}
-    \subitem {RadiPopGUI}, \hyperpage{29}
+    \subitem {RadiPopGUI}, \hyperpage{30}
   \item {sliceCache}
-    \subitem {RadiPopGUI}, \hyperpage{31}
+    \subitem {RadiPopGUI}, \hyperpage{33}
   \item {SPLEEN\_LABEL}
-    \subitem {RadiPopGUI}, \hyperpage{31}
+    \subitem {RadiPopGUI}, \hyperpage{33}
 
   \indexspace
 
-  \item {TestingConfig}, \hyperpage{32}
-    \subitem {DEBUG}, \hyperpage{32}
+  \item {TestingConfig}, \hyperpage{33}
+    \subitem {DEBUG}, \hyperpage{33}
 
   \indexspace
 
   \item {update\_mask\_upon\_slider\_change}
-    \subitem {RadiPopGUI}, \hyperpage{29}
+    \subitem {RadiPopGUI}, \hyperpage{31}
   \item {updateMask}
-    \subitem {segmenter\_flask\_API}, \hyperpage{17}
+    \subitem {segmenter\_flask\_API}, \hyperpage{18}
+
+  \indexspace
+
+  \item {writePillow2PNG}
+    \subitem {RadiPopGUI}, \hyperpage{31}
 
 \end{theindex}
