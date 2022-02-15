@@ -143,11 +143,11 @@ function ToolBar(props) {
   useEffect(() => {
     if (props.RP.flaskIntialized && numberOfConvertedMasks===props.RP.RadiPOPstates.files.length){
       props.RP.setshowMask(true)
-      const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message={"Converted all masks files"} />);
+      const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message={"Converted all mask files"} />);
       props.RP.setlogInfo(logInfo);
     }
-    if (numberOfConvertedMasks>0 && numberOfConvertedMasks< props.RP.RadiPOPstates.files.length && numberOfConvertedMasks%20===0) {
-      const logInfo = props.RP.logInfo.concat(<LogMessage type="warning"  message={"Converted " + String(numberOfConvertedMasks) +" of " + String(props.RP.RadiPOPstates.files.length) + " masks files"} />);
+    if (numberOfConvertedMasks>0 && numberOfConvertedMasks< props.RP.RadiPOPstates.files.length && numberOfConvertedMasks%50===0) {
+      const logInfo = props.RP.logInfo.concat(<LogMessage type="warning"  message={"Converted " + String(numberOfConvertedMasks) +" of " + String(props.RP.RadiPOPstates.files.length) + " mask files"} />);
       props.RP.setlogInfo(logInfo);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
