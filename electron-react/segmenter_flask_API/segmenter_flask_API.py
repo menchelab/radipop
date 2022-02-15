@@ -404,6 +404,34 @@ def dcm2png():
     data["message"]="/dcm2png: Converted dicom files. Output written to: " +os.path.dirname(paths[0])
     data["metadata"]= RadiPopGUI.extract_metadata_from_dcm(dcm_file=paths[0])
     return jsonify(data)
+
+@app.route('/dcm2pngPreview', methods=['POST'])
+def dcm2pngPreview():
+    """! Receive Paths to dcm file, converts it to PNG
+
+    Included metadata IDs: "PatientID","PatientBirthDate","PatientName",
+    "PatientAge","PatientSex","PatientName","SliceThickness","StudyID","ContentDate"
+    
+    @param path The paths to the dcm file
+    @param low_clip: lowest pixel value (Recommended:850)
+    @param high_clip: highest pixel value (Recommended: 1250)
+
+    @return JSON: {slice: slice stream} slice as PNG as byte stream
+    """
+    dictionary = request.get_json()
+    path=dictionary["path"]
+    low_clip=dictionary["low_clip"]
+    high_clip=dictionary["high_clip"]
+
+    
+    img,index = RadiPopGUI.clip_dcm(dcm_file=path,clip_low=low_clip,clip_high=high_clip)
+    img_base64 = RadiPopGUI.create_image_stream(img)
+
+    data={}
+    data={"slice": str(img_base64)} 
+    data["message"]="/dcm2pngPreview: Created preview for dicom file with slice " +str(index)
+    data["metadata"]= RadiPopGUI.extract_metadata_from_dcm(dcm_file=path)
+    return jsonify(data)
 if __name__ == '__main__':
 
     ## Dictionary which will hold for each patientID a RadiPopGUI object.

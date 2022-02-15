@@ -177,3 +177,17 @@ margin: 10px 0px 10px 0px;
   animation: slideInDown 600ms ease-in-out;
 }
 */
+.previewSlice{
+  width:auto ; 
+  height: 150px;
+  text-align: center;
+}
+.previewDiv {
+  display: flex;
+  justify-content: center;
+  margin: 10px; 
+}
+.previewDiv2 {
+  text-align:center ;
+  margin: 10px; 
+}

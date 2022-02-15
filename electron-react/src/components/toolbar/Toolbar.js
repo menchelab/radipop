@@ -261,6 +261,7 @@ function ToolBar(props) {
 
   const handleDicomClips = () => {
     dcm2png(state.files);
+    setpreview(""); 
   }
 
   const saveHandler = (event) => {
@@ -328,7 +329,30 @@ function _onSubmit(e) {
     e.preventDefault();
     setState({showDialog: false, low_clip: state.low_clip, high_clip: state.high_clip, files: state.files});
 }
-
+const [preview, setpreview] = useState("");
+function handlePreview(){
+  let data={
+    low_clip: + state.low_clip,
+    high_clip: + state.high_clip,
+    "path": state.files[0]
+  };
+  console.log("dcm2pngPreview");
+  fetch(props.RP.FLASK_SERVER+"/dcm2pngPreview", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).then(function(response){ return response.json();})
+  .then(function(data) {
+    console.log(data["message"]);
+    console.log(data["metadata"]);
+    let bytestring = data["slice"];
+    let img = bytestring.split('\'')[1];
+    img= "data:image/png;base64," +img;
+    setpreview(img);
+    //props.RP.setDisableApp(false);
+    setState({ showDialog: true, low_clip: state.low_clip, high_clip: state.high_clip, files: state.files});
+  }).catch(error_handler)
+}
 return (
   <div className="row toolbar col-lg-12 col-md-12">
     <div className="brwhite tool-col col-lg-3 col-md-3">
@@ -350,9 +374,16 @@ return (
             <div className="dialog-wrapper">
                 <h3>Set clipping values for dicom conversion</h3>
                 <form onSubmit={_onSubmit}>
+                    {preview!=="" && <div className="previewDiv"> <img className="previewSlice" src={preview} alt="Preview" /> </div>}
+                    <div className="previewDiv2">
                     LOW: <input type="text" id="low_clip" value={state.low_clip} onChange={_onChange} /> {" "}
                     HIGH: <input type="text" id="high_clip" value={state.high_clip} onChange={_onChange} />{" "}
+                    </div>
+                    <div className="previewDiv2">
+                    <button onClick={handlePreview}> Preview </button>
                     <button onClick={handleDicomClips} type="submit">Set</button>
+                    </div>
+                    
                 </form>
             </div>
         </DialogModal>
