@@ -24,7 +24,7 @@ function HideMask(props) {
 }
 
     return (
-      <div className="toolsh">
+      <span >
         <input type="checkbox"
                disabled={loaded_files || props.RP.disableApp}
                checked={props.RP.showMask}
@@ -32,7 +32,7 @@ function HideMask(props) {
                onChange={handleChange}
                name="hide-mask-checkbox" />
         <label style={{paddingLeft: "5px"}} htmlFor="hide-mask-checkbox">Show mask</label>
-      </div>
+      </span>
     );
   };
 

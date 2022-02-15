@@ -29,11 +29,14 @@ function App() {
   RP.RadiPOPstates=RadiPOPstates;
   RP.setRadiPOPstates=setRadiPOPstates;
 
-  const [showMask, setshowMask] = useState(false)
+  const [showSlice, setshowSlice] = useState(true);
+  RP.showSlice=showSlice;
+  RP.setshowSlice=setshowSlice;
+  const [showMask, setshowMask] = useState(false);
   RP.showMask=showMask;
   RP.setshowMask=setshowMask;
 
-  const [newMask, setNewMask] = useState("")
+  const [newMask, setNewMask] = useState("");
   RP.newMask=newMask
   RP.setNewMask=p=>{setNewMask(p)}
   const [flaskIntialized, setflaskIntialized] = useState(false)

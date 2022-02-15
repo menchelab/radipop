@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import HideMask from '../editing/HideMask.js';
+import HideSlice from './HideSlice.js';
 import Slider from '../editing/Slider.js'
 import GlobalThreshold from '../editing/GlobalThreshold.js';
 import Bound from '../editing/Bound.js';
@@ -224,7 +225,10 @@ function Editing(props) {
 
     return(
       <div className="col-lg-3 col-md-3 utility-area ">
+        <div className="toolsh">
         <HideMask key="HideMaskBox" RP={props.RP}/>
+        <HideSlice key="HideSliceBox" RP={props.RP}/>
+        </div>
         <div className="tools">
           <Slider id="bone"
                   RP={props.RP}
