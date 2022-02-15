@@ -155,9 +155,9 @@ function Editing(props) {
       props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files,
                               slice_mask_container: update,
                               currentSliceIndex:props.RP.RadiPOPstates.currentSliceIndex,
-                              patient: props.RP.RadiPOPstates.patient,
-                              showMask: props.RP.RadiPOPstates.files.length>0
+                              patient: props.RP.RadiPOPstates.patient
                             });
+      props.RP.setshowMask(props.RP.RadiPOPstates.files.length>0);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newMask]);
 
@@ -172,8 +172,7 @@ function Editing(props) {
       props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files,
         slice_mask_container: props.RP.RadiPOPstates.slice_mask_container,
         currentSliceIndex:props.RP.RadiPOPstates.currentSliceIndex,
-        patient:props.RP.RadiPOPstates.patient,
-        showMask:props.RP.RadiPOPstates.showMask
+        patient:props.RP.RadiPOPstates.patient
       });
     props.RP.setDisableApp(false); // After computation allow user to buttons/sliders
     // eslint-disable-next-line react-hooks/exhaustive-deps

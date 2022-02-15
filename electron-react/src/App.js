@@ -24,12 +24,15 @@ function App() {
     files: [],
     slice_mask_container: [[slice_place_holder,""]],
     currentSliceIndex: 0,
-    patient: "None",
-    showMask: false
+    patient: "None"
     });
-
   RP.RadiPOPstates=RadiPOPstates;
   RP.setRadiPOPstates=setRadiPOPstates;
+
+  const [showMask, setshowMask] = useState(false)
+  RP.showMask=showMask;
+  RP.setshowMask=setshowMask;
+
   const [newMask, setNewMask] = useState("")
   RP.newMask=newMask
   RP.setNewMask=p=>{setNewMask(p)}

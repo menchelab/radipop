@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import SearchBar from '../toolbar/Searchbar.js';
 import Button from '../toolbar/Button.js';
 import Input from '../toolbar/Input.js';
@@ -11,7 +11,6 @@ import '../../styles/index.css';
 
 
 function ToolBar(props) {
-
   const initialize =(paths,smc, mask_files, patientID) => {
     let data={
       paths: paths,
@@ -59,6 +58,8 @@ function ToolBar(props) {
       let img = bytestring.split('\'')[1];
       img= "data:image/png;base64," +img;
       smc[index][1]= img;
+      numberOfConvertedMasksHelper= numberOfConvertedMasksHelper+1; 
+      setnumberOfConvertedMasks(numberOfConvertedMasksHelper);
     }).catch(error_handler)
   }
 
@@ -128,14 +129,29 @@ function ToolBar(props) {
     // Update state with loaded files
     const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message="You succesfully loaded the .png files in EditorXR!"/>);
     props.RP.setlogInfo(logInfo);
-    props.RP.setRadiPOPstates({files: slice_files, slice_mask_container: smc, currentSliceIndex:0, patient: directory_name, showMask:false});
+    props.RP.setRadiPOPstates({files: slice_files, slice_mask_container: smc, currentSliceIndex:0, patient: directory_name});
 
   }
   /*
   useEffect(() => {
-  props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files, slice_mask_container: props.RP.RadiPOPstates.slice_mask_container, currentSliceIndex:0, patient:"?", showMask:true, status: props.RP.RadiPOPstates.status});
+  props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files, slice_mask_container: props.RP.RadiPOPstates.slice_mask_container, currentSliceIndex:0, patient:"?", showMask:true});
   },[]); */
 
+  //Show masks after all pickle files were converted
+  let numberOfConvertedMasksHelper=0; 
+  const [numberOfConvertedMasks, setnumberOfConvertedMasks] = useState(0);
+  useEffect(() => {
+    if (props.RP.flaskIntialized && numberOfConvertedMasks===props.RP.RadiPOPstates.files.length){
+      props.RP.setshowMask(true)
+      const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message={"Converted all masks files"} />);
+      props.RP.setlogInfo(logInfo);
+    }
+    if (numberOfConvertedMasks>0 && numberOfConvertedMasks< props.RP.RadiPOPstates.files.length && numberOfConvertedMasks%20===0) {
+      const logInfo = props.RP.logInfo.concat(<LogMessage type="warning"  message={"Converted " + String(numberOfConvertedMasks) +" of " + String(props.RP.RadiPOPstates.files.length) + " masks files"} />);
+      props.RP.setlogInfo(logInfo);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[numberOfConvertedMasks]);
   const [CorrectParitionButtonLabel, setCorrectParitionButtonLabel] = useState("Correct Partition");
   const [state, setState] = useState({
           low_clip: props.RP.low_clip,

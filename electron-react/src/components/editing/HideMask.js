@@ -7,7 +7,7 @@ function HideMask(props) {
   // Set state hide mask on checkbox click
   const handleChange = () => {
     let logInfo = "";
-    if (!props.RP.RadiPOPstates.showMask){ //Not because state is set afterwards
+    if (!props.RP.showMask){ //Not because state is set afterwards
        logInfo = props.RP.logInfo.concat(<LogMessage type="warning" message="Masks are visible"/>);
     }
     else{
@@ -18,16 +18,16 @@ function HideMask(props) {
     props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files,
       slice_mask_container: props.RP.RadiPOPstates.slice_mask_container,
       currentSliceIndex:props.RP.RadiPOPstates.currentSliceIndex,
-      patient: props.RP.RadiPOPstates.patient,
-      showMask: !props.RP.RadiPOPstates.showMask
+      patient: props.RP.RadiPOPstates.patient
     });
+    props.RP.setshowMask(!props.RP.showMask); 
 }
 
     return (
       <div className="toolsh">
         <input type="checkbox"
                disabled={loaded_files || props.RP.disableApp}
-               checked={props.RP.RadiPOPstates.showMask}
+               checked={props.RP.showMask}
                id="hide-mask-checkbox"
                onChange={handleChange}
                name="hide-mask-checkbox" />
