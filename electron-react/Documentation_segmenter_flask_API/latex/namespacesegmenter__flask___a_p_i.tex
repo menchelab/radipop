@@ -7,6 +7,8 @@ def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a87eb1f0c3f92490595980a5f
 \begin{DoxyCompactList}\small\item\em Reveives index to slice/mask + coordinates-\/-\/\texorpdfstring{$>$}{>} returns partion corrected mask as PNG to client. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a1085fa447800af4e234c6b8c91013574}{dcm2png}} ()
 \begin{DoxyCompactList}\small\item\em Receive Paths to dcm files, converts them to PNG. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a0b907cefd2476cd532a2ed1f06d09ffa}{dcm2png\+Preview}} ()
+\begin{DoxyCompactList}\small\item\em Receive Paths to dcm file, converts it to PNG. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a2ea3e26521cdcd63a5ec21e6a4dcb0e6}{draw\+On\+Mask}} ()
 \begin{DoxyCompactList}\small\item\em Reveives index to slice/mask + x,y coordinates -\/-\/\texorpdfstring{$>$}{>} returns drawn on mask as PNG to client. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_ab78dfd12fd33aa268d51178dd6d5baac}{extend\+Labels}} ()
@@ -100,6 +102,30 @@ Included metadata IDs\+: \char`\"{}\+Patient\+ID\char`\"{},\char`\"{}\+Patient\+
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 JSON\+: \{message\+: message, metadata\+: dictionary\} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a0b907cefd2476cd532a2ed1f06d09ffa}\label{namespacesegmenter__flask___a_p_i_a0b907cefd2476cd532a2ed1f06d09ffa}} 
+\index{segmenter\_flask\_API@{segmenter\_flask\_API}!dcm2pngPreview@{dcm2pngPreview}}
+\index{dcm2pngPreview@{dcm2pngPreview}!segmenter\_flask\_API@{segmenter\_flask\_API}}
+\doxysubsubsection{\texorpdfstring{dcm2pngPreview()}{dcm2pngPreview()}}
+{\footnotesize\ttfamily def segmenter\+\_\+flask\+\_\+\+API.\+dcm2png\+Preview (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Receive Paths to dcm file, converts it to PNG. 
+
+Included metadata IDs\+: \char`\"{}\+Patient\+ID\char`\"{},\char`\"{}\+Patient\+Birth\+Date\char`\"{},\char`\"{}\+Patient\+Name\char`\"{}, \char`\"{}\+Patient\+Age\char`\"{},\char`\"{}\+Patient\+Sex\char`\"{},\char`\"{}\+Patient\+Name\char`\"{},\char`\"{}\+Slice\+Thickness\char`\"{},\char`\"{}\+Study\+ID\char`\"{},\char`\"{}\+Content\+Date\char`\"{}
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & The paths to the dcm file \\
+\hline
+{\em low\+\_\+clip} & lowest pixel value (Recommended\+:850) \\
+\hline
+{\em high\+\_\+clip} & highest pixel value (Recommended\+: 1250)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON\+: \{slice\+: slice stream\} slice as PNG as byte stream 
 \end{DoxyReturn}
 \mbox{\Hypertarget{namespacesegmenter__flask___a_p_i_a2ea3e26521cdcd63a5ec21e6a4dcb0e6}\label{namespacesegmenter__flask___a_p_i_a2ea3e26521cdcd63a5ec21e6a4dcb0e6}} 
 \index{segmenter\_flask\_API@{segmenter\_flask\_API}!drawOnMask@{drawOnMask}}

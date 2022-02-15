@@ -16,7 +16,7 @@
   \item {add\_sobel\_edges}
     \subitem {segmentation\_utils}, \hyperpage{10}
   \item {app}
-    \subitem {segmenter\_flask\_API}, \hyperpage{18}
+    \subitem {segmenter\_flask\_API}, \hyperpage{19}
 
   \indexspace
 
@@ -39,6 +39,8 @@
 
   \item {dcm2png}
     \subitem {segmenter\_flask\_API}, \hyperpage{13}
+  \item {dcm2pngPreview}
+    \subitem {segmenter\_flask\_API}, \hyperpage{14}
   \item {DEBUG}
     \subitem {DevelopmentConfig}, \hyperpage{22}
     \subitem {TestingConfig}, \hyperpage{33}
@@ -56,7 +58,7 @@
   \item {extend\_labels}
     \subitem {RadiPopGUI}, \hyperpage{26}
   \item {extendLabels}
-    \subitem {segmenter\_flask\_API}, \hyperpage{14}
+    \subitem {segmenter\_flask\_API}, \hyperpage{15}
   \item {extract\_metadata\_from\_dcm}
     \subitem {RadiPopGUI}, \hyperpage{26}
 
@@ -80,7 +82,7 @@
 
   \item {highlightOrgan}
     \subitem {RadiPopGUI}, \hyperpage{27}
-    \subitem {segmenter\_flask\_API}, \hyperpage{15}
+    \subitem {segmenter\_flask\_API}, \hyperpage{16}
   \item {host}
     \subitem {segmenter\_flask\_API}, \hyperpage{19}
 
@@ -94,7 +96,7 @@
   \item {labelMask}
     \subitem {RadiPopGUI}, \hyperpage{27}
   \item {labelOrgan}
-    \subitem {segmenter\_flask\_API}, \hyperpage{16}
+    \subitem {segmenter\_flask\_API}, \hyperpage{17}
   \item {last\_clicked\_x}
     \subitem {RadiPopGUI}, \hyperpage{31}
   \item {last\_clicked\_y}
@@ -170,7 +172,7 @@
   \item {save\_partition}
     \subitem {segmentation\_utils}, \hyperpage{12}
   \item {saveMasks}
-    \subitem {segmenter\_flask\_API}, \hyperpage{17}
+    \subitem {segmenter\_flask\_API}, \hyperpage{18}
   \item {SECRET\_KEY}
     \subitem {BaseConfig}, \hyperpage{21}
   \item {segmentation\_utils}, \hyperpage{9}
@@ -180,22 +182,23 @@
     \subitem {partition\_at\_threshold}, \hyperpage{11}
     \subitem {save\_partition}, \hyperpage{12}
   \item {segmenter\_flask\_API}, \hyperpage{12}
-    \subitem {app}, \hyperpage{18}
+    \subitem {app}, \hyperpage{19}
     \subitem {correctPartition}, \hyperpage{13}
     \subitem {dcm2png}, \hyperpage{13}
+    \subitem {dcm2pngPreview}, \hyperpage{14}
     \subitem {drawOnMask}, \hyperpage{14}
-    \subitem {extendLabels}, \hyperpage{14}
+    \subitem {extendLabels}, \hyperpage{15}
     \subitem {FLASK\_PORT}, \hyperpage{19}
     \subitem {FLAST\_HOST}, \hyperpage{19}
     \subitem {getMask}, \hyperpage{15}
-    \subitem {highlightOrgan}, \hyperpage{15}
+    \subitem {highlightOrgan}, \hyperpage{16}
     \subitem {host}, \hyperpage{19}
     \subitem {initialize}, \hyperpage{16}
-    \subitem {labelOrgan}, \hyperpage{16}
+    \subitem {labelOrgan}, \hyperpage{17}
     \subitem {patients}, \hyperpage{19}
     \subitem {port}, \hyperpage{19}
     \subitem {postPickleGetMask}, \hyperpage{17}
-    \subitem {saveMasks}, \hyperpage{17}
+    \subitem {saveMasks}, \hyperpage{18}
     \subitem {updateMask}, \hyperpage{18}
   \item {selected\_pixel\_value\_of\_label\_mask}
     \subitem {RadiPopGUI}, \hyperpage{32}
