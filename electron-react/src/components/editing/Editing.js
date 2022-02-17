@@ -140,6 +140,12 @@ function Editing(props) {
       console.log("Failed to contact flask server or Flask handling error");
       //alert("Failed to contact flask server or Flask handling error - It may take a while to start up the server... Try again later.");
     }
+    const error_handlerExtendLabels = () => {
+      props.RP.setDisableApp(false);
+      const logInfo = props.RP.logInfo.concat(<LogMessage type="error" message="Failed to extend labels --> set threshold globally first"/>);
+      props.RP.setlogInfo(logInfo);
+      alert("Please set threshold globally first!");
+    }
 
     // Updates Mask on slider change
     useEffect(() => {
@@ -200,7 +206,7 @@ function Editing(props) {
          props.RP.setDisableApp(false);
        }
      }
-}).catch(error_handler)
+}).catch(error_handlerExtendLabels)
 }
 
   //Get mask of given index
