@@ -14,9 +14,9 @@ import '../../styles/index.css';
 
 function Editing(props) {
     const [sliderValue, setSliderValue] = useState({
-      bone: '255',
-      vessel: '180',
-      liver: '100',
+      bone: '200',
+      vessel: '170',
+      liver: '130',
     });
 
     const[expansionBounds, setExpansionBounds]=useState({
