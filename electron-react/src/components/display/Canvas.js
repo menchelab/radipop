@@ -40,6 +40,18 @@ function Canvas(props){
       let img = bytestring.split('\'')[1];
       img= "data:image/png;base64," +img;
       props.RP.setNewMask(img);
+      if (parseInt(data["PixelValueOfHighlightedArea"])===props.RP.LIVER_LABEL) {
+        props.RP.setLiverButton({label:"Remove liver label", remove: true});
+        props.RP.setSpleenButton({label:"Set spleen label",remove: false});
+      }
+      else if (parseInt(data["PixelValueOfHighlightedArea"])===props.RP.SPLEEN_LABEL) {
+        props.RP.setSpleenButton({label:"Remove spleen label", remove: true});
+        props.RP.setLiverButton({label:"Set liver label", remove: false})
+      }
+      else {
+        props.RP.setLiverButton({label:"Set liver label", remove: false})
+        props.RP.setSpleenButton({label:"Set spleen label",remove: false});
+      }
     })
   }
 

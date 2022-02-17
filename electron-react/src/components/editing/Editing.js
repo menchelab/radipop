@@ -256,8 +256,8 @@ function Editing(props) {
                           RP={props.RP}/>
         </div>
         <div className="tools">
-          <SetLabel labelID={props.RP.LIVER_LABEL} label="Set Liver Label" RP={props.RP} />
-          <SetLabel labelID={props.RP.SPLEEN_LABEL} label="Set Spleen Label" RP={props.RP} />
+          <SetLabel labelID={props.RP.LIVER_LABEL}  RP={props.RP} />
+          <SetLabel labelID={props.RP.SPLEEN_LABEL} RP={props.RP} />
         </div>
         <div className="tools">
           <Bound RP={props.RP} extendLabelClick={extendLabelClick} getBounds={getBounds}/>

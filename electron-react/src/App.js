@@ -49,6 +49,13 @@ function App() {
   RP.disableApp=disableApp;
   RP.setDisableApp=setDisableApp;
 
+  const [LiverButton,setLiverButton]= useState({label: "Set liver label", remove: false});
+  RP.LiverButton=LiverButton;
+  RP.setLiverButton=setLiverButton;
+  const [SpleenButton,setSpleenButton]= useState({label: "Set spleen label", remove: false});
+  RP.SpleenButton=SpleenButton;
+  RP.setSpleenButton=setSpleenButton;
+
   // React ref to store array of refs
   const scrollRefs = useRef([]);
   RP.scrollRefs=scrollRefs;

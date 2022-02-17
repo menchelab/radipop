@@ -155,10 +155,10 @@ def highlightOrgan():
     
     print(str(x)+" "+str(y),file=sys.stderr)
 
-    img=patients[patientID].highlightOrgan(slice_idx=index,x=x,y=y)
+    img,pixel_value=patients[patientID].highlightOrgan(slice_idx=index,x=x,y=y)
     img_base64=RadiPopGUI.create_image_stream(img)
-
     data={"mask": str(img_base64)}
+    data["PixelValueOfHighlightedArea"]=str(pixel_value)
     data["message"]="/highlightOrgan: Highligted organ on slice " +str(index)
     return jsonify(data)
 
@@ -189,7 +189,7 @@ def labelOrgan():
     index=int(dictionary['index'])
     label=int(dictionary["label"])
     patientID=dictionary["patientID"]
-    arr=patients[patientID].labelMask(slice_idx=index,label=label)
+    arr=patients[patientID].labelMask(slice_idx=index,newlabel=label)
     img = RadiPopGUI.np_label_array_to_png(arr)
     img_base64=RadiPopGUI.create_image_stream(img)
 

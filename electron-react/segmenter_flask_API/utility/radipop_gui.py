@@ -19,6 +19,9 @@ class RadiPopGUI:
     LIVER_LABEL=1
     ## Regions in mask with this label value are considered spleen 
     SPLEEN_LABEL=2
+    ## list with labels
+    LABELS=[SPLEEN_LABEL,SPLEEN_LABEL]
+
     def __init__(self, patient_id): 
         """! Class constructor: 
         @param patient_id The ID of the patient. Must be unique!
@@ -58,7 +61,26 @@ class RadiPopGUI:
         return objects[0]
 
     @staticmethod
-    def np_label_array_to_png(mask_np_array,highlight=None):
+    def color_mask(mask_np_array):
+        """! Takes an numpy label array dim(n,m,1) and returns a color mask  dim(n,m,4)
+        @param mask_np_array numpy label array dim(n,m,1)
+        @return  color mask image  dim(n,m,4) --> RGBA
+
+            - Default liver color is red (LIVER_LABEL)
+            - Default spleen color is blue (SPLEEN_LABEL)
+            - Default for other regions is green 
+        """
+        i=128 # Intensity 
+        t=90 # Transparency
+        out = np.zeros((mask_np_array.shape[0],mask_np_array.shape[1],4),dtype="uint8")
+        out[mask_np_array[:, :] == RadiPopGUI.LIVER_LABEL, :] = [i,0,0,t]
+        out[mask_np_array[:, :] == RadiPopGUI.SPLEEN_LABEL, :] = [0,0,i,t]
+        out[mask_np_array[:, :] >2, :] = [0,i,0,t]
+        out[mask_np_array[:, :] <=0, :] = [0,0,0,0]
+        return out
+
+    @staticmethod
+    def np_label_array_to_png(mask_np_array):
         """! Takes an numpy label array dim(n,m,1) and returns a RGBA pillow image  dim(n,m,4)
         @param mask_np_array numpy label array dim(n,m,1)
         @highlight Highlight regions where highlight==label in brighter color  
@@ -69,26 +91,39 @@ class RadiPopGUI:
             - Default spleen color is blue (SPLEEN_LABEL)
             - Default for other regions is green 
         """
-        i=128 # Intensity 
-        a=90 # Transparency
-        out = np.zeros((mask_np_array.shape[0],mask_np_array.shape[1],4),dtype="uint8")
-        out[mask_np_array[:, :] == RadiPopGUI.LIVER_LABEL, :] = [i,0,0,a]
-        out[mask_np_array[:, :] == RadiPopGUI.SPLEEN_LABEL, :] = [0,0,i,a]
-        out[mask_np_array[:, :] >2, :] = [0,i,0,a]
-        out[mask_np_array[:, :] <=0, :] = [0,0,0,0]
-        if highlight: 
-            i=255
-            a=120
-            if  highlight==RadiPopGUI.LIVER_LABEL:
-                out[mask_np_array[:, :] == RadiPopGUI.LIVER_LABEL, :] = [i,0,0,a]
-            elif highlight==RadiPopGUI.SPLEEN_LABEL:
-                out[mask_np_array[:, :] == RadiPopGUI.SPLEEN_LABEL, :] = [0,0,i,a]
-            else:
-                 out[mask_np_array[:, :] == highlight, :] = [0,i,0,a]
-
-        img = Image.fromarray(out, mode="RGBA")
+        colored_mask = RadiPopGUI.color_mask(mask_np_array)
+        img = Image.fromarray(colored_mask, mode="RGBA")
         return img
-        #img.save(outfile_prefix+file_base_name+".png", 'PNG')
+
+    def highlight_np_label_array_to_png(self,mask_np_array,highlight):
+        """! Takes an numpy label array dim(n,m,1) and returns a RGBA pillow image  dim(n,m,4)
+        @param mask_np_array numpy label array dim(n,m,1)
+        @highlight Highlight regions where highlight==label in brighter color  
+        @return  RGBA pillow image  dim(n,m,4)
+
+        Turns a labelled mask into a transparent (RGBA) PNG. 
+            - Default liver color is red (LIVER_LABEL)
+            - Default spleen color is blue (SPLEEN_LABEL)
+            - Default for other regions is green 
+        """
+        colored_mask = RadiPopGUI.color_mask(mask_np_array)
+         
+        # In order to highligh disconected regions of organs separately 
+        unlabelled_mask= label(mask_np_array)
+        unlabelled_mask[unlabelled_mask>0]+=max(RadiPopGUI.LABELS)
+        surrogate_label=unlabelled_mask[self.last_clicked_y,self.last_clicked_x]
+        
+        i=255 # intensity
+        t=120 # transparency
+        if  highlight==RadiPopGUI.LIVER_LABEL:
+            colored_mask[np.logical_and(mask_np_array[:, :] == RadiPopGUI.LIVER_LABEL,unlabelled_mask[:, :] == surrogate_label), :] = [i,0,0,t]
+        elif highlight==RadiPopGUI.SPLEEN_LABEL:
+            colored_mask[np.logical_and(mask_np_array[:, :] == RadiPopGUI.SPLEEN_LABEL,unlabelled_mask[:, :] == surrogate_label), :] = [0,0,i,t]
+        else:
+            colored_mask[mask_np_array[:, :] == highlight, :] = [0,i,0,t]
+
+        img = Image.fromarray(colored_mask, mode="RGBA")
+        return img
 
     @staticmethod
     def update_mask_upon_slider_change(image,bone_intensity,blood_vessel_intensity,liver_intensity):
@@ -137,7 +172,7 @@ class RadiPopGUI:
         liver = segmentation_utils.partition_at_threshold(imgb, *liver_thresh, title = "Organs/Liver", show_plot=False)
         liver = segmentation_utils.add_sobel_edges(liver, img)
         mask = label(liver)
-        mask[mask>0] = mask[mask>0] + 2
+        mask[mask>0] = mask[mask>0] + max(RadiPopGUI.LABELS)
         return mask
 
     @staticmethod
@@ -155,7 +190,7 @@ class RadiPopGUI:
         @param slice_idx Index of mask/slice to be highlighted 
         @param x x-coordinate of slice (in pixels)
         @param y y-coordinate of slice (in pixels)
-        @return Mask where the region specified by x and y is highlighted in brigther colors
+        @return tuple(Mask where the region specified by x and y is highlighted in brigther colors, pixel_value)
         """
         if x < self.masks[slice_idx].shape[1] and y < self.masks[slice_idx].shape[0]:
             self.last_clicked_x = x
@@ -167,22 +202,32 @@ class RadiPopGUI:
             else:
                 print("Highlighted area",file=sys.stderr)
                 print(pixel_value,file=sys.stderr)
-                mask= RadiPopGUI.np_label_array_to_png(self.masks[slice_idx],highlight=pixel_value)
+                mask= self.highlight_np_label_array_to_png(self.masks[slice_idx],highlight=pixel_value)
 
             self.selected_pixel_value_of_label_mask = pixel_value
-            return mask 
+            return mask,pixel_value
 
-    def labelMask(self, slice_idx, label): 
+    def labelMask(self, slice_idx, newlabel): 
         """! Labels mask at given index at previously selected region
         @param slice_idx Index of mask/slice to be labelled
-        @param label Label to be assigned to previously selected region (either LIVER_LABEL or SPLEEN_LABEL)
+        @param label Label to be assigned to previously selected region (either LIVER_LABEL or SPLEEN_LABEL or -1 (for removeing label))
         @return Mask with new label 
 
         Note: It is expected that the client has before highlighted an organ with the function self.highlightOrgan(). 
         This determines the region/organ that will be labelled with label. 
         """
+        #Remove label 
+        if (newlabel==-1): 
+            newlabel=np.max(self.masks[slice_idx])+1
+            print(newlabel,file=sys.stderr)
+        
+        # In order to highligh disconected regions of organs separately 
+        unlabelled_mask= label(self.masks[slice_idx])
+        unlabelled_mask[unlabelled_mask>0]+=max(RadiPopGUI.LABELS)
+        surrogate_label=unlabelled_mask[self.last_clicked_y,self.last_clicked_x]
+
         if self.selected_pixel_value_of_label_mask !=0:
-            self.masks[slice_idx][self.masks[slice_idx]==self.selected_pixel_value_of_label_mask]=label
+            self.masks[slice_idx][np.logical_and(self.masks[slice_idx]==self.selected_pixel_value_of_label_mask,unlabelled_mask == surrogate_label)]=newlabel
         return self.masks[slice_idx]
     
     def slice_dim(self, index):
@@ -261,7 +306,7 @@ class RadiPopGUI:
         flat_image=flat_image.sum(axis=2)
         flat_image[flat_image>0]=1
         new_mask = label(flat_image)
-        new_mask[new_mask>0]+=2
+        new_mask[new_mask>0]+=max(RadiPopGUI.LABELS)
         return new_mask
 
 
