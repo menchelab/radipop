@@ -15,6 +15,11 @@ function MiniCanvas(props) {
      currentSliceIndex: parseInt(props.index),
      patient: props.RP.RadiPOPstates.patient
     })
+    let index= parseInt(props.index);
+       //Calculate new mask if current slice has no mask: 
+    if (props.RP.RadiPOPstates.slice_mask_container[index][1]==="" && props.RP.showMask) {
+      props.RP.setFirstMaskForSlice(index);
+    }
   }
 
   return(

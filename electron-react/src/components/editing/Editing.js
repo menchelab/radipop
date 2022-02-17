@@ -153,7 +153,7 @@ function Editing(props) {
         updateMask(props.RP.RadiPOPstates.currentSliceIndex, sliderValue, false);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[sliderValue]);
+    },[sliderValue,props.RP.FirstMaskForSlice]);
 
     // Render new mask after computation
     useEffect(() => {
@@ -232,7 +232,7 @@ function Editing(props) {
     return(
       <div className="col-lg-3 col-md-3 utility-area ">
         <div className="toolsh">
-        <HideMask key="HideMaskBox" RP={props.RP}/>
+        <HideMask key="HideMaskBox" RP={props.RP} />
         <HideSlice key="HideSliceBox" RP={props.RP}/>
         </div>
         <div className="tools">

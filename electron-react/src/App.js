@@ -55,6 +55,9 @@ function App() {
   const [SpleenButton,setSpleenButton]= useState({label: "Set spleen label", remove: false});
   RP.SpleenButton=SpleenButton;
   RP.setSpleenButton=setSpleenButton;
+  const [FirstMaskForSlice,setFirstMaskForSlice]=useState(0);
+  RP.FirstMaskForSlice=FirstMaskForSlice;
+  RP.setFirstMaskForSlice=setFirstMaskForSlice;
 
   // React ref to store array of refs
   const scrollRefs = useRef([]);
