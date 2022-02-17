@@ -13,12 +13,12 @@ function SetLabel(props){
     let removelabel = props.labelID===props.RP.LIVER_LABEL?props.RP.LiverButton.remove:props.RP.SpleenButton.remove
     if (removelabel) {
       labelOrgan(-1);
-      props.RP.setLiverButton({label:"Set liver label", remove: false})
-      props.RP.setSpleenButton({label:"Set spleen label",remove: false});
     }
     else {
       labelOrgan(props.labelID)
     }
+    props.RP.setLiverButton({label:"Set liver label", remove: false})
+    props.RP.setSpleenButton({label:"Set spleen label",remove: false});
   }
 
   const labelOrgan = (label) => {
