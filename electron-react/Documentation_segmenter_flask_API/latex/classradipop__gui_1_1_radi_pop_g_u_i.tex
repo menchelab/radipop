@@ -12,9 +12,11 @@ def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_ac0e1e095cde9f9d310a56
 \begin{DoxyCompactList}\small\item\em Class constructor\+: \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a728aa4344f60e4de421242f6e6b764d7}{extend\+\_\+labels}} (self, cur\+\_\+idx, left\+\_\+extend, right\+\_\+extend)
 \begin{DoxyCompactList}\small\item\em Extend labels from current slice to neighbouring slices. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a4e0d84b408478352ed0b67ef802207e3}{highlight\+\_\+np\+\_\+label\+\_\+array\+\_\+to\+\_\+png}} (self, mask\+\_\+np\+\_\+array, highlight)
+\begin{DoxyCompactList}\small\item\em Takes an numpy label array dim(n,m,1) and returns a RGBA pillow image dim(n,m,4) \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_aee81e13e3a4638bca4f4978fc0adb38d}{highlight\+Organ}} (self, slice\+\_\+idx, x, y)
 \begin{DoxyCompactList}\small\item\em Highlights regions of the mask (organs) that were clicked on by user. \end{DoxyCompactList}\item 
-def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a066d71ebb89be6f8fbf3e215dfdc1137}{label\+Mask}} (self, slice\+\_\+idx, label)
+def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a0e041a1b60acee0e86e618d8e3bee30d}{label\+Mask}} (self, slice\+\_\+idx, newlabel)
 \begin{DoxyCompactList}\small\item\em Labels mask at given index at previously selected region. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_adec0481a3d980d97b88f28dd30b541a8}{save\+\_\+masks}} (self, path)
 \begin{DoxyCompactList}\small\item\em Saves masks as pickle file to given path. \end{DoxyCompactList}\item 
@@ -25,6 +27,8 @@ def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a167587df4b80d9373df31
 \item 
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a147d5ba0eb23541114cb2acdc7fb3220}{clip\+\_\+dcm}} (dcm\+\_\+file, clip\+\_\+low=850, clip\+\_\+high=1250)
 \begin{DoxyCompactList}\small\item\em Read dicom image (.dcm), clips it and returns it as a grey scale PNG. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a288c6a91f630d57fd1a94e87199b6f88}{color\+\_\+mask}} (mask\+\_\+np\+\_\+array)
+\begin{DoxyCompactList}\small\item\em Takes an numpy label array dim(n,m,1) and returns a color mask dim(n,m,4) \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a8379d31e0d49ff2ac08066a19c146dfa}{correct\+\_\+partition}} (image)
 \begin{DoxyCompactList}\small\item\em Convert PNG mask to 1 channelled label mask. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a5eae9b430db0450d54cce4330c66f444}{create\+\_\+image\+\_\+stream}} (img)
@@ -35,7 +39,7 @@ def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a8f3db4cef37739a39aedc
 \begin{DoxyCompactList}\small\item\em Read dicom image (.dcm) and extract metadata Extracted metadata IDs\+: \char`\"{}\+Patient\+ID\char`\"{},\char`\"{}\+Patient\+Birth\+Date\char`\"{},\char`\"{}\+Patient\+Name\char`\"{}, \char`\"{}\+Patient\+Age\char`\"{},\char`\"{}\+Patient\+Sex\char`\"{},\char`\"{}\+Patient\+Name\char`\"{},\char`\"{}\+Slice\+Thickness\char`\"{},\char`\"{}\+Study\+ID\char`\"{},\char`\"{}\+Content\+Date\char`\"{}. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a6b5c6eb7faf2611bbbe56b1383e6a84b}{find\+\_\+organs}} (img, bones\+\_\+thresh, blood\+\_\+vessels\+\_\+thresh, liver\+\_\+thresh)
 \begin{DoxyCompactList}\small\item\em Uses three threshold values to find organs. \end{DoxyCompactList}\item 
-def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a56545f5d1fdd24f530a6af759baef161}{np\+\_\+label\+\_\+array\+\_\+to\+\_\+png}} (mask\+\_\+np\+\_\+array, highlight=None)
+def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a61d1d7997086a5ba0956ee741ea43689}{np\+\_\+label\+\_\+array\+\_\+to\+\_\+png}} (mask\+\_\+np\+\_\+array)
 \begin{DoxyCompactList}\small\item\em Takes an numpy label array dim(n,m,1) and returns a RGBA pillow image dim(n,m,4) \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a2ae7353aca4249409fb7c26365829850}{read\+\_\+pickle\+\_\+mask\+\_\+to\+\_\+np\+\_\+label\+\_\+array}} (path)
 \begin{DoxyCompactList}\small\item\em Opens mask pickle file and returns it as a np.\+array. \end{DoxyCompactList}\item 
@@ -66,6 +70,8 @@ def \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a3fbe8af8b50cb244caead
 \doxysubsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
+list \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_ae72cef54e2fbb96328d940e3b5071eb6}{LABELS}} = \mbox{[}\mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a3ed2aba277460547d6b8b88146ad963c}{SPLEEN\+\_\+\+LABEL}},\mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a3ed2aba277460547d6b8b88146ad963c}{SPLEEN\+\_\+\+LABEL}}\mbox{]}
+\begin{DoxyCompactList}\small\item\em list with labels \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_aee8a94a2d761d6d9a79715058caa378b}{LIVER\+\_\+\+LABEL}} = 1
 \begin{DoxyCompactList}\small\item\em Regions in mask with this label value are considered liver. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a3ed2aba277460547d6b8b88146ad963c}{SPLEEN\+\_\+\+LABEL}} = 2
@@ -122,7 +128,29 @@ Read dicom image (.dcm), clips it and returns it as a grey scale PNG.
 
     @return tuple(L (grey scale) Pillow Image, slice index)
 \end{DoxyVerb}
- \mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a8379d31e0d49ff2ac08066a19c146dfa}\label{classradipop__gui_1_1_radi_pop_g_u_i_a8379d31e0d49ff2ac08066a19c146dfa}} 
+ \mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a288c6a91f630d57fd1a94e87199b6f88}\label{classradipop__gui_1_1_radi_pop_g_u_i_a288c6a91f630d57fd1a94e87199b6f88}} 
+\index{RadiPopGUI@{RadiPopGUI}!color\_mask@{color\_mask}}
+\index{color\_mask@{color\_mask}!RadiPopGUI@{RadiPopGUI}}
+\doxysubsubsection{\texorpdfstring{color\_mask()}{color\_mask()}}
+{\footnotesize\ttfamily def color\+\_\+mask (\begin{DoxyParamCaption}\item[{}]{mask\+\_\+np\+\_\+array }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Takes an numpy label array dim(n,m,1) and returns a color mask dim(n,m,4) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mask\+\_\+np\+\_\+array} & numpy label array dim(n,m,1) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+color mask image dim(n,m,4) -\/-\/\texorpdfstring{$>$}{>} RGBA \begin{DoxyVerb}- Default liver color is red (LIVER_LABEL)
+- Default spleen color is blue (SPLEEN_LABEL)
+- Default for other regions is green 
+\end{DoxyVerb}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a8379d31e0d49ff2ac08066a19c146dfa}\label{classradipop__gui_1_1_radi_pop_g_u_i_a8379d31e0d49ff2ac08066a19c146dfa}} 
 \index{RadiPopGUI@{RadiPopGUI}!correct\_partition@{correct\_partition}}
 \index{correct\_partition@{correct\_partition}!RadiPopGUI@{RadiPopGUI}}
 \doxysubsubsection{\texorpdfstring{correct\_partition()}{correct\_partition()}}
@@ -248,7 +276,31 @@ New labelled mask (same size as slice)
        - Everything that then remains above liver threshold is called an organ.
        - Use contiguous area divisions to roughly split into organs.
 \end{DoxyVerb}
- \mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_aee81e13e3a4638bca4f4978fc0adb38d}\label{classradipop__gui_1_1_radi_pop_g_u_i_aee81e13e3a4638bca4f4978fc0adb38d}} 
+ \mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a4e0d84b408478352ed0b67ef802207e3}\label{classradipop__gui_1_1_radi_pop_g_u_i_a4e0d84b408478352ed0b67ef802207e3}} 
+\index{RadiPopGUI@{RadiPopGUI}!highlight\_np\_label\_array\_to\_png@{highlight\_np\_label\_array\_to\_png}}
+\index{highlight\_np\_label\_array\_to\_png@{highlight\_np\_label\_array\_to\_png}!RadiPopGUI@{RadiPopGUI}}
+\doxysubsubsection{\texorpdfstring{highlight\_np\_label\_array\_to\_png()}{highlight\_np\_label\_array\_to\_png()}}
+{\footnotesize\ttfamily def highlight\+\_\+np\+\_\+label\+\_\+array\+\_\+to\+\_\+png (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{mask\+\_\+np\+\_\+array,  }\item[{}]{highlight }\end{DoxyParamCaption})}
+
+
+
+Takes an numpy label array dim(n,m,1) and returns a RGBA pillow image dim(n,m,4) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mask\+\_\+np\+\_\+array} & numpy label array dim(n,m,1) @highlight Highlight regions where highlight==label in brighter color ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RGBA pillow image dim(n,m,4)
+\end{DoxyReturn}
+Turns a labelled mask into a transparent (RGBA) PNG.
+\begin{DoxyItemize}
+\item Default liver color is red (LIVER\+\_\+\+LABEL)
+\item Default spleen color is blue (SPLEEN\+\_\+\+LABEL)
+\item Default for other regions is green 
+\end{DoxyItemize}\mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_aee81e13e3a4638bca4f4978fc0adb38d}\label{classradipop__gui_1_1_radi_pop_g_u_i_aee81e13e3a4638bca4f4978fc0adb38d}} 
 \index{RadiPopGUI@{RadiPopGUI}!highlightOrgan@{highlightOrgan}}
 \index{highlightOrgan@{highlightOrgan}!RadiPopGUI@{RadiPopGUI}}
 \doxysubsubsection{\texorpdfstring{highlightOrgan()}{highlightOrgan()}}
@@ -268,13 +320,13 @@ Highlights regions of the mask (organs) that were clicked on by user.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Mask where the region specified by x and y is highlighted in brigther colors 
+tuple(\+Mask where the region specified by x and y is highlighted in brigther colors, pixel\+\_\+value) 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a066d71ebb89be6f8fbf3e215dfdc1137}\label{classradipop__gui_1_1_radi_pop_g_u_i_a066d71ebb89be6f8fbf3e215dfdc1137}} 
+\mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a0e041a1b60acee0e86e618d8e3bee30d}\label{classradipop__gui_1_1_radi_pop_g_u_i_a0e041a1b60acee0e86e618d8e3bee30d}} 
 \index{RadiPopGUI@{RadiPopGUI}!labelMask@{labelMask}}
 \index{labelMask@{labelMask}!RadiPopGUI@{RadiPopGUI}}
 \doxysubsubsection{\texorpdfstring{labelMask()}{labelMask()}}
-{\footnotesize\ttfamily def label\+Mask (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{slice\+\_\+idx,  }\item[{}]{label }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def label\+Mask (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{slice\+\_\+idx,  }\item[{}]{newlabel }\end{DoxyParamCaption})}
 
 
 
@@ -284,17 +336,17 @@ Labels mask at given index at previously selected region.
 \begin{DoxyParams}{Parameters}
 {\em slice\+\_\+idx} & Index of mask/slice to be labelled \\
 \hline
-{\em label} & Label to be assigned to previously selected region (either LIVER\+\_\+\+LABEL or SPLEEN\+\_\+\+LABEL) \\
+{\em label} & Label to be assigned to previously selected region (either LIVER\+\_\+\+LABEL or SPLEEN\+\_\+\+LABEL or -\/1 (for removeing label)) \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Mask with new label
 \end{DoxyReturn}
-Note\+: It is expected that the client has before highlighted an organ with the function \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a0006a4c42fd99e22d35951538773ebe1}{self.\+highlight\+Organ()}}. This determines the region/organ that will be labelled with label. \mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a56545f5d1fdd24f530a6af759baef161}\label{classradipop__gui_1_1_radi_pop_g_u_i_a56545f5d1fdd24f530a6af759baef161}} 
+Note\+: It is expected that the client has before highlighted an organ with the function \mbox{\hyperlink{namespacesegmenter__flask___a_p_i_a0006a4c42fd99e22d35951538773ebe1}{self.\+highlight\+Organ()}}. This determines the region/organ that will be labelled with label. \mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a61d1d7997086a5ba0956ee741ea43689}\label{classradipop__gui_1_1_radi_pop_g_u_i_a61d1d7997086a5ba0956ee741ea43689}} 
 \index{RadiPopGUI@{RadiPopGUI}!np\_label\_array\_to\_png@{np\_label\_array\_to\_png}}
 \index{np\_label\_array\_to\_png@{np\_label\_array\_to\_png}!RadiPopGUI@{RadiPopGUI}}
 \doxysubsubsection{\texorpdfstring{np\_label\_array\_to\_png()}{np\_label\_array\_to\_png()}}
-{\footnotesize\ttfamily def np\+\_\+label\+\_\+array\+\_\+to\+\_\+png (\begin{DoxyParamCaption}\item[{}]{mask\+\_\+np\+\_\+array,  }\item[{}]{highlight = {\ttfamily None} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily def np\+\_\+label\+\_\+array\+\_\+to\+\_\+png (\begin{DoxyParamCaption}\item[{}]{mask\+\_\+np\+\_\+array }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -415,6 +467,16 @@ Steps\+:
 
 
 \doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_ae72cef54e2fbb96328d940e3b5071eb6}\label{classradipop__gui_1_1_radi_pop_g_u_i_ae72cef54e2fbb96328d940e3b5071eb6}} 
+\index{RadiPopGUI@{RadiPopGUI}!LABELS@{LABELS}}
+\index{LABELS@{LABELS}!RadiPopGUI@{RadiPopGUI}}
+\doxysubsubsection{\texorpdfstring{LABELS}{LABELS}}
+{\footnotesize\ttfamily list LABELS = \mbox{[}\mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a3ed2aba277460547d6b8b88146ad963c}{SPLEEN\+\_\+\+LABEL}},\mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i_a3ed2aba277460547d6b8b88146ad963c}{SPLEEN\+\_\+\+LABEL}}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+list with labels 
+
 \mbox{\Hypertarget{classradipop__gui_1_1_radi_pop_g_u_i_a47338509f293071942e5829fe22ea4b6}\label{classradipop__gui_1_1_radi_pop_g_u_i_a47338509f293071942e5829fe22ea4b6}} 
 \index{RadiPopGUI@{RadiPopGUI}!last\_clicked\_x@{last\_clicked\_x}}
 \index{last\_clicked\_x@{last\_clicked\_x}!RadiPopGUI@{RadiPopGUI}}

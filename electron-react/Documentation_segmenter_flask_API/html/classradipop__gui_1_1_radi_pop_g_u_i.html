@@ -87,12 +87,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a728aa4344f60e4de421242f6e6b764d7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a728aa4344f60e4de421242f6e6b764d7">extend_labels</a> (self, cur_idx, left_extend, right_extend)</td></tr>
 <tr class="memdesc:a728aa4344f60e4de421242f6e6b764d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend labels from current slice to neighbouring slices.  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#a728aa4344f60e4de421242f6e6b764d7">More...</a><br /></td></tr>
 <tr class="separator:a728aa4344f60e4de421242f6e6b764d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e0d84b408478352ed0b67ef802207e3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a4e0d84b408478352ed0b67ef802207e3">highlight_np_label_array_to_png</a> (self, mask_np_array, highlight)</td></tr>
+<tr class="memdesc:a4e0d84b408478352ed0b67ef802207e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes an numpy label array dim(n,m,1) and returns a RGBA pillow image dim(n,m,4)  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#a4e0d84b408478352ed0b67ef802207e3">More...</a><br /></td></tr>
+<tr class="separator:a4e0d84b408478352ed0b67ef802207e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee81e13e3a4638bca4f4978fc0adb38d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#aee81e13e3a4638bca4f4978fc0adb38d">highlightOrgan</a> (self, slice_idx, x, y)</td></tr>
 <tr class="memdesc:aee81e13e3a4638bca4f4978fc0adb38d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Highlights regions of the mask (organs) that were clicked on by user.  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#aee81e13e3a4638bca4f4978fc0adb38d">More...</a><br /></td></tr>
 <tr class="separator:aee81e13e3a4638bca4f4978fc0adb38d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a066d71ebb89be6f8fbf3e215dfdc1137"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a066d71ebb89be6f8fbf3e215dfdc1137">labelMask</a> (self, slice_idx, label)</td></tr>
-<tr class="memdesc:a066d71ebb89be6f8fbf3e215dfdc1137"><td class="mdescLeft">&#160;</td><td class="mdescRight">Labels mask at given index at previously selected region.  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#a066d71ebb89be6f8fbf3e215dfdc1137">More...</a><br /></td></tr>
-<tr class="separator:a066d71ebb89be6f8fbf3e215dfdc1137"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e041a1b60acee0e86e618d8e3bee30d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a0e041a1b60acee0e86e618d8e3bee30d">labelMask</a> (self, slice_idx, newlabel)</td></tr>
+<tr class="memdesc:a0e041a1b60acee0e86e618d8e3bee30d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Labels mask at given index at previously selected region.  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#a0e041a1b60acee0e86e618d8e3bee30d">More...</a><br /></td></tr>
+<tr class="separator:a0e041a1b60acee0e86e618d8e3bee30d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adec0481a3d980d97b88f28dd30b541a8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#adec0481a3d980d97b88f28dd30b541a8">save_masks</a> (self, path)</td></tr>
 <tr class="memdesc:adec0481a3d980d97b88f28dd30b541a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves masks as pickle file to given path.  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#adec0481a3d980d97b88f28dd30b541a8">More...</a><br /></td></tr>
 <tr class="separator:adec0481a3d980d97b88f28dd30b541a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -105,6 +108,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a147d5ba0eb23541114cb2acdc7fb3220"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a147d5ba0eb23541114cb2acdc7fb3220">clip_dcm</a> (dcm_file, clip_low=850, clip_high=1250)</td></tr>
 <tr class="memdesc:a147d5ba0eb23541114cb2acdc7fb3220"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read dicom image (.dcm), clips it and returns it as a grey scale PNG.  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#a147d5ba0eb23541114cb2acdc7fb3220">More...</a><br /></td></tr>
 <tr class="separator:a147d5ba0eb23541114cb2acdc7fb3220"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a288c6a91f630d57fd1a94e87199b6f88"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a288c6a91f630d57fd1a94e87199b6f88">color_mask</a> (mask_np_array)</td></tr>
+<tr class="memdesc:a288c6a91f630d57fd1a94e87199b6f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes an numpy label array dim(n,m,1) and returns a color mask dim(n,m,4)  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#a288c6a91f630d57fd1a94e87199b6f88">More...</a><br /></td></tr>
+<tr class="separator:a288c6a91f630d57fd1a94e87199b6f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8379d31e0d49ff2ac08066a19c146dfa"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a8379d31e0d49ff2ac08066a19c146dfa">correct_partition</a> (image)</td></tr>
 <tr class="memdesc:a8379d31e0d49ff2ac08066a19c146dfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert PNG mask to 1 channelled label mask.  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#a8379d31e0d49ff2ac08066a19c146dfa">More...</a><br /></td></tr>
 <tr class="separator:a8379d31e0d49ff2ac08066a19c146dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,9 +126,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a6b5c6eb7faf2611bbbe56b1383e6a84b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a6b5c6eb7faf2611bbbe56b1383e6a84b">find_organs</a> (img, bones_thresh, blood_vessels_thresh, liver_thresh)</td></tr>
 <tr class="memdesc:a6b5c6eb7faf2611bbbe56b1383e6a84b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses three threshold values to find organs.  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#a6b5c6eb7faf2611bbbe56b1383e6a84b">More...</a><br /></td></tr>
 <tr class="separator:a6b5c6eb7faf2611bbbe56b1383e6a84b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56545f5d1fdd24f530a6af759baef161"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a56545f5d1fdd24f530a6af759baef161">np_label_array_to_png</a> (mask_np_array, highlight=None)</td></tr>
-<tr class="memdesc:a56545f5d1fdd24f530a6af759baef161"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes an numpy label array dim(n,m,1) and returns a RGBA pillow image dim(n,m,4)  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#a56545f5d1fdd24f530a6af759baef161">More...</a><br /></td></tr>
-<tr class="separator:a56545f5d1fdd24f530a6af759baef161"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61d1d7997086a5ba0956ee741ea43689"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a61d1d7997086a5ba0956ee741ea43689">np_label_array_to_png</a> (mask_np_array)</td></tr>
+<tr class="memdesc:a61d1d7997086a5ba0956ee741ea43689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes an numpy label array dim(n,m,1) and returns a RGBA pillow image dim(n,m,4)  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#a61d1d7997086a5ba0956ee741ea43689">More...</a><br /></td></tr>
+<tr class="separator:a61d1d7997086a5ba0956ee741ea43689"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ae7353aca4249409fb7c26365829850"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a2ae7353aca4249409fb7c26365829850">read_pickle_mask_to_np_label_array</a> (path)</td></tr>
 <tr class="memdesc:a2ae7353aca4249409fb7c26365829850"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens mask pickle file and returns it as a np.array.  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#a2ae7353aca4249409fb7c26365829850">More...</a><br /></td></tr>
 <tr class="separator:a2ae7353aca4249409fb7c26365829850"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,6 +168,9 @@ Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
+<tr class="memitem:ae72cef54e2fbb96328d940e3b5071eb6"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#ae72cef54e2fbb96328d940e3b5071eb6">LABELS</a> = [<a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a3ed2aba277460547d6b8b88146ad963c">SPLEEN_LABEL</a>,<a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a3ed2aba277460547d6b8b88146ad963c">SPLEEN_LABEL</a>]</td></tr>
+<tr class="memdesc:ae72cef54e2fbb96328d940e3b5071eb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">list with labels  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#ae72cef54e2fbb96328d940e3b5071eb6">More...</a><br /></td></tr>
+<tr class="separator:ae72cef54e2fbb96328d940e3b5071eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee8a94a2d761d6d9a79715058caa378b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#aee8a94a2d761d6d9a79715058caa378b">LIVER_LABEL</a> = 1</td></tr>
 <tr class="memdesc:aee8a94a2d761d6d9a79715058caa378b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Regions in mask with this label value are considered liver.  <a href="classradipop__gui_1_1_radi_pop_g_u_i.html#aee8a94a2d761d6d9a79715058caa378b">More...</a><br /></td></tr>
 <tr class="separator:aee8a94a2d761d6d9a79715058caa378b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -266,6 +275,44 @@ Static Public Attributes</h2></td></tr>
 
     @return tuple(L (grey scale) Pillow Image, slice index)
 </pre> 
+</div>
+</div>
+<a id="a288c6a91f630d57fd1a94e87199b6f88" name="a288c6a91f630d57fd1a94e87199b6f88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a288c6a91f630d57fd1a94e87199b6f88">&#9670;&nbsp;</a></span>color_mask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def color_mask </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>mask_np_array</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Takes an numpy label array dim(n,m,1) and returns a color mask dim(n,m,4) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mask_np_array</td><td>numpy label array dim(n,m,1) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>color mask image dim(n,m,4) --&gt; RGBA <pre class="fragment">- Default liver color is red (LIVER_LABEL)
+- Default spleen color is blue (SPLEEN_LABEL)
+- Default for other regions is green 
+</pre> </dd></dl>
+
 </div>
 </div>
 <a id="a8379d31e0d49ff2ac08066a19c146dfa" name="a8379d31e0d49ff2ac08066a19c146dfa"></a>
@@ -544,6 +591,55 @@ Static Public Attributes</h2></td></tr>
 </pre> 
 </div>
 </div>
+<a id="a4e0d84b408478352ed0b67ef802207e3" name="a4e0d84b408478352ed0b67ef802207e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e0d84b408478352ed0b67ef802207e3">&#9670;&nbsp;</a></span>highlight_np_label_array_to_png()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def highlight_np_label_array_to_png </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>mask_np_array</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>highlight</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Takes an numpy label array dim(n,m,1) and returns a RGBA pillow image dim(n,m,4) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mask_np_array</td><td>numpy label array dim(n,m,1) @highlight Highlight regions where highlight==label in brighter color <br  />
+ </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>RGBA pillow image dim(n,m,4)</dd></dl>
+<p>Turns a labelled mask into a transparent (RGBA) PNG.</p><ul>
+<li>Default liver color is red (LIVER_LABEL)</li>
+<li>Default spleen color is blue (SPLEEN_LABEL)</li>
+<li>Default for other regions is green </li>
+</ul>
+
+</div>
+</div>
 <a id="aee81e13e3a4638bca4f4978fc0adb38d" name="aee81e13e3a4638bca4f4978fc0adb38d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aee81e13e3a4638bca4f4978fc0adb38d">&#9670;&nbsp;</a></span>highlightOrgan()</h2>
 
@@ -591,12 +687,12 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Mask where the region specified by x and y is highlighted in brigther colors </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>tuple(Mask where the region specified by x and y is highlighted in brigther colors, pixel_value) </dd></dl>
 
 </div>
 </div>
-<a id="a066d71ebb89be6f8fbf3e215dfdc1137" name="a066d71ebb89be6f8fbf3e215dfdc1137"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a066d71ebb89be6f8fbf3e215dfdc1137">&#9670;&nbsp;</a></span>labelMask()</h2>
+<a id="a0e041a1b60acee0e86e618d8e3bee30d" name="a0e041a1b60acee0e86e618d8e3bee30d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e041a1b60acee0e86e618d8e3bee30d">&#9670;&nbsp;</a></span>labelMask()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -617,7 +713,7 @@ Static Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>label</em>&#160;</td>
+          <td class="paramname"><em>newlabel</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -631,7 +727,7 @@ Static Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">slice_idx</td><td>Index of mask/slice to be labelled </td></tr>
-    <tr><td class="paramname">label</td><td>Label to be assigned to previously selected region (either LIVER_LABEL or SPLEEN_LABEL) </td></tr>
+    <tr><td class="paramname">label</td><td>Label to be assigned to previously selected region (either LIVER_LABEL or SPLEEN_LABEL or -1 (for removeing label)) </td></tr>
   </table>
   </dd>
 </dl>
@@ -640,8 +736,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a56545f5d1fdd24f530a6af759baef161" name="a56545f5d1fdd24f530a6af759baef161"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56545f5d1fdd24f530a6af759baef161">&#9670;&nbsp;</a></span>np_label_array_to_png()</h2>
+<a id="a61d1d7997086a5ba0956ee741ea43689" name="a61d1d7997086a5ba0956ee741ea43689"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61d1d7997086a5ba0956ee741ea43689">&#9670;&nbsp;</a></span>np_label_array_to_png()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -653,18 +749,8 @@ Static Public Attributes</h2></td></tr>
           <td class="memname">def np_label_array_to_png </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>mask_np_array</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>mask_np_array</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>highlight</em> = <code>None</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -930,6 +1016,30 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae72cef54e2fbb96328d940e3b5071eb6" name="ae72cef54e2fbb96328d940e3b5071eb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae72cef54e2fbb96328d940e3b5071eb6">&#9670;&nbsp;</a></span>LABELS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">list LABELS = [<a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a3ed2aba277460547d6b8b88146ad963c">SPLEEN_LABEL</a>,<a class="el" href="classradipop__gui_1_1_radi_pop_g_u_i.html#a3ed2aba277460547d6b8b88146ad963c">SPLEEN_LABEL</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>list with labels </p>
+
+</div>
+</div>
 <a id="a47338509f293071942e5829fe22ea4b6" name="a47338509f293071942e5829fe22ea4b6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a47338509f293071942e5829fe22ea4b6">&#9670;&nbsp;</a></span>last_clicked_x</h2>
 
