@@ -78,7 +78,7 @@ function Canvas(props){
 
   // The scroll listener
   const handleScroll = (event) => {
-    if(props.RP.RadiPOPstates.files.length === 0){
+    if((props.RP.RadiPOPstates.files.length === 0) || (!event.ctrlKey && !event.altKey)) {
       return
     }
       if(event.deltaY < 0) {
