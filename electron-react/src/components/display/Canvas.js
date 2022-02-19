@@ -76,9 +76,40 @@ function Canvas(props){
     })
   }
 
+  // The scroll listener
+  const handleScroll = (event) => {
+    if(props.RP.RadiPOPstates.files.length === 0){
+      return
+    }
+      if(event.deltaY < 0) {
+        if(props.RP.RadiPOPstates.currentSliceIndex + event.deltaY >= 0) {
+          props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files,
+            slice_mask_container: props.RP.RadiPOPstates.slice_mask_container,
+            currentSliceIndex: props.RP.RadiPOPstates.currentSliceIndex + event.deltaY,
+            patient: props.RP.RadiPOPstates.patient});
+            console.log(props.RP.RadiPOPstates.currentSliceIndex)
+        }
+        else {
+          return
+        }
+      }
+      else {
+        console.log("EVent else", event.deltaY)
+        if(props.RP.RadiPOPstates.currentSliceIndex + event.deltaY < props.RP.RadiPOPstates.files.length){
+          props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files,
+            slice_mask_container: props.RP.RadiPOPstates.slice_mask_container,
+            currentSliceIndex: props.RP.RadiPOPstates.currentSliceIndex + event.deltaY,
+            patient: props.RP.RadiPOPstates.patient});
+            console.log(props.RP.RadiPOPstates.currentSliceIndex)
+          }
+        else {
+          return
+        }
+      }
+  }
 
   return(
-     <div className="canvas" >
+     <div onWheel = {handleScroll} className="canvas">
       {props.RP.showSlice && <img className="image undraggable" src={props.RP.RadiPOPstates.slice_mask_container[props.RP.RadiPOPstates.currentSliceIndex][0]}  alt="CT slice for editing"/>}
       {props.RP.showMask  && props.RP.RadiPOPstates.slice_mask_container[props.RP.RadiPOPstates.currentSliceIndex][1]!=="" &&
         <img className="canvasmask undraggable" disabled={props.RP.disableApp}

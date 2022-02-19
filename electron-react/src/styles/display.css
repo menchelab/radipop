@@ -66,8 +66,9 @@ div.canvas {
   height: 70vh;
   display: flex;
   justify-content: center;
-  overflow:hidden;
 }
+
+
 
 img.mask {
   position: absolute;
