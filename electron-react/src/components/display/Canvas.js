@@ -82,10 +82,10 @@ function Canvas(props){
       return
     }
       if(event.deltaY < 0) {
-        if(props.RP.RadiPOPstates.currentSliceIndex + event.deltaY >= 0) {
+        if(props.RP.RadiPOPstates.currentSliceIndex - 1 >= 0) {
           props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files,
             slice_mask_container: props.RP.RadiPOPstates.slice_mask_container,
-            currentSliceIndex: props.RP.RadiPOPstates.currentSliceIndex + event.deltaY,
+            currentSliceIndex: props.RP.RadiPOPstates.currentSliceIndex - 1,
             patient: props.RP.RadiPOPstates.patient});
         }
         else {
@@ -93,10 +93,10 @@ function Canvas(props){
         }
       }
       else {
-        if(props.RP.RadiPOPstates.currentSliceIndex + event.deltaY < props.RP.RadiPOPstates.files.length){
+        if(props.RP.RadiPOPstates.currentSliceIndex + 1 < props.RP.RadiPOPstates.files.length){
           props.RP.setRadiPOPstates({files: props.RP.RadiPOPstates.files,
             slice_mask_container: props.RP.RadiPOPstates.slice_mask_container,
-            currentSliceIndex: props.RP.RadiPOPstates.currentSliceIndex + event.deltaY,
+            currentSliceIndex: props.RP.RadiPOPstates.currentSliceIndex + 1,
             patient: props.RP.RadiPOPstates.patient});
           }
         else {
