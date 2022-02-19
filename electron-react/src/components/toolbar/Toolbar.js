@@ -58,7 +58,7 @@ function ToolBar(props) {
       let img = bytestring.split('\'')[1];
       img= "data:image/png;base64," +img;
       smc[index][1]= img;
-      numberOfConvertedMasksHelper= numberOfConvertedMasksHelper+1; 
+      numberOfConvertedMasksHelper= numberOfConvertedMasksHelper+1;
       setnumberOfConvertedMasks(numberOfConvertedMasksHelper);
     }).catch(error_handler)
   }
@@ -89,7 +89,6 @@ function ToolBar(props) {
     let mask_files=[] // array to store .p files
     let slice_files=[] // array to store .png slices
     // Set State: all loaded files unordered
-
     // Split .p and .png files
     for (let i=0; i<files.length; i++) {
       if (files[i].name.endsWith(".png")) {
@@ -127,10 +126,10 @@ function ToolBar(props) {
 
 
     // Update state with loaded files
-    const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message="You succesfully loaded the .png files in EditorXR!"/>);
+    const logInfo = props.RP.logInfo.concat(<LogMessage type="success" message={"You succesfully loaded the files from directory " + String(directory_name) + " in EditorXR!"}/>);
     props.RP.setlogInfo(logInfo);
     props.RP.setRadiPOPstates({files: slice_files, slice_mask_container: smc, currentSliceIndex:0, patient: directory_name});
-
+    props.RP.setshowMask(false)
   }
   /*
   useEffect(() => {
@@ -138,7 +137,7 @@ function ToolBar(props) {
   },[]); */
 
   //Show masks after all pickle files were converted
-  let numberOfConvertedMasksHelper=0; 
+  let numberOfConvertedMasksHelper=0;
   const [numberOfConvertedMasks, setnumberOfConvertedMasks] = useState(0);
   useEffect(() => {
     if (props.RP.flaskIntialized && numberOfConvertedMasks===props.RP.RadiPOPstates.files.length){
@@ -261,7 +260,7 @@ function ToolBar(props) {
 
   const handleDicomClips = () => {
     dcm2png(state.files);
-    setpreview(""); 
+    setpreview("");
   }
 
   const saveHandler = (event) => {
@@ -383,7 +382,7 @@ return (
                     <button onClick={handlePreview}> Preview </button>
                     <button onClick={handleDicomClips} type="submit">Set</button>
                     </div>
-                    
+
                 </form>
             </div>
         </DialogModal>
