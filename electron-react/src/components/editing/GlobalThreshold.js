@@ -1,6 +1,17 @@
 import React from "react";
 import "../../styles/editing.css";
-//disabled={props.disableApp}
+
+/**
+ * Component to compute new masks using slider thresholds
+ * @memberof editing
+ * @method GlobalThreshold
+ * @param {*} props RP variable from App.js
+ * @param {*} props setThesholdGlobally callback to editing
+ * @returns button
+ * @example
+ * <GlobalThreshold label="Set threshold globally"
+ * setThesholdGlobally={setThesholdGlobally} RP={props.RP}/>
+ */
 function GlobalThreshold(props) {
   return (
     <button

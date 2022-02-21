@@ -54,7 +54,6 @@ function Editing(props) {
    * @method handleSlide
    * @param {*} event onChange Event
    */
-  //
   const handleSlide = (event) => {
     // Check which slider changed and set new value -> setSliderValue
     if (event.target.id === "bone") {
@@ -86,7 +85,6 @@ function Editing(props) {
    * @method handleClickPlus
    * @param {*} event onClick Event
    */
-  //
   const handleClickPlus = (event) => {
     // Check which slider has changed and ensure max value 300 -> setSliderValue
     if (event.target.id === "bone" && sliderValue.bone < 300) {
@@ -118,7 +116,6 @@ function Editing(props) {
    * @method handleClickMinus
    * @param {*} event onClick Event
    */
-  //
   const handleClickMinus = (event) => {
     // Check which slider has changed and ensure min value 0 -> setSliderValue
     if (event.target.id === "bone" && sliderValue.bone > 0) {
@@ -153,7 +150,6 @@ function Editing(props) {
    * @memberof Editing
    * @method setThesholdGlobally
    */
-  //
   function setThesholdGlobally() {
     // Check if user loaded files if not -> return
     if (props.RP.RadiPOPstates.files.length === 0) {
@@ -190,7 +186,6 @@ function Editing(props) {
    * @method getBounds
    * @param {*} event onChange Event
    */
-  //
   const getBounds = (event) => {
     // Check event id to set "up" or "down" bound
     if (event.target.id === "Up") {
@@ -215,7 +210,6 @@ function Editing(props) {
    * @method extendLabelClick
    * @param {*} event onClick Event
    */
-  //
   function extendLabelClick() {
     if (props.RP.RadiPOPstates.files.length === 0) {
       return;
@@ -240,7 +234,6 @@ function Editing(props) {
    * @param {*} value slider threshold values
    * @param {*} global boolean true on all slices (global)
    */
-  //
   const updateMask = (target_slice_idx, value, global) => {
     let data = {
       patientID: props.RP.RadiPOPstates.patient,
@@ -285,7 +278,6 @@ function Editing(props) {
    * @memberof Editing
    * @method error_handler
    */
-  //
   const error_handler = () => {
     props.RP.setDisableApp(false);
     const logInfo = props.RP.logInfo.concat(
@@ -358,7 +350,6 @@ function Editing(props) {
    * @param {*} left upper bound
    * @param {*} right down/lower bound
    */
-  //
   function extendLabels(left, right) {
     const logInfo = props.RP.logInfo.concat(
       <LogMessage type="warning" message={"Extending labels.."} />
@@ -409,13 +400,12 @@ function Editing(props) {
 
   /**
    * Gets the new mask for a slice id and utilizes the setNewMask state
-   * 
+   *
    * useEffect hook with newMask state to render update.
    * @memberof Editing
    * @method getMask
    * @param {*} target_slice_idx slice id
    */
-  //
   function getMask(target_slice_idx) {
     let data = {
       index: target_slice_idx,

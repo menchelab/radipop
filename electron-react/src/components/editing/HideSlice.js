@@ -1,10 +1,26 @@
 import React from "react";
 import "../../styles/editing.css";
-//import LogMessage from '../log/LogMessage';
 
+/**
+ * Component to show and hide slice
+ * @memberof editing
+ * @method HideSlice
+ * @param {*} props RP variable from App.js
+ * @returns span checkbox
+ * @example
+ * <HideSlice key="HideSliceBox" RP={props.RP} />
+ */
 function HideSlice(props) {
+  /**
+   * @namespace HideSlice
+   */
+
   const loaded_files = props.RP.RadiPOPstates.files.length === 0;
-  // Set state hide slice on checkbox click
+  /**
+   * Set state hide slice on checkbox click.
+   * @memberof HideSlice
+   * @method handleChange
+   */
   const handleChange = () => {
     props.RP.setshowSlice(!props.RP.showSlice);
   };

@@ -3,6 +3,18 @@ import ExtendLabel from "../editing/ExtendLabel.js";
 import "../../styles/index.css";
 import "../../styles/editing.css";
 
+/**
+ * Component to set bounds and extend labels on neighbour slices
+ * @memberof editing
+ * @method Bound
+ * @param {*} props RP variable from App.js
+ * @param {*} props extendLabelClick callback to editing
+ * @param {*} props getBounds callback to editing
+ * @returns bound div
+ * @example
+ * <Bound RP={props.RP} extendLabelClick={extendLabelClick}
+ * getBounds={getBounds}/>
+ */
 function Bound(props) {
   return (
     <div className="tools fill-bottom">

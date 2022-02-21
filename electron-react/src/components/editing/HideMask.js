@@ -1,10 +1,30 @@
 import React from "react";
 import "../../styles/editing.css";
-//import LogMessage from '../log/LogMessage';
 
+/**
+ * Component to show and hide masks
+ * @memberof editing
+ * @method HideMask
+ * @param {*} props RP variable from App.js
+ * @returns span checkbox
+ * @example
+ * <HideMask key="HideMaskBox" RP={props.RP}/>
+ */
+//
 function HideMask(props) {
+  /**
+   * @namespace HideMask
+   */
+
   const loaded_files = props.RP.RadiPOPstates.files.length === 0;
-  // Set state hide mask on checkbox click
+
+
+  /**
+   * Set state show mask on checkbox click, computes mask if no mask is
+   * available.
+   * @memberof HideMask
+   * @method handleChange
+   */
   const handleChange = () => {
     if (!props.RP.showMask) {
       //Not because state is set afterwards

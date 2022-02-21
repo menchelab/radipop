@@ -2,7 +2,27 @@ import React from "react";
 import "../../styles/editing.css";
 import "../../styles/index.css";
 
+/**
+ * Component to set the labels liver/spleen
+ * @memberof editing
+ * @method HideSlice
+ * @param {*} props RP variable from App.js
+ * @param {*} props RP variable LIVER_LABEL or SPLEEN_LABEL from App.js
+ * @returns button
+ * @example
+ * <SetLabel labelID={props.RP.LIVER_LABEL} RP={props.RP} />
+ */
 function SetLabel(props) {
+  /**
+   * @namespace SetLabel
+   */
+
+  /**
+   * Set label on area.
+   * @memberof SetLabel
+   * @method handleClick
+   * @param {*} event onClick Event
+   */
   const handleClick = (event) => {
     if (props.RP.RadiPOPstates.files.length === 0) {
       return;
@@ -20,6 +40,13 @@ function SetLabel(props) {
     props.RP.setSpleenButton({ label: "Set spleen label", remove: false });
   };
 
+  /**
+   * Computes highlighted mask and sets the state with setNewMask
+   * @memberof SetLabel
+   * @method labelOrgan
+   * @param {*} label label Label of organ (1 for liver, 2 for spleen,
+   * 0 nothing, >2 other organ)
+   */
   const labelOrgan = (label) => {
     let data = {
       patientID: props.RP.RadiPOPstates.patient,
