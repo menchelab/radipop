@@ -6,6 +6,10 @@ import Editing from './components/editing/Editing.js';
 import Display from './components/display/Display.js';
 import slice_place_holder from './assets/images/editor_placeholder.png';
 
+/**
+ * @namespace App
+ */
+
 function App() {
   // States for loaded Files: files-> .png + .p unordered, masks-> .p ordered, slices-> .png ordered
   let RP={}

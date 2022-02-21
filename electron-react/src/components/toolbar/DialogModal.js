@@ -1,6 +1,22 @@
 import { Component } from "react";
 import { createPortal } from "react-dom";
 import '../../styles/DialogModal.css';
+
+/**
+ * Creates a window for the dcm2png conversion dialog
+ * @memberof toolbar
+ * @class DialogModal 
+ * @example
+ *   <DialogModal>
+ *       <div className="dialog-wrapper">
+ *           <h3>Set clipping values for dicom conversion</h3>
+ *           <form onSubmit={_onSubmit}>
+ *               <button onClick={handleDicomClips} type="submit">Set</button>
+ *           </form>
+ *       </div>
+ *   </DialogModal>
+ */
+
 class DialogModal extends Component {
     constructor() {
         super();

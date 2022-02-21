@@ -4,16 +4,15 @@ import LogMessage from '../log/LogMessage.js';
 import '../../styles/toolbar.css';
 import '../../styles/index.css';
 
-/**
- * @namespace Dcm2PngWindowComponent
- */
+
+
 
 /**
- * Creates Toolbar component 
- * @memberof Dcm2PngWindowComponent
+ * Creates a window for the dcm2png conversion dialog
+ * @memberof toolbar
  * @method Dcm2PngWindow 
  * @param {*} props RP variable from App.js, state, setState, preview, setPreview from Toolbar.js
- * @returns <DialogModal> </DialogModal>
+ * @returns DialogModal
  * @example
  * <Dcm2PngWindow RP={props.RP} state={state} setState ={setState} preview ={preview} setpreview={setpreview} />
  */

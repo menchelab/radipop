@@ -6,13 +6,15 @@ import LogMessage from '../log/LogMessage.js';
 import '../../styles/toolbar.css';
 import '../../styles/index.css';
 import Dcm2PngWindow from "../toolbar/Dcm2PngWindow"
+
 /**
- * @namespace ToolBarComponent
+ * @namespace toolbar
  */
+
 
 /**
  * Creates Toolbar component 
- * @memberof ToolBarComponent
+ * @memberof App
  * @method ToolBar 
  * @param {*} props RP variable from App.js
  * @returns Toolbar div 

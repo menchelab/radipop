@@ -3,10 +3,27 @@ import '../../styles/toolbar.css';
 import search_icon from '../../assets/images/search_icon.jpg';
 
 
+/**
+ * Creates searchbar for Toolbar component
+ * @memberof toolbar
+ * @method SearchBar 
+ * @param {*} props RP variable from App.js
+ * @returns Searchbar div
+ * @example
+ * <SearchBar RP={props.RP} scrollRefs={props.RP.scrollRefs}/>
+ */
 
 function SearchBar(props){
-   // Scroll to selected Slice with click on search icon
-   const executeScroll = (index) => {
+/**
+ * @namespace SearchBar
+ */
+
+  /**
+   * Scroll to selected Slice after click on search icon
+   * @memberof SearchBar
+   * @method executeScroll
+   */
+   const executeScroll = () => {
      let scrollTo; // Variable to store scrollRefs
      let sel_slice = props.RP.RadiPOPstates.currentSliceIndex;
     // return if user loaded no files
@@ -23,7 +40,12 @@ function SearchBar(props){
     scrollTo.current.scrollIntoView({ behavior: "smooth", block: "end"});
   };
 
-  // Scrolls to
+  /**
+   * Handles event where user enters slice index. 
+   * @memberof SearchBar
+   * @method handleSliceSearch
+   * @param {*} event Event
+   */
   const handleSliceSearch = (event) => {
     // Only slide on Enter
     if (event.key === 'Enter') {
