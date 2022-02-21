@@ -376,6 +376,7 @@ function ToolBar(props) {
     }).catch(error_handler)
   }
 
+  // preview contains preview for slice used by <Dcm2PngWindow/>
   
   const [preview, setpreview] = useState("");
 

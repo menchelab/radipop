@@ -8,7 +8,15 @@ import '../../styles/index.css';
  * @namespace Dcm2PngWindowComponent
  */
 
-
+/**
+ * Creates Toolbar component 
+ * @memberof Dcm2PngWindowComponent
+ * @method Dcm2PngWindow 
+ * @param {*} props RP variable from App.js, state, setState, preview, setPreview from Toolbar.js
+ * @returns <DialogModal> </DialogModal>
+ * @example
+ * <Dcm2PngWindow RP={props.RP} state={state} setState ={setState} preview ={preview} setpreview={setpreview} />
+ */
 function Dcm2PngWindow(props){
     /**
      * @namespace Dcm2PngWindow
@@ -27,6 +35,8 @@ function Dcm2PngWindow(props){
     }
     /**
      * Makes flask request to convert the given dcm_files to png. 
+     * @memberof Dcm2PngWindow
+     * @method dcm2png
      * @param {*} dcm_files Container with dcm files
      */
     const dcm2png = (dcm_files) => {
@@ -54,7 +64,12 @@ function Dcm2PngWindow(props){
         /*initializeWithFiles(png_files); */
         }).catch(error_handler)
     }
-
+    /**
+     * Handles Changes in clipping values in the dcm2png conversion Dialog
+     * @memberof Dcm2PngWindow
+     * @method _onChange
+     * @param {*} e Event
+     */
     function _onChange(e) {
         e.preventDefault();
         if(e.target.id === 'low_clip'){
@@ -65,10 +80,23 @@ function Dcm2PngWindow(props){
         }
      }
     
+     /**
+     * Handles when user User clicks on "Set"
+     * @memberof Dcm2PngWindow
+     * @method _onSubmit
+     * @param {*} e Event
+     */
     function _onSubmit(e) {
         e.preventDefault();
         props.setState({showDialog: false, low_clip: props.state.low_clip, high_clip: props.state.high_clip, files: props.state.files});
     }
+
+    /**
+     * Handles when user User clicks on "Preview"
+     * Makes request to flask server to calculate a preview for first dcm file in directory
+     * @memberof Dcm2PngWindow
+     * @method handlePreview
+     */
     function handlePreview(){
       let data={
         low_clip: + props.state.low_clip,
@@ -92,6 +120,7 @@ function Dcm2PngWindow(props){
         props.setState({ showDialog: true, low_clip: props.state.low_clip, high_clip: props.state.high_clip, files: props.state.files});
       }).catch(error_handler)
     }
+
     /**
      * Function is raised when requests to Flask server fail for any reason: 
      * Creates LogMessage \n
@@ -103,9 +132,8 @@ function Dcm2PngWindow(props){
         const logInfo = props.RP.logInfo.concat(<LogMessage type="error" message="Failed to contact flask server or Flask handling error"/>);
         props.RP.setlogInfo(logInfo);
         props.RP.setDisableApp(false);
-
-        //alert("Failed to contact flask server or Flask handling error - It may take a while to start up the server... Try again later.");
     }
+
     return(
         <DialogModal>
                 <div className="dialog-wrapper">
