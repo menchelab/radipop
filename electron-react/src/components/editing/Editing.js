@@ -9,7 +9,26 @@ import LogMessage from "../log/LogMessage.js";
 import "../../styles/editing.css";
 import "../../styles/index.css";
 
+/**
+ * @namespace editing
+ */
+
+/**
+ * Creates Editing component, used for HideMask/Slice checkbox, sliders,
+ * global threshold, set labels and extend labels
+ * @memberof App
+ * @method Editing
+ * @param {*} props RP variable from App.js
+ * @returns Editing div
+ * @example
+ * <ToolBar key="Editing" RP={RP} />
+ */
+
 function Editing(props) {
+  /**
+   * @namespace Editing
+   */
+
   const [sliderValue, setSliderValue] = useState({
     bone: "200",
     vessel: "170",
@@ -25,11 +44,19 @@ function Editing(props) {
     mask: "",
     index: props.RP.RadiPOPstates.currentSliceIndex,
   });
+
   //State to check if all Thresholds are set
   const [checkGlobalUpdate, setGlobalUpdate] = useState(false);
 
-  // Update state "value" on slider change
+  /**
+   * Update state "value" on slider change
+   * @memberof Editing
+   * @method handleSlide
+   * @param {*} event onChange Event
+   */
+  //
   const handleSlide = (event) => {
+    // Check which slider changed and set new value -> setSliderValue
     if (event.target.id === "bone") {
       setSliderValue({
         bone: parseInt(event.target.value, 10),
@@ -53,7 +80,15 @@ function Editing(props) {
     }
   };
 
+  /**
+   * Update state "value" on slider change through "plus" button
+   * @memberof Editing
+   * @method handleClickPlus
+   * @param {*} event onClick Event
+   */
+  //
   const handleClickPlus = (event) => {
+    // Check which slider has changed and ensure max value 300 -> setSliderValue
     if (event.target.id === "bone" && sliderValue.bone < 300) {
       setSliderValue({
         bone: parseInt(sliderValue.bone, 10) + 1,
@@ -77,7 +112,15 @@ function Editing(props) {
     }
   };
 
+  /**
+   * Update state "value" on slider change through "minus" button
+   * @memberof Editing
+   * @method handleClickMinus
+   * @param {*} event onClick Event
+   */
+  //
   const handleClickMinus = (event) => {
+    // Check which slider has changed and ensure min value 0 -> setSliderValue
     if (event.target.id === "bone" && sliderValue.bone > 0) {
       setSliderValue({
         bone: parseInt(sliderValue.bone, 10) - 1,
@@ -101,13 +144,19 @@ function Editing(props) {
     }
   };
 
-  // Set the Threshold globally
+  /**
+   * Uses the slider values (bone, vessel, liver) to compute masks on all slices
+   * Updates the Log, and utilizes useEffect hook with checkGlobalUpdate state
+   * @memberof Editing
+   * @method setThesholdGlobally
+   */
+  //
   function setThesholdGlobally() {
-    console.log("Triggered setThresholdGlobally");
     // Check if user loaded files if not -> return
     if (props.RP.RadiPOPstates.files.length === 0) {
       return;
     }
+    // Update Log information -> computing thresholds
     const logInfo = props.RP.logInfo.concat(
       <LogMessage
         type="warning"
@@ -120,6 +169,7 @@ function Editing(props) {
     );
     props.RP.setlogInfo(logInfo);
     props.RP.setDisableApp(true); //Disable buttons/sliders during computation
+    // Select all slices and compute new mask
     for (
       let i = 0;
       i < props.RP.RadiPOPstates.slice_mask_container.length;
@@ -130,7 +180,16 @@ function Editing(props) {
     }
   }
 
+  /**
+   * Updates the expansion bound state if user changes the input for up and
+   * down input in Bound.js
+   * @memberof Editing
+   * @method getBounds
+   * @param {*} event onChange Event
+   */
+  //
   const getBounds = (event) => {
+    // Check event id to set "up" or "down" bound
     if (event.target.id === "Up") {
       setExpansionBounds({
         up: event.target.value,
@@ -142,6 +201,14 @@ function Editing(props) {
     }
   };
 
+  /**
+   * Extends the labels from the current selected slice to the neighbour slices
+   * depending on the up and down bound. Updates the Log if no bounds are set
+   * @memberof Editing
+   * @method extendLabelClick
+   * @param {*} event onClick Event
+   */
+  //
   function extendLabelClick() {
     if (props.RP.RadiPOPstates.files.length === 0) {
       return;
@@ -154,13 +221,19 @@ function Editing(props) {
       props.RP.setlogInfo(logInfo);
       return;
     }
-
     extendLabels(expansionBounds.up, expansionBounds.down);
   }
 
-  // Update the mask.
-  // Function should be called when the intensity sliders change.
-  // RadiPOP segmenter will calculate a new mask --> update mask in main window
+  /**
+   * Function to update the masks with new slider values, useEffect hook with
+   * newMask state to render update.
+   * @memberof Editing
+   * @method updateMask
+   * @param {*} target_slice_idx slice id
+   * @param {*} value slider threshold values
+   * @param {*} global boolean true on all slices (global)
+   */
+  //
   const updateMask = (target_slice_idx, value, global) => {
     let data = {
       patientID: props.RP.RadiPOPstates.patient,
@@ -197,7 +270,14 @@ function Editing(props) {
       .catch(error_handler);
   };
 
-  //Function is raised when requests to Flask server fail for any reason
+  /**
+   * Function is raised when requests to Flask server fail for any reason:
+   * Creates LogMessage \n
+   * Enables App again (unfreezing)
+   * @memberof Editing
+   * @method error_handler
+   */
+  //
   const error_handler = () => {
     props.RP.setDisableApp(false);
     const logInfo = props.RP.logInfo.concat(
@@ -226,7 +306,6 @@ function Editing(props) {
     if (props.RP.flaskIntialized) {
       updateMask(props.RP.RadiPOPstates.currentSliceIndex, sliderValue, false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sliderValue, props.RP.FirstMaskForSlice]);
 
   // Render new mask after computation
@@ -240,7 +319,6 @@ function Editing(props) {
       patient: props.RP.RadiPOPstates.patient,
     });
     props.RP.setshowMask(props.RP.RadiPOPstates.files.length > 0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newMask]);
 
   const firstUpdate = useRef(true); // Avoid Log print on first render
@@ -260,6 +338,15 @@ function Editing(props) {
     props.RP.setDisableApp(false);
   }, [checkGlobalUpdate]);
 
+  /**
+   * Extends labels using the current index and bounds and calls getMask()
+   * function. Updates the Log information.
+   * @memberof Editing
+   * @method extendLabels
+   * @param {*} left upper bound
+   * @param {*} right down/lower bound
+   */
+  //
   function extendLabels(left, right) {
     const logInfo = props.RP.logInfo.concat(
       <LogMessage type="warning" message={"Extending labels.."} />
@@ -308,7 +395,14 @@ function Editing(props) {
       .catch(error_handlerExtendLabels);
   }
 
-  //Get mask of given index
+  /**
+   * Computes the new mask for a slicde id and and utilizes the setNewMask state
+   * function. useEffect hook with newMask state to render update.
+   * @memberof Editing
+   * @method getMask
+   * @param {*} target_slice_idx slice id
+   */
+  //
   function getMask(target_slice_idx) {
     let data = {
       index: target_slice_idx,

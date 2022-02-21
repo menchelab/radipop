@@ -349,7 +349,7 @@ function ToolBar(props) {
   };
 
   /**
-   * Handles event when correct parition button was pressed
+   * Handles event when "Correct Partition" button was pressed
    * @memberof ToolBar
    * @method handleCorrectPartition
    * @param {*} event Event
