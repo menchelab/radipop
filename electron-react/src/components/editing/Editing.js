@@ -408,9 +408,8 @@ function Editing(props) {
   }
 
   /**
-   * Computes the new mask for a slice id and and utilizes the setNewMask state
-   * function.
-   *
+   * Gets the new mask for a slice id and utilizes the setNewMask state
+   * 
    * useEffect hook with newMask state to render update.
    * @memberof Editing
    * @method getMask
