@@ -7,10 +7,34 @@ import LogMessage from '../log/LogMessage.js';
 import '../../styles/toolbar.css';
 import '../../styles/index.css';
 
+/**
+ * @namespace ToolBarComponent
+ */
 
-
+/**
+ * Creates Toolbar component 
+ * @memberof ToolBarComponent
+ * @method ToolBar 
+ * @param {*} props RP variable from App.js
+ * @returns Toolbar div 
+ * @example
+ * <ToolBar key="Toolbar" RP={RP} />
+ */
 
 function ToolBar(props) {
+  /**
+   * @namespace ToolBar
+   */
+
+  /**
+   * Initialize Flask server with patient slices and mask files (if available) 
+   * @memberof ToolBar
+   * @method initialize
+   * @param {*} paths Paths to slice files
+   * @param {*} smc Slice mask container
+   * @param {*} mask_files Container with mask files 
+   * @param {*} patientID ID of patient
+   */
   const initialize =(paths,smc, mask_files, patientID) => {
     let data={
       paths: paths,
@@ -32,7 +56,14 @@ function ToolBar(props) {
     })
     .catch(error_handler)
   }
-  //Function is raised when requests to Flask server fail for any reason
+
+  /**
+   * Function is raised when requests to Flask server fail for any reason: 
+   * Creates LogMessage \n
+   * Enables App again (unfreezing)
+   * @memberof ToolBar
+   * @method error_handler
+   */
   function error_handler(){
     const logInfo = props.RP.logInfo.concat(<LogMessage type="error" message="Failed to contact flask server or Flask handling error"/>);
     props.RP.setlogInfo(logInfo);
@@ -41,7 +72,16 @@ function ToolBar(props) {
     //alert("Failed to contact flask server or Flask handling error - It may take a while to start up the server... Try again later.");
   }
 
-  // Post the path to a mask pickle file and get a transparent PNG file in return
+  /**
+   * Post the path to a mask pickle file and get a transparent PNG file in return
+   * Updates global variable numberOfConvertedMasksHelper
+   * @memberof ToolBar
+   * @method postPickleGetMask
+   * @param {*} smc Slice mask container 
+   * @param {*} index Index of mask 
+   * @param {*} path Path to the mask file 
+   * @param {*} patientID ID of the patient 
+   */
   const postPickleGetMask = (smc, index, path, patientID) => {
     let data = {
       index: index,
@@ -63,7 +103,12 @@ function ToolBar(props) {
     }).catch(error_handler)
   }
 
-  // Handler for Input Open Button -> load files
+  /**
+   * Handler for Input Open Button -> load files
+   * @memberof Toolbar
+   * @method openHandler
+   * @param {*} event Event
+   */
   const openHandler = (event) => {
     console.log("open handler")
     let target_files= []
@@ -85,6 +130,13 @@ function ToolBar(props) {
     //In order to be able to call dcm2png again on same dir --> event must change
     event.target.value="";
   }
+
+  /**
+   * Initializes Flask server with files 
+   * @memberof ToolBar
+   * @param {*} files Files 
+   * 
+   */
   const initializeWithFiles =(files) =>{
     let mask_files=[] // array to store .p files
     let slice_files=[] // array to store .png slices
@@ -159,6 +211,11 @@ function ToolBar(props) {
           files: [],
       });
 
+  /**
+   * Reset mask: Request mask for current slice from Flask server
+   * @memberof Toolbar
+   * @method resetMask
+   */
   const resetMask = () => {
     let data={
       "patientID": props.RP.RadiPOPstates.patient,
@@ -178,6 +235,12 @@ function ToolBar(props) {
     }).catch(error_handler)
   }
 
+  /**
+   * Correct Partition: Sends coordinates of last mouse clicks to Flask server.
+   * Receives new mask with corrected partition and sets it to the current slice
+   * @memberof ToolBar
+   * @method correctPartition
+   */
   const correctPartition = () => {
     let data={
       "patientID": props.RP.RadiPOPstates.patient,
@@ -199,6 +262,12 @@ function ToolBar(props) {
     }).catch(error_handler)
   }
 
+  /**
+   * Handles event when correct parition button was pressed 
+   * @memberof ToolBar
+   * @method handleCorrectPartition
+   * @param {*} event Event
+   */
   const handleCorrectPartition = (event) => {
     if(props.RP.RadiPOPstates.files.length === 0){
       return
@@ -215,6 +284,13 @@ function ToolBar(props) {
       setCorrectParitionButtonLabel("Exit correction mode");
     }
   }
+
+  /**
+   * Handles event when commit correction button was pressed 
+   * @memberof ToolBar
+   * @method handleCommitCorrections
+   * @param {*} event Event
+   */
   const handleCommitCorrections = (event) => {
     if(props.RP.RadiPOPstates.files.length === 0){
       return
@@ -228,6 +304,12 @@ function ToolBar(props) {
     }
   }
 
+  /**
+   * Handles event when clear edits button was pressed 
+   * @memberof ToolBar
+   * @method handleClearEdits
+   * @param {*} event Event
+   */
   const handleClearEdits = (event) =>{
     if(props.RP.RadiPOPstates.files.length === 0){
       return
@@ -236,8 +318,14 @@ function ToolBar(props) {
     resetMask();
   }
 
+  /**
+   * Handles event when dcm2png button was pressed 
+   * User selects files which are then converted to png 
+   * @memberof ToolBar
+   * @method dcm2pngDialog
+   * @param {*} event Event
+   */
   const dcm2pngDialog = (event) => {
-
     console.log("dcm2png button was clicked")
     let files= event.target.files;
     let dcm_files=[];
@@ -258,11 +346,25 @@ function ToolBar(props) {
     event.target.value="";
   }
 
+  /**
+   * Handles event when user clicks on "Set" button in the DialogModal form  
+   * dcm files are converted to png 
+   * @memberof ToolBar
+   * @method handleDicomClips
+   * @param {*} event Event
+   */  
   const handleDicomClips = () => {
     dcm2png(state.files);
     setpreview("");
   }
 
+  /**
+  * Handles event when save button was pressed .
+  * Makes request to Flask server and saves masks to .p files in the input directory.
+  * @memberof ToolBar
+  * @method saveHandler
+  * @param {*} event Event
+  */
   const saveHandler = (event) => {
     if(props.RP.RadiPOPstates.files.length === 0){
       return
@@ -287,6 +389,10 @@ function ToolBar(props) {
     }).catch(error_handler)
   }
 
+  /**
+   * Makes flask request to convert the given dcm_files to png. 
+   * @param {*} dcm_files Container with dcm files
+   */
   const dcm2png = (dcm_files) => {
     // Check if user selected new files -> return if user clicked "cancel"
     let logInfo = props.RP.logInfo.concat(<LogMessage type="warning" message={"Converting " + String(dcm_files.length) + " .dcm files to png..."}/>);
