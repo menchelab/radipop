@@ -2,11 +2,10 @@ import React, {useState,useEffect} from 'react';
 import SearchBar from '../toolbar/Searchbar.js';
 import Button from '../toolbar/Button.js';
 import Input from '../toolbar/Input.js';
-import DialogModal from '../toolbar/DialogModal.js';
 import LogMessage from '../log/LogMessage.js';
 import '../../styles/toolbar.css';
 import '../../styles/index.css';
-
+import Dcm2PngWindow from "../toolbar/Dcm2PngWindow"
 /**
  * @namespace ToolBarComponent
  */
@@ -347,18 +346,6 @@ function ToolBar(props) {
   }
 
   /**
-   * Handles event when user clicks on "Set" button in the DialogModal form  
-   * dcm files are converted to png 
-   * @memberof ToolBar
-   * @method handleDicomClips
-   * @param {*} event Event
-   */  
-  const handleDicomClips = () => {
-    dcm2png(state.files);
-    setpreview("");
-  }
-
-  /**
   * Handles event when save button was pressed .
   * Makes request to Flask server and saves masks to .p files in the input directory.
   * @memberof ToolBar
@@ -389,75 +376,9 @@ function ToolBar(props) {
     }).catch(error_handler)
   }
 
-  /**
-   * Makes flask request to convert the given dcm_files to png. 
-   * @param {*} dcm_files Container with dcm files
-   */
-  const dcm2png = (dcm_files) => {
-    // Check if user selected new files -> return if user clicked "cancel"
-    let logInfo = props.RP.logInfo.concat(<LogMessage type="warning" message={"Converting " + String(dcm_files.length) + " .dcm files to png..."}/>);
-    props.RP.setlogInfo(logInfo);
+  
+  const [preview, setpreview] = useState("");
 
-    let data={
-      low_clip: +state.low_clip,
-      high_clip: +state.high_clip,
-      "paths": dcm_files
-    };
-    console.log("dcm2png");
-    fetch(props.RP.FLASK_SERVER+"/dcm2png", {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    }).then(function(response){ return response.json();})
-    .then(function(data) {
-      console.log(data["message"]);
-      console.log(data["metadata"]);
-      logInfo = logInfo.concat(<LogMessage type="success" message={data["message"]}/>);
-      props.RP.setlogInfo(logInfo);
-      props.RP.setDisableApp(false);
-      /*initializeWithFiles(png_files); */
-    }).catch(error_handler)
-  }
-
-
-  function _onChange(e) {
-    e.preventDefault();
-    if(e.target.id === 'low_clip'){
-      setState({ showDialog: state.showDialog, low_clip: e.target.value, high_clip: state.high_clip, files: state.files});
-    }
-    else if(e.target.id === 'high_clip') {
-      setState({ showDialog: state.showDialog, low_clip: state.low_clip, high_clip: e.target.value, files: state.files});
-    }
- }
-
-function _onSubmit(e) {
-    e.preventDefault();
-    setState({showDialog: false, low_clip: state.low_clip, high_clip: state.high_clip, files: state.files});
-}
-const [preview, setpreview] = useState("");
-function handlePreview(){
-  let data={
-    low_clip: + state.low_clip,
-    high_clip: + state.high_clip,
-    "path": state.files[0]
-  };
-  console.log("dcm2pngPreview");
-  fetch(props.RP.FLASK_SERVER+"/dcm2pngPreview", {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  }).then(function(response){ return response.json();})
-  .then(function(data) {
-    console.log(data["message"]);
-    console.log(data["metadata"]);
-    let bytestring = data["slice"];
-    let img = bytestring.split('\'')[1];
-    img= "data:image/png;base64," +img;
-    setpreview(img);
-    //props.RP.setDisableApp(false);
-    setState({ showDialog: true, low_clip: state.low_clip, high_clip: state.high_clip, files: state.files});
-  }).catch(error_handler)
-}
 return (
   <div className="row toolbar col-lg-12 col-md-12">
     <div className="brwhite tool-col col-lg-3 col-md-3">
@@ -474,25 +395,8 @@ return (
       <SearchBar RP={props.RP} scrollRefs={props.RP.scrollRefs}/>
     </div>
     {/* Show Modal - Renders Outside React Hierarchy Tree via Portal Pattern */}
-    {state.showDialog === true ? (
-        <DialogModal>
-            <div className="dialog-wrapper">
-                <h3>Set clipping values for dicom conversion</h3>
-                <form onSubmit={_onSubmit}>
-                    {preview!=="" && <div className="previewDiv"> <img className="previewSlice" src={preview} alt="Preview" /> </div>}
-                    <div className="previewDiv2">
-                    LOW: <input type="text" id="low_clip" value={state.low_clip} onChange={_onChange} /> {" "}
-                    HIGH: <input type="text" id="high_clip" value={state.high_clip} onChange={_onChange} />{" "}
-                    </div>
-                    <div className="previewDiv2">
-                    <button onClick={handlePreview}> Preview </button>
-                    <button onClick={handleDicomClips} type="submit">Set</button>
-                    </div>
-
-                </form>
-            </div>
-        </DialogModal>
-    ) : null}
+    {state.showDialog === true ? 
+    (<Dcm2PngWindow RP={props.RP} state={state} setState ={setState} preview ={preview} setpreview={setpreview} />) : null}
   </div>
   );
  }
