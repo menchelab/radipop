@@ -15,7 +15,7 @@ import "../../styles/index.css";
 
 /**
  * Creates Editing component, used for HideMask/Slice checkbox, sliders,
- * global threshold, set labels and extend labels
+ * global threshold, set labels and extend labels.
  * @memberof App
  * @method Editing
  * @param {*} props RP variable from App.js
@@ -81,7 +81,7 @@ function Editing(props) {
   };
 
   /**
-   * Update state "value" on slider change through "plus" button
+   * Update state "value" on slider change through "plus" button.
    * @memberof Editing
    * @method handleClickPlus
    * @param {*} event onClick Event
@@ -113,7 +113,7 @@ function Editing(props) {
   };
 
   /**
-   * Update state "value" on slider change through "minus" button
+   * Update state "value" on slider change through "minus" button.
    * @memberof Editing
    * @method handleClickMinus
    * @param {*} event onClick Event
@@ -145,8 +145,11 @@ function Editing(props) {
   };
 
   /**
-   * Uses the slider values (bone, vessel, liver) to compute masks on all slices
-   * Updates the Log, and utilizes useEffect hook with checkGlobalUpdate state
+   * Uses the slider values (bone, vessel, liver) to compute masks on all slices.
+   *
+   * Updates the Log, and utilizes useEffect hook with checkGlobalUpdate state.
+   *
+   * Utilizes updateMask function
    * @memberof Editing
    * @method setThesholdGlobally
    */
@@ -182,7 +185,7 @@ function Editing(props) {
 
   /**
    * Updates the expansion bound state if user changes the input for up and
-   * down input in Bound.js
+   * down input in Bound.js.
    * @memberof Editing
    * @method getBounds
    * @param {*} event onChange Event
@@ -203,7 +206,11 @@ function Editing(props) {
 
   /**
    * Extends the labels from the current selected slice to the neighbour slices
-   * depending on the up and down bound. Updates the Log if no bounds are set
+   * depending on the up and down bound.
+   *
+   * Updates the Log if no bounds are set.
+   *
+   * Utilizes extendLabels function
    * @memberof Editing
    * @method extendLabelClick
    * @param {*} event onClick Event
@@ -272,8 +279,9 @@ function Editing(props) {
 
   /**
    * Function is raised when requests to Flask server fail for any reason:
-   * Creates LogMessage \n
-   * Enables App again (unfreezing)
+   * Creates LogMessage
+   *
+   * Enables App again (unfreezing).
    * @memberof Editing
    * @method error_handler
    */
@@ -340,7 +348,11 @@ function Editing(props) {
 
   /**
    * Extends labels using the current index and bounds and calls getMask()
-   * function. Updates the Log information.
+   * function.
+   *
+   * Updates the Log information.
+   *
+   * Utilizes getMask function
    * @memberof Editing
    * @method extendLabels
    * @param {*} left upper bound
@@ -396,8 +408,10 @@ function Editing(props) {
   }
 
   /**
-   * Computes the new mask for a slicde id and and utilizes the setNewMask state
-   * function. useEffect hook with newMask state to render update.
+   * Computes the new mask for a slice id and and utilizes the setNewMask state
+   * function.
+   *
+   * useEffect hook with newMask state to render update.
    * @memberof Editing
    * @method getMask
    * @param {*} target_slice_idx slice id
