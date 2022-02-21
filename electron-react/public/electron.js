@@ -2,17 +2,28 @@
 const { app, BrowserWindow, protocol } = require("electron");
 const path = require("path");
 const url = require("url");
+
+// Variable for python subprocess
 let subpy = null;
 
-const PY_DIST_FOLDER = "../../app/dist-python"; // python distributable folder
-const PY_SRC_FOLDER = "../segmenter_flask_API"; // path to the python source
-const PY_MODULE = "segmenter_flask_API.py"; // the name of the main module
-//Check if packaged python segmenter exists
+
+// python distributable folder
+const PY_DIST_FOLDER = "../../app/dist-python"; 
+// path to the python source
+const PY_SRC_FOLDER = "../segmenter_flask_API"; 
+// the name of the main module
+const PY_MODULE = "segmenter_flask_API.py"; 
+
+
+// Check if packaged python code exists
 const pythonBuildExists = () => {
   return require("fs").existsSync(path.join(__dirname, PY_DIST_FOLDER));
 };
 
-//Get path to python script or python executable if available
+/**
+ * Get path to python script or python executable if available
+ * @returns {path} Path to python script or executable
+ */
 const getPythonScriptPath = () => {
   console.log(__dirname);
   if (!pythonBuildExists() || !app.isPackaged) {
@@ -29,6 +40,10 @@ const getPythonScriptPath = () => {
   return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE.slice(0, -3));
 };
 
+/**
+ * Start Python subprocess. Spawns either executable or python script
+ * Sets subpy variable to python subprocess. 
+ */
 const startPythonSubprocess = () => {
   let script = getPythonScriptPath();
   if (pythonBuildExists() && app.isPackaged) {
@@ -49,6 +64,11 @@ const startPythonSubprocess = () => {
   });
 };
 
+/**
+ * Kill spawned python subprocesses 
+ * @param {*} main_pid The parent process id of which all sub processes should be killed
+ * @returns {Promise} 
+ */
 const killPythonSubprocesses = (main_pid) => {
   const python_script_name = path.basename(getPythonScriptPath());
   let cleanup_completed = false;
@@ -62,7 +82,7 @@ const killPythonSubprocesses = (main_pid) => {
         return p.PID;
       });
 
-    //Fix for MacOS --> flask server won't shutdown
+    // Fix for MacOS --> flask server won't shutdown
     if (process.platform == "darwin") {
       console.log("killPythonSubprocesses")
       console.log(subpy.pid)
@@ -84,7 +104,9 @@ const killPythonSubprocesses = (main_pid) => {
   });
 };
 
-// Create the native browser window.
+/**
+ *  Create the native browser window.
+ */
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1400,
@@ -101,6 +123,7 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
     },
   });
+
   // In production, set the initial browser path to the local bundle generated
   // by the Create React App build process.
   // In development, set it to localhost to allow live/hot-reloading.
@@ -119,8 +142,11 @@ function createWindow() {
   }
 }
 
-// Setup a local proxy to adjust the paths of requested files when loading
-// them from the local production bundle (e.g.: local fonts, etc...).
+
+/**
+ *  Setup a local proxy to adjust the paths of requested files when loading
+ * them from the local production bundle (e.g.: local fonts, etc...).
+ */
 function setupLocalFilesNormalizerProxy() {
   protocol.registerHttpProtocol(
     "file",
@@ -134,15 +160,20 @@ function setupLocalFilesNormalizerProxy() {
   );
 }
 
-// This method will be called when Electron has finished its initialization and
-// is ready to create the browser windows.
-// Some APIs can only be used after this event occurs.
+/**
+ * This method will be called when Electron has finished its initialization and
+ * is ready to create the browser windows.
+ *  Some APIs can only be used after this event occurs.
+ */
 app.whenReady().then(() => {
   startPythonSubprocess();
   createWindow();
   setupLocalFilesNormalizerProxy();
 
-  app.on("activate", function () {
+/**
+ * This method will be called when the app is activated
+ */
+app.on("activate", function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) {
@@ -151,7 +182,11 @@ app.whenReady().then(() => {
   });
 });
 
-// Quit when all windows are closed
+
+/**
+ * This method is called when (all) windows are closed
+ * Kills all subprocesses
+ */
 app.on("window-all-closed", function () {
   let main_process_pid = process.pid;
   killPythonSubprocesses(main_process_pid).then(() => {
@@ -163,6 +198,10 @@ app.on("window-all-closed", function () {
 // it is a good idea to limit navigation outright to that known scope,
 // disallowing any other kinds of navigation.
 const allowedNavigationDestinations = "https://my-electron-app.com";
+
+/**
+ * Sets allowed destination pages. Not really necessary but good practise.
+ */
 app.on("web-contents-created", (event, contents) => {
   contents.on("will-navigate", (event, navigationUrl) => {
     const parsedUrl = new URL(navigationUrl);
