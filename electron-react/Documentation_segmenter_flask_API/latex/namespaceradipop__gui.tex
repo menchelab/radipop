@@ -1,7 +1,29 @@
 \hypertarget{namespaceradipop__gui}{}\doxysection{radipop\+\_\+gui Namespace Reference}
 \label{namespaceradipop__gui}\index{radipop\_gui@{radipop\_gui}}
+
+
+Contains python class for storing patient information, handling flask requests and calculations.  
+
+
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classradipop__gui_1_1_radi_pop_g_u_i}{Radi\+Pop\+GUI}}
 \begin{DoxyCompactList}\small\item\em Bridge between the flask server/\+API and the Radi\+POP segmenter\+: \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains python class for storing patient information, handling flask requests and calculations. 
+
+\hypertarget{namespaceradipop__gui_description_radipop_gui}{}\doxysubsection{Description}\label{namespaceradipop__gui_description_radipop_gui}
+Bridge between the flask server/\+API and the Radi\+POP segmenter\+:
+\begin{DoxyItemize}
+\item For each patient one object of this class should be instantiated.
+\item An object of this class contains all the slices and masks associated with the patient
+\item This class also contains static utility functions
+\item This class is the bridge between the flask server/\+API and the Radi\+POP segmenter (segmentations\+\_\+utils)
+\end{DoxyItemize}\hypertarget{namespacesegmentation__utils_author_radipop_gui}{}\doxysubsection{Author(s)}\label{namespacesegmentation__utils_author_radipop_gui}
+
+\begin{DoxyItemize}
+\item Created by Lorenz Perschy (2021, 2022) 
+\end{DoxyItemize}

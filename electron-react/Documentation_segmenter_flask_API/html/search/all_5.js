@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['extend_5flabels_0',['extend_labels',['../classradipop__gui_1_1_radi_pop_g_u_i.html#a728aa4344f60e4de421242f6e6b764d7',1,'radipop_gui::RadiPopGUI']]],
-  ['extendlabels_1',['extendLabels',['../namespacesegmenter__flask___a_p_i.html#ab78dfd12fd33aa268d51178dd6d5baac',1,'segmenter_flask_API']]],
-  ['extract_5fmetadata_5ffrom_5fdcm_2',['extract_metadata_from_dcm',['../classradipop__gui_1_1_radi_pop_g_u_i.html#a8f3db4cef37739a39aedc152877db4b6',1,'radipop_gui::RadiPopGUI']]]
+  ['find_5forgans_0',['find_organs',['../classradipop__gui_1_1_radi_pop_g_u_i.html#a6b5c6eb7faf2611bbbe56b1383e6a84b',1,'radipop_gui::RadiPopGUI']]],
+  ['flask_5fport_1',['FLASK_PORT',['../namespacesegmenter__flask___a_p_i.html#a4cd10e2374b9aa7ea8f2257f38c46832',1,'segmenter_flask_API']]],
+  ['flast_5fhost_2',['FLAST_HOST',['../namespacesegmenter__flask___a_p_i.html#a8351ace7b9efb5281c356be0ff739d2d',1,'segmenter_flask_API']]]
 ];

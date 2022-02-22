@@ -306,6 +306,7 @@ function Editing(props) {
     if (props.RP.flaskIntialized) {
       updateMask(props.RP.RadiPOPstates.currentSliceIndex, sliderValue, false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sliderValue, props.RP.FirstMaskForSlice]);
 
   // Render new mask after computation
@@ -319,6 +320,7 @@ function Editing(props) {
       patient: props.RP.RadiPOPstates.patient,
     });
     props.RP.setshowMask(props.RP.RadiPOPstates.files.length > 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newMask]);
 
   const firstUpdate = useRef(true); // Avoid Log print on first render
@@ -336,6 +338,7 @@ function Editing(props) {
     });
     // After computation allow user to buttons/sliders
     props.RP.setDisableApp(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkGlobalUpdate]);
 
   /**

@@ -1,10 +1,8 @@
 var searchData=
 [
-  ['clip_5fdcm_0',['clip_dcm',['../classradipop__gui_1_1_radi_pop_g_u_i.html#a147d5ba0eb23541114cb2acdc7fb3220',1,'radipop_gui::RadiPopGUI']]],
-  ['color_5fmask_1',['color_mask',['../classradipop__gui_1_1_radi_pop_g_u_i.html#a288c6a91f630d57fd1a94e87199b6f88',1,'radipop_gui::RadiPopGUI']]],
-  ['config_2',['config',['../namespaceconfig.html',1,'']]],
-  ['config_2epy_3',['config.py',['../config_8py.html',1,'']]],
-  ['correct_5fpartition_4',['correct_partition',['../classradipop__gui_1_1_radi_pop_g_u_i.html#a8379d31e0d49ff2ac08066a19c146dfa',1,'radipop_gui::RadiPopGUI']]],
-  ['correctpartition_5',['correctPartition',['../namespacesegmenter__flask___a_p_i.html#a87eb1f0c3f92490595980a5fa2d5231a',1,'segmenter_flask_API']]],
-  ['create_5fimage_5fstream_6',['create_image_stream',['../classradipop__gui_1_1_radi_pop_g_u_i.html#a5eae9b430db0450d54cce4330c66f444',1,'radipop_gui::RadiPopGUI']]]
+  ['dcm2png_0',['dcm2png',['../namespacesegmenter__flask___a_p_i.html#a1085fa447800af4e234c6b8c91013574',1,'segmenter_flask_API']]],
+  ['dcm2pngpreview_1',['dcm2pngPreview',['../namespacesegmenter__flask___a_p_i.html#a0b907cefd2476cd532a2ed1f06d09ffa',1,'segmenter_flask_API']]],
+  ['draw_5fon_5fimage_2',['draw_on_image',['../classradipop__gui_1_1_radi_pop_g_u_i.html#ac727958de4f2a9056b2eb1057f830a2f',1,'radipop_gui::RadiPopGUI']]],
+  ['draw_5fregion_5foutlines_3',['draw_region_outlines',['../namespacesegmentation__utils.html#a2a4c7b64bcddd9f663d917dfe7306995',1,'segmentation_utils']]],
+  ['drawonmask_4',['drawOnMask',['../namespacesegmenter__flask___a_p_i.html#a2ea3e26521cdcd63a5ec21e6a4dcb0e6',1,'segmenter_flask_API']]]
 ];

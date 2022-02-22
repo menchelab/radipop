@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/toolbar/Dcm2PngWindow.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/toolbar/Dcm2PngWindow.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import DialogModal from "../toolbar/DialogModal.js";
+import LogMessage from "../log/LogMessage.js";
+import "../../styles/toolbar.css";
+import "../../styles/index.css";
+
+/**
+ * Creates a window for the dcm2png conversion dialog
+ * @memberof toolbar
+ * @method Dcm2PngWindow
+ * @param {*} props RP variable from App.js, state, setState, preview, setPreview from Toolbar.js
+ * @returns DialogModal
+ * @example
+ * &lt;Dcm2PngWindow RP={props.RP} state={state} setState ={setState} preview ={preview} setpreview={setpreview} />
+ */
+function Dcm2PngWindow(props) {
+  /**
+   * @namespace Dcm2PngWindow
+   */
+
+  /**
+   * Handles event when user clicks on "Set" button in the DialogModal form
+   * dcm files are converted to png
+   * @memberof Dcm2PngWindow
+   * @method handleDicomClips
+   * @param {*} event Event
+   */
+
+  const handleDicomClips = () => {
+    dcm2png(props.state.files);
+    props.setpreview("");
+  };
+  /**
+   * Makes flask request to convert the given dcm_files to png.
+   * @memberof Dcm2PngWindow
+   * @method dcm2png
+   * @param {*} dcm_files Container with dcm files
+   */
+  const dcm2png = (dcm_files) => {
+    // Check if user selected new files -> return if user clicked "cancel"
+    let logInfo = props.RP.logInfo.concat(
+      &lt;LogMessage
+        type="warning"
+        message={
+          "Converting " + String(dcm_files.length) + " .dcm files to png..."
+        }
+      />
+    );
+    props.RP.setlogInfo(logInfo);
+
+    let data = {
+      low_clip: +props.state.low_clip,
+      high_clip: +props.state.high_clip,
+      paths: dcm_files,
+    };
+    console.log("dcm2png");
+    fetch(props.RP.FLASK_SERVER + "/dcm2png", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data["message"]);
+        console.log(data["metadata"]);
+        logInfo = logInfo.concat(
+          &lt;LogMessage type="success" message={data["message"]} />
+        );
+        props.RP.setlogInfo(logInfo);
+        props.RP.setDisableApp(false);
+        /*initializeWithFiles(png_files); */
+      })
+      .catch(error_handler);
+  };
+  /**
+   * Handles Changes in clipping values in the dcm2png conversion Dialog
+   * @memberof Dcm2PngWindow
+   * @method _onChange
+   * @param {*} e Event
+   */
+  function _onChange(e) {
+    e.preventDefault();
+    if (e.target.id === "low_clip") {
+      props.setState({
+        showDialog: props.state.showDialog,
+        low_clip: e.target.value,
+        high_clip: props.state.high_clip,
+        files: props.state.files,
+      });
+    } else if (e.target.id === "high_clip") {
+      props.setState({
+        showDialog: props.state.showDialog,
+        low_clip: props.state.low_clip,
+        high_clip: e.target.value,
+        files: props.state.files,
+      });
+    }
+  }
+
+  /**
+   * Handles when user User clicks on "Set"
+   * @memberof Dcm2PngWindow
+   * @method _onSubmit
+   * @param {*} e Event
+   */
+  function _onSubmit(e) {
+    e.preventDefault();
+    props.setState({
+      showDialog: false,
+      low_clip: props.state.low_clip,
+      high_clip: props.state.high_clip,
+      files: props.state.files,
+    });
+  }
+
+  /**
+   * Handles when user User clicks on "Preview"
+   * Makes request to flask server to calculate a preview for first dcm file in directory
+   * @memberof Dcm2PngWindow
+   * @method handlePreview
+   */
+  function handlePreview() {
+    let data = {
+      low_clip: +props.state.low_clip,
+      high_clip: +props.state.high_clip,
+      path: props.state.files[0],
+    };
+    console.log("dcm2pngPreview");
+    fetch(props.RP.FLASK_SERVER + "/dcm2pngPreview", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data["message"]);
+        console.log(data["metadata"]);
+        let bytestring = data["slice"];
+        let img = bytestring.split("'")[1];
+        img = "data:image/png;base64," + img;
+        props.setpreview(img);
+        //props.RP.setDisableApp(false);
+        props.setState({
+          showDialog: true,
+          low_clip: props.state.low_clip,
+          high_clip: props.state.high_clip,
+          files: props.state.files,
+        });
+      })
+      .catch(error_handler);
+  }
+
+  /**
+   * Function is raised when requests to Flask server fail for any reason:
+   * Creates LogMessage \n
+   * Enables App again (unfreezing)
+   * @memberof Dcm2PngWindow
+   * @method error_handler
+   */
+  function error_handler() {
+    const logInfo = props.RP.logInfo.concat(
+      &lt;LogMessage
+        type="error"
+        message="Failed to contact flask server or Flask handling error"
+      />
+    );
+    props.RP.setlogInfo(logInfo);
+    props.RP.setDisableApp(false);
+  }
+
+  return (
+    &lt;DialogModal>
+      &lt;div className="dialog-wrapper">
+        &lt;h3>Set clipping values for dicom conversion&lt;/h3>
+        &lt;form onSubmit={_onSubmit}>
+          {props.preview !== "" &amp;&amp; (
+            &lt;div className="previewDiv">
+              {" "}
+              &lt;img
+                className="previewSlice"
+                src={props.preview}
+                alt="Preview"
+              />{" "}
+            &lt;/div>
+          )}
+          &lt;div className="previewDiv2">
+            LOW:{" "}
+            &lt;input
+              type="text"
+              id="low_clip"
+              value={props.state.low_clip}
+              onChange={_onChange}
+            />{" "}
+            HIGH:{" "}
+            &lt;input
+              type="text"
+              id="high_clip"
+              value={props.state.high_clip}
+              onChange={_onChange}
+            />{" "}
+          &lt;/div>
+          &lt;div className="previewDiv2">
+            &lt;button onClick={handlePreview}> Preview &lt;/button>
+            &lt;button onClick={handleDicomClips} type="submit">
+              Set
+            &lt;/button>
+          &lt;/div>
+        &lt;/form>
+      &lt;/div>
+    &lt;/DialogModal>
+  );
+}
+
+export default Dcm2PngWindow;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="App.html">App</a></li><li><a href="Dcm2PngWindow.html">Dcm2PngWindow</a></li><li><a href="editing.html">editing</a></li><li><a href="Editing_.html">Editing</a></li><li><a href="HideMask.html">HideMask</a></li><li><a href="HideSlice.html">HideSlice</a></li><li><a href="SearchBar.html">SearchBar</a></li><li><a href="SetLabel.html">SetLabel</a></li><li><a href="toolbar.html">toolbar</a></li><li><a href="ToolBar_.html">ToolBar</a></li></ul><h3>Classes</h3><ul><li><a href="toolbar.DialogModal.html">DialogModal</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Feb 22 2022 23:56:39 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

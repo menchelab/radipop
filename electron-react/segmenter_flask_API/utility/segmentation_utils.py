@@ -1,3 +1,12 @@
+##
+# @file segmentation_utils.py
+# @namespace segmentation_utils
+# @brief Contains code from the original segmenter: Segmentation algorithm, applying thresholds ...
+#
+# @section author_radipop_gui Author(s)
+# Menche Lab
+#
+
 from scipy import ndimage as ndi
 from scipy.ndimage.interpolation import shift
 from skimage import morphology, feature

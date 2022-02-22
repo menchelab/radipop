@@ -1,8 +1,34 @@
-from tkinter import RADIOBUTTON
-from utility import config
+#!/usr/bin/env python3
+
+##
+# @mainpage RadiPOP segmenter backend
+#
+# @section description_main Description
+# This python code constitutes the backend of the RadiPOP segmenter. 
+# - Contains code for handling communication with frontend - Flask server (segmenter_flask_API.py)
+# - Contains python class for storing patient information, handling flask requests and calculations (utility\radipop_gui.py)
+# - Contains code from the original segmenter: Segmentation algorithm, applying thresholds ... (utility\segmentation_utils.py)
+
+##
+# @file segmenter_flask_API.py
+# @namespace segmenter_flask_API
+# @brief Flask server for RadiPOP segmenter: Bridge between frontend and backend.
+#
+# @section description_segmenter_flask_API Description
+# Requests to the flask server follow the HTTP protocol. All requests should contain a JSON formated 
+# message as content. The reply from the Flask server is also always a JSON formatted string. 
+# The functions/routes of the flask server don't take any arguments in the classical sense, but expect their "arguments" to be 
+# provided in JSON format by the client's POST request. Since there is not better alternative, they 
+# appear as the function's parameter in the Doxygen documentation. 
+#
+# @section author_segmenter_flask_API Author(s)
+# - Created by Lorenz Perschy (2021, 2022)
+#
+
+
 from utility.radipop_gui import RadiPopGUI
 import numpy as np, json
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import sys, os
 

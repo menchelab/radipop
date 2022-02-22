@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['config_0',['config',['../namespaceconfig.html',1,'']]]
+  ['radipop_5fgui_0',['radipop_gui',['../namespaceradipop__gui.html',1,'']]]
 ];

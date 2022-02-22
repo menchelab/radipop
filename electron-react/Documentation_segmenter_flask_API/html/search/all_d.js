@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['partition_5fat_5fthreshold_0',['partition_at_threshold',['../namespacesegmentation__utils.html#a3b23a787abb0f1b408fc5cb0eb2d69aa',1,'segmentation_utils']]],
-  ['pathtoslices_1',['pathToSlices',['../classradipop__gui_1_1_radi_pop_g_u_i.html#a6c22f280385bb2edcc657004ee868832',1,'radipop_gui::RadiPopGUI']]],
-  ['patient_5fid_2',['patient_id',['../classradipop__gui_1_1_radi_pop_g_u_i.html#acd763457c9913ff7e6799ea450748b43',1,'radipop_gui::RadiPopGUI']]],
-  ['patients_3',['patients',['../namespacesegmenter__flask___a_p_i.html#a65db06fedda325a1c6119e2e8ef4a558',1,'segmenter_flask_API']]],
-  ['port_4',['port',['../namespacesegmenter__flask___a_p_i.html#af8fb0f45ee0195c7422a49e6a8d72369',1,'segmenter_flask_API']]],
-  ['postpicklegetmask_5',['postPickleGetMask',['../namespacesegmenter__flask___a_p_i.html#a11ad2719228192cff4727e61aab43fb5',1,'segmenter_flask_API']]],
-  ['productionconfig_6',['ProductionConfig',['../classconfig_1_1_production_config.html',1,'config']]]
+  ['radipop_20segmenter_20backend_0',['RadiPOP segmenter backend',['../index.html',1,'']]],
+  ['radipop_5fgui_1',['radipop_gui',['../namespaceradipop__gui.html',1,'']]],
+  ['radipop_5fgui_2epy_2',['radipop_gui.py',['../radipop__gui_8py.html',1,'']]],
+  ['radipopgui_3',['RadiPopGUI',['../classradipop__gui_1_1_radi_pop_g_u_i.html',1,'radipop_gui']]],
+  ['read_5fpickle_5fmask_5fto_5fnp_5flabel_5farray_4',['read_pickle_mask_to_np_label_array',['../classradipop__gui_1_1_radi_pop_g_u_i.html#a2ae7353aca4249409fb7c26365829850',1,'radipop_gui::RadiPopGUI']]],
+  ['readpng_5',['readPNG',['../classradipop__gui_1_1_radi_pop_g_u_i.html#aaa1348bd420934664ea7e1fbf4615dc0',1,'radipop_gui::RadiPopGUI']]]
 ];

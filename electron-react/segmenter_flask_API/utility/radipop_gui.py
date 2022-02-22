@@ -1,3 +1,20 @@
+##
+# @file radipop_gui.py
+# @namespace radipop_gui
+# @brief Contains python class for storing patient information, handling flask requests and calculations
+#
+# @section description_radipop_gui Description
+# Bridge between the flask server/API and the RadiPOP segmenter:
+# - For each patient one object of this class should be instantiated.
+# - An object of this class contains all the slices and masks associated with the patient 
+# - This class also contains static utility functions
+# - This class is the bridge between the flask server/API and the RadiPOP segmenter (segmentations_utils)
+#
+# @section author_radipop_gui Author(s)
+# - Created by Lorenz Perschy (2021, 2022)
+#
+
+
 from PIL import Image,ImageDraw
 import numpy as np
 import pickle

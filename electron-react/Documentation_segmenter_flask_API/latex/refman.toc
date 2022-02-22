@@ -1,91 +1,87 @@
 \@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
-\contentsline {chapter}{\numberline {1}Namespace Index}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Packages}{1}{section.1.1}%
-\contentsline {chapter}{\numberline {2}Hierarchical Index}{3}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Class Hierarchy}{3}{section.2.1}%
+\contentsline {chapter}{\numberline {1}Radi\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}POP segmenter backend}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Description}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {2}Namespace Index}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Packages}{3}{section.2.1}%
 \contentsline {chapter}{\numberline {3}Class Index}{5}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Class List}{5}{section.3.1}%
 \contentsline {chapter}{\numberline {4}File Index}{7}{chapter.4}%
 \contentsline {section}{\numberline {4.1}File List}{7}{section.4.1}%
 \contentsline {chapter}{\numberline {5}Namespace Documentation}{9}{chapter.5}%
-\contentsline {section}{\numberline {5.1}config Namespace Reference}{9}{section.5.1}%
-\contentsline {section}{\numberline {5.2}radipop\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}gui Namespace Reference}{9}{section.5.2}%
-\contentsline {section}{\numberline {5.3}segmentation\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils Namespace Reference}{9}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Function Documentation}{10}{subsection.5.3.1}%
-\contentsline {subsubsection}{\numberline {5.3.1.1}add\_sobel\_edges()}{10}{subsubsection.5.3.1.1}%
-\contentsline {subsubsection}{\numberline {5.3.1.2}draw\_region\_outlines()}{10}{subsubsection.5.3.1.2}%
-\contentsline {subsubsection}{\numberline {5.3.1.3}guess\_bounds()}{11}{subsubsection.5.3.1.3}%
-\contentsline {subsubsection}{\numberline {5.3.1.4}partition\_at\_threshold()}{11}{subsubsection.5.3.1.4}%
-\contentsline {subsubsection}{\numberline {5.3.1.5}save\_partition()}{12}{subsubsection.5.3.1.5}%
-\contentsline {section}{\numberline {5.4}segmenter\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}flask\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}API Namespace Reference}{12}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Function Documentation}{13}{subsection.5.4.1}%
-\contentsline {subsubsection}{\numberline {5.4.1.1}correctPartition()}{13}{subsubsection.5.4.1.1}%
-\contentsline {subsubsection}{\numberline {5.4.1.2}dcm2png()}{13}{subsubsection.5.4.1.2}%
-\contentsline {subsubsection}{\numberline {5.4.1.3}dcm2pngPreview()}{14}{subsubsection.5.4.1.3}%
-\contentsline {subsubsection}{\numberline {5.4.1.4}drawOnMask()}{14}{subsubsection.5.4.1.4}%
-\contentsline {subsubsection}{\numberline {5.4.1.5}extendLabels()}{15}{subsubsection.5.4.1.5}%
-\contentsline {subsubsection}{\numberline {5.4.1.6}getMask()}{15}{subsubsection.5.4.1.6}%
-\contentsline {subsubsection}{\numberline {5.4.1.7}highlightOrgan()}{16}{subsubsection.5.4.1.7}%
-\contentsline {subsubsection}{\numberline {5.4.1.8}initialize()}{16}{subsubsection.5.4.1.8}%
-\contentsline {subsubsection}{\numberline {5.4.1.9}labelOrgan()}{17}{subsubsection.5.4.1.9}%
-\contentsline {subsubsection}{\numberline {5.4.1.10}postPickleGetMask()}{17}{subsubsection.5.4.1.10}%
-\contentsline {subsubsection}{\numberline {5.4.1.11}saveMasks()}{18}{subsubsection.5.4.1.11}%
-\contentsline {subsubsection}{\numberline {5.4.1.12}updateMask()}{18}{subsubsection.5.4.1.12}%
-\contentsline {subsection}{\numberline {5.4.2}Variable Documentation}{19}{subsection.5.4.2}%
-\contentsline {subsubsection}{\numberline {5.4.2.1}app}{19}{subsubsection.5.4.2.1}%
-\contentsline {subsubsection}{\numberline {5.4.2.2}FLASK\_PORT}{19}{subsubsection.5.4.2.2}%
-\contentsline {subsubsection}{\numberline {5.4.2.3}FLAST\_HOST}{19}{subsubsection.5.4.2.3}%
-\contentsline {subsubsection}{\numberline {5.4.2.4}host}{19}{subsubsection.5.4.2.4}%
-\contentsline {subsubsection}{\numberline {5.4.2.5}patients}{19}{subsubsection.5.4.2.5}%
-\contentsline {subsubsection}{\numberline {5.4.2.6}port}{19}{subsubsection.5.4.2.6}%
+\contentsline {section}{\numberline {5.1}radipop\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}gui Namespace Reference}{9}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Detailed Description}{9}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Description}{9}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Author(s)}{9}{subsection.5.1.3}%
+\contentsline {section}{\numberline {5.2}segmentation\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils Namespace Reference}{10}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Detailed Description}{10}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Author(s)}{10}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Function Documentation}{10}{subsection.5.2.3}%
+\contentsline {subsubsection}{\numberline {5.2.3.1}add\_sobel\_edges()}{10}{subsubsection.5.2.3.1}%
+\contentsline {subsubsection}{\numberline {5.2.3.2}draw\_region\_outlines()}{11}{subsubsection.5.2.3.2}%
+\contentsline {subsubsection}{\numberline {5.2.3.3}guess\_bounds()}{11}{subsubsection.5.2.3.3}%
+\contentsline {subsubsection}{\numberline {5.2.3.4}partition\_at\_threshold()}{11}{subsubsection.5.2.3.4}%
+\contentsline {subsubsection}{\numberline {5.2.3.5}save\_partition()}{12}{subsubsection.5.2.3.5}%
+\contentsline {section}{\numberline {5.3}segmenter\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}flask\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}API Namespace Reference}{12}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Detailed Description}{13}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Description}{13}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Author(s)}{13}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Function Documentation}{14}{subsection.5.3.4}%
+\contentsline {subsubsection}{\numberline {5.3.4.1}correctPartition()}{14}{subsubsection.5.3.4.1}%
+\contentsline {subsubsection}{\numberline {5.3.4.2}dcm2png()}{14}{subsubsection.5.3.4.2}%
+\contentsline {subsubsection}{\numberline {5.3.4.3}dcm2pngPreview()}{15}{subsubsection.5.3.4.3}%
+\contentsline {subsubsection}{\numberline {5.3.4.4}drawOnMask()}{15}{subsubsection.5.3.4.4}%
+\contentsline {subsubsection}{\numberline {5.3.4.5}extendLabels()}{16}{subsubsection.5.3.4.5}%
+\contentsline {subsubsection}{\numberline {5.3.4.6}getMask()}{16}{subsubsection.5.3.4.6}%
+\contentsline {subsubsection}{\numberline {5.3.4.7}highlightOrgan()}{17}{subsubsection.5.3.4.7}%
+\contentsline {subsubsection}{\numberline {5.3.4.8}initialize()}{17}{subsubsection.5.3.4.8}%
+\contentsline {subsubsection}{\numberline {5.3.4.9}labelOrgan()}{18}{subsubsection.5.3.4.9}%
+\contentsline {subsubsection}{\numberline {5.3.4.10}postPickleGetMask()}{18}{subsubsection.5.3.4.10}%
+\contentsline {subsubsection}{\numberline {5.3.4.11}saveMasks()}{19}{subsubsection.5.3.4.11}%
+\contentsline {subsubsection}{\numberline {5.3.4.12}updateMask()}{19}{subsubsection.5.3.4.12}%
+\contentsline {subsection}{\numberline {5.3.5}Variable Documentation}{20}{subsection.5.3.5}%
+\contentsline {subsubsection}{\numberline {5.3.5.1}app}{20}{subsubsection.5.3.5.1}%
+\contentsline {subsubsection}{\numberline {5.3.5.2}FLASK\_PORT}{20}{subsubsection.5.3.5.2}%
+\contentsline {subsubsection}{\numberline {5.3.5.3}FLAST\_HOST}{20}{subsubsection.5.3.5.3}%
+\contentsline {subsubsection}{\numberline {5.3.5.4}host}{20}{subsubsection.5.3.5.4}%
+\contentsline {subsubsection}{\numberline {5.3.5.5}patients}{20}{subsubsection.5.3.5.5}%
+\contentsline {subsubsection}{\numberline {5.3.5.6}port}{20}{subsubsection.5.3.5.6}%
 \contentsline {chapter}{\numberline {6}Class Documentation}{21}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Base\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Config Class Reference}{21}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Member Data Documentation}{21}{subsection.6.1.1}%
-\contentsline {subsubsection}{\numberline {6.1.1.1}SECRET\_KEY}{21}{subsubsection.6.1.1.1}%
-\contentsline {section}{\numberline {6.2}Development\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Config Class Reference}{21}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Member Data Documentation}{22}{subsection.6.2.1}%
-\contentsline {subsubsection}{\numberline {6.2.1.1}DEBUG}{22}{subsubsection.6.2.1.1}%
-\contentsline {section}{\numberline {6.3}Production\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Config Class Reference}{22}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Radi\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Pop\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}GUI Class Reference}{22}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Detailed Description}{24}{subsection.6.4.1}%
-\contentsline {subsection}{\numberline {6.4.2}Constructor \& Destructor Documentation}{24}{subsection.6.4.2}%
-\contentsline {subsubsection}{\numberline {6.4.2.1}\_\_init\_\_()}{24}{subsubsection.6.4.2.1}%
-\contentsline {subsection}{\numberline {6.4.3}Member Function Documentation}{25}{subsection.6.4.3}%
-\contentsline {subsubsection}{\numberline {6.4.3.1}clip\_dcm()}{25}{subsubsection.6.4.3.1}%
-\contentsline {subsubsection}{\numberline {6.4.3.2}color\_mask()}{25}{subsubsection.6.4.3.2}%
-\contentsline {subsubsection}{\numberline {6.4.3.3}correct\_partition()}{26}{subsubsection.6.4.3.3}%
-\contentsline {subsubsection}{\numberline {6.4.3.4}create\_image\_stream()}{26}{subsubsection.6.4.3.4}%
-\contentsline {subsubsection}{\numberline {6.4.3.5}draw\_on\_image()}{26}{subsubsection.6.4.3.5}%
-\contentsline {subsubsection}{\numberline {6.4.3.6}extend\_labels()}{27}{subsubsection.6.4.3.6}%
-\contentsline {subsubsection}{\numberline {6.4.3.7}extract\_metadata\_from\_dcm()}{27}{subsubsection.6.4.3.7}%
-\contentsline {subsubsection}{\numberline {6.4.3.8}find\_organs()}{27}{subsubsection.6.4.3.8}%
-\contentsline {subsubsection}{\numberline {6.4.3.9}highlight\_np\_label\_array\_to\_png()}{29}{subsubsection.6.4.3.9}%
-\contentsline {subsubsection}{\numberline {6.4.3.10}highlightOrgan()}{30}{subsubsection.6.4.3.10}%
-\contentsline {subsubsection}{\numberline {6.4.3.11}labelMask()}{30}{subsubsection.6.4.3.11}%
-\contentsline {subsubsection}{\numberline {6.4.3.12}np\_label\_array\_to\_png()}{30}{subsubsection.6.4.3.12}%
-\contentsline {subsubsection}{\numberline {6.4.3.13}read\_pickle\_mask\_to\_np\_label\_array()}{31}{subsubsection.6.4.3.13}%
-\contentsline {subsubsection}{\numberline {6.4.3.14}readPNG()}{31}{subsubsection.6.4.3.14}%
-\contentsline {subsubsection}{\numberline {6.4.3.15}save\_masks()}{32}{subsubsection.6.4.3.15}%
-\contentsline {subsubsection}{\numberline {6.4.3.16}slice\_dim()}{32}{subsubsection.6.4.3.16}%
-\contentsline {subsubsection}{\numberline {6.4.3.17}update\_mask\_upon\_slider\_change()}{32}{subsubsection.6.4.3.17}%
-\contentsline {subsubsection}{\numberline {6.4.3.18}writePillow2PNG()}{33}{subsubsection.6.4.3.18}%
-\contentsline {subsection}{\numberline {6.4.4}Member Data Documentation}{33}{subsection.6.4.4}%
-\contentsline {subsubsection}{\numberline {6.4.4.1}LABELS}{33}{subsubsection.6.4.4.1}%
-\contentsline {subsubsection}{\numberline {6.4.4.2}last\_clicked\_x}{33}{subsubsection.6.4.4.2}%
-\contentsline {subsubsection}{\numberline {6.4.4.3}last\_clicked\_y}{33}{subsubsection.6.4.4.3}%
-\contentsline {subsubsection}{\numberline {6.4.4.4}LIVER\_LABEL}{34}{subsubsection.6.4.4.4}%
-\contentsline {subsubsection}{\numberline {6.4.4.5}masks}{34}{subsubsection.6.4.4.5}%
-\contentsline {subsubsection}{\numberline {6.4.4.6}pathToSlices}{34}{subsubsection.6.4.4.6}%
-\contentsline {subsubsection}{\numberline {6.4.4.7}patient\_id}{34}{subsubsection.6.4.4.7}%
-\contentsline {subsubsection}{\numberline {6.4.4.8}selected\_pixel\_value\_of\_label\_mask}{34}{subsubsection.6.4.4.8}%
-\contentsline {subsubsection}{\numberline {6.4.4.9}sliceCache}{34}{subsubsection.6.4.4.9}%
-\contentsline {subsubsection}{\numberline {6.4.4.10}SPLEEN\_LABEL}{35}{subsubsection.6.4.4.10}%
-\contentsline {section}{\numberline {6.5}Testing\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Config Class Reference}{35}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}Member Data Documentation}{35}{subsection.6.5.1}%
-\contentsline {subsubsection}{\numberline {6.5.1.1}DEBUG}{35}{subsubsection.6.5.1.1}%
-\contentsline {chapter}{\numberline {7}File Documentation}{37}{chapter.7}%
-\contentsline {section}{\numberline {7.1}/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Users/lorenz/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Desktop/temp/radipop/electron-\/react/segmenter\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}flask\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}API/segmenter\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}flask\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}API.py File Reference}{37}{section.7.1}%
-\contentsline {section}{\numberline {7.2}/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Users/lorenz/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Desktop/temp/radipop/electron-\/react/segmenter\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}flask\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}API/utility/config.py File Reference}{38}{section.7.2}%
-\contentsline {section}{\numberline {7.3}/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Users/lorenz/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Desktop/temp/radipop/electron-\/react/segmenter\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}flask\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}API/utility/radipop\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}gui.py File Reference}{38}{section.7.3}%
-\contentsline {section}{\numberline {7.4}/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Users/lorenz/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Desktop/temp/radipop/electron-\/react/segmenter\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}flask\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}API/utility/segmentation\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.py File Reference}{38}{section.7.4}%
-\contentsline {chapter}{Index}{41}{section*.27}%
+\contentsline {section}{\numberline {6.1}Radi\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Pop\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}GUI Class Reference}{21}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Detailed Description}{22}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Constructor \& Destructor Documentation}{23}{subsection.6.1.2}%
+\contentsline {subsubsection}{\numberline {6.1.2.1}\_\_init\_\_()}{23}{subsubsection.6.1.2.1}%
+\contentsline {subsection}{\numberline {6.1.3}Member Function Documentation}{23}{subsection.6.1.3}%
+\contentsline {subsubsection}{\numberline {6.1.3.1}clip\_dcm()}{23}{subsubsection.6.1.3.1}%
+\contentsline {subsubsection}{\numberline {6.1.3.2}color\_mask()}{23}{subsubsection.6.1.3.2}%
+\contentsline {subsubsection}{\numberline {6.1.3.3}correct\_partition()}{24}{subsubsection.6.1.3.3}%
+\contentsline {subsubsection}{\numberline {6.1.3.4}create\_image\_stream()}{24}{subsubsection.6.1.3.4}%
+\contentsline {subsubsection}{\numberline {6.1.3.5}draw\_on\_image()}{25}{subsubsection.6.1.3.5}%
+\contentsline {subsubsection}{\numberline {6.1.3.6}extend\_labels()}{25}{subsubsection.6.1.3.6}%
+\contentsline {subsubsection}{\numberline {6.1.3.7}extract\_metadata\_from\_dcm()}{25}{subsubsection.6.1.3.7}%
+\contentsline {subsubsection}{\numberline {6.1.3.8}find\_organs()}{26}{subsubsection.6.1.3.8}%
+\contentsline {subsubsection}{\numberline {6.1.3.9}highlight\_np\_label\_array\_to\_png()}{26}{subsubsection.6.1.3.9}%
+\contentsline {subsubsection}{\numberline {6.1.3.10}highlightOrgan()}{27}{subsubsection.6.1.3.10}%
+\contentsline {subsubsection}{\numberline {6.1.3.11}labelMask()}{27}{subsubsection.6.1.3.11}%
+\contentsline {subsubsection}{\numberline {6.1.3.12}np\_label\_array\_to\_png()}{28}{subsubsection.6.1.3.12}%
+\contentsline {subsubsection}{\numberline {6.1.3.13}read\_pickle\_mask\_to\_np\_label\_array()}{28}{subsubsection.6.1.3.13}%
+\contentsline {subsubsection}{\numberline {6.1.3.14}readPNG()}{29}{subsubsection.6.1.3.14}%
+\contentsline {subsubsection}{\numberline {6.1.3.15}save\_masks()}{29}{subsubsection.6.1.3.15}%
+\contentsline {subsubsection}{\numberline {6.1.3.16}slice\_dim()}{29}{subsubsection.6.1.3.16}%
+\contentsline {subsubsection}{\numberline {6.1.3.17}update\_mask\_upon\_slider\_change()}{30}{subsubsection.6.1.3.17}%
+\contentsline {subsubsection}{\numberline {6.1.3.18}writePillow2PNG()}{30}{subsubsection.6.1.3.18}%
+\contentsline {subsection}{\numberline {6.1.4}Member Data Documentation}{30}{subsection.6.1.4}%
+\contentsline {subsubsection}{\numberline {6.1.4.1}LABELS}{30}{subsubsection.6.1.4.1}%
+\contentsline {subsubsection}{\numberline {6.1.4.2}last\_clicked\_x}{31}{subsubsection.6.1.4.2}%
+\contentsline {subsubsection}{\numberline {6.1.4.3}last\_clicked\_y}{31}{subsubsection.6.1.4.3}%
+\contentsline {subsubsection}{\numberline {6.1.4.4}LIVER\_LABEL}{31}{subsubsection.6.1.4.4}%
+\contentsline {subsubsection}{\numberline {6.1.4.5}masks}{31}{subsubsection.6.1.4.5}%
+\contentsline {subsubsection}{\numberline {6.1.4.6}pathToSlices}{31}{subsubsection.6.1.4.6}%
+\contentsline {subsubsection}{\numberline {6.1.4.7}patient\_id}{31}{subsubsection.6.1.4.7}%
+\contentsline {subsubsection}{\numberline {6.1.4.8}selected\_pixel\_value\_of\_label\_mask}{32}{subsubsection.6.1.4.8}%
+\contentsline {subsubsection}{\numberline {6.1.4.9}sliceCache}{32}{subsubsection.6.1.4.9}%
+\contentsline {subsubsection}{\numberline {6.1.4.10}SPLEEN\_LABEL}{32}{subsubsection.6.1.4.10}%
+\contentsline {chapter}{\numberline {7}File Documentation}{33}{chapter.7}%
+\contentsline {section}{\numberline {7.1}/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Users/lorenz/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Desktop/radipop/electron-\/react/segmenter\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}flask\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}API/segmenter\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}flask\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}API.py File Reference}{33}{section.7.1}%
+\contentsline {section}{\numberline {7.2}/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Users/lorenz/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Desktop/radipop/electron-\/react/segmenter\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}flask\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}API/utility/radipop\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}gui.py File Reference}{34}{section.7.2}%
+\contentsline {section}{\numberline {7.3}/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Users/lorenz/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Desktop/radipop/electron-\/react/segmenter\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}flask\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}API/utility/segmentation\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.py File Reference}{34}{section.7.3}%
+\contentsline {chapter}{Index}{35}{section*.16}%
