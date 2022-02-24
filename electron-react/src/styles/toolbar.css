@@ -29,6 +29,8 @@
   border-right: 1px solid white;
 }
 
+
+
 /* Buttons on the toolbar */
 .button-10 {
   box-sizing: border-box;
@@ -40,7 +42,8 @@
   cursor: pointer;
   border: 2px solid white;
   border-width: 1px;
-  font-family: Helvetica-LightOblique;
+  font-style: italic;
+  font-family: inter-light;
   min-width: 25%;
   max-width: 100%;
   text-align: center;
@@ -64,7 +67,8 @@
   background-color: lightgrey;
   border: 2px solid white;
   border-width: 1px;
-  font-family: Helvetica-LightOblique;
+  font-style: italic;
+  font-family: inter-light;
   min-width: 25%;
   max-width: 100%;
   text-align: center;
@@ -90,7 +94,8 @@ input[type="file"] {
   cursor: pointer;
   border: 2px solid white;
   border-width: 1px;
-  font-family: Helvetica-LightOblique;
+  font-style: italic;
+  font-family: inter-light;
   background-color: rgb(0,113,227);
   border-color: rgb(0,113,227);
   min-width: 20%;
@@ -112,7 +117,8 @@ input[type="file"] {
   background-color: black;
   border: 2px solid white;
   border-width: 1px;
-  font-family: Helvetica-LightOblique;
+  font-style: italic;
+  font-family: inter-light;
   background-color: lightgrey;
   border-color: white;
   min-width: 20%;
@@ -135,7 +141,8 @@ input[type="file"] {
   background-color: black;
   border: 2px solid white;
   border-width: 1px;
-  font-family: Helvetica-LightOblique;
+  font-style: italic;
+  font-family: inter-light;
   width: 60%;
 }
 
