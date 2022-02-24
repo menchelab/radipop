@@ -36,14 +36,14 @@ div.scrollbar-area {
   padding: 5px;
 }
 
-/* Each .Info is a span (Patient Info, Current Slice and Number of Slices)*/
+/* Each .Info is a span (Patient Info, Current Slice and Number of Slices) */
 span {
   display: block;
   float: left;
   width: 100%;
   padding: 6px;
 }
-
+/* Sidebar column */
 .heading {
   background-color: rgb(245, 245, 247);
 }
@@ -56,12 +56,13 @@ span {
   box-shadow: 0px 0px 10px 3px blue;
 }
 
-/*Styling for slice and mask overlay*/
+/* Styling for slice and mask overlay */
 div.slice-mask-container {
   position: relative;
   margin: 10px;
 }
 
+/* Canvas in the middle, showing selected slice */
 div.canvas {
   position: relative;
   margin: 10px;
@@ -77,16 +78,16 @@ img.mask {
   z-index: 10;
 }
 
+/* Canvas image */
 div.canvas img.image {
-  /* object-fit: contain; mouse pointer issues */
   display: block;
   width: auto;
   max-width: 100%;
   height: 70vh;
 }
 
+/* Canvas mask */
 div.canvas img.canvasmask {
-  /* object-fit: contain; */
   display: block;
   position: absolute;
   width: auto;
@@ -95,6 +96,7 @@ div.canvas img.canvasmask {
   z-index: 1;
 }
 
+/* Number on preview slice in sidebar */
 div.bottom-right {
   color: white;
   position: absolute;
@@ -102,6 +104,7 @@ div.bottom-right {
   right: 8px;
 }
 
+/* Avoid dragging of canvas and sidebar images */
 .undraggable {
   -webkit-user-drag: none;
 }
