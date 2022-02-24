@@ -360,7 +360,6 @@ function ToolBar(props) {
     }
     const highlight = !props.RP.highlightMode;
     props.RP.sethighlightMode(highlight);
-    console.log(highlight);
     if (highlight) {
       setCorrectParitionButtonLabel("Correct Partition");
       props.RP.setselectedPoints([]);

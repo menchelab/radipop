@@ -1,6 +1,6 @@
 /* Styling of middle column */
 div.display-area {
-  background-color: rgb(245,245,247);
+  background-color: rgb(245, 245, 247);
   border-left: 7px solid white;
   border-right: 7px solid white;
   border-bottom: 7px solid white;
@@ -13,14 +13,15 @@ div.display-area {
 }
 /* Right/last column width previews of slices */
 div.scrollbar-area {
-  background-color: rgb(245,245,247);
+  background-color: rgb(245, 245, 247);
   box-sizing: border-box;
   height: 90vh;
   overflow-y: auto;
 }
 
 /* Styling of the sidebar and main display images */
-.img, .mask{
+.img,
+.mask {
   width: auto;
   height: auto;
   max-height: 100%;
@@ -28,8 +29,8 @@ div.scrollbar-area {
   display: block;
 }
 /* Slice, Patient and Number of slices above the MainDisplay area*/
-.Info{
-  display:flex;
+.Info {
+  display: flex;
   align-items: center;
   width: 100%;
   padding: 5px;
@@ -37,15 +38,16 @@ div.scrollbar-area {
 
 /* Each .Info is a span (Patient Info, Current Slice and Number of Slices)*/
 span {
-    display:block;
-    float:left;
-    width: 100%;
-    padding: 6px;
+  display: block;
+  float: left;
+  width: 100%;
+  padding: 6px;
 }
 
 .heading {
-  background-color: rgb(245,245,247);
+  background-color: rgb(245, 245, 247);
 }
+
 /* Styling for selected image on sidebar */
 .imgselected {
   width: 100%;
@@ -56,8 +58,8 @@ span {
 
 /*Styling for slice and mask overlay*/
 div.slice-mask-container {
-  position:relative;
-  margin:10px;
+  position: relative;
+  margin: 10px;
 }
 
 div.canvas {
@@ -68,39 +70,38 @@ div.canvas {
   justify-content: center;
 }
 
-
-
 img.mask {
   position: absolute;
-  top:0px;
-  left:0px;
-  z-index:10;
- }
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+}
 
- div.canvas img.image { /* object-fit: contain; mouse pointer issues */
+div.canvas img.image {
+  /* object-fit: contain; mouse pointer issues */
   display: block;
-  width:auto;
+  width: auto;
   max-width: 100%;
   height: 70vh;
-  }
+}
 
-div.canvas img.canvasmask { /* object-fit: contain; */
+div.canvas img.canvasmask {
+  /* object-fit: contain; */
   display: block;
   position: absolute;
-  width:auto;
+  width: auto;
   max-width: 100%;
   height: 70vh;
   z-index: 1;
- }
+}
 
- div.bottom-right {
-   color: white;
-   position: absolute;
-   bottom: 4px;
-   right: 8px;
- }
+div.bottom-right {
+  color: white;
+  position: absolute;
+  bottom: 4px;
+  right: 8px;
+}
 
- .undraggable {
+.undraggable {
   -webkit-user-drag: none;
-
- }
+}

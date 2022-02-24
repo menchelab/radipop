@@ -10,9 +10,8 @@
   background-color: black;
   width:100%;
   padding-left: 1px;
-
-
 }
+
 /* Three columns for the toolbar */
 .tool-col{
   box-sizing: border-box;
@@ -126,8 +125,6 @@ input[type="file"] {
   font-size: 80%;
 }
 
-
-
 /* Searchbar to "go to slices.." on the right toolbar columns */
 .searchbar {
   box-sizing: border-box;
@@ -161,33 +158,21 @@ margin: 10px 0px 10px 0px;
     background: grey;
     box-shadow: 0px 10px 10px -5px black;
     z-index: 20;
-
-   
 }
 
-/* causes display issues 
-.dialog-wrapper {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: black 2px solid;
-  border-radius: 5px;
-  animation: slideInDown 600ms ease-in-out;
-}
-*/
 .previewSlice{
-  width:auto ; 
+  width:auto ;
   height: 150px;
   text-align: center;
 }
+
 .previewDiv {
   display: flex;
   justify-content: center;
-  margin: 10px; 
+  margin: 10px;
 }
+
 .previewDiv2 {
   text-align:center ;
-  margin: 10px; 
+  margin: 10px;
 }

@@ -1,9 +1,17 @@
 import React, { createRef } from "react";
 import MiniCanvas from "../display/MiniCanvas.js";
-
 import "../../styles/display.css";
 import "../../styles/index.css";
 
+/**
+ * Sidebar component for the preview area. Parent component of MiniCanvas.js.
+ * @memberof display
+ * @method Sidebar
+ * @param {*} props RP variable from App.js
+ * @returns div
+ * @example
+ * <Sidebar key="SideBar" RP={props.RP} />
+ */
 function Sidebar(props) {
   props.RP.scrollRefs.current = [
     ...Array(props.RP.RadiPOPstates.files.length).keys(),

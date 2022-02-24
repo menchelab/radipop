@@ -1,7 +1,32 @@
 import React from "react";
 import "../../styles/display.css";
 
+/**
+ * Creates canvas to edit current selected slice. It is also possible to scroll
+ * through the image stack.
+ * @memberof display
+ * @method Canvas
+ * @param {*} props RP variable from App.js
+ * @returns div
+ * @example
+ * <Canvas key="Canvas" RP={props.RP}/>
+ */
+
 function Canvas(props) {
+  /**
+   * @namespace Canvas
+   */
+
+  /**
+   * Function that handles click on Canvas. Checks the boolean prop highlightMode
+   * and highlights the mask area, using the highlightOrgan() function.
+   *
+   * If boolean value is wrong, the user can draw on canvas with the
+   * drawOnMask() function.
+   * @memberof Canvas
+   * @method handleClick
+   * @param {*} event Event
+   */
   const handleClick = (event) => {
     let rel_x = event.nativeEvent.offsetX / event.target.width;
     let rel_y = event.nativeEvent.offsetY / event.target.height;
@@ -16,6 +41,17 @@ function Canvas(props) {
     }
   };
 
+  /**
+   * Flask request to highlight mask area that the user clicked on using the
+   * mouse position.
+   *
+   * Changes the button label for set liver and set spleen label depending on
+   * the label of the clicked mask area.
+   * @memberof Canvas
+   * @method highlightOrgan
+   * @param {*} rel_x
+   * @param {*} rel_y
+   */
   const highlightOrgan = (rel_x, rel_y) => {
     if (props.RP.disableApp === true) {
       alert("Please wait...");
@@ -70,7 +106,12 @@ function Canvas(props) {
       });
   };
 
-  //Draw on mask
+  /**
+   * Flask request that computes the new mask with the drawn line.
+   * @memberof Canvas
+   * @method drawOnMask
+   * @param {*} coordinates
+   */
   const drawOnMask = (coordinates) => {
     let data = {
       patientID: props.RP.RadiPOPstates.patient,
@@ -93,15 +134,23 @@ function Canvas(props) {
       });
   };
 
-  // The scroll listener
+  /**
+   * Function that sets current slice index depending on scroll direction.
+   * @memberof Canvas
+   * @method handleScroll
+   * @param {*} event Event
+   */
   const handleScroll = (event) => {
+    // Check if images are loaded and user holds control key
     if (
       props.RP.RadiPOPstates.files.length === 0 ||
       (!event.ctrlKey && !event.altKey)
     ) {
       return;
     }
+    // Check scroll direction to set new index
     if (event.deltaY < 0) {
+      // Check if new index is valid -> -1 for smooth scroll
       if (props.RP.RadiPOPstates.currentSliceIndex - 1 >= 0) {
         props.RP.setRadiPOPstates({
           files: props.RP.RadiPOPstates.files,
@@ -113,6 +162,7 @@ function Canvas(props) {
         return;
       }
     } else {
+      // Check if new index is valid -> +1 for smooth scroll
       if (
         props.RP.RadiPOPstates.currentSliceIndex + 1 <
         props.RP.RadiPOPstates.files.length
