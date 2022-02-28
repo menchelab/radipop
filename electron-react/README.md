@@ -40,8 +40,13 @@ conda activate radipop
 
 
 ## Documentation
+** Frontend **
 - Install JSDoc: `npm install -g jsdoc`
-- Create documentation (change directory to Documentation_React): `jsdoc -c jsdoc.conf.json `
+- Create documentation (change directory to Documentation_React): `jsdoc -c jsdoc.conf.json`
+
+** Backend **
+- Install Doxygen: `npm install doxygen -g
+- Create documentation (change directory to Documentation_segmenter_flask_API) `doxygen`
 
 ## Useful information
 
