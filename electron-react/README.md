@@ -1,16 +1,8 @@
 # RadiPOP: Electron-Flask-React-Components
 
-[**Features**](#Features)  
 [**Installation**](#Installation)
-
-
-
-
-## Features
-- Choose file: Choose a folder containing the png slices (and optionally .p mask files). --> Load them onto screen
-- Scrollbar: Mouseover will load slice into main view
-- Sliders: Will POST slider values to flask server. Flask server calculates new masks using RadiPOP Segmenter and returns new mask
-- Hide mask: Hides mask
+[**Packaging**](#Packaging)
+[**Information**](#Useful Information)
 
 
 ## Installation
