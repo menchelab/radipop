@@ -16,16 +16,17 @@
 ## Installation
 
 ##### MacOS
-1. Install node.js: https://nodejs.org/en/
-2. Install conda: https://docs.conda.io/en/latest/miniconda.html
-3. create environment:
+1. Install node.js and npm: https://nodejs.org/en/
+2. Install yarn: npm install --global yarn 
+3. Install conda: https://docs.conda.io/en/latest/miniconda.html
+4. create environment:
 ```bash
 # Create and activate conda environment
 conda create --name radipop python=3.7
 conda activate radipop
 # Install dependencies
 conda install pip
-pip install -r requirements.txt
+pip install -r segmenter_flask_API/requirements.txt
 ```
 4. Install node modules and set up yarn
 ```bash
