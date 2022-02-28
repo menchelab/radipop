@@ -101,6 +101,7 @@ function App() {
       showMask: RP.RadiPOPstates.files.length > 0,
       status: RP.RadiPOPstates.status,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newMask]);
 
   return (
