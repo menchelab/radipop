@@ -2,7 +2,6 @@
 
 ## Installation
 
-##### MacOS
 1. Install node.js and npm: https://nodejs.org/en/
 2. Install yarn: npm install --global yarn 
 3. Install conda: https://docs.conda.io/en/latest/miniconda.html
@@ -21,9 +20,6 @@ npm install
 corepack enable
 ```
 
-##### Windows10
-:: work in progress ::
-
 
 ## Running the App
 
@@ -36,6 +32,8 @@ corepack enable
 **Package the app for the host platform**
 conda activate radipop
 npm run electron:package:mac
+npm run electron:package:windows
+npm run electron:package:linux
 
 
 ## Documentation
