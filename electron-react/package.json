@@ -59,7 +59,7 @@
     "electron:start": "concurrently -k \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electronmon .\"",
     "electron:package:mac": "yarn package:python && yarn build && electron-builder -m -c.extraMetadata.main=build/electron.js && yarn package-cleanup",
     "electron:package:win": "yarn package:python && yarn build && electron-builder -w -c.extraMetadata.main=build/electron.js && yarn package-cleanup-win",
-    "electron:package:linux": "yarn package:python && yarn build && electron-builder -l -c.extraMetadata.main=build/electron.js& && yarn package-cleanup",
+    "electron:package:linux": "yarn package:python && yarn build && electron-builder -l -c.extraMetadata.main=build/electron.js && yarn package-cleanup",
     "package-cleanup": "rm -rf build && rm -rf segmenter_flask_API.spec && rm -rf dist-python",
     "package-cleanup-win": "rd /s /q  build && del segmenter_flask_API.spec && rd /s /q dist-python"
   },
