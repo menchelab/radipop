@@ -4,7 +4,7 @@
   "homepage": "./",
   "main": "./public/electron.js",
   "private": true,
-  "author": "Lorenz Perschy, Jan-Jonas Schumacher, Jen Iofinova, Celine Sin",
+  "author": "Lorenz Perschy, Jan-Jonas Schumacher, Jen Iofinova, Celine Sin <radipop@menchelab.com>",
   "description": "RadiPOP-Radiomics for Portal Hypertension Outcome Prediction",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
