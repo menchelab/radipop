@@ -38,7 +38,7 @@
     },
     "linux": {
       "target": "deb",
-      "icon": "./public/icons/mac/icon.icns"
+      "icon": "./public/icons/win/icon.png"
     },
     "extraResources": [
       {
