@@ -1,10 +1,5 @@
 # RadiPOP: Electron-Flask-React-Components
 
-[**Installation**](#Installation)
-[**Packaging**](#Packaging)
-[**Information**](#Useful Information)
-
-
 ## Installation
 
 ##### MacOS
@@ -43,8 +38,11 @@ conda activate radipop
 npm run electron:package:mac
 
 
-## Useful information
+## Documentation
+- Install JSDoc: `npm install -g jsdoc`
+- Create documentation (change directory to Documentation_React): `jsdoc -c jsdoc.conf.json `
 
+## Useful information
 
  Template adapted from: https://github.com/matbloch/electron-flask.git and <br>
     https://github.com/mmazzarolo/create-react-app-electron-boilerplate<br>
