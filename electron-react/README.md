@@ -31,9 +31,12 @@ corepack enable
 ## Packaging
 **Package the app for the host platform**
 conda activate radipop
-npm run electron:package:mac
-npm run electron:package:windows
-npm run electron:package:linux
+
+`npm run electron:package:mac`
+
+`npm run electron:package:windows`
+
+`npm run electron:package:linux`
 
 
 ## Documentation
