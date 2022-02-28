@@ -1,11 +1,11 @@
 {
   "name": "radi-react",
-  "version": "0.1.0",
+  "version": "0.4.0",
   "homepage": "./",
   "main": "./public/electron.js",
   "private": true,
-  "author": "NA",
-  "description": "TODO",
+  "author": "Lorenz Perschy, Jan-Jonas Schumacher, Jen Iofinova, Celine Sin",
+  "description": "RadiPOP-Radiomics for Portal Hypertension Outcome Prediction",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
