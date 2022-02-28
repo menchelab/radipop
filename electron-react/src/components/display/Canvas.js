@@ -49,8 +49,8 @@ function Canvas(props) {
    * the label of the clicked mask area.
    * @memberof Canvas
    * @method highlightOrgan
-   * @param {*} rel_x
-   * @param {*} rel_y
+   * @param {*} rel_x relative x coordinate with respect to canvas width
+   * @param {*} rel_y relative y coordinate with respect to canvas height
    */
   const highlightOrgan = (rel_x, rel_y) => {
     if (props.RP.disableApp === true) {
